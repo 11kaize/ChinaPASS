@@ -3,33 +3,51 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f0f3ef">
-<meta name="description" content="Practical phrases and a clear checklist for getting around China. Save useful details and show Chinese phrases full screen.">
+<!-- Matches --bg in styles.css. Changing one without the other makes the
+     installed-app status bar a different colour from the app itself. -->
+<meta name="theme-color" content="#F6F7F9">
+<meta name="description" content="China Cheat Sheet — your 3-minute guide to surviving daily life in China. Pay, taxi, train, metro, hotel and food, step by step.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<title>ChinaPASS · Your China travel companion</title>
+<title>China Cheat Sheet · Your 3-minute guide to China</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main id="app" class="app"></main>
 
-  <!-- Full-screen phrase card to show a local contact. -->
-  <div id="cardscreen" class="cs" hidden aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="cs__body" id="cs-body" tabindex="-1">
-      <p class="cs__from" id="cs-from"></p>
-      <p class="cs__zh" id="cs-zh"></p>
-      <p class="cs__en" id="cs-en"></p>
+  <!-- 全屏卡片层：一键把中文放大给对方看。
+       这一屏是递给陌生人看的，任何「待翻译」标记都不允许出现在这里。 -->
+  <div id="cardscreen" class="cardscreen" hidden aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="cardscreen__body">
+      <p class="cardscreen__icon" id="cs-icon" aria-hidden="true"></p>
+      <p class="cardscreen__label" id="cs-label"></p>
+      <p class="cardscreen__zh" id="cs-zh"></p>
+      <p class="cardscreen__en" id="cs-en"></p>
     </div>
-    <div class="cs__bar is-hidden" id="cs-bar" inert>
-      <button class="cb" id="cs-close" aria-label="Close card">✕</button>
-      <button class="cb" id="cs-prev" aria-label="Previous phrase">‹</button>
-      <span class="cb cb--count" id="cs-count"></span>
-      <button class="cb" id="cs-next" aria-label="Next phrase">›</button>
-      <button class="cb cb--right" id="cs-toggle">Hide English</button>
-      <button class="cb" id="cs-save" aria-label="Save phrase">☆ Save</button>
-      <button class="cb cb--primary" id="cs-copy">Copy Chinese</button>
+    <div class="cardscreen__bar">
+      <button class="cbtn" id="cs-close" aria-label="Close">✕</button>
+      <button class="cbtn" id="cs-prev" aria-label="Previous card">‹</button>
+      <span class="cbtn cbtn--count" id="cs-count"></span>
+      <button class="cbtn" id="cs-next" aria-label="Next card">›</button>
+      <button class="cbtn" id="cs-toggle"></button>
+      <button class="cbtn cbtn--copy" id="cs-copy"></button>
+    </div>
+  </div>
+
+  <!-- 首次引导遮罩。静态骨架 + 由 ONBOARDING 驱动的内容，
+       和 #cardscreen 同一套做法：监听器只绑一次，render() 冲不掉它。 -->
+  <div id="onboarding" class="onboard" hidden aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="onboard__card">
+      <p class="onboard__icon" id="ob-icon" aria-hidden="true"></p>
+      <h2 class="onboard__title" id="ob-title"></h2>
+      <p class="onboard__body" id="ob-body"></p>
+      <div class="onboard__dots" id="ob-dots"></div>
+      <div class="onboard__bar">
+        <button class="btn btn--sm" id="ob-skip"></button>
+        <button class="btn btn--primary" id="ob-next"></button>
+      </div>
     </div>
   </div>
 

@@ -1,6 +1,6 @@
 # ChinaPASS
 
-ChinaPASS helps visitors handle practical moments in China with eight step-by-step travel guides, 82 bilingual phrases, FAQs, saved cards and an arrival checklist. It runs as a static website, an offline-capable installable web app, or a desktop app packaged with Electron.
+ChinaPASS helps visitors handle practical moments in China with nine step-by-step travel guides, 96 bilingual phrase cards, FAQs and an arrival checklist. It runs as a static website, an offline-capable installable web app, or a desktop app packaged with Electron.
 
 ## Run the web demo
 
@@ -15,11 +15,14 @@ Then open `http://localhost:4173`. The service worker and installable PWA featur
 
 ## Use ChinaPASS
 
-- Search eight travel guides and 82 bilingual phrases, then show Chinese cards full screen.
-- Save guide-step progress, favorite phrases and mark off a five-item arrival checklist. These stay in local browser storage.
-- Browse seven FAQs, open the urgent-help phrase cards, or use 110, 120, 119 and 122 dial links.
+- Follow nine travel guides in arrival order — customs, SIM, payment, taxi, hotel, metro, train, food, emergencies — each with steps, a backup plan, common mistakes and official sources.
+- Show any of 96 Chinese cards full screen, with the Chinese line large enough to hand to someone nearby. The interface runs in English, 中文, 日本語 and 한국어.
+- Detect your city offline, or pick it manually, to produce a "please take me here" card.
+- Check off arrival-checklist items per scene. Progress and preferences stay in local browser storage.
+- Browse seven FAQs, or use the 110, 120, 119 and 122 dial links.
 - Install the PWA from a supported browser for a standalone window and offline shell cache.
-- Use `Ctrl/Cmd + K` to focus phrase search. In a phrase card, use the arrow keys to navigate and Escape to close.
+
+The Chinese line on a card is the sentence you show to a Chinese speaker, so it is never translated. Switching the interface language changes only the gloss printed underneath it and the surrounding interface.
 
 Phone calls, payment setup, translation, map downloads and rail bookings are handled by their respective providers. ChinaPASS offers preparation prompts and communication phrases, not real-time travel booking or emergency dispatch.
 
@@ -35,4 +38,4 @@ The optional Electron shell loads the local static demo and can create Windows, 
 - [Technical plan](docs/06-技术方案.md)
 - [PWA files](demo/manifest.webmanifest)
 
-The content is static and contains no backend or analytics. Checklist, saved phrase and display preferences remain on the current device. Emergency numbers are provided as dial links, and whether a call can be placed depends on the device and network.
+The content is static and contains no backend or analytics. Checklist state and display preferences remain on the current device. Emergency numbers are provided as dial links, and whether a call can be placed depends on the device and network.
