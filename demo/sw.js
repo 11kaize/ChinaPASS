@@ -1,6 +1,6 @@
 /* ChinaPASS's local shell. Bump this version when shipping new offline content. */
 const CACHE_PREFIX = "chinapass-shell-";
-const CACHE_NAME = CACHE_PREFIX + "2026-09-23-8";
+const CACHE_NAME = CACHE_PREFIX + "2026-09-23-9";
 const SCOPE = self.registration.scope;
 const SHELL_FILES = [
   "./",
