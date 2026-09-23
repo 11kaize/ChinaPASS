@@ -467,22 +467,8 @@
       : '<button class="chip chip--city" data-go="/city">📍 ' + esc(t("cityTitle")) + "</button>";
 
     return '' +
-      topbar("China Cheat Sheet", { badge: "DEMO" }) +
-      '<section class="hero">' +
-        '<div class="hero__brand"><span>🇨🇳</span> China Cheat Sheet</div>' +
-        "<h1>" + esc(t("heroH1")) + "</h1>" +
-        "<p>" + md(t("heroP")) + "</p>" +
-        '<div class="meta">' +
-          '<span class="chip">' + esc(t("chipEnglishFirst")) + "</span>" +
-          '<span class="chip">' + esc(t("chipNoDownload")) + "</span>" +
-          '<span class="chip">' + esc(t("chipNoSignup")) + "</span>" +
-          '<span class="chip">' + esc(t("chipOffline")) + "</span>" +
-        "</div>" +
-        '<div class="meta">' +
-          cityChip +
-          '<button class="chip chip--how" data-go="/how">❓ ' + esc(t("howToUse")) + "</button>" +
-        "</div>" +
-      "</section>" +
+      topbar("ChinaPASS", { badge: "DEMO" }) +
+      CPExplore.home(lang) +
 
       prepTeaser +
 
@@ -861,6 +847,7 @@
     cs.i = Math.max(0, Math.min(index || 0, list.length - 1));
     cs.label = label || t("showThisToThem");
     cs.icon = icon || "🗣️";
+    screen.classList.toggle("is-address", label === "PERSONAL HELP CARD");
     cs.from = location.hash || "#/";
     paintCard();
     screen.hidden = false;
@@ -924,7 +911,24 @@
     var parts = hash.split("/").filter(Boolean);
     var page = parts[0] || "";
 
-    if (page === "s" && sceneById(parts[1])) {
+    var exploreView = CPExplore.render(hash.replace(/^\//, ""), lang);
+    if (exploreView && !(page === "city" && !parts[1])) {
+      var sectionTitle = L({
+        cities: { en: "Cities", zh: "城市", ja: "都市", ko: "도시" },
+        plan: { en: "My trip", zh: "我的行程", ja: "旅程", ko: "내 일정" },
+        guides: { en: "Guides", zh: "攻略", ja: "ガイド", ko: "가이드" },
+        help: { en: "Help card", zh: "地址求助卡", ja: "住所カード", ko: "주소 카드" }
+      }[exploreView.active] || "Explore");
+      var languageNote = lang === "en" || exploreView.active === "help" ? "" :
+        '<p class="explore-language-note">' + esc({
+          zh: "城市、行程和新增攻略的详细说明暂为英文；中文地址卡可以直接使用。",
+          ja: "都市情報・旅程・追加ガイドの詳細は現在英語です。中国語の住所カードは利用できます。",
+          ko: "도시 정보, 일정, 추가 가이드의 자세한 설명은 현재 영어로 제공됩니다. 중국어 주소 카드는 사용할 수 있습니다."
+        }[lang]) + "</p>";
+      app.innerHTML = topbar(sectionTitle, { back: "/" }) +
+        '<div class="explore-page">' + languageNote + exploreView.html + "</div>";
+      CPExplore.bind(render, function (list, label) { openCardScreen(list, 0, label, "📍"); });
+    } else if (page === "s" && sceneById(parts[1])) {
       app.innerHTML = pageScene(sceneById(parts[1]));
     } else if (page === "cards") {
       app.innerHTML = pageCards();
@@ -1148,12 +1152,13 @@
       }
     });
 
+    var exploreHits = CPExplore.search(v);
     box.hidden = false;
-    box.innerHTML = hits.length
+    box.innerHTML = hits.length || exploreHits.length
       ? hits.map(function (h) {
           return '<button class="search__hit" data-go="' + h.go + '"><span class="emoji">' + h.emoji +
             "</span><span><b>" + esc(h.title) + "</b><small>" + esc(h.sub) + "</small></span></button>";
-        }).join("")
+        }).join("") + exploreHits.map(function (h) { return h.html; }).join("")
       : '<div class="panel"><p style="margin:0;color:var(--muted);font-size:14px">' + esc(t("noMatch")) + "</p></div>";
   });
 
