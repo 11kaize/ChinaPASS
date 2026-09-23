@@ -468,7 +468,26 @@
 
     return '' +
       topbar("ChinaPASS", { badge: "DEMO" }) +
-      CPExplore.home(lang) +
+
+      /* The lead block is the value proposition, not a destination. A travel
+         hero ("your China travel companion / explore cities / plan my trip")
+         briefly sat here and pushed every arrival task below the fold; the
+         hero states what the tool is for instead. */
+      '<section class="hero">' +
+        '<div class="hero__brand"><span>🇨🇳</span> ChinaPASS</div>' +
+        "<h1>" + esc(t("heroH1")) + "</h1>" +
+        "<p>" + md(t("heroP")) + "</p>" +
+        '<div class="meta">' +
+          '<span class="chip">' + esc(t("chipEnglishFirst")) + "</span>" +
+          '<span class="chip">' + esc(t("chipNoDownload")) + "</span>" +
+          '<span class="chip">' + esc(t("chipNoSignup")) + "</span>" +
+          '<span class="chip">' + esc(t("chipOffline")) + "</span>" +
+        "</div>" +
+        '<div class="meta">' +
+          cityChip +
+          '<button class="chip chip--how" data-go="/how">❓ ' + esc(t("howToUse")) + "</button>" +
+        "</div>" +
+      "</section>" +
 
       prepTeaser +
 
@@ -483,6 +502,10 @@
         '<div class="section__h"><h2>' + esc(t("wantTo")) + '</h2><a href="#/cards">' + esc(t("allHelpCards")) + "</a></div>" +
         '<div class="grid">' + tiles + "</div>" +
       "</section>" +
+
+      /* The city module sits below the task grid on purpose. It is a lookup
+         for names you may have to show someone, not a reason to open the app. */
+      CPExplore.homeBlock(lang) +
 
       '<section class="section">' +
         '<div class="section__h"><h2>' + esc(t("emergency")) + '</h2><a href="#/emergency">' + esc(t("helpPage")) + "</a></div>" +
@@ -786,6 +809,10 @@
         '<p style="margin:0 0 10px;font-size:14.5px;line-height:1.6">' + esc(t("prepNoteBody")) + "</p>" +
         '<a class="btn btn--block" href="https://english.www.gov.cn/services/" target="_blank" rel="noopener">' +
           esc(t("prepNoteLink")) + "</a>" +
+        /* The two surviving arrival guides are "before departure" content, so
+           this page is their entry point. Without it the guide library is only
+           reachable by typing the hash. */
+        '<a class="prep__link" href="#/guides">' + esc(t("prepGuides")) + "</a>" +
       "</div></section>";
   }
 
@@ -924,9 +951,9 @@
       }[exploreView.active] || "Explore");
       var languageNote = lang === "en" || exploreView.active === "help" ? "" :
         '<p class="explore-language-note">' + esc({
-          zh: "城市、行程和新增攻略的详细说明暂为英文；中文地址卡可以直接使用。",
-          ja: "都市情報・旅程・追加ガイドの詳細は現在英語です。中国語の住所カードは利用できます。",
-          ko: "도시 정보, 일정, 추가 가이드의 자세한 설명은 현재 영어로 제공됩니다. 중국어 주소 카드는 사용할 수 있습니다."
+          zh: "城市说明与新增攻略的正文暂为英文；中文地址卡可以直接使用。",
+          ja: "都市情報と追加ガイドの本文は現在英語です。中国語の住所カードは利用できます。",
+          ko: "도시 정보와 추가 가이드 본문은 현재 영어로 제공됩니다. 중국어 주소 카드는 사용할 수 있습니다."
         }[lang]) + "</p>";
       app.innerHTML = topbar(sectionTitle, { back: "/" }) +
         '<div class="explore-page">' + languageNote + exploreView.html + "</div>";
