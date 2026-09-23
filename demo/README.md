@@ -35,6 +35,7 @@ python3 -m http.server 4173
 
 | 文档里的设计 | demo 中的实现 |
 |---|---|
+| 行前清单 | `#/prep` 7 项，勾选存在本机，首页有「N / M ready」预告条（[12-号文档](../docs/12-竞品与功能取舍.md)列为准备项） |
 | 首页「任务入口」而非菜单 | 9 个场景，**按落地时间线排序**并带序号角标，P0 场景带角标 |
 | 场景详情页 7 段结构 | Task / Before You Start / Step-by-Step / Common Mistakes / Useful Chinese Cards / Plan B / If Something Goes Wrong |
 | 双语急救卡片 | **14 组共 96 张**，点击全屏展示，中文 `clamp(30–42px)` 大字，顶部有大号图标 |
@@ -53,7 +54,7 @@ python3 -m http.server 4173
 
 交互细节：
 
-- 步骤点击打卡 + 勾选进度记忆（`localStorage`）
+- 步骤点击打卡 + 行前清单勾选 + 进度记忆（`localStorage`）
 - 全屏卡片：左右切换、`Esc` 关闭、方向键翻页、`Hide English`、`Copy 中文`
 - 搜索实时过滤场景与卡片
 - 深色模式跟随系统
@@ -76,8 +77,8 @@ python3 -m http.server 4173
 
 | 层 | 位置 | 现状 |
 |---|---|---|
-| 界面外壳 | `UI` 字典，`t(key)` 取 | 四语种齐全（87 个 key） |
-| 场景元信息、卡片组标题、卡片释义、FAQ、引导 | 直接挂在对象上，`L(v)` 取 | 四语种齐全 |
+| 界面外壳 | `UI` 字典，`t(key)` 取 | 四语种齐全（94 个 key） |
+| 场景元信息、卡片组标题、卡片释义、FAQ、引导、行前清单 | 直接挂在对象上，`L(v)` 取 | 四语种齐全 |
 | **场景正文**（steps / mistakes / planB / trouble / before / tip / disclaimer） | 同上 | **只有英文**，其余语种回落英文 |
 
 正文缺失时**不做逐条标记**，而是在该页面顶部显示一条横幅（「このページはまだ翻訳が完了していません」），
@@ -89,8 +90,11 @@ python3 -m http.server 4173
 ## 内容规模
 
 ```
-9 个场景 · 96 张双语卡片（14 组）· 7 条 FAQ · 4 屏引导 · 20 个城市
+9 个场景 · 96 张双语卡片（14 组）· 7 条行前清单 · 7 条 FAQ · 4 屏引导 · 20 个城市
 ```
+
+行前清单（`#/prep`）按落地前的时间顺序排：**护照签证 → 上网 → 离线 app → 支付 → 中文地址 → 地图 → 紧急联系人**。
+勾选状态存在 `ccs.v2.prep`，首页有一张「N / M ready」的预告条，全勾完弹一次提示。
 
 场景按落地时间线：**入境通关** · SIM · 支付 · 打车 · 酒店 · 地铁 · 高铁 · 外卖 · 紧急
 
@@ -106,7 +110,7 @@ python3 -m http.server 4173
 demo/
 ├── index.html           页面骨架 + 全屏卡片层 + 首启引导层
 ├── styles.css           全部样式（含深色模式与全部 @keyframes）
-├── data.js              内容层：SCENES / CARD_GROUPS / UI / ONBOARDING / CITY_BOXES / FAQ
+├── data.js              内容层：SCENES / CARD_GROUPS / UI / ONBOARDING / PREP / CITY_BOXES / FAQ
 ├── app.js               路由 + 渲染（无依赖）
 ├── manifest.webmanifest PWA 清单
 ├── sw.js                离线外壳缓存

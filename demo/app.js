@@ -253,6 +253,19 @@
     store.set("ccs.v2.checks", checks);
   }
 
+  /* The pre-flight checklist. Keyed by PREP id rather than by position, so
+     reordering or inserting an item never moves a tick to a different row —
+     the bug the position-keyed progress above had to be migrated for. */
+  var prep = store.get("ccs.v2.prep", {});   // { documents: true }
+  function isPrepDone(id) { return !!prep[id]; }
+  function togglePrep(id, on) {
+    if (on) prep[id] = true; else delete prep[id];
+    store.set("ccs.v2.prep", prep);
+  }
+  function prepCount() {
+    return PREP.filter(function (p) { return isPrepDone(p.id); }).length;
+  }
+
   /* ---------------- city + location ----------------
      Coordinates are matched against the built-in boxes in data.js and then
      thrown away — no geocoding service, no network request, nothing leaves
@@ -433,6 +446,21 @@
         esc(L(n.label)) + "</div></a>";
     }).join("");
 
+    var pc = prepCount(), ptot = PREP.length;
+    var ppct = ptot ? Math.round((pc / ptot) * 100) : 0;
+    var prepTeaser =
+      '<section class="section">' +
+        '<button class="panel prep-teaser" data-go="/prep">' +
+          '<span class="prep-teaser__icon" aria-hidden="true">🧳</span>' +
+          '<span class="prep-teaser__body">' +
+            '<span class="prep-teaser__t">' + esc(t("prepTitle")) + "</span>" +
+            '<span class="prep-teaser__d">' + pc + " / " + ptot + " " + esc(t("prepDone")) + "</span>" +
+            '<span class="prep-teaser__bar"><i style="width:' + ppct + '%"></i></span>' +
+          "</span>" +
+          '<span class="prep-teaser__go" aria-hidden="true">›</span>' +
+        "</button>" +
+      "</section>";
+
     var c = cityByKey(city);
     var cityChip = c
       ? '<button class="chip chip--city" data-go="/city">📍 ' + esc(t("citySet")) + " " + esc(L(cityLabel(c))) + "</button>"
@@ -455,6 +483,8 @@
           '<button class="chip chip--how" data-go="/how">❓ ' + esc(t("howToUse")) + "</button>" +
         "</div>" +
       "</section>" +
+
+      prepTeaser +
 
       '<div class="search">' +
         '<div class="search__box">' +
@@ -700,6 +730,45 @@
       "</div></section>";
   }
 
+  function pagePrep() {
+    var n = prepCount(), total = PREP.length;
+    var pct = total ? Math.round((n / total) * 100) : 0;
+
+    var rows = PREP.map(function (p, i) {
+      var on = isPrepDone(p.id);
+      return '<li class="preprow" style="--i:' + i + '">' +
+        '<label>' +
+          '<input type="checkbox" data-prep="' + esc(p.id) + '"' + (on ? " checked" : "") + ">" +
+          '<span class="preprow__icon" aria-hidden="true">' + p.icon + "</span>" +
+          '<span class="preprow__body">' +
+            '<span class="preprow__t">' + esc(L(p.title)) + "</span>" +
+            '<span class="preprow__d">' + esc(L(p.body)) + "</span>" +
+          "</span>" +
+        "</label>" +
+      "</li>";
+    }).join("");
+
+    /* Same counter + bar as the scene steps, and for the same reason: ticking
+       a box should not re-render the page and throw away the scroll position. */
+    return '' +
+      topbar(t("prepTitle"), { back: "/" }) +
+      '<section class="section">' +
+        '<p class="prep__sub">' + esc(t("prepSub")) + "</p>" +
+        '<div class="panel">' +
+          '<div class="panel__h">' + esc(t("prepTitle")) +
+            '<span class="n" id="prepcount">' + n + " / " + total + " " + esc(t("prepDone")) + "</span></div>" +
+          '<div class="steps__progress"><i id="prepbar" style="width:' + pct + '%"></i></div>' +
+          '<ul class="prep">' + rows + "</ul>" +
+        "</div>" +
+      "</section>" +
+      '<section class="section"><div class="panel">' +
+        '<div class="panel__h">' + esc(t("prepNoteTitle")) + "</div>" +
+        '<p style="margin:0 0 10px;font-size:14.5px;line-height:1.6">' + esc(t("prepNoteBody")) + "</p>" +
+        '<a class="btn btn--block" href="https://english.www.gov.cn/services/" target="_blank" rel="noopener">' +
+          esc(t("prepNoteLink")) + "</a>" +
+      "</div></section>";
+  }
+
   function pageLang() {
     var partial = bodyIncomplete();
     var rows = LANGS.map(function (l) {
@@ -839,6 +908,8 @@
       app.innerHTML = pageEmergency();
     } else if (page === "how") {
       app.innerHTML = pageHow();
+    } else if (page === "prep") {
+      app.innerHTML = pagePrep();
     } else if (page === "lang") {
       app.innerHTML = pageLang();
     } else if (page === "city") {
@@ -934,7 +1005,23 @@
   /* checklist persistence */
   document.addEventListener("change", function (e) {
     var el = e.target;
-    if (!el || !el.hasAttribute || !el.hasAttribute("data-check")) return;
+    if (!el || !el.hasAttribute) return;
+
+    if (el.hasAttribute("data-prep")) {
+      togglePrep(el.dataset.prep, el.checked);
+
+      /* Counter and bar update in place, exactly like the scene steps — a
+         re-render here would scroll the list back to the top every tick. */
+      var all = $$("[data-prep]");
+      var n = all.filter(function (b) { return b.checked; }).length;
+      var bar = $("#prepbar"), cnt = $("#prepcount");
+      if (bar) bar.style.width = Math.round((n / all.length) * 100) + "%";
+      if (cnt) cnt.textContent = n + " / " + all.length + " " + t("prepDone");
+      if (all.length && n === all.length) toast(t("prepAllDone"));
+      return;
+    }
+
+    if (!el.hasAttribute("data-check")) return;
     toggleChecked(el.dataset.check, el.checked);
   });
 

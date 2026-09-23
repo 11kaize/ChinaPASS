@@ -91,6 +91,13 @@ const UI = {
     language: "Language",
     installApp: "Install app",
     installHint: "Choose “Install ChinaPASS” from your browser menu to add it to your home screen.",
+    prepTitle: "Before you go",
+    prepSub: "Do these before you fly. Each one removes a problem you would otherwise hit on arrival.",
+    prepDone: "ready",
+    prepAllDone: "All set — have a good trip.",
+    prepNoteTitle: "Check current requirements",
+    prepNoteBody: "Entry rules, payment support and app availability change. Confirm the details with official sources before you travel.",
+    prepNoteLink: "Official travel services ↗",
     city: "City",
     cityTitle: "Where are you?",
     cityHint: "We use this to show local numbers and to build your location card. Your coordinates never leave your phone.",
@@ -180,6 +187,13 @@ const UI = {
     language: "语言",
     installApp: "安装 App",
     installHint: "在浏览器菜单里选择「安装 ChinaPASS」，即可添加到主屏幕。",
+    prepTitle: "行前准备",
+    prepSub: "登机前做完这些。每一条都对应一个落地后会遇到的麻烦。",
+    prepDone: "已完成",
+    prepAllDone: "都准备好了，一路顺利。",
+    prepNoteTitle: "出发前再核一次现行规定",
+    prepNoteBody: "入境规定、支付支持情况和 app 可用性都会变。出发前请以官方渠道为准。",
+    prepNoteLink: "官方旅行服务 ↗",
     city: "城市",
     cityTitle: "你在哪个城市？",
     cityHint: "用来显示当地信息和生成你的位置卡片。你的坐标不会离开这台手机。",
@@ -269,6 +283,13 @@ const UI = {
     language: "言語",
     installApp: "アプリをインストール",
     installHint: "ブラウザのメニューから「ChinaPASS をインストール」を選ぶと、ホーム画面に追加できます。",
+    prepTitle: "出発前の準備",
+    prepSub: "搭乗前に済ませておきましょう。どれも、到着後に困ることを一つずつ減らします。",
+    prepDone: "完了",
+    prepAllDone: "準備完了です。よい旅を。",
+    prepNoteTitle: "最新の要件を確認",
+    prepNoteBody: "入国規則・決済対応・アプリの提供状況は変わります。出発前に公式情報で確認してください。",
+    prepNoteLink: "公式トラベルサービス ↗",
     city: "都市",
     cityTitle: "どの都市にいますか？",
     cityHint: "現地の情報と位置カードの作成に使います。座標がスマホの外に出ることはありません。",
@@ -358,6 +379,13 @@ const UI = {
     language: "언어",
     installApp: "앱 설치",
     installHint: "브라우저 메뉴에서 'ChinaPASS 설치'를 선택하면 홈 화면에 추가할 수 있습니다.",
+    prepTitle: "출발 전 준비",
+    prepSub: "탑승 전에 해두세요. 각 항목이 도착 후 겪을 문제를 하나씩 없애 줍니다.",
+    prepDone: "완료",
+    prepAllDone: "모두 준비됐습니다. 좋은 여행 되세요.",
+    prepNoteTitle: "최신 요건 확인",
+    prepNoteBody: "입국 규정, 결제 지원, 앱 제공 상황은 바뀝니다. 출발 전에 공식 출처에서 확인하세요.",
+    prepNoteLink: "공식 여행 서비스 ↗",
     city: "도시",
     cityTitle: "어느 도시에 있나요?",
     cityHint: "현지 정보와 위치 카드를 만드는 데 사용합니다. 좌표는 휴대폰 밖으로 나가지 않습니다.",
@@ -1160,6 +1188,97 @@ const ONBOARDING = [
       zh: "以后你可以直接用母语提问。这一屏就是它的位置。",
       ja: "将来は母語でそのまま質問できるようになります。この画面がその入口になります。",
       ko: "나중에는 모국어로 바로 물어볼 수 있게 됩니다. 이 화면이 그 자리입니다.",
+    },
+  },
+];
+
+/* ==========================================================================
+   行前准备清单
+
+   这份清单存在的理由：上面所有场景都是「落地之后」才读得到的，而落地时
+   你多半没有网、没有现金、没有中文地址。这些问题只能在出发前解决，所以
+   必须有一个「出发前」的页面，且它得是全 app 里最容易被找到的一页。
+
+   顺序按你需要它的先后排，不按重要性排（护照 → 上网 → 离线 app → 支付
+   → 地址 → 地图 → 电话）。
+   ========================================================================== */
+
+const PREP = [
+  {
+    id: "documents",
+    icon: "🛂",
+    title: { en: "Passport and visa in order", zh: "护照与签证先确认", ja: "パスポートとビザを確認", ko: "여권과 비자 확인" },
+    body: {
+      en: "Check your passport is valid for at least six months, and that your visa or visa-free entry covers your dates. Keep a photo of both on your phone.",
+      zh: "确认护照有效期还有 6 个月以上，签证或免签入境覆盖你的行程日期。两样都在手机里存一张照片。",
+      ja: "パスポートの残存期間が6か月以上あるか、ビザまたはビザ免除が渡航日をカバーしているか確認しましょう。両方ともスマホに写真を保存してください。",
+      ko: "여권 유효기간이 6개월 이상인지, 비자나 무비자 입국이 여행 날짜를 포함하는지 확인하세요. 둘 다 휴대폰에 사진으로 저장해 두세요.",
+    },
+  },
+  {
+    id: "connectivity",
+    icon: "📶",
+    title: { en: "Plan how you will get online", zh: "想好落地怎么上网", ja: "到着後の通信手段を決めておく", ko: "도착 후 인터넷 사용 방법 정하기" },
+    body: {
+      en: "Buy an eSIM before you fly, or arrange roaming with your home carrier for the first day. Google, WhatsApp and Instagram are blocked on Chinese networks, so set up a workaround now rather than at the airport.",
+      zh: "出发前买好 eSIM，或跟本国运营商开通漫游顶过第一天。中国网络屏蔽 Google、WhatsApp、Instagram —— 提前把方案准备好，别等到机场。",
+      ja: "出発前に eSIM を買うか、初日は本国キャリアのローミングで凌ぎましょう。中国のネットワークでは Google、WhatsApp、Instagram が遮断されています。空港に着いてからではなく、今準備を。",
+      ko: "출발 전에 eSIM을 사거나, 첫날은 자국 통신사 로밍으로 버티세요. 중국 네트워크에서는 Google, WhatsApp, Instagram이 차단됩니다. 공항에 도착한 뒤가 아니라 지금 준비하세요.",
+    },
+  },
+  {
+    id: "offline",
+    icon: "📥",
+    title: { en: "Open ChinaPASS once before you fly", zh: "出发前先打开一次 ChinaPASS", ja: "出発前に一度 ChinaPASS を開く", ko: "출발 전에 ChinaPASS를 한 번 열어 두기" },
+    body: {
+      en: "ChinaPASS works offline, but only after the first visit — the browser has to save it first. Open it at home, then add it to your home screen. Do this before you board, not after you land.",
+      zh: "ChinaPASS 能离线用，但必须先访问过一次，浏览器才会把它存下来。在家打开一次，然后加到主屏幕。要在登机前做，不是落地后。",
+      ja: "ChinaPASS はオフラインで使えますが、一度アクセスしないとブラウザが保存してくれません。自宅で開いて、ホーム画面に追加しておきましょう。搭乗前に。到着後ではなく。",
+      ko: "ChinaPASS는 오프라인으로 쓸 수 있지만, 한 번 접속해야 브라우저가 저장합니다. 집에서 열고 홈 화면에 추가하세요. 탑승 전에요. 도착한 뒤가 아니라.",
+    },
+  },
+  {
+    id: "payment",
+    icon: "💳",
+    title: { en: "Set up a payment method", zh: "把支付方式设好", ja: "支払い方法を用意する", ko: "결제 수단 준비" },
+    body: {
+      en: "Install Alipay and add your own bank card. Verification takes a day or two, so start before you travel. Carry some cash as a backup — an ATM is the last resort if a card is refused.",
+      zh: "装好支付宝并绑上本人的银行卡。实名认证要一两天，所以出发前就要弄。再带一些现金 —— 卡被拒时，ATM 是最后的退路。",
+      ja: "Alipay を入れて本人名義の銀行カードを登録します。本人確認に1〜2日かかるので、出発前に始めてください。予備として現金も少し。カードが拒否されたときは ATM が最後の手段です。",
+      ko: "Alipay를 설치하고 본인 명의 은행 카드를 등록하세요. 본인 인증에 하루이틀 걸리니 출발 전에 시작하세요. 예비로 현금도 조금 챙기세요. 카드가 거절되면 ATM이 마지막 수단입니다.",
+    },
+  },
+  {
+    id: "address",
+    icon: "📍",
+    title: { en: "Save your hotel address in Chinese", zh: "把酒店中文地址存下来", ja: "ホテルの住所を中国語で保存", ko: "호텔 주소를 중국어로 저장" },
+    body: {
+      en: "A driver cannot use the English name. Copy the Chinese address from your booking and save it as a screenshot you can show. Do this for every place you are staying.",
+      zh: "司机看不懂英文名。从预订确认里复制中文地址，存成能给司机看的截图。每个住处都要存。",
+      ja: "運転手は英語名では分かりません。予約確認から中国語の住所をコピーし、見せられるスクリーンショットで保存しましょう。滞在先ごとに。",
+      ko: "기사는 영어 이름으로는 모릅니다. 예약 확인서에서 중국어 주소를 복사해 보여줄 수 있는 스크린샷으로 저장하세요. 묵는 곳마다.",
+    },
+  },
+  {
+    id: "maps",
+    icon: "🗺️",
+    title: { en: "Download offline maps", zh: "下好离线地图", ja: "オフライン地図をダウンロード", ko: "오프라인 지도 내려받기" },
+    body: {
+      en: "Download the city you are landing in, and pin your hotel. Your home maps app may not load without a connection, and local map apps are in Chinese.",
+      zh: "把落地城市的地图下下来，标好酒店。本国的地图 app 没网可能打不开，而本地地图 app 是中文的。",
+      ja: "到着する都市の地図を落として、ホテルをピン留めしましょう。母国の地図アプリは接続なしでは開けないことがあり、現地の地図アプリは中国語です。",
+      ko: "도착하는 도시 지도를 받고 호텔을 표시해 두세요. 자국 지도 앱은 연결 없이 안 열릴 수 있고, 현지 지도 앱은 중국어입니다.",
+    },
+  },
+  {
+    id: "contacts",
+    icon: "☎️",
+    title: { en: "Save the numbers you might need", zh: "把可能用到的电话存好", ja: "必要になりそうな番号を保存", ko: "필요할 번호 저장" },
+    body: {
+      en: "Add your country's embassy or consulate in China, your travel insurance line, and one local contact. Police 110, ambulance 120, fire 119.",
+      zh: "存好你国家驻华使领馆、旅行保险热线，和一个本地联系人。报警 110、急救 120、火警 119。",
+      ja: "自国の在中国大使館・領事館、旅行保険の窓口、現地の連絡先を追加しましょう。警察110、救急120、消防119。",
+      ko: "자국 주중 대사관·영사관, 여행자 보험 창구, 현지 연락처를 저장하세요. 경찰 110, 구급 120, 소방 119.",
     },
   },
 ];

@@ -465,6 +465,106 @@ body {
   text-decoration: line-through;
 }
 
+/* ---------- pre-flight checklist ----------
+   Deliberately not .checklist: that rule strikes through the single span that
+   follows the input, and these rows put an icon span in between. */
+
+.prep__sub {
+  margin: 0 0 12px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.prep { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+
+.preprow { display: flex; }
+
+.preprow > label {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  width: 100%;
+  padding: 11px 8px;
+  border-radius: 10px;
+  border-bottom: 1px solid var(--line-soft);
+  cursor: pointer;
+}
+
+.preprow:last-child > label { border-bottom: 0; }
+.preprow > label:hover { background: var(--surface-2); }
+
+.preprow input {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: none;
+  width: 19px; height: 19px;
+  margin: 2px 0 0;
+  border: 1.5px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  cursor: pointer;
+  position: relative;
+}
+
+.preprow input:checked { background: var(--brand); border-color: var(--brand); }
+
+.preprow input:checked::after {
+  content: "";
+  position: absolute;
+  left: 5px; top: 1.5px;
+  width: 5px; height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.preprow__icon { flex: none; font-size: 20px; line-height: 1.3; }
+
+.preprow__body { display: grid; gap: 3px; min-width: 0; }
+
+.preprow__t { font-size: 15px; font-weight: 600; line-height: 1.35; }
+.preprow__d { font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+
+.preprow input:checked ~ .preprow__body { color: var(--faint); }
+.preprow input:checked ~ .preprow__body .preprow__t { text-decoration: line-through; }
+
+/* ---------- home teaser for the checklist ---------- */
+
+.prep-teaser {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.prep-teaser__icon { flex: none; font-size: 22px; }
+.prep-teaser__body { display: grid; gap: 5px; flex: 1; min-width: 0; }
+.prep-teaser__t { font-size: 15px; font-weight: 600; }
+.prep-teaser__d { font-size: 12.5px; color: var(--muted); }
+.prep-teaser__go { flex: none; color: var(--faint); font-size: 20px; }
+
+.prep-teaser__bar {
+  display: block;
+  height: 4px;
+  background: var(--line-soft);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.prep-teaser__bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--brand);
+  border-radius: 999px;
+  transition: width .25s ease;
+}
+
 /* ---------- steps ---------- */
 
 .steps { list-style: none; margin: 0; padding: 0; }
