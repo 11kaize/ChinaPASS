@@ -1194,10 +1194,10 @@ const ONBOARDING = [
     icon: "🧭",
     title: { en: "Pick what you need to do now", zh: "选你现在要做的事", ja: "今やることを選ぶ", ko: "지금 할 일을 고르세요" },
     body: {
-      en: "The home screen is a list of tasks, not a menu. They are ordered the way you meet them — landing, getting online, paying, getting to your hotel.",
-      zh: "首页是一串「任务」，不是菜单。顺序就是你会遇到的顺序 —— 落地、上网、支付、到酒店。",
-      ja: "ホームはメニューではなく「やること」の一覧です。到着・通信・支払い・ホテルと、出会う順に並んでいます。",
-      ko: "홈 화면은 메뉴가 아니라 '할 일' 목록입니다. 입국, 인터넷, 결제, 호텔 순서대로 배치되어 있습니다.",
+      en: "Explore cities or build a route first, then scroll to the practical tasks. The tasks follow a traveler's journey — arrival, connectivity, payment and getting around.",
+      zh: "可以先探索城市或规划路线，再往下看实用任务。任务按旅途顺序排列：入境、上网、支付和出行。",
+      ja: "まず都市や旅程を見て、その下の実用タスクへ。タスクは到着・通信・支払い・移動の順に並んでいます。",
+      ko: "도시를 둘러보거나 여행 일정을 만든 뒤 아래의 실용 안내를 확인하세요. 입국, 인터넷, 결제, 이동 순서로 정리되어 있습니다.",
     },
   },
   {

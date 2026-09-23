@@ -6,12 +6,12 @@
 <!-- Matches --bg in styles.css. Changing one without the other makes the
      installed-app status bar a different colour from the app itself. -->
 <meta name="theme-color" content="#F6F7F9">
-<meta name="description" content="China Cheat Sheet — your 3-minute guide to surviving daily life in China. Pay, taxi, train, metro, hotel and food, step by step.">
+<meta name="description" content="ChinaPASS helps visitors explore destinations, arrange a route, and handle practical travel moments in China.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<title>China Cheat Sheet · Your 3-minute guide to China</title>
+<title>ChinaPASS · Your China travel companion</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -19,7 +19,7 @@
 
   <!-- 全屏卡片层：一键把中文放大给对方看。
        这一屏是递给陌生人看的，任何「待翻译」标记都不允许出现在这里。 -->
-  <div id="cardscreen" class="cardscreen" hidden aria-hidden="true" role="dialog" aria-modal="true">
+  <div id="cardscreen" class="cardscreen" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cs-label">
     <div class="cardscreen__body">
       <p class="cardscreen__icon" id="cs-icon" aria-hidden="true"></p>
       <p class="cardscreen__label" id="cs-label"></p>
@@ -52,6 +52,8 @@
   </div>
 
   <script src="data.js"></script>
+  <script src="explore.js"></script>
+  <script src="explore-ui.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
