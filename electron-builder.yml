@@ -25,6 +25,8 @@ nsis:
 linux:
   icon: desktop/icon.png
   category: Utility
+  maintainer: ChinaPASS contributors
+  syncDesktopName: true
   target:
     - AppImage
     - deb
