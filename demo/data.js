@@ -18,6 +18,7 @@ const CARD_GROUPS = {
     icon: "💳",
     title: "Payment",
     zh: "支付",
+    hint: "At the counter or the till",
     cards: [
       { en: "Can I pay by card?", zh: "可以刷卡吗？" },
       { en: "Can I pay by Alipay?", zh: "可以用支付宝吗？" },
@@ -32,6 +33,7 @@ const CARD_GROUPS = {
     icon: "🚕",
     title: "Taxi",
     zh: "打车",
+    hint: "Talking to your driver",
     cards: [
       { en: "I am at Exit B.", zh: "我在 B 出口。" },
       { en: "I am wearing a black jacket.", zh: "我穿着黑色外套。" },
@@ -48,6 +50,7 @@ const CARD_GROUPS = {
     icon: "🚄",
     title: "Train",
     zh: "高铁",
+    hint: "Stations, seats and tickets",
     cards: [
       { en: "Where is the ticket gate?", zh: "检票口在哪里？" },
       { en: "Which platform is it?", zh: "在几号站台？" },
@@ -62,6 +65,7 @@ const CARD_GROUPS = {
     icon: "🚇",
     title: "Metro",
     zh: "地铁",
+    hint: "Stations, lines and exits",
     cards: [
       { en: "Where is the metro station?", zh: "地铁站在哪里？" },
       { en: "Which line goes to the airport?", zh: "哪条线去机场？" },
@@ -74,6 +78,7 @@ const CARD_GROUPS = {
     icon: "🏨",
     title: "Hotel",
     zh: "酒店",
+    hint: "Front desk, check-in, luggage",
     cards: [
       { en: "I have a reservation under my passport name.", zh: "我用护照预订了房间。" },
       { en: "Could you help me check in?", zh: "请帮我办理入住。" },
@@ -90,6 +95,7 @@ const CARD_GROUPS = {
     icon: "🍜",
     title: "Food Delivery",
     zh: "外卖",
+    hint: "Riders and dietary notes",
     cards: [
       { en: "No spicy.", zh: "不要辣。" },
       { en: "No peanuts.", zh: "不要花生。" },
@@ -105,6 +111,7 @@ const CARD_GROUPS = {
     icon: "📶",
     title: "SIM / Internet",
     zh: "电话卡",
+    hint: "Buying a SIM or topping up",
     cards: [
       { en: "I want to buy a SIM card.", zh: "我想买一张电话卡。" },
       { en: "How much is it per month?", zh: "每个月多少钱？" },
@@ -117,6 +124,7 @@ const CARD_GROUPS = {
     icon: "🏥",
     title: "Hospital",
     zh: "医院",
+    hint: "When you feel unwell",
     cards: [
       { en: "I don't feel well.", zh: "我身体不舒服。" },
       { en: "I need to see a doctor.", zh: "我需要看医生。" },
@@ -133,6 +141,7 @@ const CARD_GROUPS = {
     icon: "🎒",
     title: "Lost & Found",
     zh: "丢失物品",
+    hint: "Passport, phone or bag missing",
     cards: [
       { en: "I lost my phone.", zh: "我的手机丢了。" },
       { en: "I lost my passport.", zh: "我的护照丢了。" },
@@ -146,6 +155,7 @@ const CARD_GROUPS = {
     icon: "🔋",
     title: "Phone Battery Dead",
     zh: "手机没电",
+    hint: "When your phone is about to die",
     cards: [
       { en: "My phone is about to die.", zh: "我的手机快没电了。" },
       { en: "Could I charge my phone here?", zh: "我可以在这里充电吗？" },
@@ -158,6 +168,7 @@ const CARD_GROUPS = {
     icon: "🧭",
     title: "Directions",
     zh: "找路",
+    hint: "When you can't find the place",
     cards: [
       { en: "I am lost.", zh: "我迷路了。" },
       { en: "How do I get to this place?", zh: "请问怎么去这个地方？" },
@@ -171,6 +182,7 @@ const CARD_GROUPS = {
     icon: "🆘",
     title: "Emergency",
     zh: "报警 / 求助",
+    hint: "When it's urgent — police, ambulance, fire",
     cards: [
       { en: "I need help.", zh: "我需要帮助。" },
       { en: "Please call the police.", zh: "请报警。" },
@@ -182,6 +194,23 @@ const CARD_GROUPS = {
     ],
   },
 };
+
+/* 卡片的展示顺序：按紧急程度从高到低。
+   显式写出来，不依赖对象键的顺序。改顺序只改这个数组。 */
+const CARD_ORDER = [
+  "emergency",   // 最急：报警、救护车
+  "hospital",    // 身体不舒服
+  "lost",        // 护照 / 手机 / 包丢了
+  "phone",       // 手机没电
+  "directions",  // 迷路
+  "taxi",        // 高频：联系司机
+  "hotel",       // 高频：前台沟通
+  "food",        // 高频：外卖忌口
+  "pay",         // 日常
+  "metro",       // 日常
+  "train",       // 日常
+  "sim",         // 日常
+];
 
 /* ==========================================================================
    场景

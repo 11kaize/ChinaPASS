@@ -303,23 +303,28 @@
   }
 
   function pageCards() {
-    var groups = Object.keys(CARD_GROUPS).map(function (key) {
+    var groups = CARD_ORDER.map(function (key) {
       var g = CARD_GROUPS[key];
+      if (!g) return "";
       var preview = g.cards.slice(0, 2).map(function (c) { return esc(c.zh); }).join(" · ");
       return '<button class="search__hit" data-go="/cards/' + key + '">' +
         '<span class="emoji">' + g.icon + "</span>" +
-        "<span><b>" + esc(g.title) + " · " + esc(g.zh) + "</b>" +
-        "<small>" + g.cards.length + " cards — " + preview + "…</small></span>" +
+        "<span><b>" + esc(g.zh) + " · " + esc(g.title) + "</b>" +
+        "<small>" + esc(g.hint || "") + " — " + g.cards.length + " cards</small>" +
+        "<small>" + preview + "…</small></span>" +
       "</button>";
     }).join("");
 
     return '' +
-      topbar("Help cards", { back: "/", badge: Object.keys(CARD_GROUPS).length + " sets" }) +
+      topbar("Help cards", { back: "/", badge: CARD_ORDER.length + " sets" }) +
       '<section class="section">' +
         '<div class="panel panel--tip"><div class="panel__h">How to use a card</div>' +
           '<p style="margin:0;font-size:14.5px;line-height:1.6">Tap any card to open it full screen. ' +
           "The Chinese is shown large — hand your phone to the person you are talking to. " +
-          "Tap <b>Hide English</b> if the English line distracts them.</p></div>" +
+          "Tap <b>Hide English</b> if the English line distracts them.</p>" +
+          '<p style="margin:10px 0 0;font-size:13.5px;color:var(--muted);line-height:1.6">' +
+          "Sets are ordered from <b>most urgent to least urgent</b> — if you don't know where to look, start at the top." +
+          "</p></div>" +
       "</section>" +
       '<section class="section"><div class="panel">' + groups + "</div></section>";
   }
@@ -532,8 +537,9 @@
           hits.push({ go: "/s/" + s.id, emoji: s.icon, title: s.title, sub: s.subtitle });
         }
       });
-      Object.keys(CARD_GROUPS).forEach(function (k) {
+      CARD_ORDER.forEach(function (k) {
         var g = CARD_GROUPS[k];
+        if (!g) return;
         var matched = g.cards.filter(function (c) {
           return (c.en + c.zh).toLowerCase().indexOf(v) > -1;
         });
