@@ -1,0 +1,24 @@
+{
+  "name": "chinapass-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ChinaPASS offline travel companion for desktop",
+  "productName": "ChinaPASS",
+  "main": "electron/main.cjs",
+  "author": "ChinaPASS contributors",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "desktop:dev": "electron .",
+    "desktop:build": "electron-builder",
+    "desktop:win": "electron-builder --win nsis",
+    "desktop:mac": "electron-builder --mac dmg zip",
+    "desktop:linux": "electron-builder --linux AppImage deb"
+  },
+  "devDependencies": {
+    "electron": "44.4.5",
+    "electron-builder": "26.15.3"
+  }
+}

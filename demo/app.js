@@ -1,565 +1,82 @@
-/* ==========================================================================
-   China Cheat Sheet — demo app
-   Hash router + render. No build step, no dependencies.
-   ========================================================================== */
-
-(function () {
-  "use strict";
-
-  var app = document.getElementById("app");
-  var screen = document.getElementById("cardscreen");
-
-  /* ---------------- helpers ---------------- */
-
-  function $(sel, root) { return (root || document).querySelector(sel); }
-  function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
-
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, function (c) {
-      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
-    });
+(() => {
+  const $ = (s, root = document) => root.querySelector(s);
+  const app = $('#app');
+  const groups = CARD_ORDER.map(id => ({ id, ...CARD_GROUPS[id] }));
+  const phrases = groups.flatMap(g => g.cards.map((card, i) => ({ ...card, id: `${g.id}:${i}`, group: g })));
+  const get = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } };
+  const put = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+  const state = { favorites: get('cp-favorites', []), checked: get('cp-checked', []), done: get('cp-done', []), dark: get('cp-dark', false), route: '' };
+  let installer = null, cardList = [], cardIndex = 0, lastFocus = null, showEnglish = true;
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+  const link = (hash, label, cls='') => `<a class="${cls}" href="#${hash}">${label}</a>`;
+  const sceneLink = s => link(`/s/${s.id}`, `<span>${s.icon}</span><span><b>${esc(s.title)}</b><small>${esc(s.subtitle)}</small></span><span class="arrow">↗</span>`, 'scene-link');
+  const allCards = ids => [...new Set((ids || []).flatMap(id => (CARD_GROUPS[id]?.cards || []).map(c => JSON.stringify(c))))].map(x => JSON.parse(x));
+  const cardGroups = ids => (ids || []).map(id => groups.find(g => g.id === id)).filter(Boolean);
+  const routeNow = () => decodeURI(location.hash.replace(/^#\/?/, ''));
+  function shell(content, active='home') {
+    document.documentElement.dataset.theme = state.dark ? 'dark' : 'light';
+    document.querySelector('meta[name="theme-color"]').content = state.dark ? '#17231d' : '#f0f3ef';
+    const nav = [['home','Overview','⌂','#/'],['tasks','Travel tasks','◈','#/tasks'],['prep','Before you go','✓','#/prep'],['cards','Phrase cards','▤','#/cards'],['saved','Saved phrases','☆','#/saved'],['faq','FAQ','?','#/faq']];
+    app.innerHTML = `<aside class="sidebar"><a class="brand" href="#/"><span class="brand-mark">C</span><span>ChinaPASS<small>Travel companion</small></span></a><nav>${nav.map(([id,t,i,h])=>`<a class="nav-link ${active===id?'is-active':''}" href="${h}"><span>${i}</span>${t}${id==='saved'&&state.favorites.length?`<small>${state.favorites.length}</small>`:''}</a>`).join('')}</nav><div class="side-note"><b>Travel with a little more confidence.</b><p>Keep the essentials close, even when plans change.</p></div><div class="sidebar-foot">Works offline after your first visit.</div></aside><section class="workspace"><header class="topbar"><label class="searchbox"><span>⌕</span><input id="global-search" type="search" placeholder="Search tasks and phrases…" aria-label="Search tasks and phrases"><kbd>⌘ K</kbd></label><div class="top-actions"><button class="icon-button" id="theme-toggle" aria-label="Toggle dark theme">${state.dark?'☼':'◐'}</button><button class="button button--quiet install-button" data-install>Install app</button></div></header><div class="mobile-brand"><a href="#/">ChinaPASS</a><button id="mobile-theme" class="icon-button" aria-label="Toggle dark theme">${state.dark?'☼':'◐'}</button></div><main class="page" id="page">${content}</main><nav class="mobile-nav">${nav.slice(0,5).map(([id,t,i,h])=>`<a class="${active===id?'is-active':''}" href="${h}"><span>${i}</span><small>${t}</small></a>`).join('')}</nav></section>`;
+    $('#theme-toggle').onclick = $('#mobile-theme').onclick = () => { state.dark=!state.dark; put('cp-dark',state.dark); render(); };
+    $$('[data-install]').forEach(b=>b.onclick=install);
+    $('#global-search').oninput = e => { state.query=e.target.value; searchResults(state.query); };
+    $('#global-search').onkeydown = e => { if(e.key==='Enter' && state.query) location.hash=`/search/${encodeURIComponent(state.query)}`; if(e.key==='Escape'){e.target.value='';state.query='';searchResults('');} };
+    $('#global-search').value = state.query || '';
+    if (state.query) searchResults(state.query);
   }
-
-  /* minimal inline markdown: **bold** and `code` */
-  function md(s) {
-    return esc(s)
-      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-      .replace(/`(.+?)`/g, "<code>$1</code>");
+  const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+  function shellHead(title, desc, tag='') { return `<div class="page-heading">${tag?`<span class="heading-tag">${tag}</span>`:''}<h1>${title}</h1><p>${desc}</p></div>`; }
+  function home() {
+    const top = SCENES.filter(s=>s.priority==='P0').slice(0,3);
+    return `<section class="welcome"><div><h1>China, made easier.</h1><p>Practical help for the moments that matter, from arrival to getting around.</p><div class="welcome-actions">${link('/tasks','Explore travel tasks','button button--primary')}${link('/prep','Check your essentials','button button--quiet')}</div></div><div class="welcome-art"><span>你好</span><i>✳</i><small>Keep this close<br>when you travel.</small></div></section><section class="emergency-strip"><div><span class="live-dot"></span><b>Need urgent help?</b><span>Emergency numbers in China</span></div><div class="emergency-numbers">${EMERGENCY_NUMBERS.map(n=>`<a href="tel:${n.num}"><b>${n.num}</b><small>${n.label}</small></a>`).join('')}<button class="button button--danger" data-open-group="emergency">Show help card</button></div></section><div class="section-head"><div><h2>Start with a situation</h2><p>Step-by-step guidance for common travel tasks.</p></div>${link('/tasks','All travel tasks →','text-link')}</div><div class="scene-grid">${top.map(sceneLink).join('')}</div><section class="home-lower"><div class="panel prep-teaser"><div class="panel-head"><span class="panel-icon">✓</span><div><h2>Before you go</h2><p>${state.checked.length} of 5 essentials ready</p></div>${link('/prep','Open checklist →','text-link')}</div><div class="mini-progress"><i style="width:${state.checked.length*20}%"></i></div><div class="prep-pills"><span>Payment setup</span><span>Offline maps</span><span>Hotel address</span><span>Travel documents</span><span>Emergency contacts</span></div></div><div class="panel quick-panel"><h2>Keep a phrase handy</h2><p>Save useful cards for quick access when you need them.</p>${link('/cards','Browse 82 phrase cards →','text-link')}</div></section>`;
   }
-
-  var store = (function () {
-    var ok = true;
-    try { window.localStorage.setItem("__ccs", "1"); window.localStorage.removeItem("__ccs"); }
-    catch (e) { ok = false; }
-    var mem = {};
-    return {
-      get: function (k, fallback) {
-        try {
-          var raw = ok ? window.localStorage.getItem(k) : mem[k];
-          return raw == null ? fallback : JSON.parse(raw);
-        } catch (e) { return fallback; }
-      },
-      set: function (k, v) {
-        var raw = JSON.stringify(v);
-        try { if (ok) window.localStorage.setItem(k, raw); else mem[k] = raw; } catch (e) { /* quota / private mode */ }
-      }
-    };
-  })();
-
-  var done = store.get("ccs.done", {});   // { "taxi:3": true }
-  function isDone(sceneId, i) { return !!done[sceneId + ":" + i]; }
-  function toggleDone(sceneId, i) {
-    var k = sceneId + ":" + i;
-    if (done[k]) delete done[k]; else done[k] = true;
-    store.set("ccs.done", done);
+  function tasksPage() { const rest=SCENES.filter(s=>s.priority!=='P0'); return `${shellHead('Travel tasks','Choose a situation to see clear steps, helpful phrases, and a backup plan.')}<div class="task-list">${SCENES.map(sceneLink).join('')}</div><section class="quiet-callout"><b>Something urgent?</b><p>Open the emergency guide for local numbers and phrases to show someone nearby.</p>${link('/s/emergency','Open emergency guide →','text-link')}</section>`; }
+  const checklist = [
+    ['payment','Set up a payment method','Check whether your Alipay or WeChat Pay setup works before departure.'],
+    ['maps','Save offline maps','Download your destination area and pin your hotel.'],
+    ['address','Keep your hotel address in Chinese','Save a screenshot you can show to a driver.'],
+    ['documents','Keep travel documents accessible','Store passport and booking details securely, with an offline copy.'],
+    ['contacts','Save emergency contacts','Add your local contact and your country’s consular details.']
+  ];
+  function prepPage() { return `${shellHead('Before you go','A few small preparations can make arrival and everyday travel smoother.')}<div class="prep-layout"><div class="panel checklist-panel"><div class="panel-head"><div><h2>Your essentials</h2><p>${state.checked.length} of ${checklist.length} complete</p></div><span class="progress-count">${state.checked.length}/${checklist.length}</span></div><div class="checklist">${checklist.map(([id,t,d])=>`<label class="check-row"><input type="checkbox" data-check="${id}" ${state.checked.includes(id)?'checked':''}><span class="check-custom">✓</span><span><b>${t}</b><small>${d}</small></span></label>`).join('')}</div></div><aside class="panel note-panel"><span class="panel-icon">↗</span><h2>Check current requirements</h2><p>Entry rules, payment support, and app availability can change. Confirm details with official sources before travel.</p><a class="text-link" target="_blank" rel="noopener" href="https://english.www.gov.cn/services/">Official travel services ↗</a></aside></div>`; }
+  function scenePage(id) {
+    const s=SCENES.find(x=>x.id===id); if(!s) return `<h1>Page not found</h1>${link('/tasks','Back to travel tasks')}`;
+    const cards=cardGroups(s.cardGroups), done=state.done.includes(s.id);
+    return `<a class="back-link" href="#/tasks">← All travel tasks</a><div class="scene-title"><span class="scene-hero-icon">${s.icon}</span><div><span class="priority ${s.priority==='P0'?'priority--urgent':''}">${esc(s.priority)} · ${esc(s.eta||'')}</span><h1>${esc(s.title)}</h1><p>${esc(s.subtitle)}</p></div><button class="button ${done?'button--quiet':'button--primary'}" data-done="${s.id}">${done?'✓ Completed':'Mark complete'}</button></div><div class="scene-columns"><article class="scene-main">${s.task?`<section class="guide-section"><h2>What you’ll do</h2><p>${esc(s.task)}</p></section>`:''}${s.before?.length?`<section class="guide-section"><h2>Before you start</h2><ul class="before-list">${s.before.map(x=>`<li>${fmt(x)}</li>`).join('')}</ul></section>`:''}${s.tip?`<section class="guide-section planb"><h2>Helpful tip</h2><p>${fmt(s.tip)}</p></section>`:''}${s.steps?.length?`<section class="guide-section"><h2>Step by step</h2><div class="step-list">${s.steps.map((x,i)=>`<label class="step-row"><input type="checkbox" data-step="${s.id}:${i}" ${get('cp-steps',[]).includes(`${s.id}:${i}`)?'checked':''}><span class="step-number">${i+1}</span><span><b>${fmt(x.t)}</b><small>${fmt(x.d)}</small></span></label>`).join('')}</div></section>`:''}${cards.length?`<section class="guide-section"><div class="section-head"><div><h2>Useful phrases</h2><p>Show the Chinese text to someone nearby.</p></div></div><div class="group-chips">${cards.map(g=>`<button class="group-chip" data-open-group="${g.id}">${g.icon} ${esc(g.title)} <span>→</span></button>`).join('')}</div>${s.showCard?`<button class="show-phrase" data-scene-card="${s.id}"><span>▣</span><span><small>SHOW THIS PHRASE</small><b>${esc(s.showCard.title)}</b></span><span>↗</span></button>`:''}</section>`:''}${s.mistakes?.length?`<section class="guide-section"><h2>Common snags</h2><div class="snag-list">${s.mistakes.map(x=>`<div><b>${fmt(x.m)}</b><p>${fmt(x.w)}</p><small>${fmt(x.d)}</small></div>`).join('')}</div></section>`:''}${s.planB?.length?`<section class="guide-section planb"><h2>Plan B</h2><ul>${s.planB.map(x=>`<li>${fmt(x)}</li>`).join('')}</ul></section>`:''}${s.trouble?.length?`<section class="guide-section"><h2>If something goes wrong</h2><div class="faq-stack">${s.trouble.map(x=>`<details><summary>${fmt(x.p)}</summary><p>${fmt(x.a)}</p></details>`).join('')}</div></section>`:''}${s.sources?.length?`<section class="guide-section sources"><h2>Sources and updates</h2><small>Updated ${esc(s.lastUpdated||'—')} · verify changing details before travel.</small><ul>${s.sources.map(x=>`<li><a target="_blank" rel="noopener" href="${esc(x.url)}">${esc(x.label)} ↗</a></li>`).join('')}</ul></section>`:''}</article><aside class="scene-aside"><div class="panel scene-check"><span class="panel-icon">✓</span><h2>Keep your place</h2><p>Steps are saved on this device, so you can return to this task later.</p><div class="mini-progress"><i style="width:${s.steps?.length?Math.round(s.steps.filter((_,i)=>get('cp-steps',[]).includes(`${s.id}:${i}`)).length/s.steps.length*100):0}%"></i></div></div>${s.disclaimer?`<div class="panel disclaimer"><b>Note</b><p>${esc(s.disclaimer)}</p></div>`:''}</aside></div>`;
   }
-
-  var checks = store.get("ccs.checks", {});
-  function isChecked(sceneId, i) { return !!checks[sceneId + ":" + i]; }
-
-  function toast(msg) {
-    var el = $(".toast");
-    if (!el) {
-      el = document.createElement("div");
-      el.className = "toast";
-      document.body.appendChild(el);
-    }
-    el.textContent = msg;
-    requestAnimationFrame(function () { el.classList.add("on"); });
-    clearTimeout(el._t);
-    el._t = setTimeout(function () { el.classList.remove("on"); }, 1600);
-  }
-
-  function sceneById(id) {
-    for (var i = 0; i < SCENES.length; i++) if (SCENES[i].id === id) return SCENES[i];
-    return null;
-  }
-
-  /* cards of a scene = merged card groups, de-duplicated by chinese text */
-  function sceneCards(scene) {
-    var seen = {}, out = [];
-    (scene.cardGroups || []).forEach(function (g) {
-      var grp = CARD_GROUPS[g];
-      if (!grp) return;
-      grp.cards.forEach(function (c) {
-        if (seen[c.zh]) return;
-        seen[c.zh] = 1;
-        out.push(c);
-      });
-    });
-    return out;
-  }
-
-  function go(hash) { location.hash = hash; }
-
-  /* ---------------- top bar ---------------- */
-
-  function topbar(title, opts) {
-    opts = opts || {};
-    return '' +
-      '<header class="topbar">' +
-        (opts.back
-          ? '<button class="topbar__back" data-go="' + opts.back + '" aria-label="Back">‹</button>'
-          : '') +
-        '<div class="topbar__title">' + esc(title) + "</div>" +
-        '<div class="topbar__spacer"></div>' +
-        (opts.badge ? '<span class="topbar__badge">' + esc(opts.badge) + "</span>" : "") +
-      "</header>";
-  }
-
-  /* ---------------- pages ---------------- */
-
-  function pageHome() {
-    var tiles = SCENES.map(function (s) {
-      return '' +
-        '<button class="tile" data-go="/s/' + s.id + '">' +
-          (s.priority === "P0" ? '<span class="tile__p0">P0</span>' : "") +
-          '<span class="tile__emoji">' + s.icon + "</span>" +
-          '<span class="tile__title">' + esc(s.title) + "</span>" +
-          '<span class="tile__sub">' + esc(s.subtitle) + "</span>" +
-        "</button>";
-    }).join("");
-
-    var nums = EMERGENCY_NUMBERS.map(function (n) {
-      return '<a href="tel:' + n.num + '"><div class="n">' + n.num + '</div><div class="l">' +
-        esc(n.label) + "</div></a>";
-    }).join("");
-
-    return '' +
-      topbar("China Cheat Sheet", { badge: "DEMO" }) +
-      '<section class="hero">' +
-        '<div class="hero__brand"><span>🇨🇳</span> China Cheat Sheet</div>' +
-        "<h1>Your 3-minute guide to surviving daily life in China</h1>" +
-        "<p>Not a travel guide. A step-by-step tool for the thing you need to do <em>right now</em>.</p>" +
-        '<div class="meta">' +
-          '<span class="chip">English first</span>' +
-          '<span class="chip">No download</span>' +
-          '<span class="chip">No sign-up</span>' +
-          '<span class="chip">Works offline</span>' +
-        "</div>" +
-      "</section>" +
-
-      '<div class="search">' +
-        '<div class="search__box">' +
-          '<input id="q" type="search" placeholder="Search: taxi, Alipay, 火车票, hotel…" autocomplete="off" aria-label="Search">' +
-        "</div>" +
-        '<div class="search__results" id="results" hidden></div>' +
-      "</div>" +
-
-      '<section class="section">' +
-        '<div class="section__h"><h2>I want to…</h2><a href="#/cards">All help cards →</a></div>' +
-        '<div class="grid">' + tiles + "</div>" +
-      "</section>" +
-
-      '<section class="section">' +
-        '<div class="section__h"><h2>Emergency</h2><a href="#/emergency">Help page →</a></div>' +
-        '<div class="emergency-strip">' + nums + "</div>" +
-      "</section>" +
-
-      '<section class="section">' +
-        '<div class="section__h"><h2>Before you ask</h2><a href="#/faq">All FAQ →</a></div>' +
-        '<div class="panel"><div class="trouble">' +
-          '<div class="trouble__row"><div class="trouble__p">Cash is still the universal Plan B</div>' +
-            '<div class="trouble__a">Foreign cards fail at small vendors. Keep 200–500 yuan with you.</div></div>' +
-          '<div class="trouble__row"><div class="trouble__p">Your passport is also your ticket</div>' +
-            '<div class="trouble__a">Trains, hotels and many payments need it. Carry it, and keep a photo on your phone.</div></div>' +
-          '<div class="trouble__row"><div class="trouble__p">Ask the hotel front desk first</div>' +
-            '<div class="trouble__a">They can call, translate, book and write notes. It is their job to help guests.</div></div>' +
-        "</div></div>" +
-      "</section>" +
-
-      '<p class="footnote">' +
-        "Demo build · content last reviewed 2026-09-23. Policy, payment and ticketing rules change — " +
-        "always confirm in the official app. This tool gives operating steps only, not legal, medical or financial advice." +
-      "</p>";
-  }
-
-  function pageScene(scene) {
-    var total = scene.steps.length;
-    var doneCount = scene.steps.filter(function (_, i) { return isDone(scene.id, i); }).length;
-    var pct = total ? Math.round((doneCount / total) * 100) : 0;
-
-    var before = (scene.before || []).map(function (b, i) {
-      var ck = isChecked(scene.id, i) ? " checked" : "";
-      return '<li><label><input type="checkbox" data-check="' + scene.id + ":" + i + '"' + ck +
-        "><span>" + md(b) + "</span></label></li>";
-    }).join("");
-
-    var steps = scene.steps.map(function (s, i) {
-      return '<button class="step" data-step="' + scene.id + ":" + i + '" data-done="' +
-        (isDone(scene.id, i) ? "1" : "0") + '">' +
-        '<span class="step__n"><span>' + (i + 1) + "</span></span>" +
-        '<span class="step__body">' +
-          '<span class="step__t">' + md(s.t) + "</span>" +
-          (s.d ? '<span class="step__d">' + md(s.d) + "</span>" : "") +
-        "</span>" +
-      "</button>";
-    }).join("");
-
-    var mistakes = (scene.mistakes || []).length
-      ? '<div class="panel"><div class="panel__h">Common mistakes</div><div class="table-wrap"><table class="mistakes">' +
-          "<thead><tr><th>Mistake</th><th>Why it hurts</th><th>Do this instead</th></tr></thead><tbody>" +
-          scene.mistakes.map(function (m) {
-            return "<tr><td>" + md(m.m) + "</td><td>" + md(m.w) + "</td><td>" + md(m.d) + "</td></tr>";
-          }).join("") +
-        "</tbody></table></div></div>"
-      : "";
-
-    var cards = sceneCards(scene);
-    var cardList = cards.map(function (c, i) {
-      return '<button class="cardrow" data-card="' + scene.id + ":" + i + '">' +
-        '<span class="cardrow__txt">' +
-          '<span class="cardrow__en">' + esc(c.en) + "</span>" +
-          '<span class="cardrow__zh">' + esc(c.zh) + "</span>" +
-        "</span>" +
-        '<span class="cardrow__go">Show ›</span>' +
-      "</button>";
-    }).join("");
-
-    var showCard = scene.showCard
-      ? '<div class="panel panel--tip">' +
-          '<div class="panel__h">' + esc(scene.showCard.title) + "</div>" +
-          '<button class="btn btn--primary btn--block" data-show="' + scene.id + '">Open full screen 🗣️</button>' +
-        "</div>"
-      : "";
-
-    var planB = (scene.planB || []).length
-      ? '<div class="panel"><div class="panel__h">Plan B — if the main path fails</div><ul class="plain plain--plan">' +
-          scene.planB.map(function (p) { return "<li>" + md(p) + "</li>"; }).join("") +
-        "</ul></div>"
-      : "";
-
-    var trouble = (scene.trouble || []).length
-      ? '<div class="panel"><div class="panel__h">If something goes wrong</div><div class="trouble">' +
-          scene.trouble.map(function (t) {
-            return '<div class="trouble__row"><div class="trouble__p">' + md(t.p) +
-              '</div><div class="trouble__a">' + md(t.a) + "</div></div>";
-          }).join("") +
-        "</div></div>"
-      : "";
-
-    var sources = (scene.sources || []).length
-      ? '<p class="footnote" style="padding:0 20px">Official sources: ' +
-          scene.sources.map(function (s) {
-            return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label) + "</a>";
-          }).join(" · ") + "</p>"
-      : "";
-
-    return '' +
-      topbar(scene.title, { back: "/", badge: scene.priority }) +
-      '<section class="section">' +
-        '<div class="panel">' +
-          '<div class="panel__h">Task</div>' +
-          '<p class="task">' + md(scene.task) + "</p>" +
-          '<div class="meta">' +
-            '<span class="chip">' + esc(scene.category) + "</span>" +
-            '<span class="chip">' + esc(scene.eta) + "</span>" +
-            '<span class="chip">' + scene.steps.length + " steps</span>" +
-            '<span class="chip">Last updated ' + esc(scene.lastUpdated) + "</span>" +
-          "</div>" +
-        "</div>" +
-      "</section>" +
-
-      '<section class="section">' +
-        '<div class="panel">' +
-          '<div class="panel__h">Before you start</div>' +
-          '<ul class="checklist">' + before + "</ul>" +
-        "</div>" +
-        (scene.tip ? '<div class="panel panel--tip"><div class="panel__h">💡 Tip</div><p style="margin:0;font-size:14.5px;line-height:1.55">' + md(scene.tip) + "</p></div>" : "") +
-      "</section>" +
-
-      '<section class="section">' +
-        '<div class="panel">' +
-          '<div class="panel__h">Step by step<span class="n" id="stepcount">' + doneCount + " / " + total + " done</span></div>" +
-          '<div class="steps__progress"><i id="stepbar" style="width:' + pct + '%"></i></div>' +
-          '<div class="steps">' + steps + "</div>" +
-        "</div>" +
-      "</section>" +
-
-      '<section class="section"><div class="panel">' +
-        '<div class="panel__h">Show this screen</div>' +
-        showCard +
-        '<div class="panel__h" style="margin-top:18px">Useful Chinese cards<span class="n">' + cards.length + " cards</span></div>" +
-        "<div>" + cardList + "</div>" +
-      "</div></section>" +
-
-      '<section class="section">' + mistakes + "</section>" +
-      '<section class="section">' + planB + "</section>" +
-      '<section class="section">' + trouble + "</section>" +
-
-      (scene.disclaimer
-        ? '<section class="section"><div class="panel panel--warn"><div class="panel__h">⚠️ Please note</div>' +
-          '<p style="margin:0;font-size:14px;line-height:1.55">' + md(scene.disclaimer) + "</p></div></section>"
-        : "") +
-
-      sources +
-
-      '<section class="section">' +
-        '<div class="btn-row stale">' +
-          '<button class="btn btn--sm" data-stale="' + scene.id + '">This info is outdated</button>' +
-          '<button class="btn btn--sm" data-go="/">Back to all tasks</button>' +
-        "</div>" +
-      "</section>";
-  }
-
-  function pageCards() {
-    var groups = CARD_ORDER.map(function (key) {
-      var g = CARD_GROUPS[key];
-      if (!g) return "";
-      var preview = g.cards.slice(0, 2).map(function (c) { return esc(c.zh); }).join(" · ");
-      return '<button class="search__hit" data-go="/cards/' + key + '">' +
-        '<span class="emoji">' + g.icon + "</span>" +
-        "<span><b>" + esc(g.zh) + " · " + esc(g.title) + "</b>" +
-        "<small>" + esc(g.hint || "") + " — " + g.cards.length + " cards</small>" +
-        "<small>" + preview + "…</small></span>" +
-      "</button>";
-    }).join("");
-
-    return '' +
-      topbar("Help cards", { back: "/", badge: CARD_ORDER.length + " sets" }) +
-      '<section class="section">' +
-        '<div class="panel panel--tip"><div class="panel__h">How to use a card</div>' +
-          '<p style="margin:0;font-size:14.5px;line-height:1.6">Tap any card to open it full screen. ' +
-          "The Chinese is shown large — hand your phone to the person you are talking to. " +
-          "Tap <b>Hide English</b> if the English line distracts them.</p>" +
-          '<p style="margin:10px 0 0;font-size:13.5px;color:var(--muted);line-height:1.6">' +
-          "Sets are ordered from <b>most urgent to least urgent</b> — if you don't know where to look, start at the top." +
-          "</p></div>" +
-      "</section>" +
-      '<section class="section"><div class="panel">' + groups + "</div></section>";
-  }
-
-  function pageFaq() {
-    return '' +
-      topbar("FAQ", { back: "/" }) +
-      '<section class="section"><div class="faq">' +
-        FAQ.map(function (f) {
-          return "<details><summary>" + esc(f.q) + '</summary><div class="a">' + esc(f.a) + "</div></details>";
-        }).join("") +
-      "</div></section>" +
-      '<p class="footnote">Answers describe the common case. Rules change — confirm in the official app.</p>';
-  }
-
-  function pageEmergency() {
-    var s = sceneById("emergency");
-    return pageScene(s);
-  }
-
-  /* ---------------- full screen card ---------------- */
-
-  var cs = { list: [], i: 0, label: "", from: "#/" };
-
-  function openCardScreen(list, index, label) {
-    if (!list || !list.length) return;
-    cs.list = list;
-    cs.i = Math.max(0, Math.min(index || 0, list.length - 1));
-    cs.label = label || "Show this to them";
-    cs.from = location.hash || "#/";
-    paintCard();
-    screen.hidden = false;
-    screen.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeCardScreen() {
-    screen.hidden = true;
-    screen.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-  }
-
-  function paintCard() {
-    var c = cs.list[cs.i];
-    if (!c) return;
-    $("#cs-label").textContent = cs.label;
-    $("#cs-zh").textContent = c.zh;
-    $("#cs-en").textContent = c.en;
-    $("#cs-count").textContent = (cs.i + 1) + " / " + cs.list.length;
-    $("#cs-prev").style.visibility = cs.i === 0 ? "hidden" : "visible";
-    $("#cs-next").style.visibility = cs.i === cs.list.length - 1 ? "hidden" : "visible";
-  }
-
-  /* ---------------- router ---------------- */
-
-  var lastPath = "/";
-
+  function cardsPage() { return `${shellHead('Phrase cards','Ready-to-show Chinese phrases for everyday situations. Save favorites for quick access.')}<div class="phrase-groups">${groups.map(g=>`<button class="phrase-group" data-open-group="${g.id}"><span class="group-icon">${g.icon}</span><span><b>${esc(g.title)} <em>${esc(g.zh)}</em></b><small>${esc(g.hint)}</small><small>${g.cards.length} phrases</small></span><span class="group-arrow">↗</span></button>`).join('')}</div>`; }
+  function savedPage() { const fav=phrases.filter(p=>state.favorites.includes(p.id)); return `${shellHead('Saved phrases',fav.length?'Your starred phrases are stored on this device for quick access.':'Star any phrase card and it will appear here.')}<div class="saved-list">${fav.length?fav.map(p=>phraseRow(p)).join(''):`<div class="empty-state"><span>☆</span><h2>No saved phrases yet</h2><p>Browse the library and tap the star on a phrase you want close by.</p>${link('/cards','Browse phrase cards →','button button--primary')}</div>`}</div>`; }
+  function phraseRow(p) { return `<div class="phrase-row"><button class="phrase-open" data-open-phrase="${p.id}"><b>${esc(p.zh)}</b><small>${esc(p.en)}</small></button><button class="star-button ${state.favorites.includes(p.id)?'is-saved':''}" data-favorite="${p.id}" aria-label="Save phrase">${state.favorites.includes(p.id)?'★':'☆'}</button></div>`; }
+  function faqPage() { return `${shellHead('Frequently asked questions','Short answers to common questions before and during a trip.')}<div class="faq-stack faq-page">${FAQ.map(x=>`<details><summary>${fmt(x.q)}</summary><p>${fmt(x.a)}</p>${x.sources?.map(src=>`<a target="_blank" rel="noopener" href="${esc(src.url)}">${esc(src.label)} ↗</a>`).join(' ')||''}</details>`).join('')}</div>`; }
+  function searchPage(q) { const items=searchItems(q); return `${shellHead(`Search results`,`${items.length} matches for “${esc(q)}”`)}<div class="search-results">${items.length?items.map(x=>x.html).join(''):'<div class="empty-state"><h2>No matches</h2><p>Try a scene, place, or phrase in Chinese or English.</p></div>'}</div>`; }
+  function searchItems(q) { if(!q)return []; const n=q.toLowerCase(); const found=[]; SCENES.forEach(s=>{if(JSON.stringify(s).toLowerCase().includes(n))found.push({html:sceneLink(s)});}); phrases.forEach(p=>{if((p.en+p.zh+p.group.title+p.group.zh).toLowerCase().includes(n))found.push({html:phraseRow(p)});}); return found.slice(0,30); }
+  function searchResults(q) { const input=$('#global-search'); if(!input)return; let box=$('#search-popover'); if(!q){box?.remove();return;} if(!box){box=document.createElement('div');box.id='search-popover';box.className='search-popover';input.closest('.searchbox').append(box);} const items=searchItems(q).slice(0,6); box.innerHTML=items.length?items.map(x=>x.html).join(''):`<p>No matches found</p>`; }
+  function fmt(value='') { return esc(value).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`(.+?)`/g,'<code>$1</code>'); }
   function render() {
-    var hash = (location.hash || "#/").replace(/^#/, "");
-    var parts = hash.split("/").filter(Boolean);
-    var page = parts[0] || "";
-
-    if (page === "s" && sceneById(parts[1])) {
-      app.innerHTML = pageScene(sceneById(parts[1]));
-      window.scrollTo(0, 0);
-      return;
-    }
-
-    if (page === "cards") {
-      var key = parts[1];
-      if (key && CARD_GROUPS[key]) {
-        app.innerHTML = pageCards();
-        var g = CARD_GROUPS[key];
-        openCardScreen(g.cards, 0, g.icon + " " + g.title + " · " + g.zh);
-      } else {
-        app.innerHTML = pageCards();
-      }
-      window.scrollTo(0, 0);
-      return;
-    }
-
-    if (page === "faq") { app.innerHTML = pageFaq(); window.scrollTo(0, 0); return; }
-    if (page === "emergency") { app.innerHTML = pageEmergency(); window.scrollTo(0, 0); return; }
-
-    app.innerHTML = pageHome();
-    window.scrollTo(0, 0);
+    state.route=routeNow(); state.query='';
+    const [first,...rest]=state.route.split('/'); let html,active='home';
+    if(!first){html=home();active='home';} else if(first==='tasks'){html=tasksPage();active='tasks';} else if(first==='prep'){html=prepPage();active='prep';} else if(first==='cards'){html=cardsPage();active='cards';} else if(first==='saved'){html=savedPage();active='saved';} else if(first==='faq'){html=faqPage();active='faq';} else if(first==='s'){html=scenePage(rest[0]);active='tasks';} else if(first==='search'){html=searchPage(decodeURIComponent(rest.join('/')));state.query=decodeURIComponent(rest.join('/'));active='tasks';} else {html=home();}
+    shell(html,active); bind();
   }
-
-  window.addEventListener("hashchange", function () {
-    var hash = (location.hash || "#/").replace(/^#/, "");
-    // leaving a card route closes the overlay
-    if (hash.indexOf("/cards/") !== 0) closeCardScreen();
-    render();
-  });
-
-  /* ---------------- events ---------------- */
-
-  document.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-go], [data-step], [data-card], [data-show], [data-stale]");
-    if (!t) return;
-
-    if (t.dataset.go !== undefined && t.hasAttribute("data-go")) {
-      go("#" + t.dataset.go);
-      return;
-    }
-
-    if (t.hasAttribute("data-step")) {
-      var p = t.dataset.step.split(":");
-      toggleDone(p[0], +p[1]);
-      var wasDone = isDone(p[0], +p[1]);
-      t.dataset.done = wasDone ? "1" : "0";
-
-      // step counter + progress bar, without a full re-render
-      var all = $$('[data-step^="' + p[0] + ':"]');
-      var count = all.filter(function (el) { return el.dataset.done === "1"; }).length;
-      var bar = $("#stepbar"), cnt = $("#stepcount");
-      if (bar) bar.style.width = Math.round((count / all.length) * 100) + "%";
-      if (cnt) cnt.textContent = count + " / " + all.length + " done";
-      if (count === all.length && all.length) toast("All steps done 🎉");
-      return;
-    }
-
-    if (t.hasAttribute("data-card")) {
-      var pc = t.dataset.card.split(":");
-      var sc = sceneById(pc[0]);
-      openCardScreen(sceneCards(sc), +pc[1], "🗣️ " + sc.title + " · useful card");
-      return;
-    }
-
-    if (t.hasAttribute("data-show")) {
-      var s2 = sceneById(t.dataset.show);
-      var lines = s2.showCard.lines.map(function (l) { return { zh: l, en: "" }; });
-      openCardScreen(lines, 0, "🗣️ " + s2.showCard.title);
-      return;
-    }
-
-    if (t.hasAttribute("data-stale")) {
-      toast("Thanks — logged for review");
-      return;
-    }
-  });
-
-  /* checklist persistence */
-  document.addEventListener("change", function (e) {
-    var el = e.target;
-    if (!el || !el.hasAttribute || !el.hasAttribute("data-check")) return;
-    var k = el.dataset.check;
-    if (el.checked) checks[k] = true; else delete checks[k];
-    store.set("ccs.checks", checks);
-  });
-
-  /* card screen controls */
-  $("#cs-close").addEventListener("click", closeFrom);
-  function closeFrom() {
-    // if the card was opened over a page, go back to that page
-    if (cs.from && cs.from !== location.hash) { go(cs.from); return; }
-    closeCardScreen();
+  function bind() {
+    $$('[data-check]').forEach(el=>el.onchange=()=>{state.checked=el.checked?[...new Set([...state.checked,el.dataset.check])]:state.checked.filter(x=>x!==el.dataset.check);put('cp-checked',state.checked);render();});
+    $$('[data-step]').forEach(el=>el.onchange=()=>{const key='cp-steps', steps=get(key,[]);put(key,el.checked?[...new Set([...steps,el.dataset.step])]:steps.filter(x=>x!==el.dataset.step));});
+    $$('[data-done]').forEach(el=>el.onclick=()=>{state.done=state.done.includes(el.dataset.done)?state.done.filter(x=>x!==el.dataset.done):[...state.done,el.dataset.done];put('cp-done',state.done);render();});
+    $$('[data-open-group]').forEach(el=>el.onclick=()=>{const g=groups.find(x=>x.id===el.dataset.openGroup);openCards(g.cards.map((card,i)=>({...card,id:`${g.id}:${i}`})),g.title);});
+    $$('[data-scene-card]').forEach(el=>el.onclick=()=>{const s=SCENES.find(x=>x.id===el.dataset.sceneCard);openCards([{en:s.showCard.title,zh:s.showCard.lines.join(' ')}],s.title);});
+    $$('[data-favorite]').forEach(el=>el.onclick=()=>{const id=el.dataset.favorite;state.favorites=state.favorites.includes(id)?state.favorites.filter(x=>x!==id):[...state.favorites,id];put('cp-favorites',state.favorites);render();});
+    $$('[data-open-phrase]').forEach(el=>el.onclick=()=>{const p=phrases.find(x=>x.id===el.dataset.openPhrase);openCards([p],p.group.title);});
   }
-  $("#cs-prev").addEventListener("click", function () { cs.i--; paintCard(); });
-  $("#cs-next").addEventListener("click", function () { cs.i++; paintCard(); });
-  $("#cs-toggle").addEventListener("click", function () {
-    var on = screen.classList.toggle("hide-en");
-    this.textContent = on ? "Show English" : "Hide English";
-  });
-  $("#cs-copy").addEventListener("click", function () {
-    var self = this;
-    var text = cs.list[cs.i] ? cs.list[cs.i].zh : "";
-    function ok() {
-      self.textContent = "Copied ✓";
-      self.classList.add("done");
-      setTimeout(function () { self.textContent = "Copy 中文"; self.classList.remove("done"); }, 1400);
-    }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(ok, function () { fallbackCopy(text, ok); });
-    } else {
-      fallbackCopy(text, ok);
-    }
-  });
-
-  function fallbackCopy(text, ok) {
-    var ta = document.createElement("textarea");
-    ta.value = text;
-    ta.style.position = "fixed";
-    ta.style.opacity = "0";
-    document.body.appendChild(ta);
-    ta.select();
-    try { document.execCommand("copy"); ok(); } catch (e) { toast("Copy failed — select manually"); }
-    document.body.removeChild(ta);
-  }
-
-  document.addEventListener("keydown", function (e) {
-    if (screen.hidden) return;
-    if (e.key === "Escape") closeFrom();
-    if (e.key === "ArrowRight") { cs.i = Math.min(cs.i + 1, cs.list.length - 1); paintCard(); }
-    if (e.key === "ArrowLeft") { cs.i = Math.max(cs.i - 1, 0); paintCard(); }
-  });
-
-  /* search */
-  var q = $("#q");
-  if (q) {
-    q.addEventListener("input", function () {
-      var v = q.value.trim().toLowerCase();
-      var box = $("#results");
-      if (!v) { box.hidden = true; box.innerHTML = ""; return; }
-
-      var hits = [];
-      SCENES.forEach(function (s) {
-        var hay = (s.title + " " + s.subtitle + " " + s.task + " " + s.category).toLowerCase();
-        if (hay.indexOf(v) > -1) {
-          hits.push({ go: "/s/" + s.id, emoji: s.icon, title: s.title, sub: s.subtitle });
-        }
-      });
-      CARD_ORDER.forEach(function (k) {
-        var g = CARD_GROUPS[k];
-        if (!g) return;
-        var matched = g.cards.filter(function (c) {
-          return (c.en + c.zh).toLowerCase().indexOf(v) > -1;
-        });
-        if (matched.length || (g.title + g.zh).toLowerCase().indexOf(v) > -1) {
-          hits.push({ go: "/cards/" + k, emoji: g.icon, title: g.title, sub: matched.length + " matching cards" });
-        }
-      });
-
-      box.hidden = false;
-      box.innerHTML = hits.length
-        ? hits.map(function (h) {
-            return '<button class="search__hit" data-go="' + h.go + '"><span class="emoji">' + h.emoji +
-              "</span><span><b>" + esc(h.title) + "</b><small>" + esc(h.sub) + "</small></span></button>";
-          }).join("")
-        : '<div class="panel"><p style="margin:0;color:var(--muted);font-size:14px">No match. Try “taxi”, “payment”, “train” or a Chinese word like “火车”.</p></div>';
-    });
-  }
-
-  /* ---------------- boot ---------------- */
-
-  if (!location.hash) location.hash = "#/";
+  function openCards(list,label) { cardList=list;cardIndex=0;lastFocus=document.activeElement;const screen=$('#cardscreen');screen.hidden=false;screen.setAttribute('aria-hidden','false');$('.cs__from').textContent=label;$('#cs-bar').classList.remove('is-hidden');$('#cs-bar').inert=false;updateCard();$('#cs-close').focus(); }
+  function updateCard() { const p=cardList[cardIndex];if(!p)return;$('#cs-zh').textContent=p.zh;$('#cs-en').textContent=showEnglish?p.en:'';$('#cs-count').textContent=`${cardIndex+1} / ${cardList.length}`;$('#cs-save').hidden=!p.id;$('#cs-save').textContent=state.favorites.includes(p.id)?'★ Saved':'☆ Save'; }
+  function closeCards() { const screen=$('#cardscreen');screen.hidden=true;screen.setAttribute('aria-hidden','true');$('#cs-bar').classList.add('is-hidden');$('#cs-bar').inert=true;lastFocus?.focus?.(); }
+  $('#cs-close').onclick=closeCards;$('#cs-prev').onclick=()=>{cardIndex=(cardIndex-1+cardList.length)%cardList.length;updateCard();};$('#cs-next').onclick=()=>{cardIndex=(cardIndex+1)%cardList.length;updateCard();};$('#cs-toggle').onclick=()=>{showEnglish=!showEnglish;$('#cs-toggle').textContent=showEnglish?'Hide English':'Show English';updateCard();};$('#cs-copy').onclick=async()=>{try{await navigator.clipboard.writeText($('#cs-zh').textContent);$('#cs-copy').textContent='Copied';setTimeout(()=>$('#cs-copy').textContent='Copy Chinese',1200);}catch{}};
+  $('#cs-save').onclick=()=>{const id=cardList[cardIndex]?.id;if(!id)return;state.favorites=state.favorites.includes(id)?state.favorites.filter(x=>x!==id):[...state.favorites,id];put('cp-favorites',state.favorites);updateCard();};
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#cardscreen').hidden)closeCards();if(e.key==='ArrowRight'&&!$('#cardscreen').hidden)$('#cs-next').click();if(e.key==='ArrowLeft'&&!$('#cardscreen').hidden)$('#cs-prev').click();if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#global-search')?.focus();}});
+  async function install() { if(installer){installer.prompt();await installer.userChoice;installer=null;return;} alert('Choose “Install ChinaPASS” from your browser menu to add it to your home screen.'); }
+  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installer=e;});
+  window.addEventListener('hashchange',()=>{closeCards();render();});
+  if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
   render();
 })();

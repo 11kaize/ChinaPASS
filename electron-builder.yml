@@ -1,0 +1,30 @@
+appId: org.chinapass.desktop
+productName: ChinaPASS
+asar: true
+directories:
+  output: release
+files:
+  - package.json
+  - electron/**
+  - demo/**
+  - desktop/icon.png
+  - '!demo/README.md'
+  - '!**/*.map'
+mac:
+  category: public.app-category.travel
+  icon: desktop/icon.png
+  target:
+    - dmg
+    - zip
+win:
+  icon: desktop/icon.png
+  target: nsis
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+linux:
+  icon: desktop/icon.png
+  category: Utility
+  target:
+    - AppImage
+    - deb

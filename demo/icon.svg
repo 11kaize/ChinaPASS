@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="ChinaPASS">
+  <rect width="512" height="512" rx="112" fill="#155744"/>
+  <path d="M153 188h206v139H153z" fill="none" stroke="#f5f7f4" stroke-width="33" stroke-linejoin="round"/>
+  <path d="M256 119v274" fill="none" stroke="#f5f7f4" stroke-width="34" stroke-linecap="round"/>
+</svg>

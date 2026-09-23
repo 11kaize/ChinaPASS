@@ -1,78 +1,38 @@
-# China Cheat Sheet · 中国落地通关助手
+# ChinaPASS
 
-> **Your 3-minute guide to surviving daily life in China**
-> 面向来华外国人的「生活通关工具」，用最短时间教会他们完成支付、打车、买票、订酒店、点外卖、就医等高频动作。
+ChinaPASS helps visitors handle practical moments in China with eight step-by-step travel guides, 82 bilingual phrases, FAQs, saved cards and an arrival checklist. It runs as a static website, an offline-capable installable web app, or a desktop app packaged with Electron.
 
----
+## Run the web demo
 
-## 一句话定位
+Open `demo/index.html` in a browser, or serve the `demo/` directory over HTTP:
 
-不是一个「中国有什么」的旅游攻略，而是一个「**现在该点哪里、该说什么、该避开什么、下一步做什么**」的实时通关工具。
+```bash
+cd demo
+python3 -m http.server 4173
+```
 
-## 产品关键词
+Then open `http://localhost:4173`. The service worker and installable PWA features require HTTP or HTTPS. Directly opening the HTML file still works for the core phrase cards.
 
-`场景化` · `分步指引` · `双语卡片` · `避坑` · `扫码即用` · `免下载` · `电子导游`
+## Use ChinaPASS
 
----
+- Search eight travel guides and 82 bilingual phrases, then show Chinese cards full screen.
+- Save guide-step progress, favorite phrases and mark off a five-item arrival checklist. These stay in local browser storage.
+- Browse seven FAQs, open the urgent-help phrase cards, or use 110, 120, 119 and 122 dial links.
+- Install the PWA from a supported browser for a standalone window and offline shell cache.
+- Use `Ctrl/Cmd + K` to focus phrase search. In a phrase card, use the arrow keys to navigate and Escape to close.
 
-## 可交互 Demo
+Phone calls, payment setup, translation, map downloads and rail bookings are handled by their respective providers. ChinaPASS offers preparation prompts and communication phrases, not real-time travel booking or emergency dispatch.
 
-**在线访问：<https://11kaize.github.io/ChinaPASS/>** —— 手机浏览器可直接打开，扫码分享均可。
+## Build a desktop app
 
-也可以下载后本地查看：[`demo/`](demo/) 是纯静态、无依赖的原型，双击 `demo/index.html` 即可运行。
+The optional Electron shell loads the local static demo and can create Windows, macOS and Linux packages. See [DESKTOP.md](DESKTOP.md) for setup and build commands. It needs Node.js 22.12 or newer and npm dependencies installed from the repository root.
 
-- 首页「任务入口」+ 8 个场景的分步 SOP（Pay / Taxi / Train / Metro / Hotel / Food / SIM / Emergency）
-- 82 张双语急救卡片，支持全屏大字展示、中英对照、一键复制
-- 每页含 Plan B、常见错误、故障排查、更新时间与官方来源
+## Project notes
 
-实现细节与待办见 [demo/README.md](demo/README.md)。
+- [Product overview](docs/01-项目概述.md)
+- [Feature design](docs/03-功能设计.md)
+- [Content and interface structure](docs/04-页面结构与用户流程.md)
+- [Technical plan](docs/06-技术方案.md)
+- [PWA files](demo/manifest.webmanifest)
 
----
-
-## 文档索引
-
-| 编号 | 文档 | 内容 |
-|---|---|---|
-| 01 | [项目概述](docs/01-项目概述.md) | 项目名称、背景、目标用户、核心痛点分析 |
-| 02 | [产品定位与目标](docs/02-产品定位与目标.md) | 产品定位、用户目标、产品目标、商业目标 |
-| 03 | [功能设计](docs/03-功能设计.md) | 十大核心功能模块设计 |
-| 04 | [页面结构与用户流程](docs/04-页面结构与用户流程.md) | 首页/详情页/卡片页结构、核心用户流程 |
-| 05 | [内容模板规范](docs/05-内容模板规范.md) | 场景内容统一模板与写作要求 |
-| 06 | [技术方案](docs/06-技术方案.md) | MVP 技术选型、数据模型设计 |
-| 07 | [项目规划与团队分工](docs/07-项目规划与团队分工.md) | 三阶段规划、4 人分工、里程碑 |
-| 08 | [验证指标与商业模式](docs/08-验证指标与商业模式.md) | 验证指标体系、四阶段商业模式 |
-| 09 | [风险与合规](docs/09-风险与合规.md) | 四类风险及应对方式 |
-| 10 | [90 秒路演脚本](docs/10-路演脚本.md) | 可直接使用的路演稿 |
-| 11 | [项目成功标准](docs/11-项目成功标准.md) | 项目是否成立的判定标准与总结 |
-
-## 内容资产
-
-| 目录 | 内容 |
-|---|---|
-| [content/scenes/](content/scenes/) | 场景通关指南（按 05 号模板撰写） |
-| [content/cards/](content/cards/) | 双语急救卡片中英文对照 |
-| [content/cities/](content/cities/) | 城市快速包 |
-
----
-
-## 快速开始（第一阶段 MVP）
-
-1. 梳理 10 个高频场景，优先完成 **Pay / Taxi / Train** 三个核心场景
-2. 制作 20 张双语急救卡片
-3. 用 Notion + Softr / Glide 搭出移动端网页版
-4. 线下找外国用户测试，收集 30 份反馈
-
-## 项目成功标准（简版）
-
-只要有一个外国用户通过本产品**独立完成**以下任一任务，项目即成立：
-
-- 用 Alipay 完成一笔支付
-- 打车到酒店
-- 买到一张高铁票
-- 点一份外卖
-- 办理酒店入住
-- 向司机/前台展示中文求助卡片并解决问题
-
----
-
-*内容说明：本项目涉及签证、支付、医疗等政策类内容时，仅提供操作指引，不提供法律判断或诊断建议，所有政策内容需标注官方来源。*
+The content is static and contains no backend or analytics. Checklist, saved phrase and display preferences remain on the current device. Emergency numbers are provided as dial links, and whether a call can be placed depends on the device and network.
