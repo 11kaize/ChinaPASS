@@ -1,6 +1,8 @@
 /* ==========================================================================
-   China Cheat Sheet — demo app
-   Hash router + render. No build step, no dependencies.
+   China Cheat Sheet — 双语应急卡片
+
+   只有一件事：把中文放大，递给对方看。
+   无依赖、无构建、无后端。
    ========================================================================== */
 
 (function () {
@@ -8,23 +10,19 @@
 
   var app = document.getElementById("app");
   var screen = document.getElementById("cardscreen");
+  var body = document.getElementById("cs-body");
+  var bar = document.getElementById("cs-bar");
+
+  var HIDE_DELAY = 2500;   // 打开后自动隐藏按钮，递出去更干净
 
   /* ---------------- helpers ---------------- */
 
   function $(sel, root) { return (root || document).querySelector(sel); }
-  function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
-  }
-
-  /* minimal inline markdown: **bold** and `code` */
-  function md(s) {
-    return esc(s)
-      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-      .replace(/`(.+?)`/g, "<code>$1</code>");
   }
 
   var store = (function () {
@@ -33,29 +31,23 @@
     catch (e) { ok = false; }
     var mem = {};
     return {
-      get: function (k, fallback) {
+      get: function (k, d) {
         try {
           var raw = ok ? window.localStorage.getItem(k) : mem[k];
-          return raw == null ? fallback : JSON.parse(raw);
-        } catch (e) { return fallback; }
+          return raw == null ? d : JSON.parse(raw);
+        } catch (e) { return d; }
       },
       set: function (k, v) {
         var raw = JSON.stringify(v);
-        try { if (ok) window.localStorage.setItem(k, raw); else mem[k] = raw; } catch (e) { /* quota / private mode */ }
+        try { if (ok) window.localStorage.setItem(k, raw); else mem[k] = raw; } catch (e) {}
       }
     };
   })();
 
-  var done = store.get("ccs.done", {});   // { "taxi:3": true }
-  function isDone(sceneId, i) { return !!done[sceneId + ":" + i]; }
-  function toggleDone(sceneId, i) {
-    var k = sceneId + ":" + i;
-    if (done[k]) delete done[k]; else done[k] = true;
-    store.set("ccs.done", done);
+  function groupById(id) {
+    for (var i = 0; i < CARD_GROUPS.length; i++) if (CARD_GROUPS[i].id === id) return CARD_GROUPS[i];
+    return null;
   }
-
-  var checks = store.get("ccs.checks", {});
-  function isChecked(sceneId, i) { return !!checks[sceneId + ":" + i]; }
 
   function toast(msg) {
     var el = $(".toast");
@@ -70,490 +62,207 @@
     el._t = setTimeout(function () { el.classList.remove("on"); }, 1600);
   }
 
-  function sceneById(id) {
-    for (var i = 0; i < SCENES.length; i++) if (SCENES[i].id === id) return SCENES[i];
-    return null;
-  }
-
-  /* cards of a scene = merged card groups, de-duplicated by chinese text */
-  function sceneCards(scene) {
-    var seen = {}, out = [];
-    (scene.cardGroups || []).forEach(function (g) {
-      var grp = CARD_GROUPS[g];
-      if (!grp) return;
-      grp.cards.forEach(function (c) {
-        if (seen[c.zh]) return;
-        seen[c.zh] = 1;
-        out.push(c);
-      });
-    });
-    return out;
-  }
-
-  function go(hash) { location.hash = hash; }
-
-  /* ---------------- top bar ---------------- */
-
-  function topbar(title, opts) {
-    opts = opts || {};
-    return '' +
-      '<header class="topbar">' +
-        (opts.back
-          ? '<button class="topbar__back" data-go="' + opts.back + '" aria-label="Back">‹</button>'
-          : '') +
-        '<div class="topbar__title">' + esc(title) + "</div>" +
-        '<div class="topbar__spacer"></div>' +
-        (opts.badge ? '<span class="topbar__badge">' + esc(opts.badge) + "</span>" : "") +
-      "</header>";
-  }
-
-  /* ---------------- pages ---------------- */
+  /* ---------------- home ---------------- */
 
   function pageHome() {
-    var tiles = SCENES.map(function (s) {
+    var nums = EMERGENCY_NUMBERS.map(function (n) {
+      return '<a href="tel:' + n.num + '"><b>' + n.num + '</b><span>' + esc(n.zh) + "</span></a>";
+    }).join("");
+
+    var list = CARD_GROUPS.map(function (g) {
       return '' +
-        '<button class="tile" data-go="/s/' + s.id + '">' +
-          (s.priority === "P0" ? '<span class="tile__p0">P0</span>' : "") +
-          '<span class="tile__emoji">' + s.icon + "</span>" +
-          '<span class="tile__title">' + esc(s.title) + "</span>" +
-          '<span class="tile__sub">' + esc(s.subtitle) + "</span>" +
+        '<button class="row" data-go="/g/' + g.id + '">' +
+          '<span class="row__icon">' + g.icon + "</span>" +
+          '<span class="row__body">' +
+            '<span class="row__title">' + esc(g.zh) +
+              '<em>' + esc(g.title) + "</em></span>" +
+            '<span class="row__hint">' + esc(g.hint) + "</span>" +
+          "</span>" +
+          '<span class="row__meta">' + g.cards.length + " 张 ›</span>" +
         "</button>";
     }).join("");
 
-    var nums = EMERGENCY_NUMBERS.map(function (n) {
-      return '<a href="tel:' + n.num + '"><div class="n">' + n.num + '</div><div class="l">' +
-        esc(n.label) + "</div></a>";
-    }).join("");
+    var total = CARD_GROUPS.reduce(function (n, g) { return n + g.cards.length; }, 0);
 
     return '' +
-      topbar("China Cheat Sheet", { badge: "DEMO" }) +
-      '<section class="hero">' +
-        '<div class="hero__brand"><span>🇨🇳</span> China Cheat Sheet</div>' +
-        "<h1>Your 3-minute guide to surviving daily life in China</h1>" +
-        "<p>Not a travel guide. A step-by-step tool for the thing you need to do <em>right now</em>.</p>" +
-        '<div class="meta">' +
-          '<span class="chip">English first</span>' +
-          '<span class="chip">No download</span>' +
-          '<span class="chip">No sign-up</span>' +
-          '<span class="chip">Works offline</span>' +
-        "</div>" +
+      '<header class="head">' +
+        '<h1>应急卡片</h1>' +
+        '<p>Show your phone. They read the Chinese.</p>' +
+      "</header>" +
+
+      '<section class="pad">' +
+        '<button class="sos" data-go="/g/sos">' +
+          '<span class="sos__icon">🆘</span>' +
+          '<span class="sos__main">我现在需要帮助<em>I need help now</em></span>' +
+        "</button>" +
       "</section>" +
 
-      '<div class="search">' +
-        '<div class="search__box">' +
-          '<input id="q" type="search" placeholder="Search: taxi, Alipay, 火车票, hotel…" autocomplete="off" aria-label="Search">' +
-        "</div>" +
-        '<div class="search__results" id="results" hidden></div>' +
-      "</div>" +
-
-      '<section class="section">' +
-        '<div class="section__h"><h2>I want to…</h2><a href="#/cards">All help cards →</a></div>' +
-        '<div class="grid">' + tiles + "</div>" +
+      '<section class="pad">' +
+        '<div class="nums">' + nums + "</div>" +
       "</section>" +
 
-      '<section class="section">' +
-        '<div class="section__h"><h2>Emergency</h2><a href="#/emergency">Help page →</a></div>' +
-        '<div class="emergency-strip">' + nums + "</div>" +
+      '<section class="pad">' +
+        '<div class="listhead">' + CARD_GROUPS.length + " 组 · " + total + " 张卡片</div>" +
+        '<div class="list">' + list + "</div>" +
       "</section>" +
 
-      '<section class="section">' +
-        '<div class="section__h"><h2>Before you ask</h2><a href="#/faq">All FAQ →</a></div>' +
-        '<div class="panel"><div class="trouble">' +
-          '<div class="trouble__row"><div class="trouble__p">Cash is still the universal Plan B</div>' +
-            '<div class="trouble__a">Foreign cards fail at small vendors. Keep 200–500 yuan with you.</div></div>' +
-          '<div class="trouble__row"><div class="trouble__p">Your passport is also your ticket</div>' +
-            '<div class="trouble__a">Trains, hotels and many payments need it. Carry it, and keep a photo on your phone.</div></div>' +
-          '<div class="trouble__row"><div class="trouble__p">Ask the hotel front desk first</div>' +
-            '<div class="trouble__a">They can call, translate, book and write notes. It is their job to help guests.</div></div>' +
-        "</div></div>" +
-      "</section>" +
-
-      '<p class="footnote">' +
-        "Demo build · content last reviewed 2026-09-23. Policy, payment and ticketing rules change — " +
-        "always confirm in the official app. This tool gives operating steps only, not legal, medical or financial advice." +
+      '<p class="foot">' +
+        "递出去之前，点一下屏幕可以隐藏英文和按钮，只留中文大字。<br>" +
+        "本产品只提供沟通用语，不提供医疗、法律或政策建议。" +
       "</p>";
-  }
-
-  function pageScene(scene) {
-    var total = scene.steps.length;
-    var doneCount = scene.steps.filter(function (_, i) { return isDone(scene.id, i); }).length;
-    var pct = total ? Math.round((doneCount / total) * 100) : 0;
-
-    var before = (scene.before || []).map(function (b, i) {
-      var ck = isChecked(scene.id, i) ? " checked" : "";
-      return '<li><label><input type="checkbox" data-check="' + scene.id + ":" + i + '"' + ck +
-        "><span>" + md(b) + "</span></label></li>";
-    }).join("");
-
-    var steps = scene.steps.map(function (s, i) {
-      return '<button class="step" data-step="' + scene.id + ":" + i + '" data-done="' +
-        (isDone(scene.id, i) ? "1" : "0") + '">' +
-        '<span class="step__n"><span>' + (i + 1) + "</span></span>" +
-        '<span class="step__body">' +
-          '<span class="step__t">' + md(s.t) + "</span>" +
-          (s.d ? '<span class="step__d">' + md(s.d) + "</span>" : "") +
-        "</span>" +
-      "</button>";
-    }).join("");
-
-    var mistakes = (scene.mistakes || []).length
-      ? '<div class="panel"><div class="panel__h">Common mistakes</div><div class="table-wrap"><table class="mistakes">' +
-          "<thead><tr><th>Mistake</th><th>Why it hurts</th><th>Do this instead</th></tr></thead><tbody>" +
-          scene.mistakes.map(function (m) {
-            return "<tr><td>" + md(m.m) + "</td><td>" + md(m.w) + "</td><td>" + md(m.d) + "</td></tr>";
-          }).join("") +
-        "</tbody></table></div></div>"
-      : "";
-
-    var cards = sceneCards(scene);
-    var cardList = cards.map(function (c, i) {
-      return '<button class="cardrow" data-card="' + scene.id + ":" + i + '">' +
-        '<span class="cardrow__txt">' +
-          '<span class="cardrow__en">' + esc(c.en) + "</span>" +
-          '<span class="cardrow__zh">' + esc(c.zh) + "</span>" +
-        "</span>" +
-        '<span class="cardrow__go">Show ›</span>' +
-      "</button>";
-    }).join("");
-
-    var showCard = scene.showCard
-      ? '<div class="panel panel--tip">' +
-          '<div class="panel__h">' + esc(scene.showCard.title) + "</div>" +
-          '<button class="btn btn--primary btn--block" data-show="' + scene.id + '">Open full screen 🗣️</button>' +
-        "</div>"
-      : "";
-
-    var planB = (scene.planB || []).length
-      ? '<div class="panel"><div class="panel__h">Plan B — if the main path fails</div><ul class="plain plain--plan">' +
-          scene.planB.map(function (p) { return "<li>" + md(p) + "</li>"; }).join("") +
-        "</ul></div>"
-      : "";
-
-    var trouble = (scene.trouble || []).length
-      ? '<div class="panel"><div class="panel__h">If something goes wrong</div><div class="trouble">' +
-          scene.trouble.map(function (t) {
-            return '<div class="trouble__row"><div class="trouble__p">' + md(t.p) +
-              '</div><div class="trouble__a">' + md(t.a) + "</div></div>";
-          }).join("") +
-        "</div></div>"
-      : "";
-
-    var sources = (scene.sources || []).length
-      ? '<p class="footnote" style="padding:0 20px">Official sources: ' +
-          scene.sources.map(function (s) {
-            return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label) + "</a>";
-          }).join(" · ") + "</p>"
-      : "";
-
-    return '' +
-      topbar(scene.title, { back: "/", badge: scene.priority }) +
-      '<section class="section">' +
-        '<div class="panel">' +
-          '<div class="panel__h">Task</div>' +
-          '<p class="task">' + md(scene.task) + "</p>" +
-          '<div class="meta">' +
-            '<span class="chip">' + esc(scene.category) + "</span>" +
-            '<span class="chip">' + esc(scene.eta) + "</span>" +
-            '<span class="chip">' + scene.steps.length + " steps</span>" +
-            '<span class="chip">Last updated ' + esc(scene.lastUpdated) + "</span>" +
-          "</div>" +
-        "</div>" +
-      "</section>" +
-
-      '<section class="section">' +
-        '<div class="panel">' +
-          '<div class="panel__h">Before you start</div>' +
-          '<ul class="checklist">' + before + "</ul>" +
-        "</div>" +
-        (scene.tip ? '<div class="panel panel--tip"><div class="panel__h">💡 Tip</div><p style="margin:0;font-size:14.5px;line-height:1.55">' + md(scene.tip) + "</p></div>" : "") +
-      "</section>" +
-
-      '<section class="section">' +
-        '<div class="panel">' +
-          '<div class="panel__h">Step by step<span class="n" id="stepcount">' + doneCount + " / " + total + " done</span></div>" +
-          '<div class="steps__progress"><i id="stepbar" style="width:' + pct + '%"></i></div>' +
-          '<div class="steps">' + steps + "</div>" +
-        "</div>" +
-      "</section>" +
-
-      '<section class="section"><div class="panel">' +
-        '<div class="panel__h">Show this screen</div>' +
-        showCard +
-        '<div class="panel__h" style="margin-top:18px">Useful Chinese cards<span class="n">' + cards.length + " cards</span></div>" +
-        "<div>" + cardList + "</div>" +
-      "</div></section>" +
-
-      '<section class="section">' + mistakes + "</section>" +
-      '<section class="section">' + planB + "</section>" +
-      '<section class="section">' + trouble + "</section>" +
-
-      (scene.disclaimer
-        ? '<section class="section"><div class="panel panel--warn"><div class="panel__h">⚠️ Please note</div>' +
-          '<p style="margin:0;font-size:14px;line-height:1.55">' + md(scene.disclaimer) + "</p></div></section>"
-        : "") +
-
-      sources +
-
-      '<section class="section">' +
-        '<div class="btn-row stale">' +
-          '<button class="btn btn--sm" data-stale="' + scene.id + '">This info is outdated</button>' +
-          '<button class="btn btn--sm" data-go="/">Back to all tasks</button>' +
-        "</div>" +
-      "</section>";
-  }
-
-  function pageCards() {
-    var groups = Object.keys(CARD_GROUPS).map(function (key) {
-      var g = CARD_GROUPS[key];
-      var preview = g.cards.slice(0, 2).map(function (c) { return esc(c.zh); }).join(" · ");
-      return '<button class="search__hit" data-go="/cards/' + key + '">' +
-        '<span class="emoji">' + g.icon + "</span>" +
-        "<span><b>" + esc(g.title) + " · " + esc(g.zh) + "</b>" +
-        "<small>" + g.cards.length + " cards — " + preview + "…</small></span>" +
-      "</button>";
-    }).join("");
-
-    return '' +
-      topbar("Help cards", { back: "/", badge: Object.keys(CARD_GROUPS).length + " sets" }) +
-      '<section class="section">' +
-        '<div class="panel panel--tip"><div class="panel__h">How to use a card</div>' +
-          '<p style="margin:0;font-size:14.5px;line-height:1.6">Tap any card to open it full screen. ' +
-          "The Chinese is shown large — hand your phone to the person you are talking to. " +
-          "Tap <b>Hide English</b> if the English line distracts them.</p></div>" +
-      "</section>" +
-      '<section class="section"><div class="panel">' + groups + "</div></section>";
-  }
-
-  function pageFaq() {
-    return '' +
-      topbar("FAQ", { back: "/" }) +
-      '<section class="section"><div class="faq">' +
-        FAQ.map(function (f) {
-          return "<details><summary>" + esc(f.q) + '</summary><div class="a">' + esc(f.a) + "</div></details>";
-        }).join("") +
-      "</div></section>" +
-      '<p class="footnote">Answers describe the common case. Rules change — confirm in the official app.</p>';
-  }
-
-  function pageEmergency() {
-    var s = sceneById("emergency");
-    return pageScene(s);
   }
 
   /* ---------------- full screen card ---------------- */
 
-  var cs = { list: [], i: 0, label: "", from: "#/" };
+  var cs = { group: null, i: 0, hideEn: store.get("ccs.hideEn", false) };
+  var barTimer = null;
 
-  function openCardScreen(list, index, label) {
-    if (!list || !list.length) return;
-    cs.list = list;
-    cs.i = Math.max(0, Math.min(index || 0, list.length - 1));
-    cs.label = label || "Show this to them";
-    cs.from = location.hash || "#/";
-    paintCard();
-    screen.hidden = false;
-    screen.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
+  function showBar() {
+    bar.classList.remove("is-hidden");
+    clearTimeout(barTimer);
+    barTimer = setTimeout(hideBar, HIDE_DELAY);
+  }
+  function hideBar() {
+    clearTimeout(barTimer);
+    bar.classList.add("is-hidden");
   }
 
-  function closeCardScreen() {
-    screen.hidden = true;
-    screen.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-  }
-
-  function paintCard() {
-    var c = cs.list[cs.i];
-    if (!c) return;
-    $("#cs-label").textContent = cs.label;
+  function paint() {
+    var g = cs.group;
+    if (!g) return;
+    var c = g.cards[cs.i];
+    $("#cs-from").textContent = g.icon + " " + g.zh;
     $("#cs-zh").textContent = c.zh;
     $("#cs-en").textContent = c.en;
-    $("#cs-count").textContent = (cs.i + 1) + " / " + cs.list.length;
-    $("#cs-prev").style.visibility = cs.i === 0 ? "hidden" : "visible";
-    $("#cs-next").style.visibility = cs.i === cs.list.length - 1 ? "hidden" : "visible";
+    $("#cs-count").textContent = (cs.i + 1) + " / " + g.cards.length;
+    $("#cs-prev").hidden = cs.i === 0;
+    $("#cs-next").hidden = cs.i === g.cards.length - 1;
+    screen.classList.toggle("hide-en", cs.hideEn);
+  }
+
+  function openGroup(id, index) {
+    var g = groupById(id);
+    if (!g) return;
+    cs.group = g;
+    cs.i = Math.max(0, Math.min(index || 0, g.cards.length - 1));
+    paint();
+    screen.hidden = false;
+    screen.setAttribute("aria-hidden", "false");
+    document.body.classList.add("locked");
+    showBar();
+  }
+
+  function closeScreen() {
+    hideBar();
+    screen.hidden = true;
+    screen.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("locked");
+  }
+
+  function step(d) {
+    var g = cs.group;
+    if (!g) return;
+    var n = cs.i + d;
+    if (n < 0 || n >= g.cards.length) return;
+    cs.i = n;
+    paint();
+    showBar();
   }
 
   /* ---------------- router ---------------- */
 
-  var lastPath = "/";
-
   function render() {
     var hash = (location.hash || "#/").replace(/^#/, "");
-    var parts = hash.split("/").filter(Boolean);
-    var page = parts[0] || "";
-
-    if (page === "s" && sceneById(parts[1])) {
-      app.innerHTML = pageScene(sceneById(parts[1]));
-      window.scrollTo(0, 0);
-      return;
-    }
-
-    if (page === "cards") {
-      var key = parts[1];
-      if (key && CARD_GROUPS[key]) {
-        app.innerHTML = pageCards();
-        var g = CARD_GROUPS[key];
-        openCardScreen(g.cards, 0, g.icon + " " + g.title + " · " + g.zh);
-      } else {
-        app.innerHTML = pageCards();
-      }
-      window.scrollTo(0, 0);
-      return;
-    }
-
-    if (page === "faq") { app.innerHTML = pageFaq(); window.scrollTo(0, 0); return; }
-    if (page === "emergency") { app.innerHTML = pageEmergency(); window.scrollTo(0, 0); return; }
+    var m = /^\/g\/([\w-]+)$/.exec(hash);
 
     app.innerHTML = pageHome();
     window.scrollTo(0, 0);
+
+    if (m && groupById(m[1])) openGroup(m[1], 0);
+    else closeScreen();
   }
 
-  window.addEventListener("hashchange", function () {
-    var hash = (location.hash || "#/").replace(/^#/, "");
-    // leaving a card route closes the overlay
-    if (hash.indexOf("/cards/") !== 0) closeCardScreen();
-    render();
-  });
+  window.addEventListener("hashchange", render);
 
   /* ---------------- events ---------------- */
 
   document.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-go], [data-step], [data-card], [data-show], [data-stale]");
-    if (!t) return;
-
-    if (t.dataset.go !== undefined && t.hasAttribute("data-go")) {
-      go("#" + t.dataset.go);
-      return;
-    }
-
-    if (t.hasAttribute("data-step")) {
-      var p = t.dataset.step.split(":");
-      toggleDone(p[0], +p[1]);
-      var wasDone = isDone(p[0], +p[1]);
-      t.dataset.done = wasDone ? "1" : "0";
-
-      // step counter + progress bar, without a full re-render
-      var all = $$('[data-step^="' + p[0] + ':"]');
-      var count = all.filter(function (el) { return el.dataset.done === "1"; }).length;
-      var bar = $("#stepbar"), cnt = $("#stepcount");
-      if (bar) bar.style.width = Math.round((count / all.length) * 100) + "%";
-      if (cnt) cnt.textContent = count + " / " + all.length + " done";
-      if (count === all.length && all.length) toast("All steps done 🎉");
-      return;
-    }
-
-    if (t.hasAttribute("data-card")) {
-      var pc = t.dataset.card.split(":");
-      var sc = sceneById(pc[0]);
-      openCardScreen(sceneCards(sc), +pc[1], "🗣️ " + sc.title + " · useful card");
-      return;
-    }
-
-    if (t.hasAttribute("data-show")) {
-      var s2 = sceneById(t.dataset.show);
-      var lines = s2.showCard.lines.map(function (l) { return { zh: l, en: "" }; });
-      openCardScreen(lines, 0, "🗣️ " + s2.showCard.title);
-      return;
-    }
-
-    if (t.hasAttribute("data-stale")) {
-      toast("Thanks — logged for review");
+    var t = e.target.closest("[data-go]");
+    if (t) {
+      var to = t.getAttribute("data-go");
+      if (("" + location.hash).replace(/^#/, "") === to) render();
+      else location.hash = to;
       return;
     }
   });
 
-  /* checklist persistence */
-  document.addEventListener("change", function (e) {
-    var el = e.target;
-    if (!el || !el.hasAttribute || !el.hasAttribute("data-check")) return;
-    var k = el.dataset.check;
-    if (el.checked) checks[k] = true; else delete checks[k];
-    store.set("ccs.checks", checks);
+  // 点屏幕空白处：切换按钮栏显隐
+  body.addEventListener("click", function () {
+    if (bar.classList.contains("is-hidden")) showBar();
+    else hideBar();
   });
 
-  /* card screen controls */
-  $("#cs-close").addEventListener("click", closeFrom);
-  function closeFrom() {
-    // if the card was opened over a page, go back to that page
-    if (cs.from && cs.from !== location.hash) { go(cs.from); return; }
-    closeCardScreen();
-  }
-  $("#cs-prev").addEventListener("click", function () { cs.i--; paintCard(); });
-  $("#cs-next").addEventListener("click", function () { cs.i++; paintCard(); });
+  $("#cs-close").addEventListener("click", function () {
+    if (location.hash && location.hash !== "#/") location.hash = "/";
+    else closeScreen();
+  });
+  $("#cs-prev").addEventListener("click", function () { step(-1); });
+  $("#cs-next").addEventListener("click", function () { step(1); });
+
   $("#cs-toggle").addEventListener("click", function () {
-    var on = screen.classList.toggle("hide-en");
-    this.textContent = on ? "Show English" : "Hide English";
+    cs.hideEn = !cs.hideEn;
+    store.set("ccs.hideEn", cs.hideEn);
+    screen.classList.toggle("hide-en", cs.hideEn);
+    this.textContent = cs.hideEn ? "显示英文" : "隐藏英文";
+    showBar();
   });
+
   $("#cs-copy").addEventListener("click", function () {
     var self = this;
-    var text = cs.list[cs.i] ? cs.list[cs.i].zh : "";
+    var text = cs.group ? cs.group.cards[cs.i].zh : "";
     function ok() {
-      self.textContent = "Copied ✓";
+      self.textContent = "已复制 ✓";
       self.classList.add("done");
-      setTimeout(function () { self.textContent = "Copy 中文"; self.classList.remove("done"); }, 1400);
+      setTimeout(function () { self.textContent = "复制中文"; self.classList.remove("done"); }, 1400);
     }
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(ok, function () { fallbackCopy(text, ok); });
-    } else {
-      fallbackCopy(text, ok);
-    }
+      navigator.clipboard.writeText(text).then(ok, function () { legacy(text, ok); });
+    } else { legacy(text, ok); }
+    showBar();
   });
 
-  function fallbackCopy(text, ok) {
+  function legacy(text, ok) {
     var ta = document.createElement("textarea");
     ta.value = text;
     ta.style.position = "fixed";
     ta.style.opacity = "0";
     document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand("copy"); ok(); } catch (e) { toast("Copy failed — select manually"); }
+    try { document.execCommand("copy"); ok(); } catch (e) { toast("复制失败，请手动选择"); }
     document.body.removeChild(ta);
   }
 
+  // 左右滑动翻页
+  var sx = 0, sy = 0;
+  body.addEventListener("touchstart", function (e) {
+    sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+  }, { passive: true });
+  body.addEventListener("touchend", function (e) {
+    var dx = e.changedTouches[0].clientX - sx;
+    var dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) step(dx < 0 ? 1 : -1);
+  }, { passive: true });
+
   document.addEventListener("keydown", function (e) {
     if (screen.hidden) return;
-    if (e.key === "Escape") closeFrom();
-    if (e.key === "ArrowRight") { cs.i = Math.min(cs.i + 1, cs.list.length - 1); paintCard(); }
-    if (e.key === "ArrowLeft") { cs.i = Math.max(cs.i - 1, 0); paintCard(); }
+    if (e.key === "Escape") { location.hash = "/"; }
+    if (e.key === "ArrowRight") step(1);
+    if (e.key === "ArrowLeft") step(-1);
   });
-
-  /* search */
-  var q = $("#q");
-  if (q) {
-    q.addEventListener("input", function () {
-      var v = q.value.trim().toLowerCase();
-      var box = $("#results");
-      if (!v) { box.hidden = true; box.innerHTML = ""; return; }
-
-      var hits = [];
-      SCENES.forEach(function (s) {
-        var hay = (s.title + " " + s.subtitle + " " + s.task + " " + s.category).toLowerCase();
-        if (hay.indexOf(v) > -1) {
-          hits.push({ go: "/s/" + s.id, emoji: s.icon, title: s.title, sub: s.subtitle });
-        }
-      });
-      Object.keys(CARD_GROUPS).forEach(function (k) {
-        var g = CARD_GROUPS[k];
-        var matched = g.cards.filter(function (c) {
-          return (c.en + c.zh).toLowerCase().indexOf(v) > -1;
-        });
-        if (matched.length || (g.title + g.zh).toLowerCase().indexOf(v) > -1) {
-          hits.push({ go: "/cards/" + k, emoji: g.icon, title: g.title, sub: matched.length + " matching cards" });
-        }
-      });
-
-      box.hidden = false;
-      box.innerHTML = hits.length
-        ? hits.map(function (h) {
-            return '<button class="search__hit" data-go="' + h.go + '"><span class="emoji">' + h.emoji +
-              "</span><span><b>" + esc(h.title) + "</b><small>" + esc(h.sub) + "</small></span></button>";
-          }).join("")
-        : '<div class="panel"><p style="margin:0;color:var(--muted);font-size:14px">No match. Try “taxi”, “payment”, “train” or a Chinese word like “火车”.</p></div>';
-    });
-  }
 
   /* ---------------- boot ---------------- */
 
+  $("#cs-toggle").textContent = cs.hideEn ? "显示英文" : "隐藏英文";
   if (!location.hash) location.hash = "#/";
   render();
 })();
