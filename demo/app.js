@@ -601,11 +601,36 @@
         '<p style="margin:0;font-size:14px;line-height:1.55">' + md(L(scene.disclaimer)) + "</p></div></section>"
       : "";
 
+    /* Jump links for the long scene pages. Built from what actually rendered,
+       so a scene with no plan B simply gets no Plan B link.
+
+       These are <button>s, not <a href="#...">, on purpose: render() reads
+       location.hash as the route and ends with window.scrollTo(0, 0), so a
+       bare "#steps" hash would look like an unknown route and yank the page
+       back to the top before the jump could land. */
+    var tocSections = [
+      { key: "task", label: t("task") },
+      { key: "before", label: t("beforeYouStart") },
+      { key: "steps", label: t("stepByStep") },
+      { key: "cards", label: t("showThisScreen") }
+    ];
+    if (mistakes) tocSections.push({ key: "mistakes", label: t("commonMistakes") });
+    if (planB) tocSections.push({ key: "planB", label: t("planB") });
+    if (trouble) tocSections.push({ key: "trouble", label: t("trouble") });
+    if (note) tocSections.push({ key: "note", label: t("pleaseNote") });
+
+    var toc = '<nav class="toc" aria-label="' + esc(t("onThisPage")) + '">' +
+      '<span class="toc__label">' + esc(t("onThisPage")) + "</span>" +
+      tocSections.map(function (s) {
+        return '<button class="toc__item" data-toc="' + s.key + '">' + esc(s.label) + "</button>";
+      }).join("") +
+      "</nav>";
+
     return '' +
       topbar(L(scene.title), { back: "/", badge: scene.priority }) +
       partialBanner(scene) +
-      '<section class="section">' +
-        '<div class="panel">' +
+      '<section class="section" id="sec-task">' +
+        '<div class="panel panel--lead">' +
           '<div class="panel__h">' + esc(t("task")) + '</div>' +
           '<p class="task">' + md(L(scene.task)) + "</p>" +
           '<div class="meta">' +
@@ -617,7 +642,9 @@
         "</div>" +
       "</section>" +
 
-      '<section class="section">' +
+      toc +
+
+      '<section class="section" id="sec-before">' +
         '<div class="panel">' +
           '<div class="panel__h">' + esc(t("beforeYouStart")) + '</div>' +
           '<ul class="checklist">' + before + "</ul>" +
@@ -628,7 +655,7 @@
           : "") +
       "</section>" +
 
-      '<section class="section">' +
+      '<section class="section" id="sec-steps">' +
         '<div class="panel">' +
           '<div class="panel__h">' + esc(t("stepByStep")) + '<span class="n" id="stepcount">' + doneCount + " / " + total + " " + esc(t("done")) + "</span></div>" +
           '<div class="steps__progress"><i id="stepbar" style="width:' + pct + '%"></i></div>' +
@@ -636,7 +663,7 @@
         "</div>" +
       "</section>" +
 
-      '<section class="section"><div class="panel">' +
+      '<section class="section" id="sec-cards"><div class="panel">' +
         '<div class="panel__h">' + esc(t("showThisScreen")) + "</div>" +
         showCard +
         "<div>" + '<button class="btn btn--block btn--loc" data-loc="1">' + esc(t("showLocationCard")) + "</button>" + "</div>" +
@@ -644,10 +671,14 @@
         "<div>" + cardList + "</div>" +
       "</div></section>" +
 
-      '<section class="section">' + mistakes + "</section>" +
-      '<section class="section">' + planB + "</section>" +
-      '<section class="section">' + trouble + "</section>" +
-      '<section class="section">' + note + "</section>" +
+      /* These four wrappers are conditional. They used to be emitted empty
+         whenever a scene had no such section, which left dead <section> nodes
+         in the DOM; now that each carries an id, an empty one would also be a
+         target the table of contents has no link for. */
+      (mistakes ? '<section class="section" id="sec-mistakes">' + mistakes + "</section>" : "") +
+      (planB ? '<section class="section" id="sec-planB">' + planB + "</section>" : "") +
+      (trouble ? '<section class="section" id="sec-trouble">' + trouble + "</section>" : "") +
+      (note ? '<section class="section" id="sec-note">' + note + "</section>" : "") +
 
       sources +
 
@@ -930,9 +961,22 @@
 
   /* ---------------- events ---------------- */
 
+  /* Scroll a long scene page to one of its sections. The reduced-motion check
+     lives here rather than in CSS because the global prefers-reduced-motion
+     rule only disables transitions and animations — it cannot reach a JS
+     smooth scroll. */
+  function jumpTo(key) {
+    var el = document.getElementById("sec-" + key);
+    if (!el) return;
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  }
+
   document.addEventListener("click", function (e) {
-    var t2 = e.target.closest("[data-go], [data-step], [data-card], [data-show], [data-stale], [data-loc], [data-pick-lang], [data-pick-city], [data-detect], [data-install]");
+    var t2 = e.target.closest("[data-go], [data-step], [data-card], [data-show], [data-stale], [data-loc], [data-pick-lang], [data-pick-city], [data-detect], [data-install], [data-toc]");
     if (!t2) return;
+
+    if (t2.hasAttribute("data-toc")) { jumpTo(t2.getAttribute("data-toc")); return; }
 
     if (t2.hasAttribute("data-install")) { install(); return; }
 

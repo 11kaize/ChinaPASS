@@ -388,6 +388,12 @@ body {
 .panel--warn { background: var(--warn-soft); border-color: color-mix(in srgb, var(--warn) 24%, transparent); }
 .panel--danger { background: var(--danger-soft); border-color: color-mix(in srgb, var(--danger) 22%, transparent); }
 
+/* The lead panel carries the one-line summary, so it gets an accent edge.
+   Drawn with an inset shadow rather than a 3px left border: every element is
+   border-box, so widening the border would shift this panel's text 2px right
+   of every other panel on the page. */
+.panel--lead { box-shadow: inset 3px 0 0 var(--brand); }
+
 .panel__h {
   display: flex;
   align-items: center;
@@ -411,6 +417,43 @@ body {
   letter-spacing: -.012em;
   margin: 0;
 }
+
+/* ---------- in-page jump links (scene pages) ---------- */
+
+.toc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 16px 20px 0;
+}
+
+.toc__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-right: 2px;
+}
+
+.toc__item {
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 11px;
+  cursor: pointer;
+}
+
+.toc__item:hover { border-color: var(--brand); color: var(--brand); }
+
+/* The top bar is sticky, so a jump would land with the section heading tucked
+   underneath it. scrollIntoView honours scroll-margin. */
+[id^="sec-"] { scroll-margin-top: calc(66px + env(safe-area-inset-top)); }
 
 /* ---------- checklist ---------- */
 
