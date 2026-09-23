@@ -609,18 +609,21 @@
        bare "#steps" hash would look like an unknown route and yank the page
        back to the top before the jump could land. */
     var tocSections = [
-      { key: "task", label: t("task") },
-      { key: "before", label: t("beforeYouStart") },
-      { key: "steps", label: t("stepByStep") },
-      { key: "cards", label: t("showThisScreen") }
+      { key: "task", label: t("tocTask") },
+      { key: "before", label: t("tocBefore") },
+      { key: "steps", label: t("tocSteps") },
+      { key: "cards", label: t("tocCards") }
     ];
-    if (mistakes) tocSections.push({ key: "mistakes", label: t("commonMistakes") });
-    if (planB) tocSections.push({ key: "planB", label: t("planB") });
-    if (trouble) tocSections.push({ key: "trouble", label: t("trouble") });
-    if (note) tocSections.push({ key: "note", label: t("pleaseNote") });
+    if (mistakes) tocSections.push({ key: "mistakes", label: t("tocMistakes") });
+    if (planB) tocSections.push({ key: "planB", label: t("tocPlanB") });
+    if (trouble) tocSections.push({ key: "trouble", label: t("tocTrouble") });
+    if (note) tocSections.push({ key: "note", label: t("tocNote") });
 
+    /* A single scrollable row, not a wrapping block. Counted up, an eight-item
+       strip of chips ran to four rows on a phone. The visible "On this page"
+       label is gone for the same reason — it ate the width the chips needed —
+       and lives on as the nav's aria-label. */
     var toc = '<nav class="toc" aria-label="' + esc(t("onThisPage")) + '">' +
-      '<span class="toc__label">' + esc(t("onThisPage")) + "</span>" +
       tocSections.map(function (s) {
         return '<button class="toc__item" data-toc="' + s.key + '">' + esc(s.label) + "</button>";
       }).join("") +
