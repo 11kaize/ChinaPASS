@@ -4,6 +4,7 @@
   "private": true,
   "description": "ChinaPASS offline travel companion for desktop",
   "productName": "ChinaPASS",
+  "desktopName": "chinapass",
   "main": "electron/main.cjs",
   "author": "ChinaPASS contributors",
   "license": "UNLICENSED",
