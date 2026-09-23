@@ -11,9 +11,11 @@
 <body>
   <main id="app" class="app"></main>
 
-  <!-- 全屏卡片层：一键把中文放大给对方看 -->
+  <!-- 全屏卡片层：一键把中文放大给对方看。
+       这一屏是递给陌生人看的，任何「待翻译」标记都不允许出现在这里。 -->
   <div id="cardscreen" class="cardscreen" hidden aria-hidden="true" role="dialog" aria-modal="true">
     <div class="cardscreen__body">
+      <p class="cardscreen__icon" id="cs-icon" aria-hidden="true"></p>
       <p class="cardscreen__label" id="cs-label"></p>
       <p class="cardscreen__zh" id="cs-zh"></p>
       <p class="cardscreen__en" id="cs-en"></p>
@@ -25,6 +27,21 @@
       <button class="cbtn" id="cs-next" aria-label="Next card">›</button>
       <button class="cbtn" id="cs-toggle">Hide English</button>
       <button class="cbtn cbtn--copy" id="cs-copy">Copy 中文</button>
+    </div>
+  </div>
+
+  <!-- 首次引导遮罩。静态骨架 + 由 ONBOARDING 驱动的内容，
+       和 #cardscreen 同一套做法：监听器只绑一次，render() 冲不掉它。 -->
+  <div id="onboarding" class="onboard" hidden aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="onboard__card">
+      <p class="onboard__icon" id="ob-icon" aria-hidden="true"></p>
+      <h2 class="onboard__title" id="ob-title"></h2>
+      <p class="onboard__body" id="ob-body"></p>
+      <div class="onboard__dots" id="ob-dots"></div>
+      <div class="onboard__bar">
+        <button class="btn btn--sm" id="ob-skip"></button>
+        <button class="btn btn--primary" id="ob-next"></button>
+      </div>
     </div>
   </div>
 
