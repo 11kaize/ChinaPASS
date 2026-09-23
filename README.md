@@ -15,6 +15,18 @@
 
 ---
 
+## 可交互 Demo
+
+[`demo/`](demo/) 是一个可以直接打开的移动端原型：纯静态、无依赖、双击 `index.html` 即可运行。
+
+- 首页「任务入口」+ 8 个场景的分步 SOP（Pay / Taxi / Train / Metro / Hotel / Food / SIM / Emergency）
+- 82 张双语急救卡片，支持全屏大字展示、中英对照、一键复制
+- 每页含 Plan B、常见错误、故障排查、更新时间与官方来源
+
+实现细节与待办见 [demo/README.md](demo/README.md)。
+
+---
+
 ## 文档索引
 
 | 编号 | 文档 | 内容 |

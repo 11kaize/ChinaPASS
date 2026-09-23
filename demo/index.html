@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="China Cheat Sheet — your 3-minute guide to surviving daily life in China. Pay, taxi, train, metro, hotel and food, step by step.">
+<title>China Cheat Sheet · Your 3-minute guide to China</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app" class="app"></main>
+
+  <!-- 全屏卡片层：一键把中文放大给对方看 -->
+  <div id="cardscreen" class="cardscreen" hidden aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="cardscreen__body">
+      <p class="cardscreen__label" id="cs-label"></p>
+      <p class="cardscreen__zh" id="cs-zh"></p>
+      <p class="cardscreen__en" id="cs-en"></p>
+    </div>
+    <div class="cardscreen__bar">
+      <button class="cbtn" id="cs-close" aria-label="Close">✕</button>
+      <button class="cbtn" id="cs-prev" aria-label="Previous card">‹</button>
+      <span class="cbtn cbtn--count" id="cs-count"></span>
+      <button class="cbtn" id="cs-next" aria-label="Next card">›</button>
+      <button class="cbtn" id="cs-toggle">Hide English</button>
+      <button class="cbtn cbtn--copy" id="cs-copy">Copy 中文</button>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
