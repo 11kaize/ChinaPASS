@@ -17,7 +17,9 @@
 
 ## 可交互 Demo
 
-[`demo/`](demo/) 是一个可以直接打开的移动端原型：纯静态、无依赖、双击 `index.html` 即可运行。
+**在线访问：<https://11kaize.github.io/ChinaPASS/>** —— 手机浏览器可直接打开，扫码分享均可。
+
+也可以下载后本地查看：[`demo/`](demo/) 是纯静态、无依赖的原型，双击 `demo/index.html` 即可运行。
 
 - 首页「任务入口」+ 8 个场景的分步 SOP（Pay / Taxi / Train / Metro / Hotel / Food / SIM / Emergency）
 - 82 张双语急救卡片，支持全屏大字展示、中英对照、一键复制
