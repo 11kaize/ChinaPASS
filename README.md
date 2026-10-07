@@ -1,6 +1,6 @@
 # China Hand
 
-China Hand helps visitors handle practical moments in China with eleven travel guides, 96 Chinese phrase cards, a pre-flight checklist, FAQs, a personal address card, and cards you write yourself. It runs as a static website, an offline-capable installable web app, or a desktop app packaged with Electron.
+China Hand helps visitors handle practical moments in China with eleven travel guides, 96 Chinese phrase cards, an offline English-to-Chinese phrase lookup, a pre-flight checklist, FAQs, a personal address card, and cards you write yourself. It runs as a static website, an offline-capable installable web app, or a desktop app packaged with Electron.
 
 ## Run the web demo
 
@@ -21,6 +21,7 @@ Then open `http://localhost:4173`. The service worker and installable PWA featur
 - Browse two additional short guides on entry documents and offline preparation.
 - Save a Chinese destination name, address, and optional phone number for a full-screen help card; clear these details on a shared device.
 - Show any of 96 Chinese cards full screen, with the Chinese line large enough to hand to someone nearby. The interface runs in English, 中文, 日本語 and 한국어.
+- Type what you want to say in English and get Chinese back. 480 sentences across 13 situations — allergy and dietary warnings, ordering, taxis, hotels, asking directions, medical, payment, documents — all written and checked by hand, with fill-in slots so "I am allergic to ___" alone covers 15 allergens. It searches offline, ranks the closest matches first, and opens any result as the same full-screen card. Nothing is machine-translated: if your sentence is not in the bank it says so, and offers to turn what you typed into a card of your own rather than inventing Chinese.
 - Star any card — built in or your own — with ☆ while it is open, then reorder the ones you starred from the top of your list.
 - Write your own card when none of the 96 is the sentence you need: paste the Chinese from an order, a chat or a translation app, add an English note for yourself, and hand it over full screen. You supply the Chinese; there is no machine translation.
 - Detect your city offline, or pick it manually, to produce a "please take me here" card.
@@ -44,4 +45,4 @@ The optional Electron shell loads the local static demo and can create Windows, 
 - [Technical plan](docs/06-技术方案.md)
 - [PWA files](demo/manifest.webmanifest)
 
-The content is static and contains no backend or analytics. Help-card details, cards you write, favourites and their order, checklist state, and display preferences remain on the current device. City and new short-guide details are currently in English; the homepage, address card, and original task interface retain four-language support. Emergency numbers are provided as dial links, and whether a call can be placed depends on the device and network.
+The content is static and contains no backend or analytics. Help-card details, cards you write, favourites and their order, checklist state, and display preferences remain on the current device. The phrase lookup sends nothing anywhere and does not even record what you searched for — the query lives in memory only, and disappears when you leave the page. City and new short-guide details are currently in English; the homepage, address card, and original task interface retain four-language support. Emergency numbers are provided as dial links, and whether a call can be placed depends on the device and network.

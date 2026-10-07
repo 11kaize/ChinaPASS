@@ -997,12 +997,18 @@ table.mistakes td:last-child { color: var(--ok); padding-right: 0; }
 .cardscreen__bar {
   flex: none;
   display: flex;
+  /* Wrap rather than scroll. With the star, the position counter and the
+     English toggle all in one row, the bar no longer fits a 390px screen
+     (441px of content) and `overflow-x: auto` pushed the primary Copy action
+     off the right edge. Japanese and Korean labels are longer still, so the
+     fix has to be a bar that grows a second line instead of one that hides
+     buttons. */
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   padding: 12px 14px calc(14px + env(safe-area-inset-bottom));
   border-top: 1px solid #EAECF0;
   background: #FAFBFC;
-  overflow-x: auto;
 }
 
 .cbtn {
@@ -1153,7 +1159,7 @@ table.mistakes td:last-child { color: var(--ok); padding-right: 0; }
 
 /* ---------- chips that are buttons ---------- */
 
-.chip--city, .chip--how, .chip--help, .chip--mine {
+.chip--city, .chip--how, .chip--help, .chip--say {
   font: inherit;
   font-size: 11.5px;
   font-weight: 600;
@@ -1179,7 +1185,7 @@ table.mistakes td:last-child { color: var(--ok); padding-right: 0; }
 }
 
 .topbar__lang:hover { border-color: var(--brand); color: var(--brand); }
-.chip--how:hover, .chip--city:hover, .chip--help:hover, .chip--mine:hover { filter: brightness(.97); }
+.chip--how:hover, .chip--city:hover, .chip--help:hover, .chip--say:hover { filter: brightness(.97); }
 
 /* ---------- top bar install button ----------
    The button exists in the DOM on every page but stays hidden until the
@@ -1607,3 +1613,83 @@ table.mistakes td:last-child { color: var(--ok); padding-right: 0; }
   font-size: 13.5px;
   line-height: 1.6;
 }
+
+/* ---------- say it: the English → Chinese lookup ----------
+   Lives at the top of #/mine. Its results container is rewritten in place on
+   every keystroke, so nothing here may rely on a page-level class being
+   re-applied after a render. */
+
+.say-input {
+  width: 100%;
+  font: inherit;
+  /* 16px is the threshold below which iOS Safari zooms the whole page on focus */
+  font-size: 16px;
+  padding: 12px 14px;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.say-input::placeholder { color: var(--faint); }
+
+.say-input:focus {
+  outline: none;
+  border-color: var(--brand);
+  background: var(--surface);
+}
+
+.say-hint {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.say-try {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.say-try > span { color: var(--faint); font-size: 12.5px; }
+
+.sayrow {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 11px 13px;
+  font: inherit;
+  text-align: left;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.sayrow:hover { border-color: var(--brand); }
+
+/* The Chinese is the whole point of the row — it is what gets handed across
+   the counter, so it is set larger than anything else on the page. */
+.sayrow__zh {
+  display: block;
+  font-size: 19px;
+  font-weight: 640;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.sayrow__en {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+/* the way out, sitting under every non-empty result list */
+#say-results .btn { margin-top: 10px; }

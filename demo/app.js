@@ -500,7 +500,7 @@
         '<div class="meta">' +
           cityChip +
           '<button class="chip chip--help" data-go="/help">🪪 ' + esc(t("helpCardChip")) + "</button>" +
-          '<button class="chip chip--mine" data-go="/mine">✏️ ' + esc(t("chipMine")) + "</button>" +
+          '<button class="chip chip--say" data-go="/mine">💬 ' + esc(t("sayTitle")) + "</button>" +
           '<button class="chip chip--how" data-go="/how">❓ ' + esc(t("howToUse")) + "</button>" +
         "</div>" +
       "</section>" +
@@ -764,9 +764,197 @@
   }
   function setFavKeys(list) { store.set("ccs.cards.favs", list); }
 
+  /* ---------------- offline phrase bank ----------------
+     PHRASE_BANK (demo/phrases.js) is a curated English → Chinese list. It is a
+     lookup, not a translator: it never produces Chinese that a person did not
+     write and check first. That is the whole point — the reader is standing in
+     China, often with no usable network, and a static site has nowhere to hide
+     an API key. A curated bank is the only honest way to get Chinese on screen
+     in that moment.
+
+     Templates carry a %s slot plus a list of fills. Expanding them here means
+     the matcher, the favourites resolver and the card screen all work on one
+     flat list of ordinary {zh, en} cards and none of them has to know that
+     templates exist. Built once and cached: the bank is static data. */
+  var _bankAll = null;
+  function bankAllCards() {
+    if (_bankAll) return _bankAll;
+    /* Bare identifier, not window.PHRASE_BANK: phrases.js declares it with
+       `const` at top level, which a classic script puts in the global lexical
+       scope but *not* on window — so window.PHRASE_BANK is undefined and the
+       whole bank would silently come back empty. typeof-guarded so that a
+       missing or failed phrases.js degrades to "no matches" instead of a
+       ReferenceError that would take the page down. */
+    var list = (typeof PHRASE_BANK !== "undefined" && PHRASE_BANK) ? PHRASE_BANK : [];
+    var out = [];
+    for (var i = 0; i < list.length; i++) {
+      var e = list[i];
+      if (!e || !e.zh || !e.en) continue;
+      var base = e.keys || "";
+      if (e.fill && e.fill.length) {
+        for (var j = 0; j < e.fill.length; j++) {
+          var f = e.fill[j];
+          if (!f || !f.zh) continue;
+          out.push({
+            zh: e.zh.replace("%s", f.zh),
+            en: e.en.replace("%s", f.en),
+            /* the fill's own synonyms join the template's, so "shellfish"
+               reaches "我对海鲜过敏。" as readily as "seafood" does */
+            keys: base + " " + (f.keys || ""),
+            icon: e.icon, cat: e.cat
+          });
+        }
+      } else {
+        out.push({ zh: e.zh, en: e.en, keys: base, icon: e.icon, cat: e.cat });
+      }
+    }
+    _bankAll = out;
+    return out;
+  }
+
+  /* Lowercase, drop punctuation, collapse runs of whitespace. Chinese
+     characters survive — a user who types 洗手间 should find the card too. */
+  function normQ(s) {
+    return String(s == null ? "" : s).toLowerCase()
+      .replace(/[^a-z0-9一-鿿]+/g, " ")
+      .replace(/^\s+|\s+$/g, "")
+      .replace(/\s+/g, " ");
+  }
+  function qTokens(q) { return q ? q.split(" ").filter(Boolean) : []; }
+
+  /* Words that carry no meaning on their own. Without this list a query scores
+     against dozens of cards on "is"/"to"/"my"/"do" alone, the tie breaks on
+     bank order, and the top row is effectively arbitrary — "please take a photo
+     of me" used to return 请带我去这个地址。 because please/take/me outscored the
+     one word that mattered. Negations are deliberately NOT in here: "no sugar"
+     and "not spicy" turn on them. */
+  var SAY_STOP = {
+    a: 1, an: 1, the: 1, is: 1, are: 1, am: 1, was: 1, were: 1, be: 1, been: 1,
+    to: 1, of: 1, in: 1, on: 1, at: 1, for: 1, from: 1, with: 1, and: 1, or: 1,
+    i: 1, me: 1, my: 1, mine: 1, we: 1, us: 1, our: 1, you: 1, your: 1,
+    he: 1, she: 1, they: 1, it: 1, its: 1, this: 1, that: 1, these: 1, those: 1,
+    do: 1, does: 1, did: 1, can: 1, could: 1, would: 1, will: 1, shall: 1,
+    have: 1, has: 1, had: 1, there: 1, here: 1, please: 1, want: 1, like: 1,
+    some: 1, any: 1, get: 1, go: 1, give: 1, make: 1, know: 1, would_like: 1
+  };
+
+  /* How many cards each word appears in. A word that shows up everywhere ("pay",
+     "hotel") tells us almost nothing about which card is meant; a word that
+     shows up once ("alipay", "vegetarian", "stomach") is nearly the whole
+     answer. Weighting by rarity is what stops a pile of generic words from
+     drowning out the one word the traveller actually cares about. Built once
+     over the flat bank and cached. */
+  var _bankIndex = null;
+  function bankIndex() {
+    if (_bankIndex) return _bankIndex;
+    var all = bankAllCards(), df = {};
+    for (var i = 0; i < all.length; i++) {
+      var toks = (normQ(all[i].en) + " " + normQ(all[i].keys)).split(" ");
+      var seen = {};
+      for (var j = 0; j < toks.length; j++) {
+        var t = toks[j];
+        if (!t || t.length < 2 || SAY_STOP[t] || seen[t]) continue;
+        seen[t] = 1;
+        df[t] = (df[t] || 0) + 1;
+      }
+    }
+    _bankIndex = { df: df, n: all.length };
+    return _bankIndex;
+  }
+
+  /* Weight of one matched word: rare is worth a lot, ubiquitous is worth almost
+     nothing. df === n gives zero on purpose — a word on every card cannot help
+     choose between them. */
+  function sayWeight(tok) {
+    var idx = bankIndex();
+    var df = idx.df[tok] || 1;
+    return Math.round(30 * Math.log(idx.n / df));
+  }
+
+  /* A query word counts as found if it is the stored word, or if one is a stem
+     of the other — "allergic"/"allergy", "reserve"/"reservation" are the same
+     intent and a traveller will type either. The length guard keeps that from
+     turning into substring soup. Returns the matched word so the caller can
+     weight by that word's rarity rather than the query's. */
+  function matchWord(list, t) {
+    var stem = null;
+    for (var i = 0; i < list.length; i++) {
+      var w = list[i];
+      if (!w) continue;
+      if (w === t) return w;
+      if (!stem && t.length >= 4 && w.length >= 4 && (w.indexOf(t) === 0 || t.indexOf(w) === 0)) stem = w;
+    }
+    return stem;
+  }
+
+  /* Zero means "no signal at all". The four fixed bonuses keep the ordering
+     predictable and diagnosable by eye — an exact sentence always beats a
+     phrase, which always beats loose word overlap. Below those, the score is
+     the sum of its matched words' rarity weights, so the ranking is driven by
+     whichever word in the query is most distinctive. */
+  function sayScore(c, q, qRaw) {
+    if (!q) return 0;
+    var zh = String(c.zh || "");
+    if (qRaw && zh.indexOf(qRaw) > -1) return 9000;
+    var en = normQ(c.en), keys = normQ(c.keys);
+    if (en === q) return 8000;
+    if (en.indexOf(q) > -1) return 4000;
+    if (keys && keys.indexOf(q) > -1) return 3000;
+
+    var qt = qTokens(q), wEn = en.split(" "), wKeys = keys.split(" ");
+    var s = 0;
+    for (var i = 0; i < qt.length; i++) {
+      var t = qt[i];
+      if (t.length < 2 || SAY_STOP[t]) continue;
+      var m = matchWord(wEn, t);
+      if (m) { s += sayWeight(m); continue; }
+      /* a hit on a curated synonym counts for a bit less than a hit on the
+         sentence itself, so two otherwise equal cards are separated by which
+         one says the thing outright */
+      m = matchWord(wKeys, t);
+      if (m) s += sayWeight(m) * 0.85;
+    }
+    return s;
+  }
+
+  /* Below this the only matched words were generic, and the top row would be a
+     coin flip among near-identical scores. Better to say "nothing matches" and
+     offer the blank card than to hand someone a sentence that means something
+     else. */
+  var SAY_MIN = 60;
+
+  /* Ranked, de-duplicated by the Chinese sentence, capped. The cap is what
+     keeps a one-word query like "hotel" from returning forty rows. */
+  var SAY_MAX = 8;
+  function saySearch(raw) {
+    var q = normQ(raw);
+    var qRaw = String(raw == null ? "" : raw).trim();
+    if (!q) return [];
+    var all = bankAllCards(), scored = [];
+    for (var i = 0; i < all.length; i++) {
+      var s = sayScore(all[i], q, qRaw);
+      if (s >= SAY_MIN) scored.push({ c: all[i], s: s });
+    }
+    /* ties keep bank order, which is authored roughly by how often a first-week
+       visitor needs the sentence */
+    scored.sort(function (a, b) { return b.s - a.s; });
+    var out = [], seen = {};
+    for (var j = 0; j < scored.length && out.length < SAY_MAX; j++) {
+      var zh = scored[j].c.zh;
+      if (seen[zh]) continue;
+      seen[zh] = 1;
+      out.push(scored[j].c);
+    }
+    return out;
+  }
+
   /* Resolve a favourite key to the card it names. Built-ins win over my own,
      so a sentence that was written by hand before it shipped as a built-in
-     keeps pointing at one card instead of two. */
+     keeps pointing at one card instead of two; the bank comes last, so a card
+     the user wrote themselves always wins over the generic one. Searching the
+     bank here is what lets a favourited bank sentence survive a reload — the
+     stored key is the finished Chinese, and the bank on disk only holds the
+     template it was expanded from. */
   function cardByZh(zh) {
     for (var i = 0; i < CARD_ORDER.length; i++) {
       var g = CARD_GROUPS[CARD_ORDER[i]];
@@ -775,6 +963,8 @@
     }
     var mine = myCards();
     for (var m = 0; m < mine.length; m++) if (mine[m].zh === zh) return mine[m];
+    var bank = bankAllCards();
+    for (var b = 0; b < bank.length; b++) if (bank[b].zh === zh) return bank[b];
     return null;
   }
 
@@ -864,14 +1054,15 @@
           '<p style="margin:10px 0 0;font-size:13.5px;color:var(--muted);line-height:1.6">' + md(t("howToUseCardC")) + "</p>" +
         "</div>" +
       "</section>" +
-      /* The way in to writing your own card sits above the built-in sets. It is
-         the answer when none of the 96 sentences is the sentence you need, and
+      /* The way in to saying something of your own sits above the built-in
+         sets. It is the answer when none of the 96 sentences is the sentence
+         you need — both the lookup box and the blank card live behind it — and
          burying the escape hatch under fourteen tiles would hide it exactly
          when it matters. */
       '<section class="section"><div class="panel">' +
         '<button class="search__hit" data-go="/mine">' +
-          '<span class="emoji">✏️</span>' +
-          "<span><b>" + esc(t("chipMine")) + "</b>" +
+          '<span class="emoji">💬</span>' +
+          "<span><b>" + esc(t("sayTitle")) + "</b>" +
           "<small>" + esc(t("myStuffHint")) + "</small>" +
           (ownCount ? "<small>" + ownCount + " " + esc(t("cards")) + "</small>" : "") +
           "</span>" +
@@ -908,6 +1099,67 @@
     "</div>";
   }
 
+  /* ---------------- say it: English in, Chinese out ----------------
+     The results live in a container that is rewritten in place on every
+     keystroke. A full render() here would destroy the input and the caret
+     mid-word, so this is the one place in the app that updates a subtree
+     directly instead of redrawing the page. `sayHits` is the bridge between
+     the two: a row carries an index into that array, not the card itself, so
+     tapping a result opens the ordinary full-screen card with no special case
+     in the card screen. */
+  var sayQuery = "";
+  var sayHits = [];
+
+  /* Shown when the box is empty. Phrased the way someone would actually type
+     the idea, not the way the bank stores it — typing "I am allergic to
+     peanuts" and watching 我对花生过敏。 come back is what teaches the search. */
+  var SAY_EXAMPLES = [
+    "Where is the toilet?",
+    "How much is this?",
+    "I am allergic to peanuts",
+    "Please take me to this address",
+    "I don't eat pork",
+    "Please call the police"
+  ];
+
+  function sayRow(c, i) {
+    return '<button class="sayrow" data-say="' + i + '">' +
+      '<span class="sayrow__zh">' + esc(c.zh) + "</span>" +
+      '<span class="sayrow__en">' + esc(c.en) + "</span>" +
+    "</button>";
+  }
+
+  /* Always present under the results: when eight rows are all close-but-wrong,
+     the way out has to be visible without scrolling or clearing the box. */
+  function sayOwnHtml() {
+    return '<button class="btn btn--block" data-say-own="1">' + esc(t("sayWriteOwn")) + "</button>";
+  }
+
+  function sayExamplesHtml() {
+    return '<p class="say-hint">' + esc(t("sayHint")) + "</p>" +
+      '<div class="say-try"><span>' + esc(t("sayTry")) + "</span>" +
+        SAY_EXAMPLES.map(function (e) {
+          return '<button class="chip" data-say-eg="' + e + '">' + esc(e) + "</button>";
+        }).join("") +
+      "</div>";
+  }
+
+  /* Recomputes the hits every time it runs, so the row indices and the array
+     can never drift apart. Everything that shows the box calls this. */
+  function sayBoxHtml() {
+    if (!sayQuery) { sayHits = []; return sayExamplesHtml(); }
+    sayHits = saySearch(sayQuery);
+    if (!sayHits.length) {
+      return '<p class="say-hint">' + esc(t("sayNoMatch")) + "</p>" + sayOwnHtml();
+    }
+    return sayHits.map(sayRow).join("") + sayOwnHtml();
+  }
+
+  function paintSay() {
+    var box = $("#say-results");
+    if (box) box.innerHTML = sayBoxHtml();
+  }
+
   function pageMine() {
     var favs = favCards();
     var mine = myCards();
@@ -932,11 +1184,16 @@
     var editing = mineEdit > -1 && mine[mineEdit];
 
     return '' +
-      topbar(t("myStuff"), { back: "/", badge: (favs.length + mine.length) + " " + t("cards") }) +
+      topbar(t("sayTitle"), { back: "/", badge: (favs.length + mine.length) + " " + t("cards") }) +
 
-      '<section class="section"><div class="panel panel--tip">' +
-        '<div class="panel__h">' + esc(t("myStuff")) + "</div>" +
-        '<p style="margin:0;font-size:14.5px;line-height:1.6">' + md(t("mineIntro")) + "</p>" +
+      /* The box comes first, above anything the user has saved. Someone who
+         opened this page because they need to say something right now should
+         not have to scroll past their own archive to reach it. */
+      '<section class="section"><div class="panel">' +
+        '<input id="say-q" class="say-input" type="search" autocomplete="off" ' +
+          'aria-label="' + esc(t("sayPlaceholder")) + '" ' +
+          'placeholder="' + esc(t("sayPlaceholder")) + '" value="' + esc(sayQuery) + '">' +
+        '<div id="say-results">' + sayBoxHtml() + "</div>" +
       "</div></section>" +
 
       '<section class="section">' +
@@ -946,6 +1203,9 @@
 
       '<section class="section" id="sec-mine">' +
         '<div class="section__h"><h2>' + esc(t("myCards")) + "</h2></div>" +
+        '<div class="panel panel--tip">' +
+          '<p style="margin:0;font-size:14.5px;line-height:1.6">' + md(t("mineIntro")) + "</p>" +
+        "</div>" +
         '<div class="panel">' +
           '<div class="help-form">' +
             '<label><span>' + esc(t("cardZhField")) + "</span>" +
@@ -1185,6 +1445,13 @@
     var parts = hash.split("/").filter(Boolean);
     var page = parts[0] || "";
 
+    /* Drop the lookup the moment the user leaves the page. It survives
+       re-renders within #/mine on purpose — saving a card or starring a result
+       must not wipe a half-typed question — but once they have gone elsewhere
+       there is no reason to keep it, and nothing about what they searched for
+       should outlive the visit. */
+    if (page !== "mine") { sayQuery = ""; sayHits = []; }
+
     var exploreView = CPExplore.render(hash.replace(/^\//, ""), lang);
     if (exploreView && !(page === "city" && !parts[1])) {
       var sectionTitle = L({
@@ -1254,7 +1521,7 @@
   }
 
   document.addEventListener("click", function (e) {
-    var t2 = e.target.closest("[data-go], [data-step], [data-card], [data-show], [data-stale], [data-loc], [data-pick-lang], [data-pick-city], [data-detect], [data-install], [data-toc], [data-open], [data-fav-up], [data-fav-down], [data-fav-off], [data-mine-save], [data-mine-edit], [data-mine-del], [data-mine-cancel]");
+    var t2 = e.target.closest("[data-go], [data-step], [data-card], [data-show], [data-stale], [data-loc], [data-pick-lang], [data-pick-city], [data-detect], [data-install], [data-toc], [data-open], [data-fav-up], [data-fav-down], [data-fav-off], [data-say], [data-say-eg], [data-say-own], [data-mine-save], [data-mine-edit], [data-mine-del], [data-mine-cancel]");
     if (!t2) return;
 
     if (t2.hasAttribute("data-toc")) { jumpTo(t2.getAttribute("data-toc")); return; }
@@ -1357,6 +1624,39 @@
 
     if (t2.hasAttribute("data-fav-up")) { moveFav(+t2.dataset.favUp, -1); render(); return; }
     if (t2.hasAttribute("data-fav-down")) { moveFav(+t2.dataset.favDown, 1); render(); return; }
+
+    /* A lookup result is an ordinary card: the whole point is that it opens the
+       same full-screen Chinese, with the same star, as a built-in one. */
+    if (t2.hasAttribute("data-say")) {
+      var sayI = +t2.dataset.say;
+      if (sayHits[sayI]) openCardScreen(sayHits, sayI, "💬 " + t("sayTitle"), "💬");
+      return;
+    }
+
+    /* An example chip fills the box rather than opening a card — the user is
+       learning what to type, not committing to a sentence. */
+    if (t2.hasAttribute("data-say-eg")) {
+      sayQuery = t2.dataset.sayEg;
+      var egBox = $("#say-q");
+      if (egBox) egBox.value = sayQuery;
+      paintSay();
+      return;
+    }
+
+    /* Nothing came back, or nothing came back close enough. Carry what they
+       typed into the new card's English field — so the card they are about to
+       write already has their own sentence on it — and put the caret in the
+       Chinese box, which is the only thing still missing. */
+    if (t2.hasAttribute("data-say-own")) {
+      mineEdit = -1;
+      mineDraft = { zh: "", en: sayQuery.replace(/^\s+|\s+$/g, ""), note: "" };
+      render();
+      var ownSec = document.getElementById("sec-mine");
+      if (ownSec) window.scrollTo(0, Math.max(0, ownSec.getBoundingClientRect().top + window.scrollY - 12));
+      var ownZh = $("#mine-zh");
+      if (ownZh) ownZh.focus();
+      return;
+    }
 
     if (t2.hasAttribute("data-mine-edit")) {
       var editCard = myCards()[+t2.dataset.mineEdit];
@@ -1520,6 +1820,14 @@
        discarding work that has not been saved yet. */
     if (q.id === "mine-zh" || q.id === "mine-en" || q.id === "mine-note") {
       mineDraft[q.id.slice(5)] = q.value;
+      return;
+    }
+
+    /* the lookup box. Only the results subtree is replaced — re-rendering the
+       page here would destroy this input and drop the caret mid-word. */
+    if (q.id === "say-q") {
+      sayQuery = q.value;
+      paintSay();
       return;
     }
 
