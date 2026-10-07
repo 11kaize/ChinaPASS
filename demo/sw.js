@@ -8,6 +8,7 @@ const SHELL_FILES = [
   "styles.css",
   "data.js",
   "phrases.js",
+  "scene-i18n.js",
   "explore.js",
   "explore-ui.js",
   "app.js",
