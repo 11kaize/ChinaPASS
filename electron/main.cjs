@@ -7,8 +7,8 @@ const { app, BrowserWindow, shell, session } = require('electron');
 const entryFile = path.resolve(__dirname, '..', 'demo', 'index.html');
 const iconFile = path.resolve(__dirname, '..', 'desktop', 'icon.png');
 
-app.setName('ChinaPASS');
-if (process.platform === 'win32') app.setAppUserModelId('org.chinapass.desktop');
+app.setName('China Hand');
+if (process.platform === 'win32') app.setAppUserModelId('org.chinahand.desktop');
 
 function isAppDocument(rawUrl) {
   try {
@@ -41,7 +41,7 @@ function openExternalLink(rawUrl) {
 
 function createWindow() {
   const window = new BrowserWindow({
-    title: 'ChinaPASS',
+    title: 'China Hand',
     width: 1240,
     height: 840,
     minWidth: 760,
@@ -74,7 +74,7 @@ function createWindow() {
   });
 
   window.loadFile(entryFile).catch((error) => {
-    console.error('Could not load ChinaPASS:', error);
+    console.error('Could not load China Hand:', error);
   });
 }
 

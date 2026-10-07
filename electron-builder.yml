@@ -1,5 +1,5 @@
-appId: org.chinapass.desktop
-productName: ChinaPASS
+appId: org.chinahand.desktop
+productName: China Hand
 asar: true
 directories:
   output: release
@@ -25,7 +25,7 @@ nsis:
 linux:
   icon: desktop/icon.png
   category: Utility
-  maintainer: ChinaPASS contributors
+  maintainer: China Hand contributors
   syncDesktopName: true
   target:
     - AppImage

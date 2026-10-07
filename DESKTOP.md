@@ -1,4 +1,4 @@
-# ChinaPASS 桌面版
+# China Hand 桌面版
 
 桌面版使用 Electron 加载仓库内的 `demo/index.html`。页面和卡片内容仍是本地静态文件，收藏、清单及外观设置保存在本机。首次启动和日常使用均不需要本地服务器。
 

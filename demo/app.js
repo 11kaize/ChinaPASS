@@ -467,14 +467,14 @@
       : '<button class="chip chip--city" data-go="/city">📍 ' + esc(t("cityTitle")) + "</button>";
 
     return '' +
-      topbar("ChinaPASS", { badge: "DEMO" }) +
+      topbar("China Hand", { badge: "DEMO" }) +
 
       /* The lead block is the value proposition, not a destination. A travel
          hero ("your China travel companion / explore cities / plan my trip")
          briefly sat here and pushed every arrival task below the fold; the
          hero states what the tool is for instead. */
       '<section class="hero">' +
-        '<div class="hero__brand"><span>🇨🇳</span> ChinaPASS</div>' +
+        '<div class="hero__brand"><span>🇨🇳</span> China Hand</div>' +
         "<h1>" + esc(t("heroH1")) + "</h1>" +
         "<p>" + md(t("heroP")) + "</p>" +
         '<div class="meta">' +
@@ -485,6 +485,7 @@
         "</div>" +
         '<div class="meta">' +
           cityChip +
+          '<button class="chip chip--help" data-go="/help">🪪 ' + esc(t("helpCardChip")) + "</button>" +
           '<button class="chip chip--how" data-go="/how">❓ ' + esc(t("howToUse")) + "</button>" +
         "</div>" +
       "</section>" +
@@ -813,6 +814,10 @@
            this page is their entry point. Without it the guide library is only
            reachable by typing the hash. */
         '<a class="prep__link" href="#/guides">' + esc(t("prepGuides")) + "</a>" +
+        /* Same problem, same fix. The address help card is where the "save your
+           hotel address in Chinese" item above actually gets done, and it had
+           no inbound link from anywhere after the travel hero was removed. */
+        '<a class="prep__link" href="#/help">' + esc(t("prepHelpCard")) + "</a>" +
       "</div></section>";
   }
 
