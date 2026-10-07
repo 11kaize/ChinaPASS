@@ -1032,6 +1032,12 @@ table.mistakes td:last-child { color: var(--ok); padding-right: 0; }
 .cbtn--copy { margin-left: auto; color: #1570EF; border-color: #B2D0FF; background: #EFF6FF; }
 .cbtn--copy.done { color: #067647; border-color: #A6F4C5; background: #ECFDF3; }
 
+/* The star is the only way to favourite a card, and it sits one tap from ✕, so
+   the filled state has to read at a glance. Amber on white rather than brand
+   green: a star is the one place the convention is worth following. */
+.cbtn--star { font-size: 16px; line-height: 1; padding: 6px 11px; }
+.cbtn--star.is-on { color: #B54708; border-color: #FEDF89; background: #FFFAEB; }
+
 /* ---------- toast ---------- */
 
 .toast {
@@ -1147,7 +1153,7 @@ table.mistakes td:last-child { color: var(--ok); padding-right: 0; }
 
 /* ---------- chips that are buttons ---------- */
 
-.chip--city, .chip--how, .chip--help {
+.chip--city, .chip--how, .chip--help, .chip--mine {
   font: inherit;
   font-size: 11.5px;
   font-weight: 600;
@@ -1173,7 +1179,7 @@ table.mistakes td:last-child { color: var(--ok); padding-right: 0; }
 }
 
 .topbar__lang:hover { border-color: var(--brand); color: var(--brand); }
-.chip--how:hover, .chip--city:hover, .chip--help:hover { filter: brightness(.97); }
+.chip--how:hover, .chip--city:hover, .chip--help:hover, .chip--mine:hover { filter: brightness(.97); }
 
 /* ---------- top bar install button ----------
    The button exists in the DOM on every page but stays hidden until the
@@ -1515,3 +1521,89 @@ table.mistakes td:last-child { color: var(--ok); padding-right: 0; }
 .name-row { display: flex; flex-wrap: wrap; gap: 6px; }
 .city-card-foot .city-names { display: flex; flex-wrap: wrap; gap: 5px; }
 .city-zh { margin: 4px 0 0; font-size: 19px; font-weight: 600; color: var(--ink-2); }
+
+/* ---------- my cards / favourites rows ----------
+
+   Not .cardrow: that one is a single <button> with a "show" chip, and these
+   rows carry three or four controls. Nesting buttons is invalid, so the row is
+   a plain flex container with the tappable text on the left and the actions on
+   the right. The Chinese line is the payload again, so it stays first and
+   heaviest. */
+
+.minerow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 2px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.minerow:last-child { border-bottom: 0; }
+
+.minerow__main {
+  flex: 1;
+  min-width: 0;
+  display: block;
+  text-align: left;
+  font: inherit;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.minerow__zh {
+  display: block;
+  font-size: 15px;
+  font-weight: 620;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+.minerow__en {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.minerow__note {
+  display: block;
+  margin-top: 2px;
+  color: var(--faint);
+  font-size: 12px;
+}
+
+.minerow__acts { flex: none; display: flex; gap: 6px; }
+
+.minerow__btn {
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 640;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 9px;
+  cursor: pointer;
+}
+
+.minerow__btn:hover { background: var(--surface-2); }
+
+.minerow__btn.is-on {
+  color: var(--brand-ink);
+  border-color: color-mix(in srgb, var(--brand) 30%, transparent);
+  background: var(--brand-soft);
+}
+
+.mine-empty {
+  margin: 0;
+  padding: 6px 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.6;
+}

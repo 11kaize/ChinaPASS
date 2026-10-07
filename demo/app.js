@@ -149,6 +149,20 @@
     return UI.en[key] != null ? UI.en[key] : key;
   }
 
+  /* Every language of an interface key, for content that has to behave like a
+     card group. `t()` returns only the current language, and the search index
+     matches a group on its title in all four — so a group built out of `t()`
+     would be the one group you cannot find by typing its name in another
+     language. Only the two synthesised groups need this. */
+  function tAll(key) {
+    var out = {};
+    for (var i = 0; i < LANGS.length; i++) {
+      var d = UI[LANGS[i].code] || {};
+      out[LANGS[i].code] = d[key] != null ? d[key] : UI.en[key];
+    }
+    return out;
+  }
+
   /* one content field in four languages. Missing translation falls back to
      English so a partly-translated scene still reads end to end. */
   function L(v) {
@@ -486,6 +500,7 @@
         '<div class="meta">' +
           cityChip +
           '<button class="chip chip--help" data-go="/help">🪪 ' + esc(t("helpCardChip")) + "</button>" +
+          '<button class="chip chip--mine" data-go="/mine">✏️ ' + esc(t("chipMine")) + "</button>" +
           '<button class="chip chip--how" data-go="/how">❓ ' + esc(t("howToUse")) + "</button>" +
         "</div>" +
       "</section>" +
@@ -714,10 +729,118 @@
     return null;
   }
 
+  /* ---------------- my cards ----------------
+     Two keys, both under the `ccs.` prefix that already holds progress, so the
+     two travel together. They go through `store` rather than a bare
+     localStorage call because these are sentences the user typed by hand — a
+     private-mode session must degrade to "lost on reload", never to an
+     exception that swallows the card they just wrote.
+
+     The Chinese sentence is the key. It is already a card's identity
+     everywhere else (sceneCards de-duplicates on it, groupIconFor matches on
+     it) and none of the 96 built-in cards carry an id — introducing one would
+     mean editing all of them. The cost: rewriting a built-in sentence later
+     orphans its favourite. That is why an unresolvable key is skipped on read
+     and never written back — one bad match must not empty someone's shelf.
+
+     `favs` is an ordered array. It is the favourite set AND the user's custom
+     order — one list, two features, no second field to keep in sync. */
+
+  function asArray(v) {
+    return Object.prototype.toString.call(v) === "[object Array]" ? v : [];
+  }
+
+  function myCards() {
+    return asArray(store.get("ccs.cards.mine", [])).filter(function (c) {
+      return c && typeof c.zh === "string" && c.zh.trim();
+    });
+  }
+  function setMyCards(list) { store.set("ccs.cards.mine", list); }
+
+  function favKeys() {
+    return asArray(store.get("ccs.cards.favs", [])).filter(function (k) {
+      return typeof k === "string";
+    });
+  }
+  function setFavKeys(list) { store.set("ccs.cards.favs", list); }
+
+  /* Resolve a favourite key to the card it names. Built-ins win over my own,
+     so a sentence that was written by hand before it shipped as a built-in
+     keeps pointing at one card instead of two. */
+  function cardByZh(zh) {
+    for (var i = 0; i < CARD_ORDER.length; i++) {
+      var g = CARD_GROUPS[CARD_ORDER[i]];
+      if (!g) continue;
+      for (var j = 0; j < g.cards.length; j++) if (g.cards[j].zh === zh) return g.cards[j];
+    }
+    var mine = myCards();
+    for (var m = 0; m < mine.length; m++) if (mine[m].zh === zh) return mine[m];
+    return null;
+  }
+
+  /* Keys that no longer resolve are dropped from the list, not from storage:
+     the stored array is left exactly as it was. */
+  function favCards() {
+    return favKeys().map(cardByZh).filter(Boolean);
+  }
+
+  function isFav(zh) { return favKeys().indexOf(zh) > -1; }
+
+  /* returns true when the card was just added, false when it was removed */
+  function toggleFav(zh) {
+    var keys = favKeys();
+    var at = keys.indexOf(zh);
+    if (at > -1) keys.splice(at, 1); else keys.push(zh);
+    setFavKeys(keys);
+    return at === -1;
+  }
+
+  /* Move a card one slot within the stored order. The index is the position in
+     the *resolved* list the page just drew; the key it maps to is looked up
+     again, so an unresolvable key earlier in the array cannot shift the wrong
+     card. A no-op when the swap would fall outside the list. */
+  function moveFav(i, dir) {
+    var c = favCards()[i];
+    if (!c) return;
+    var keys = favKeys();
+    var at = keys.indexOf(c.zh);
+    var to = at + dir;
+    if (at < 0 || to < 0 || to >= keys.length) return;
+    keys.splice(at, 1);
+    keys.splice(to, 0, c.zh);
+    setFavKeys(keys);
+  }
+
+  /* Synthetic groups are shaped exactly like the real ones — {icon, title,
+     hint, cards} — so the group tile, the /cards/<key> route and the search
+     index all treat them as ordinary sets and none of those need a special
+     case. The keys are kept out of CARD_ORDER so that a future group id can
+     only collide if someone deliberately adds one of these two. */
+  function allCardGroups() {
+    var out = [];
+    var favs = favCards();
+    if (favs.length) {
+      out.push(["favs", { icon: "⭐", title: tAll("myFavs"), hint: tAll("myFavsHint"), cards: favs }]);
+    }
+    var mine = myCards();
+    if (mine.length) {
+      out.push(["mine", { icon: "✏️", title: tAll("myCards"), hint: tAll("myCardsHint"), cards: mine }]);
+    }
+    CARD_ORDER.forEach(function (k) { if (CARD_GROUPS[k]) out.push([k, CARD_GROUPS[k]]); });
+    return out;
+  }
+
+  function groupByKey(key) {
+    var all = allCardGroups();
+    for (var i = 0; i < all.length; i++) if (all[i][0] === key) return all[i][1];
+    return null;
+  }
+
   function pageCards() {
-    var groups = CARD_ORDER.map(function (key) {
-      var g = CARD_GROUPS[key];
-      if (!g) return "";
+    var pairs = allCardGroups();
+
+    var groups = pairs.map(function (pair) {
+      var key = pair[0], g = pair[1];
       var preview = g.cards.slice(0, 2).map(function (c) { return esc(c.zh); }).join(" · ");
       return '<button class="search__hit" data-go="/cards/' + key + '">' +
         '<span class="emoji">' + g.icon + "</span>" +
@@ -731,15 +854,117 @@
       "</button>";
     }).join("");
 
+    var ownCount = favCards().length + myCards().length;
+
     return '' +
-      topbar(t("helpCards"), { back: "/", badge: CARD_ORDER.length + " " + t("sets") }) +
+      topbar(t("helpCards"), { back: "/", badge: pairs.length + " " + t("sets") }) +
       '<section class="section">' +
         '<div class="panel panel--tip"><div class="panel__h">' + esc(t("howToUseCard")) + "</div>" +
           '<p style="margin:0;font-size:14.5px;line-height:1.6">' + md(t("howToUseCardB")) + "</p>" +
           '<p style="margin:10px 0 0;font-size:13.5px;color:var(--muted);line-height:1.6">' + md(t("howToUseCardC")) + "</p>" +
         "</div>" +
       "</section>" +
+      /* The way in to writing your own card sits above the built-in sets. It is
+         the answer when none of the 96 sentences is the sentence you need, and
+         burying the escape hatch under fourteen tiles would hide it exactly
+         when it matters. */
+      '<section class="section"><div class="panel">' +
+        '<button class="search__hit" data-go="/mine">' +
+          '<span class="emoji">✏️</span>' +
+          "<span><b>" + esc(t("chipMine")) + "</b>" +
+          "<small>" + esc(t("myStuffHint")) + "</small>" +
+          (ownCount ? "<small>" + ownCount + " " + esc(t("cards")) + "</small>" : "") +
+          "</span>" +
+        "</button>" +
+      "</div></section>" +
       '<section class="section"><div class="panel">' + groups + "</div></section>";
+  }
+
+  /* ---------------- my cards page ----------------
+     Deliberately in app.js rather than explore-ui.js: that module's get/put
+     have no memory fallback and no `ccs.` prefix, so in private mode a
+     hand-typed card would go missing without an error. These have to stand on
+     the same footing as progress, and favourites have to be readable by
+     pageCards() above, which lives here. */
+
+  var mineDraft = { zh: "", en: "", note: "" };
+  var mineEdit = -1;                    /* index into myCards(); -1 = writing a new one */
+
+  function clearMineDraft() {
+    mineEdit = -1;
+    mineDraft = { zh: "", en: "", note: "" };
+  }
+
+  /* One row of either list. `kind` is what data-open carries back, so the row
+     does not need to know which list it is in. */
+  function mineRow(kind, i, c, acts) {
+    return '<div class="minerow">' +
+      '<button class="minerow__main" data-open="' + kind + ":" + i + '">' +
+        '<span class="minerow__zh">' + esc(c.zh) + "</span>" +
+        (c.en ? '<span class="minerow__en">' + esc(c.en) + "</span>" : "") +
+        (c.note ? '<span class="minerow__note">' + esc(c.note) + "</span>" : "") +
+      "</button>" +
+      '<span class="minerow__acts">' + acts + "</span>" +
+    "</div>";
+  }
+
+  function pageMine() {
+    var favs = favCards();
+    var mine = myCards();
+
+    var favRows = favs.length
+      ? favs.map(function (c, i) {
+          return mineRow("fav", i, c,
+            '<button class="minerow__btn" data-fav-up="' + i + '" aria-label="' + esc(t("moveUp")) + '">↑</button>' +
+            '<button class="minerow__btn" data-fav-down="' + i + '" aria-label="' + esc(t("moveDown")) + '">↓</button>' +
+            '<button class="minerow__btn is-on" data-fav-off="' + i + '" aria-label="' + esc(t("removeFav")) + '">★</button>');
+        }).join("")
+      : '<p class="mine-empty">' + esc(t("favsEmpty")) + "</p>";
+
+    var mineRows = mine.length
+      ? mine.map(function (c, i) {
+          return mineRow("mine", i, c,
+            '<button class="minerow__btn" data-mine-edit="' + i + '">' + esc(t("editCard")) + "</button>" +
+            '<button class="minerow__btn" data-mine-del="' + i + '">' + esc(t("delCard")) + "</button>");
+        }).join("")
+      : '<p class="mine-empty">' + esc(t("mineEmpty")) + "</p>";
+
+    var editing = mineEdit > -1 && mine[mineEdit];
+
+    return '' +
+      topbar(t("myStuff"), { back: "/", badge: (favs.length + mine.length) + " " + t("cards") }) +
+
+      '<section class="section"><div class="panel panel--tip">' +
+        '<div class="panel__h">' + esc(t("myStuff")) + "</div>" +
+        '<p style="margin:0;font-size:14.5px;line-height:1.6">' + md(t("mineIntro")) + "</p>" +
+      "</div></section>" +
+
+      '<section class="section">' +
+        '<div class="section__h"><h2>' + esc(t("myFavs")) + "</h2></div>" +
+        '<div class="panel">' + favRows + "</div>" +
+      "</section>" +
+
+      '<section class="section" id="sec-mine">' +
+        '<div class="section__h"><h2>' + esc(t("myCards")) + "</h2></div>" +
+        '<div class="panel">' +
+          '<div class="help-form">' +
+            '<label><span>' + esc(t("cardZhField")) + "</span>" +
+              '<textarea id="mine-zh" rows="3" maxlength="240" placeholder="例如：我对花生过敏。">' + esc(mineDraft.zh) + "</textarea></label>" +
+            '<label><span>' + esc(t("cardEnField")) + "</span>" +
+              '<input id="mine-en" maxlength="240" autocomplete="off" placeholder="I am allergic to peanuts." value="' + esc(mineDraft.en) + '"></label>' +
+            '<label><span>' + esc(t("cardNoteField")) + "</span>" +
+              '<input id="mine-note" maxlength="60" autocomplete="off" value="' + esc(mineDraft.note) + '"></label>' +
+            '<div class="help-actions">' +
+              '<button class="btn btn--primary" data-mine-save="1">' +
+                esc(editing ? t("saveCard") : t("newCard")) + "</button>" +
+              (editing ? '<button class="btn" data-mine-cancel="1">' + esc(t("cancel")) + "</button>" : "") +
+            "</div>" +
+          "</div>" +
+        "</div>" +
+        '<div class="panel">' + mineRows + "</div>" +
+      "</section>" +
+
+      '<p class="footnote">' + esc(t("mineNote")) + "</p>";
   }
 
   function pageFaq() {
@@ -937,6 +1162,20 @@
     $("#cs-next").style.visibility = cs.i === cs.list.length - 1 ? "hidden" : "visible";
     $("#cs-toggle").textContent = screen.classList.contains("hide-en") ? t("showEnglish") : t("hideEnglish");
     $("#cs-copy").textContent = t("copyZh");
+
+    /* The star makes any card on screen keepable — built-in, hand-written, or
+       a line from a scene's showCard. It is the only place a favourite can be
+       added, which is why it lives on the card itself and not in a list. */
+    var star = $("#cs-star");
+    if (star) {
+      var on = isFav(c.zh);
+      var lbl = on ? t("removeFav") : t("addFav");
+      star.textContent = on ? "★" : "☆";
+      star.classList.toggle("is-on", on);
+      star.setAttribute("aria-label", lbl);
+      star.setAttribute("title", lbl);
+      star.setAttribute("aria-pressed", on ? "true" : "false");
+    }
   }
 
   /* ---------------- router ---------------- */
@@ -967,11 +1206,14 @@
       app.innerHTML = pageScene(sceneById(parts[1]));
     } else if (page === "cards") {
       app.innerHTML = pageCards();
+      /* resolved through allCardGroups(), not CARD_GROUPS: "favs" and "mine"
+         are not in the data file, and looking them up there is what would make
+         those two tiles open an empty card screen. */
       var key = parts[1];
-      if (key && CARD_GROUPS[key]) {
-        var g = CARD_GROUPS[key];
-        openCardScreen(g.cards, 0, g.icon + " " + L(g.title), g.icon);
-      }
+      var g = key ? groupByKey(key) : null;
+      if (g) openCardScreen(g.cards, 0, g.icon + " " + L(g.title), g.icon);
+    } else if (page === "mine") {
+      app.innerHTML = pageMine();
     } else if (page === "faq") {
       app.innerHTML = pageFaq();
     } else if (page === "emergency") {
@@ -1012,7 +1254,7 @@
   }
 
   document.addEventListener("click", function (e) {
-    var t2 = e.target.closest("[data-go], [data-step], [data-card], [data-show], [data-stale], [data-loc], [data-pick-lang], [data-pick-city], [data-detect], [data-install], [data-toc]");
+    var t2 = e.target.closest("[data-go], [data-step], [data-card], [data-show], [data-stale], [data-loc], [data-pick-lang], [data-pick-city], [data-detect], [data-install], [data-toc], [data-open], [data-fav-up], [data-fav-down], [data-fav-off], [data-mine-save], [data-mine-edit], [data-mine-del], [data-mine-cancel]");
     if (!t2) return;
 
     if (t2.hasAttribute("data-toc")) { jumpTo(t2.getAttribute("data-toc")); return; }
@@ -1083,6 +1325,89 @@
     }
 
     if (t2.hasAttribute("data-stale")) { toast(t("thanksLogged")); return; }
+
+    /* ---- my cards page ----
+       Every one of these ends in render(), which is why the new-card form
+       mirrors its fields into `mineDraft` on every keystroke: a re-render must
+       not eat a half-typed card. */
+
+    if (t2.hasAttribute("data-open")) {
+      var op = t2.dataset.open.split(":");
+      var isFavList = op[0] === "fav";
+      var rowList = isFavList ? favCards() : myCards();
+      var rowI = +op[1];
+      /* the DOM was drawn from this list one tick ago and nothing has changed
+         it since, so the index still points at the row that was tapped */
+      if (rowList[rowI]) {
+        openCardScreen(rowList, rowI,
+          (isFavList ? "⭐ " + t("myFavs") : "✏️ " + t("myCards")),
+          isFavList ? "⭐" : "✏️");
+      }
+      return;
+    }
+
+    if (t2.hasAttribute("data-fav-off")) {
+      var offCard = favCards()[+t2.dataset.favOff];
+      if (!offCard) return;
+      toggleFav(offCard.zh);
+      render();
+      toast(t("favRemoved"));
+      return;
+    }
+
+    if (t2.hasAttribute("data-fav-up")) { moveFav(+t2.dataset.favUp, -1); render(); return; }
+    if (t2.hasAttribute("data-fav-down")) { moveFav(+t2.dataset.favDown, 1); render(); return; }
+
+    if (t2.hasAttribute("data-mine-edit")) {
+      var editCard = myCards()[+t2.dataset.mineEdit];
+      if (!editCard) return;
+      mineEdit = +t2.dataset.mineEdit;
+      mineDraft = { zh: editCard.zh, en: editCard.en || "", note: editCard.note || "" };
+      render();
+      var zhBox = $("#mine-zh");
+      if (zhBox) zhBox.focus();
+      return;
+    }
+
+    if (t2.hasAttribute("data-mine-del")) {
+      var delI = +t2.dataset.mineDel;
+      var remaining = myCards();
+      if (!remaining[delI]) return;
+      remaining.splice(delI, 1);
+      setMyCards(remaining);
+      /* an index into a list that just changed has to be re-pointed, and if
+         the card being edited was the one deleted, the form goes back to new */
+      if (mineEdit === delI) clearMineDraft();
+      else if (mineEdit > delI) mineEdit--;
+      render();
+      toast(t("deletedOk"));
+      return;
+    }
+
+    if (t2.hasAttribute("data-mine-cancel")) { clearMineDraft(); render(); return; }
+
+    if (t2.hasAttribute("data-mine-save")) {
+      var zh = mineDraft.zh.trim();
+      if (!zh) {
+        toast(t("needZh"));
+        var box = $("#mine-zh");
+        if (box) box.focus();
+        return;
+      }
+      var list = myCards();
+      var entry = { zh: zh, en: mineDraft.en.trim(), note: mineDraft.note.trim() };
+      if (mineEdit > -1 && list[mineEdit]) list[mineEdit] = entry; else list.push(entry);
+      setMyCards(list);
+      clearMineDraft();
+      render();
+      toast(t("savedOk"));
+      /* the card just landed at the bottom of the list; render() has already
+         scrolled to the top, so go to the list instead of leaving the user on
+         the intro panel wondering whether it saved */
+      var sec = document.getElementById("sec-mine");
+      if (sec) window.scrollTo(0, Math.max(0, sec.getBoundingClientRect().top + window.scrollY - 12));
+      return;
+    }
   });
 
   /* checklist persistence */
@@ -1114,6 +1439,27 @@
     // if the card was opened over a page, go back to that page
     if (cs.from && cs.from !== location.hash) { go(cs.from); return; }
     closeCardScreen();
+
+    var here = (location.hash || "").replace(/^#/, "");
+
+    /* #/mine opens its card screen without touching the hash, so closing it
+       re-renders nothing on its own: the list would still show the star the
+       card had before you pressed it. Re-render in place, keeping the scroll
+       position that render() otherwise resets to the top. */
+    if (here === "/mine") {
+      var y = window.scrollY;
+      render();
+      window.scrollTo(0, y);
+      return;
+    }
+
+    /* A group overlay leaves the hash on /cards/<key> while the tile list is
+       what is actually on screen. Send it back to /cards: the address bar then
+       matches the page, a reload no longer re-opens the card you just closed,
+       and — the reason this matters for favourites — the list re-renders, so
+       a group tile cannot sit there showing a card count that is one out of
+       date. */
+    if (here.indexOf("/cards/") === 0) go("/cards");
   }
   $("#cs-prev").addEventListener("click", function () { cs.i--; paintCard(); });
   $("#cs-next").addEventListener("click", function () { cs.i++; paintCard(); });
@@ -1134,6 +1480,12 @@
     } else {
       fallbackCopy(text, ok);
     }
+  });
+  $("#cs-star").addEventListener("click", function () {
+    var c = cs.list[cs.i];
+    if (!c || !c.zh) return;
+    toast(toggleFav(c.zh) ? t("favAdded") : t("favRemoved"));
+    paintCard();
   });
 
   function fallbackCopy(text, ok) {
@@ -1161,7 +1513,17 @@
      navigates away from home and comes back. */
   document.addEventListener("input", function (e) {
     var q = e.target;
-    if (!q || q.id !== "q") return;
+    if (!q || !q.id) return;
+
+    /* the new-card form. Every field is mirrored into mineDraft as it is typed
+       so that an action click elsewhere on the page can re-render without
+       discarding work that has not been saved yet. */
+    if (q.id === "mine-zh" || q.id === "mine-en" || q.id === "mine-note") {
+      mineDraft[q.id.slice(5)] = q.value;
+      return;
+    }
+
+    if (q.id !== "q") return;
     var box = $("#results");
     if (!box) return;
 
@@ -1174,9 +1536,10 @@
         hits.push({ go: "/s/" + s.id, emoji: s.icon, title: L(s.title), sub: L(s.subtitle) });
       }
     });
-    CARD_ORDER.forEach(function (k) {
-      var g = CARD_GROUPS[k];
-      if (!g) return;
+    /* allCardGroups, not CARD_ORDER: a card you wrote yourself is otherwise
+       the one thing on the site the search box cannot find. */
+    allCardGroups().forEach(function (pair) {
+      var k = pair[0], g = pair[1];
       /* search every language, so "トイレ" and "厕所" both land somewhere */
       var matched = g.cards.filter(function (c) { return cardHay(c).indexOf(v) > -1; });
       if (matched.length || groupHay(g).indexOf(v) > -1) {

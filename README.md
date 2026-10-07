@@ -1,6 +1,6 @@
 # China Hand
 
-China Hand helps visitors handle practical moments in China with eleven travel guides, 96 Chinese phrase cards, a pre-flight checklist, FAQs, and a personal address card. It runs as a static website, an offline-capable installable web app, or a desktop app packaged with Electron.
+China Hand helps visitors handle practical moments in China with eleven travel guides, 96 Chinese phrase cards, a pre-flight checklist, FAQs, a personal address card, and cards you write yourself. It runs as a static website, an offline-capable installable web app, or a desktop app packaged with Electron.
 
 ## Run the web demo
 
@@ -21,6 +21,8 @@ Then open `http://localhost:4173`. The service worker and installable PWA featur
 - Browse two additional short guides on entry documents and offline preparation.
 - Save a Chinese destination name, address, and optional phone number for a full-screen help card; clear these details on a shared device.
 - Show any of 96 Chinese cards full screen, with the Chinese line large enough to hand to someone nearby. The interface runs in English, 中文, 日本語 and 한국어.
+- Star any card — built in or your own — with ☆ while it is open, then reorder the ones you starred from the top of your list.
+- Write your own card when none of the 96 is the sentence you need: paste the Chinese from an order, a chat or a translation app, add an English note for yourself, and hand it over full screen. You supply the Chinese; there is no machine translation.
 - Detect your city offline, or pick it manually, to produce a "please take me here" card.
 - Tick off steps as you work through each guide. Pre-flight checklist state and preferences stay in local browser storage.
 - Browse seven FAQs, or use the 110, 120, 119 and 122 dial links.
@@ -42,4 +44,4 @@ The optional Electron shell loads the local static demo and can create Windows, 
 - [Technical plan](docs/06-技术方案.md)
 - [PWA files](demo/manifest.webmanifest)
 
-The content is static and contains no backend or analytics. Help-card details, checklist state, and display preferences remain on the current device. City and new short-guide details are currently in English; the homepage, address card, and original task interface retain four-language support. Emergency numbers are provided as dial links, and whether a call can be placed depends on the device and network.
+The content is static and contains no backend or analytics. Help-card details, cards you write, favourites and their order, checklist state, and display preferences remain on the current device. City and new short-guide details are currently in English; the homepage, address card, and original task interface retain four-language support. Emergency numbers are provided as dial links, and whether a call can be placed depends on the device and network.

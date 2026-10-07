@@ -1,6 +1,6 @@
 /* China Hand's local shell. Bump this version when shipping new offline content. */
 const CACHE_PREFIX = "chinapass-shell-";
-const CACHE_NAME = CACHE_PREFIX + "2026-10-07-15";
+const CACHE_NAME = CACHE_PREFIX + "2026-10-07-16";
 const SCOPE = self.registration.scope;
 const SHELL_FILES = [
   "./",
