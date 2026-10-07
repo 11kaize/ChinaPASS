@@ -1321,6 +1321,7 @@
   }
 
   function pageLang() {
+    var partial = bodyIncomplete(lang) || exploreIncomplete(lang);
     var rows = LANGS.map(function (l) {
       var on = l.code === lang ? " is-on" : "";
       /* Say it here, before they switch — not after. The warning remains as
