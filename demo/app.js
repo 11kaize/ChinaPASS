@@ -182,10 +182,11 @@
     return v[lang] == null && v.en != null;
   }
 
-  /* Are any scene bodies still English-only? When they are all translated
-     this flips to false on its own and every "not translated yet" notice
-     disappears without anyone remembering to remove it. */
-  function bodyIncomplete() {
+  /* Does a language still fall back anywhere in the scene bodies? This is
+     checked per language: Japanese and Korean can be complete while Chinese
+     still intentionally falls back to English. */
+  function bodyIncomplete(code) {
+    if (code === "en") return false;
     for (var i = 0; i < SCENES.length; i++) {
       var s = SCENES[i];
       var v = [s.task, s.tip, s.disclaimer];
@@ -194,9 +195,22 @@
       (s.mistakes || []).forEach(function (x) { v.push(x.m, x.w, x.d); });
       (s.planB || []).forEach(function (x) { v.push(x); });
       (s.trouble || []).forEach(function (x) { v.push(x.p, x.a); });
-      for (var j = 0; j < v.length; j++) if (typeof v[j] === "string") return true;
+      if (s.showCard) v.push(s.showCard.title);
+      for (var j = 0; j < v.length; j++) {
+        if (typeof v[j] === "string" || (v[j] && v[j][code] == null && v[j].en != null)) return true;
+      }
     }
     return false;
+  }
+
+  /* City arrival notes and the two extra guides are still English-only. Keep
+     the language-picker warning honest even after the nine scene bodies have
+     complete Japanese and Korean packs. */
+  function exploreIncomplete(code) {
+    return code !== "en" && (
+      (typeof CITIES !== "undefined" && CITIES.length > 0) ||
+      (typeof EXPLORE_GUIDES !== "undefined" && EXPLORE_GUIDES.length > 0)
+    );
   }
 
   function anyMissing(vals) {
@@ -1307,12 +1321,12 @@
   }
 
   function pageLang() {
-    var partial = bodyIncomplete();
+    var partial = bodyIncomplete(lang) || exploreIncomplete(lang);
     var rows = LANGS.map(function (l) {
       var on = l.code === lang ? " is-on" : "";
-      /* Say it here, before they switch — not after. Once the scene bodies
-         are translated, `partial` is false and this marker disappears. */
-      var note = partial && l.code !== "en"
+      /* Say it here, before they switch — not after. The warning remains as
+         long as either scene bodies or Explore content still falls back. */
+      var note = bodyIncomplete(l.code) || exploreIncomplete(l.code)
         ? '<span class="langrow__note">' + esc(t("partialShort")) + "</span>"
         : "";
       return '<button class="langrow' + on + '" data-pick-lang="' + l.code + '">' +
