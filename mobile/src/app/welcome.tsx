@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
-import { Animated, View, ScrollView, useAnimatedValue } from "react-native";
+import { Animated, View, ScrollView, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { useApp } from "../state";
-import { Brand, Button, Chips, Icon, Txt, useReducedMotion } from "../ui";
+import { Brand, Button, Chips, Icon, Txt, useReducedMotion, useMotionValue } from "../ui";
 import { Language } from "../content";
 export default function Welcome() {
   const { colors, prefs, update, t } = useApp();
-  const opacity = useAnimatedValue(0);
+  const opacity = useMotionValue(0);
   const reduce = useReducedMotion();
   useEffect(() => {
     const animation = Animated.timing(opacity, {
       toValue: 1,
       duration: reduce ? 0 : 450,
-      useNativeDriver: true,
+      useNativeDriver: Platform.OS !== "web",
     });
     animation.start();
     return () => animation.stop();

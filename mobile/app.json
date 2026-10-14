@@ -5,7 +5,11 @@
     "version": "2.0.0",
     "scheme": "chinahand",
     "orientation": "portrait",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "icon": "./assets/brand.png",
     "userInterfaceStyle": "automatic",
     "ios": {
@@ -49,6 +53,11 @@
     ],
     "updates": {
       "enabled": false
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/brand.png"
     }
   }
 }

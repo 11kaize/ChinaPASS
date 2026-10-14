@@ -1,6 +1,12 @@
 # ChinaHand native mobile demo
 
-ChinaHand is now a React Native application for iPhone and Android. Screens render with native views, native text inputs and native navigation. There is no WebView, embedded website, or browser requirement in the mobile application.
+ChinaHand is now a React Native application for iPhone and Android. Screens render with native views, native text inputs and native navigation. The iPhone and Android applications use native views, without a WebView. A separate desktop browser preview reuses the React Native components for reviewing the iPhone layout; this is not an Apple iOS simulator.
+
+## Windows, macOS and Linux
+
+Install Node.js 22.13 or newer (current LTS recommended). Windows does not need Bash or WSL. From the repository root, run `npm run demo:ios` to open the desktop iPhone layout preview and start the same LAN server for Expo Go. On Windows you can instead double-click `Start-ChinaHand.cmd`. Keep the terminal open while using the demo. Dependencies are installed automatically on the first run. Allow Node.js through Windows Firewall on your private Wi-Fi network if you want a phone to connect.
+
+`npm run demo` starts the mobile QR-code demo; `npm run mobile` starts native development mode. Windows and Linux can serve both iPhone and Android phones. The actual Apple iOS Simulator requires macOS and Xcode; on a configured Mac, use `npm run ios` inside `mobile/`. The desktop preview does not emulate iOS system APIs, and browser CORS restrictions can prevent direct provider calls; validate real AI connections on your phone.
 
 ## Run on your phone
 
@@ -27,6 +33,10 @@ npm run ios
 `npm run build:apk` generates the native Android project with Expo and builds an APK with embedded JavaScript and content. It does not need Metro after installation. The demo uses the template's development signing key; distribute a separately signed build for production. Generated Android/iOS projects, signing keys and build output are ignored by Git. Never place real provider keys in app configuration or environment files.
 
 iPhone Expo Go can run the application from this Linux computer. An independently signed iOS installation requires Apple signing and a Mac/Xcode or an authorized EAS build. `eas.json` includes development, preview and production profiles; no cloud build or store submission happens automatically.
+
+## iOS materials and motion
+
+The floating tab bar and top bar use native Liquid Glass when the iOS runtime supports it, otherwise native BlurView on older iOS. The desktop preview uses a CSS backdrop blur approximation. Android uses a readable solid material fallback. Preparation panels use the same material. Navigation content uses a short spring transition; controls use spring press feedback. System Reduce Motion and Reduce Transparency preferences are respected. Actual native iOS material rendering must be reviewed on an iPhone or Mac simulator.
 
 ## What changed
 

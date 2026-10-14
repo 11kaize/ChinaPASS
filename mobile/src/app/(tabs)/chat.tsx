@@ -363,7 +363,7 @@ export default function Chat() {
             backgroundColor: colors.surface,
           }}
         >
-          {error && <Notice text={error} danger />}
+          {Boolean(error) && <Notice text={error} danger />}
           <View
             style={{ flexDirection: "row", gap: 10, alignItems: "flex-end" }}
           >

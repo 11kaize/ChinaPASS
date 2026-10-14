@@ -18,11 +18,14 @@ function AppNavigation() {
     }
   }, [hydrated, reduce]);
   useEffect(() => {
-    if (hydrated)
+    if (hydrated && Platform.OS !== "web")
       Appearance.setColorScheme(
         prefs.appearance === "system" ? "unspecified" : prefs.appearance,
       );
   }, [hydrated, prefs.appearance]);
+  useEffect(() => {
+    if (Platform.OS === "web") document.getElementById("phone")?.setAttribute("data-theme", isDark ? "dark" : "light");
+  }, [isDark]);
   if (!hydrated) return null;
   const base = isDark ? DarkTheme : DefaultTheme;
   return (
@@ -68,8 +71,8 @@ function AppNavigation() {
             animation: reduce ? "none" : "slide_from_bottom",
           }}
         />
-        <Stack.Screen name="ai-config" options={{ presentation: "modal" }} />
-        <Stack.Screen name="trip" options={{ presentation: "modal" }} />
+        <Stack.Screen name="ai-config" options={{ presentation: "modal", animation: reduce ? "none" : "slide_from_bottom" }} />
+        <Stack.Screen name="trip" options={{ presentation: "modal", animation: reduce ? "none" : "slide_from_bottom" }} />
       </Stack>
     </ThemeProvider>
   );

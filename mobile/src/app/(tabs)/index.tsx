@@ -53,6 +53,7 @@ export default function Today() {
       {online === false && <Notice text={t("offlineNow")} icon="offline" />}
       {prefs.stage === "before" ? (
         <Surface
+          glass
           style={{
             padding: 20,
             backgroundColor: colors.accentSoft,
@@ -87,6 +88,7 @@ export default function Today() {
         </Surface>
       ) : (
         <Surface
+          glass
           style={{ marginBottom: 27, backgroundColor: colors.accentSoft }}
         >
           <Row

@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   AccessibilityInfo,
+  Keyboard,
+  Platform,
   Animated,
   Alert,
   Image,
@@ -13,10 +15,9 @@ import {
   TextInputProps,
   View,
   ViewStyle,
-  useAnimatedValue,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import * as Haptics from "expo-haptics";
 import { AirplaneLanding } from "phosphor-react-native/src/icons/AirplaneLanding";
 import { ArrowLeft } from "phosphor-react-native/src/icons/ArrowLeft";
@@ -53,6 +54,7 @@ import { WarningCircle } from "phosphor-react-native/src/icons/WarningCircle";
 import { MagnifyingGlass } from "phosphor-react-native/src/icons/MagnifyingGlass";
 import type { Icon as PhosphorIcon } from "phosphor-react-native";
 import { useApp } from "./state";
+import { GlassMaterial } from "./material";
 export const icons: Record<string, PhosphorIcon> = {
   customs: AirplaneLanding,
   sim: SimCard,
@@ -106,10 +108,13 @@ export function Icon({
     <Component size={size} color={color || colors.accent} weight={weight} />
   );
 }
+export function useMotionValue(initial: number) {
+  return useState(() => new Animated.Value(initial))[0];
+}
 export function useReducedMotion() {
   const [reduced, set] = useState(false);
   useEffect(() => {
-    AccessibilityInfo.isReduceMotionEnabled().then(set);
+    AccessibilityInfo.isReduceMotionEnabled().then(set).catch(() => {});
     const event = AccessibilityInfo.addEventListener(
       "reduceMotionChanged",
       set,
@@ -184,15 +189,15 @@ export function Tap({
   selected?: boolean;
   testID?: string;
 }) {
-  const scale = useAnimatedValue(1);
+  const scale = useMotionValue(1);
   const reduced = useReducedMotion();
   const press = (value: number) => {
     if (!reduced)
       Animated.spring(scale, {
         toValue: value,
-        useNativeDriver: true,
-        speed: 45,
-        bounciness: 0,
+        useNativeDriver: Platform.OS !== "web",
+        speed: 32,
+        bounciness: value === 1 ? 5 : 0,
       }).start();
   };
   const layout = StyleSheet.flatten(style) || {};
@@ -325,7 +330,8 @@ export function TopBar({
 }) {
   const { t } = useApp();
   return (
-    <View style={styles.topbar}>
+    <View style={[styles.topbar, { zIndex: 10 }]}>
+      <GlassMaterial radius={0} />
       {back ? (
         <IconButton
           name="back"
@@ -368,16 +374,31 @@ export function Page({
   scroll?: boolean;
 }) {
   const { colors } = useApp();
+  const reduced = useReducedMotion();
+  const offset = useMotionValue(0);
+  const [keyboard, setKeyboard] = useState(false);
+  useEffect(() => {
+    const show = Keyboard.addListener("keyboardDidShow", () => setKeyboard(true));
+    const hide = Keyboard.addListener("keyboardDidHide", () => setKeyboard(false));
+    return () => { show.remove(); hide.remove(); };
+  }, []);
+  useFocusEffect(useCallback(() => {
+    offset.setValue(reduced ? 0 : 10);
+    const animation = Animated.spring(offset, { toValue: 0, damping: 22, stiffness: 210, mass: 0.8, useNativeDriver: Platform.OS !== "web" });
+    animation.start();
+    return () => animation.stop();
+  }, [offset, reduced]));
   return (
     <SafeAreaView
       edges={["top", "left", "right"]}
       style={{ flex: 1, backgroundColor: colors.bg }}
     >
       <TopBar title={title} back={back} />
+      <Animated.View style={{ flex: 1, transform: [{ translateY: offset }], paddingBottom: !scroll && !back && !keyboard ? 96 : 0 }}>
       {scroll ? (
         <ScrollView
           automaticallyAdjustKeyboardInsets
-          contentContainerStyle={styles.page}
+          contentContainerStyle={[styles.page, { paddingBottom: back ? 40 : 124 }]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
@@ -386,6 +407,7 @@ export function Page({
       ) : (
         <View style={{ flex: 1 }}>{children}</View>
       )}
+      </Animated.View>
     </SafeAreaView>
   );
 }
@@ -433,13 +455,16 @@ export function Section({
 export function Surface({
   children,
   style,
+  glass = false,
 }: {
   children: React.ReactNode;
   style?: ViewStyle;
+  glass?: boolean;
 }) {
-  const { colors } = useApp();
+  const { colors, isDark } = useApp();
   return (
-    <View style={[styles.surface, { backgroundColor: colors.surface }, style]}>
+    <View style={[styles.surface, { backgroundColor: colors.surface }, style, glass && { backgroundColor: "transparent", borderWidth: 1, borderColor: isDark ? "#3D5448" : "#FFFFFF" }]}>
+      {glass && <GlassMaterial />}
       {children}
     </View>
   );
@@ -726,6 +751,10 @@ export function confirmAction(
   onConfirm: () => void,
   t: (key: any) => string,
 ) {
+  if (Platform.OS === "web") {
+    if (window.confirm(`${title}\n\n${body}`)) onConfirm();
+    return;
+  }
   Alert.alert(title, body, [
     { text: t("cancel"), style: "cancel" },
     { text: t("confirm"), style: "destructive", onPress: onConfirm },

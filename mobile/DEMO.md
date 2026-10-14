@@ -1,5 +1,11 @@
 # ChinaHand 手机演示流程
 
+## Windows 与桌面 iPhone 布局预览
+
+安装 Node.js 22.13 或更新版本，在仓库根目录运行 `npm run demo:ios`。Windows 也可以双击 `Start-ChinaHand.cmd`；无需 Bash/WSL。终端保持开启，首次启动会自动安装依赖。本地浏览器打开 iPhone 尺寸的交互预览，同时可用 Expo Go 在同一局域网的 iPhone 上运行真正的原生应用。Windows 防火墙如询问 Node.js 网络权限，只需允许当前私人网络。
+
+桌面预览不是 Apple iOS 模拟器。真正的 iOS 模拟器需 macOS/Xcode；浏览器中的玻璃是视觉近似，真实 iOS 材质在 iPhone 上使用系统实现。浏览器的跨域限制可能阻止模型请求，真实 API 接入请在手机验证。
+
 ## 启动
 
 电脑运行 `npm run demo`，手机安装 Expo Go。Android 用 Expo Go 扫描终端二维码，iPhone 用相机扫描二维码后进入 Expo Go。手机和电脑需在同一网络。首次启动在欢迎页选择语言，点击开始使用。

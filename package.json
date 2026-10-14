@@ -9,7 +9,7 @@
   "author": "ChinaHand contributors",
   "license": "UNLICENSED",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.13.0"
   },
   "scripts": {
     "check:links": "node scripts/check-links.mjs",
@@ -18,10 +18,11 @@
     "desktop:win": "electron-builder --win nsis",
     "desktop:mac": "electron-builder --mac dmg zip",
     "desktop:linux": "electron-builder --linux AppImage deb",
-    "mobile": "bash scripts/start-mobile.sh",
-    "demo": "bash scripts/start-mobile.sh --no-dev --minify --go",
+    "mobile": "node scripts/start-mobile.mjs",
+    "demo": "node scripts/start-mobile.mjs --no-dev --minify",
     "mobile:check": "npm --prefix mobile run check",
-    "mobile:apk": "npm --prefix mobile run build:apk"
+    "mobile:apk": "npm --prefix mobile run build:apk",
+    "demo:ios": "node scripts/start-mobile.mjs --preview"
   },
   "devDependencies": {
     "electron": "44.4.5",

@@ -1,14 +1,13 @@
 import React from "react";
 import { Tabs, Redirect } from "expo-router";
-import { Platform } from "react-native";
-import { BlurView } from "expo-blur";
+import { GlassMaterial } from "../../material";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useApp } from "../../state";
 import { Icon } from "../../ui";
 export default function TabLayout() {
-  const { prefs, colors, isDark, t } = useApp();
+  const { prefs, colors, t } = useApp();
   const insets = useSafeAreaInsets();
-  const bottom = Math.max(insets.bottom, 12);
+  const bottom = Math.max(10, insets.bottom - 10);
   if (!prefs.onboarded) return <Redirect href="/welcome" />;
   return (
     <Tabs
@@ -19,24 +18,25 @@ export default function TabLayout() {
         tabBarInactiveTintColor: colors.secondary,
         tabBarLabelStyle: { fontSize: 11, fontWeight: "600", marginTop: 4 },
         tabBarStyle: {
-          height: 60 + bottom,
+          position: "absolute",
+          bottom,
+          left: 12,
+          right: 12,
+          height: 72,
+          borderRadius: 30,
+          overflow: "hidden",
+          borderWidth: 1,
+          borderColor: colors.line,
           paddingTop: 9,
-          paddingBottom: bottom,
+          paddingBottom: 10,
           borderTopWidth: 0,
-          backgroundColor: colors.surface,
+          backgroundColor: "transparent",
         },
         tabBarItemStyle: { borderRadius: 16 },
-        ...(Platform.OS === "ios"
-          ? {
-              tabBarBackground: () => (
-                <BlurView
-                  tint={isDark ? "dark" : "light"}
-                  intensity={70}
-                  style={{ flex: 1, backgroundColor: colors.surface }}
-                />
-              ),
-            }
-          : {}),
+        tabBarBackground: () => <GlassMaterial radius={30} />,
+        // Glass must not sit under a parent whose opacity animates to zero.
+        // Page provides the spring transition without fading the native material.
+        animation: "none",
       }}
     >
       {(["index", "guides", "cards", "chat", "settings"] as const).map(

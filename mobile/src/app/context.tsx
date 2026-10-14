@@ -49,7 +49,7 @@ export default function ContextPreview() {
           ],
           [
             zh ? "设备" : "Device",
-            tripContext.platform === "ios" ? "iOS" : "Android",
+            tripContext.platform === "ios" ? "iOS" : tripContext.platform === "web" ? "Desktop interaction preview" : "Android",
           ],
           [
             zh ? "网络" : "Network",

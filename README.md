@@ -2,6 +2,10 @@
 
 ChinaHand now includes a **native iPhone/Android app demo** with an iOS-inspired interface and bring-your-own-key AI chat. Run the interactive demo in Expo Go with `npm run demo` (`npm run mobile` for development). The project is in the design and demo iteration phase. See [mobile setup and API configuration](mobile/README.md), [native design notes](docs/13-原生应用设计与验证.md), and the [expanded English project introduction](docs/14-ChinaHand-project-introduction.md).
 
+## Desktop iPhone layout preview / Windows
+
+Run `npm run demo:ios`, or double-click `Start-ChinaHand.cmd` on Windows after installing Node.js 22.13 or newer. This opens a clickable iPhone layout preview and serves the native app for iPhone/Android Expo Go. No Bash or WSL is needed. It is an interaction preview, not the Apple iOS Simulator; that simulator requires a Mac with Xcode.
+
 ## Earlier web and desktop demo
 
 ChinaHand helps visitors handle practical moments in China with eleven travel guides, 96 Chinese phrase cards, an offline English-to-Chinese phrase lookup, a pre-flight checklist, FAQs, a personal address card, and cards you write yourself. The interface is four screens behind a bottom tab bar — landing, steps, guides, tools — so nothing is piled onto one page. It runs as a static website, an offline-capable installable web app, or a desktop app packaged with Electron.
