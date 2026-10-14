@@ -528,14 +528,14 @@
       : '<button class="chip chip--city" data-go="/city">📍 ' + esc(t("cityTitle")) + "</button>";
 
     return '' +
-      topbar("China Hand", { badge: "DEMO" }) +
+      topbar("ChinaHand", { badge: "DEMO" }) +
 
       /* The lead block is the value proposition, not a destination. A travel
          hero ("your China travel companion / explore cities / plan my trip")
          briefly sat here and pushed every arrival task below the fold; the
          hero states what the tool is for instead. */
       '<section class="hero">' +
-        '<div class="hero__brand"><span>🇨🇳</span> China Hand</div>' +
+        '<div class="hero__brand"><span>🇨🇳</span> ChinaHand</div>' +
         "<h1>" + esc(t("heroH1")) + "</h1>" +
         "<p>" + md(t("heroP")) + "</p>" +
         '<div class="meta">' +

@@ -1,4 +1,4 @@
-/* China Hand — offline English→Chinese phrase bank.
+/* ChinaHand — offline English→Chinese phrase bank.
    Why this exists: when a visitor cannot speak Chinese, typing what they mean in
    English should surface one ready sentence to show a Chinese speaker. Templates
    carry a %s slot that a fill replaces, so one card covers many real moments.

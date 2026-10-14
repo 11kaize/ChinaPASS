@@ -1,8 +1,7 @@
-/* China Hand's local shell. Bump this version when shipping new offline content. */
+/* ChinaHand's local shell. Bump this version when shipping new offline content. */
 const CACHE_PREFIX = "chinapass-shell-";
-/* Third digit, not the second: 2026-10-07-18 shipped from the ja/ko branch,
-   2026-10-14-2 never left this machine, and this merge carries both. */
-const CACHE_NAME = CACHE_PREFIX + "2026-10-14-3";
+// New cache after integrating service links and the ChinaHand rename.
+const CACHE_NAME = CACHE_PREFIX + "2026-10-14-native-demo-1";
 const SCOPE = self.registration.scope;
 const SHELL_FILES = [
   "./",
