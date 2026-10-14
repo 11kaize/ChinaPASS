@@ -6,5 +6,7 @@ if errorlevel 1 (
   pause
   exit /b 1
 )
-node scripts\start-mobile.mjs --preview
-pause
+node scripts\start-mobile.mjs --preview %*
+set "chinahand_exit=%errorlevel%"
+if not "%chinahand_exit%"=="0" pause
+exit /b %chinahand_exit%

@@ -34,6 +34,10 @@ function nextMessageId() {
   return `message-${++messageSequence}`;
 }
 export default function Chat() {
+  const { sessionEpoch } = useApp();
+  return <ChatSession key={sessionEpoch} />;
+}
+function ChatSession() {
   const {
     t,
     colors,
@@ -95,9 +99,10 @@ export default function Chat() {
     const control = new AbortController();
     abortRef.current = control;
     const change = (text: string) =>
-      setMessages((old) =>
-        old.map((m) => (m.id === aid ? { ...m, content: text } : m)),
-      );
+      {
+        if (abortRef.current !== control) return;
+        setMessages((old) => old.map((m) => (m.id === aid ? { ...m, content: text } : m)));
+      };
     try {
       if (config) {
         await streamAnswer(
@@ -123,6 +128,7 @@ export default function Chat() {
         old.map((m) => (m.id === aid ? { ...m, status: "complete" } : m)),
       );
     } catch (e) {
+      if (abortRef.current !== control) return;
       const stopped = e instanceof AIError && e.kind === "cancelled";
       setMessages((old) =>
         old.map((m) =>
@@ -132,9 +138,11 @@ export default function Chat() {
       setError(errorMessage(e, prefs.language === "zh"));
       if (!stopped) setQuestion(query);
     } finally {
-      sending.current = false;
-      setBusy(false);
-      if (abortRef.current === control) abortRef.current = null;
+      if (abortRef.current === control) {
+        sending.current = false;
+        setBusy(false);
+        abortRef.current = null;
+      }
     }
   };
   const clear = () =>

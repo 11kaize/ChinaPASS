@@ -93,7 +93,7 @@ export const icons: Record<string, PhosphorIcon> = {
 };
 export function Icon({
   name,
-  size = 20,
+  size = 18,
   color,
   weight = "regular",
 }: {
@@ -265,7 +265,7 @@ export function Button({
       <Txt variant="label" color={ink} style={{ flexShrink: 1 }}>
         {label}
       </Txt>
-      <Icon name={icon} size={21} color={ink} />
+      <Icon name={icon} size={18} color={ink} />
     </Tap>
   );
 }
@@ -291,7 +291,7 @@ export function IconButton({
       style={styles.iconButton}
     >
       <View style={{ width: 34, height: 34, borderRadius: 17, alignItems: "center", justifyContent: "center", backgroundColor: danger ? colors.dangerSoft : selected ? colors.accentSoft : colors.raised }}>
-        <Icon name={name} color={danger ? colors.danger : colors.accent} size={19} weight={selected ? "fill" : "regular"} />
+        <Icon name={name} color={danger ? colors.danger : colors.accent} size={18} weight={selected ? "fill" : "regular"} />
       </View>
     </Tap>
   );
@@ -669,7 +669,7 @@ export function Empty({
           backgroundColor: colors.accentSoft,
         }}
       >
-        <Icon name={icon} size={36} />
+        <Icon name={icon} size={28} />
       </View>
       <Txt variant="subheading" style={{ textAlign: "center" }}>
         {title}
@@ -784,9 +784,9 @@ export const styles = StyleSheet.create({
     gap: 13,
   },
   rowIcon: {
-    width: 42,
-    height: 42,
-    borderRadius: 14,
+    width: 36,
+    height: 36,
+    borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
   },

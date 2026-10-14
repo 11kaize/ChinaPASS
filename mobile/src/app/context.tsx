@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, View } from "react-native";
 import { useApp } from "../state";
 import { describeContext } from "../ai/context";
+import { portCityLabel } from "../arrival";
 import { content, cards, phrases } from "../content";
 import { Page, Heading, Section, Surface, Txt, Notice } from "../ui";
 export default function ContextPreview() {
@@ -9,6 +10,7 @@ export default function ContextPreview() {
   const context = describeContext(tripContext);
   const zh = prefs.language === "zh";
   const city = content.cities.find((c) => c.id === tripContext.city);
+  const port = content.ports.find((p) => p.id === tripContext.arrivalPort);
   const none = zh ? "尚无" : "None yet";
   const language = { en: "English", zh: "中文", ja: "日本語", ko: "한국어" }[
     prefs.language
@@ -21,8 +23,9 @@ export default function ContextPreview() {
             t("city"),
             city
               ? `${city.name} / ${city.zh} (${zh ? "手动选择" : "manually selected"})`
-              : t("noCity"),
+              : port ? portCityLabel(port,prefs.language) : t("noCity"),
           ],
+          [zh ? "入境口岸（手动选择）" : "Arrival port (manually chosen)", content.ports.find((p) => p.id === tripContext.arrivalPort)?.zh || none],
           [t("chooseStage"), t(tripContext.stage)],
           [
             t("preparation"),

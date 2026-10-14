@@ -16,7 +16,7 @@ for (const file of ["data.js", "scene-i18n.js", "explore.js", "phrases.js"]) {
   );
 }
 const raw = vm.runInContext(
-  "JSON.stringify({scenes: SCENES, groups: CARD_GROUPS, prep: PREP, faq: FAQ, cities: CITIES, shortGuides: EXPLORE_GUIDES, phrases: PHRASE_BANK})",
+  "JSON.stringify({scenes: SCENES, groups: CARD_GROUPS, prep: PREP, faq: FAQ, cities: CITIES, ports: PORTS, cityLabels: CITY_BOXES.map(({city,zh,ja,ko}) => ({city,zh,ja,ko})), arrivalLabels: Object.fromEntries(Object.entries(UI).map(([lang,labels]) => [lang,Object.fromEntries(['whereLanded','whereLandedHint','changePort','yourRoute','routeArrivalDay','routeLater','youAreHere','portAir','portSea','portRail','portLand','portNoDetail','portOfficialList'].map(key => [key,labels[key]]))])), shortGuides: EXPLORE_GUIDES, phrases: PHRASE_BANK})",
   sandbox,
 );
 const clean = (value) => {

@@ -3,6 +3,8 @@ export type Preferences = {
   language: Language;
   appearance: "system" | "light" | "dark";
   city: string | null;
+  arrivalPort: string | null;
+  arrivalTask: string | null;
   stage: "before" | "arrived" | "settled";
   prep: string[];
   steps: Record<string, number[]>;
@@ -16,6 +18,8 @@ export const freshPreferences = (): Preferences => ({
   language: "en",
   appearance: "system",
   city: null,
+  arrivalPort: null,
+  arrivalTask: null,
   stage: "before",
   prep: [],
   steps: {},
@@ -31,6 +35,8 @@ export function persistable(p: Preferences): Preferences {
     language: p.language,
     appearance: p.appearance,
     city: p.city,
+    arrivalPort: p.arrivalPort,
+    arrivalTask: p.arrivalTask,
     stage: p.stage,
     prep: p.prep,
     steps: p.steps,

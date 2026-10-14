@@ -54,7 +54,7 @@ export default function Preparation() {
                 >
                   <Icon
                     name={checked ? "checked" : "unchecked"}
-                    size={28}
+                    size={22}
                     color={checked ? colors.accent : colors.secondary}
                   />
                 </Tap>

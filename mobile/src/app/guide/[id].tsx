@@ -25,7 +25,8 @@ export default function Guide() {
   const short = content.shortGuides.find((s) => s.id === id);
   useEffect(() => {
     setGuideId(id);
-  }, [id, setGuideId]);
+    if (scene) update({ arrivalTask: id });
+  }, [id, scene, update, setGuideId]);
   if (!scene && !short)
     return (
       <Page back>
@@ -55,6 +56,7 @@ export default function Guide() {
     );
   const s = scene!;
   const done = prefs.steps[id] || [];
+  const port = content.ports.find((p) => p.id === prefs.arrivalPort);
   const zhMissing =
     prefs.language === "zh" && (typeof s.task === "string" || !s.task.zh);
   return (
@@ -68,6 +70,7 @@ export default function Guide() {
           {L(s.eta)}
         </Txt>
       </View>
+      {s.id === "customs" && port && port.kind !== "air" && <Notice text={prefs.language === "zh" ? "此指南含机场步骤。你选择的是铁路或海港口岸，行李和入境流程可能不同，请遵循现场指引。" : "This guide includes airport steps. Your rail or ferry port may use a different arrival process; follow staff instructions."} />}
       {zhMissing && <Notice text={t("englishFallback")} />}
       <RichText text={L(s.task)} />
       <View style={{ height: 25 }} />
@@ -126,7 +129,7 @@ export default function Guide() {
                     }}
                   >
                     {checked ? (
-                      <Icon name="checked" size={28} />
+                      <Icon name="checked" size={22} />
                     ) : (
                       <Txt variant="label" color={colors.accent}>
                         {i + 1}

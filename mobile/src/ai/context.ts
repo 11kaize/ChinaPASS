@@ -1,7 +1,9 @@
+import { portCityLabel } from "../arrival";
 import { content, cards, localize, Language, Scene } from "../content";
 export type TripContext = {
   language: Language;
   city: string | null;
+  arrivalPort?: string | null;
   stage: "before" | "arrived" | "settled";
   checklist: string[];
   guideId?: string;
@@ -112,12 +114,15 @@ export function relevantScenes(query: string, guideId?: string): Scene[] {
 }
 export function describeContext(ctx: TripContext) {
   const city = content.cities.find((c) => c.id === ctx.city);
+  const port = content.ports.find((p) => p.id === ctx.arrivalPort);
   return ctx.shareContext
     ? {
         interfaceLanguage: ctx.language,
         city: city
           ? `${city.name} (${city.zh}), manually selected; not GPS-verified`
-          : "Not selected",
+          : port ? `${portCityLabel(port,"en")}, manually chosen via arrival port; city notes may be unavailable` : "Not selected",
+        arrivalPort: port?.zh || "Not selected",
+        arrivalPortType: port?.kind || "Unknown",
         journeyStage: ctx.stage,
         completedChecklist: ctx.checklist,
         currentGuide: ctx.guideId || "None",
@@ -172,6 +177,7 @@ export function buildInstructions(query: string, ctx: TripContext): string {
   return `You are the ChinaHand assistant for international visitors preparing for or navigating everyday life in China.
 ChinaHand is a native mobile companion, with 9 task guides (entry, connectivity, payments, taxis, hotels, metro, trains, food, emergencies), 7 preparation items, 96 ready-to-show Chinese cards, ${content.phrases.length} curated offline phrases, a personal address card, city arrival notes and FAQs.
 Help the user finish a practical task independently. Keep instructions short, concrete and in the user's language (interface preference: ${ctx.language}, follow the language of their latest question if different). Explain the next action, what is needed, a backup and, when useful, a Chinese sentence with its translation.
+Bundled entry instructions may describe airport arrival. For a selected rail or sea port, do not assume airport baggage steps apply or invent port-specific border procedures. Flag the limitation and suggest checking on-site instructions and official sources.
 The app does not book, pay, dispatch emergency assistance, read other apps or provide live navigation. It offers user-triggered hand-offs to listed providers via HTTPS, airport/station map searches and tel dial links. The assistant can suggest a bundled guide or provided service link. Preserve the reference classification: official, English-friendly (easy), Chinese interface (local), or dial (call). Explain registration/language requirements from the provided notes; do not describe a Chinese-only service as English-friendly. Service homepages and map searches are hand-offs, not proof of a booking or policy. Never invent app schemes, map coordinates or destinations. It cannot operate other apps or verify their current screens. Do not claim to see the user's location, address, bookings or API configuration. No passport, payment or address details are included automatically. Ask for minimal missing facts, never passport numbers, bank details or API keys.
 Bundled content is reference material, not a guarantee of current policies or interface layouts. A guide's last review date is not today's verification. Cite provided official sources when relevant. Do not invent fees, visa eligibility, payment limits, live availability, train times, app links or content review dates. For changing rules, tell the user to check the official service. You have no live web access in this app.
 If there is immediate danger, prioritize emergency services: police 110, ambulance 120, fire 119, traffic incidents 122. Offer a short Chinese help phrase. Do not diagnose or replace emergency responders.

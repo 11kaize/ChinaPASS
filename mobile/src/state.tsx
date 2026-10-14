@@ -1,5 +1,6 @@
 import React, {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -34,6 +35,7 @@ type State = {
   L: (v: Localized | undefined) => string;
   online: boolean | null;
   config: APIConfig | null;
+  sessionEpoch: number;
   setConfig: (v: APIConfig | null) => void;
   messages: Message[];
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
@@ -49,6 +51,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [prefs, setPrefs] = useState(freshPreferences),
     [hydrated, setHydrated] = useState(false),
     [storageError, setStorageError] = useState(false);
+  const [sessionEpoch, setSessionEpoch] = useState(0);
   const [config, setConfig] = useState<APIConfig | null>(null),
     [messages, setMessages] = useState<Message[]>([]),
     [guideId, setGuideId] = useState<string>();
@@ -106,25 +109,38 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setStorageError(true);
       });
   }, [prefs, hydrated]);
-  useEffect(() => {
-    const listener = AppState.addEventListener("change", (state) => {
-      if (state === "background") abortRef.current?.abort();
-    });
-    return () => {
-      listener.remove();
-      // This ref intentionally points to the latest request, not a mounted DOM node.
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      abortRef.current?.abort();
-    };
-  }, []);
-  const disconnect = () => {
+  const disconnect = useCallback(() => {
     abortRef.current?.abort();
+    abortRef.current = null;
     setConfig(null);
     setMessages([]);
-  };
+    // Invalidate mounted configuration drafts as well as the active connection.
+    setSessionEpoch((epoch) => epoch + 1);
+  }, []);
+  useEffect(() => {
+    const listener = AppState.addEventListener("change", (state) => {
+      if (state === "background") disconnect();
+    });
+    const restored = (event: PageTransitionEvent) => {
+      if (event.persisted) disconnect();
+    };
+    if (Platform.OS === "web") {
+      window.addEventListener("pagehide", disconnect);
+      window.addEventListener("pageshow", restored);
+    }
+    return () => {
+      listener.remove();
+      if (Platform.OS === "web") {
+        window.removeEventListener("pagehide", disconnect);
+        window.removeEventListener("pageshow", restored);
+      }
+      abortRef.current?.abort();
+    };
+  }, [disconnect]);
+  const update = useCallback((patch: Partial<Preferences>) => setPrefs((p) => ({ ...p, ...patch })), []);
   const value: State = {
     prefs,
-    update: (patch) => setPrefs((p) => ({ ...p, ...patch })),
+    update,
     hydrated,
     storageError,
     colors: isDark ? dark : light,
@@ -133,6 +149,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     L: (v) => localize(v, prefs.language),
     online,
     config,
+    sessionEpoch,
     setConfig,
     messages,
     setMessages,
@@ -150,6 +167,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     tripContext: {
       language: prefs.language,
       city: prefs.city,
+      arrivalPort: prefs.arrivalPort,
       stage: prefs.stage,
       checklist: prefs.prep,
       guideId,

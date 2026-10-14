@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { router } from "expo-router";
 import { View } from "react-native";
 import { useApp } from "../../state";
+import { arrivalText } from "../../arrival";
 import { orderedScenes, content } from "../../content";
 import {
   Page,
+  Button,
   Heading,
   Search,
   Chips,
@@ -33,6 +35,7 @@ export default function Guides() {
   return (
     <Page>
       <Heading title={t("guideTitle")} body={t("guideBody")} />
+      <View style={{ marginBottom: 16 }}><Button secondary label={arrivalText("yourRoute",prefs.language)} icon="guides" onPress={() => router.push("/arrival")} /></View>
       <Search value={query} onChange={setQuery} label={t("searchGuides")} />
       <Chips
         value={filter}

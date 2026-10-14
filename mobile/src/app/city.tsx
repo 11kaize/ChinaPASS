@@ -2,6 +2,7 @@ import React from "react";
 import { router } from "expo-router";
 import { useApp } from "../state";
 import { content } from "../content";
+import { arrivalText } from "../arrival";
 import { mapSearchURL } from "../service-links";
 import { Alert } from "react-native";
 import {
@@ -31,13 +32,14 @@ export default function City() {
     );
   };
   const city = content.cities.find((c) => c.id === prefs.city);
+  const port = content.ports.find((p) => p.id === prefs.arrivalPort);
   return (
     <Page back title={t("cityNotes")}>
       <Heading
         title={city ? `${city.name} / ${city.zh}` : t("cityNotes")}
         body={t("cityHint")}
       />
-      {!city ? (
+      {!city && port ? <Surface style={{ padding: 18, gap: 12 }}><Heading title={port.zh} body={arrivalText("portNoDetail",prefs.language)} /><Button label={t("show")} onPress={() => router.push({pathname:"/card",params:{id:port.id,kind:"port"}})} /><Button secondary label={prefs.language === "zh" ? "在地图上搜索这个口岸" : "Find this port on a map"} onPress={() => search(port.zh)} /></Surface> : !city ? (
         <Button
           label={t("chooseCity")}
           icon="address"

@@ -27,6 +27,10 @@ import {
   openURL,
 } from "../ui";
 export default function AIConfig() {
+  const { sessionEpoch } = useApp();
+  return <ConfigForm key={sessionEpoch} />;
+}
+function ConfigForm() {
   const { t, colors, prefs, config, setConfig, disconnect } = useApp();
   const initialLocation =
     config?.provider === "qwen" ? qwenLocation(config.baseURL) : null;
@@ -294,7 +298,7 @@ export default function AIConfig() {
           {t("consent")}
         </Txt>
       </View>
-      {error && <Notice danger text={error} />}
+      {Boolean(error) && <Notice danger text={error} />}
       <View style={{ gap: 12 }}>
         <Button
           label={busy ? t("checking") : t("check")}
@@ -310,7 +314,7 @@ export default function AIConfig() {
             ? "测试会发送一个简短请求，消耗少量服务商额度。"
             : "Testing sends a short request and may use a small amount of your provider credit."}
         </Txt>
-        {result && <Notice text={`${result}. ${t("connectedNote")}`} />}
+        {Boolean(result) && <Notice text={`${result}. ${t("connectedNote")}`} />}
         <Button
           label={t("connect")}
           icon="check"

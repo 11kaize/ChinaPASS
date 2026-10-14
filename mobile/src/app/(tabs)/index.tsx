@@ -1,10 +1,12 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Alert } from "react-native";
 import { router } from "expo-router";
 import { useApp } from "../../state";
+import { arrivalText, portCityLabel } from "../../arrival";
 import { content } from "../../content";
 import {
   Page,
+  openURL,
   Heading,
   Section,
   Surface,
@@ -18,6 +20,7 @@ import {
 export default function Today() {
   const { colors, prefs, t, online } = useApp();
   const city = content.cities.find((c) => c.id === prefs.city);
+  const port = content.ports.find((p) => p.id === prefs.arrivalPort);
   return (
     <Page>
       <View
@@ -41,7 +44,7 @@ export default function Today() {
         >
           <Icon name="address" size={17} />
           <Txt variant="caption" color={colors.accent}>
-            {city ? `${city.name} / ${city.zh}` : t("city")}
+            {city ? `${city.name} / ${city.zh}` : port ? portCityLabel(port,prefs.language) : t("city")}
           </Txt>
           <Icon name="next" size={14} />
         </Tap>
@@ -50,8 +53,19 @@ export default function Today() {
         </Txt>
       </View>
       <Heading title={t("welcome")} body={t("tagline")} />
+      <Surface glass style={{ marginBottom: 18 }}>
+        <Row title={arrivalText("whereLanded",prefs.language)} subtitle={port ? `${port.iata ? `${port.iata} · ` : ""}${port.zh}` : arrivalText("whereLandedHint",prefs.language)} icon="customs" last onPress={() => router.push("/ports")} />
+      </Surface>
+      <View style={{ flexDirection: "row", gap: 6, marginBottom: 18 }}>
+        {([{key:"police",num:"110"},{key:"ambulance",num:"120"},{key:"fire",num:"119"},{key:"traffic",num:"122"}] as const).map(item => <Tap key={item.num} label={`${t(item.key)} ${item.num}`} onPress={() => openURL(`tel:${item.num}`, () => Alert.alert(t("emergency"),t("callFailed")))} style={{ flex: 1, minHeight: 54, paddingVertical: 8, borderRadius: 14, backgroundColor: colors.dangerSoft, alignItems: "center", justifyContent: "center", gap: 2 }}><Txt variant="label" color={colors.danger}>{item.num}</Txt><Txt variant="caption" color={colors.danger} style={{fontSize:10}}>{t(item.key)}</Txt></Tap>)}
+      </View>
+      {port && <View style={{ gap: 10, marginBottom: 18 }}>
+        <Button secondary label={t("show")} icon="cards" onPress={() => router.push({pathname:"/card",params:{id:port.id,kind:"port"}})} />
+        <Button secondary label={arrivalText("yourRoute",prefs.language)} icon="guides" onPress={() => router.push("/arrival")} />
+      </View>}
+
       {online === false && <Notice text={t("offlineNow")} icon="offline" />}
-      {prefs.stage === "before" ? (
+      {prefs.stage === "before" && !port ? (
         <Surface
           glass
           style={{
@@ -68,7 +82,7 @@ export default function Today() {
               marginBottom: 16,
             }}
           >
-            <Icon name="prep" size={26} />
+            <Icon name="prep" size={23} />
             <Txt variant="caption" color={colors.accent}>
               {prefs.prep.length} / {content.prep.length} {t("ready")}
             </Txt>
@@ -116,7 +130,7 @@ export default function Today() {
                   gap: 15,
                 }}
               >
-                <Icon name={id} size={23} />
+                <Icon name={id} size={22} />
                 <View
                   style={{
                     flexDirection: "row",
@@ -153,7 +167,7 @@ export default function Today() {
             backgroundColor: colors.accentSoft,
           }}
         >
-          <Icon name="chat" size={24} />
+          <Icon name="chat" size={22} />
         </View>
         <View style={{ flex: 1, gap: 4 }}>
           <Txt variant="subheading">{t("assistant")}</Txt>

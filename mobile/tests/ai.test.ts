@@ -20,6 +20,7 @@ import {
   TripContext,
 } from "../src/ai/context";
 import { freshPreferences, persistable } from "../src/preferences";
+import { cityForPort, portCityLabel, portSelection, arrivalText } from "../src/arrival";
 import { content, cards, phrases } from "../src/content";
 const base: APIConfig = {
   provider: "deepseek",
@@ -352,4 +353,34 @@ test("AI receives current hand-off targets, provider requirements and honest lim
   assert(instructions.includes("meituan.com"));
   assert(instructions.includes("Chinese phone number"));
   assert(instructions.includes("Never invent app schemes"));
+});
+
+
+test("all upstream ports and four-language arrival labels are retained without invented city details", () => {
+  assert.equal(content.ports.length, 15);
+  assert.equal(content.cities.length, 8);
+  for (const language of ["en", "zh", "ja", "ko"] as const) {
+    for (const key of ["whereLanded", "yourRoute", "youAreHere", "portAir", "portRail", "portSea", "portNoDetail"]) {
+      assert(content.arrivalLabels[language][key]);
+      assert.notEqual(arrivalText(key, language), key);
+    }
+  }
+  const xian = content.ports.find(p => p.id === "xiy")!;
+  assert.equal(cityForPort(xian)?.id, "xian");
+  const hongKong = content.ports.find(p => p.id === "wkl")!;
+  assert.equal(portCityLabel(hongKong, "en"), "Hong Kong");
+  assert.equal(portSelection(hongKong).city, null);
+  const xiamen = content.ports.find(p => p.id === "xmn")!;
+  assert.equal(cityForPort(xiamen), undefined);
+  assert.deepEqual(portSelection(xiamen), {arrivalPort:"xmn",city:null});
+});
+test("manual arrival port is shared only with permission and never persists AI configuration", () => {
+  const portContext = {...ctx, arrivalPort:"pvg"};
+  assert.equal((describeContext(portContext) as any).arrivalPort, "上海浦东国际机场");
+  assert(!JSON.stringify(describeContext({...portContext,shareContext:false})).includes("浦东"));
+  const preferences = {...freshPreferences(), arrivalPort:"pvg", arrivalTask:"taxi", config:base, apiKey:base.key};
+  const safe = persistable(preferences);
+  assert.equal(safe.arrivalPort,"pvg");
+  assert.equal(safe.arrivalTask,"taxi");
+  assert(!JSON.stringify(safe).includes(base.key));
 });

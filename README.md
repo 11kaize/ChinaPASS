@@ -4,7 +4,7 @@ ChinaHand now includes a **native iPhone/Android app demo** with an iOS-inspired
 
 ## Desktop iPhone layout preview / Windows
 
-Run `npm run demo:ios`, or double-click `Start-ChinaHand.cmd` on Windows after installing Node.js 22.13 or newer. This opens a clickable iPhone layout preview and serves the native app for iPhone/Android Expo Go. No Bash or WSL is needed. It is an interaction preview, not the Apple iOS Simulator; that simulator requires a Mac with Xcode.
+Run `npm run demo:ios`, or double-click `Start-ChinaHand.cmd` on Windows after installing Node.js 22.13 or newer. On Linux run `./Start-ChinaHand.sh`. Launchers check dependencies, pick an available port and open the demo automatically. This opens a clickable iPhone layout preview and serves the native app for iPhone/Android Expo Go. No Bash or WSL is needed. It is an interaction preview, not the Apple iOS Simulator; that simulator requires a Mac with Xcode.
 
 ## Earlier web and desktop demo
 

@@ -38,8 +38,12 @@ export type Scene = {
   actions: ServiceAction[];
   disclaimer?: Localized;
 };
+export type ArrivalPort = { id: string; kind: "air" | "rail" | "sea" | "land"; zh: string; iata?: string; city?: string; cityZh?: string };
 export const content = raw as unknown as {
   scenes: Scene[];
+  ports: ArrivalPort[];
+  cityLabels: { city: string; zh: string; ja: string; ko: string }[];
+  arrivalLabels: Record<Language, Record<string,string>>;
   groups: Record<
     string,
     { title: Localized; hint: Localized; cards: Omit<Phrase, "id" | "cat">[] }

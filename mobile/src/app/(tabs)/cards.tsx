@@ -105,7 +105,7 @@ export default function Cards() {
               onPress={() =>
                 router.push({ pathname: "/card", params: { id: item.id } })
               }
-              style={{ padding: 20, gap: 7 }}
+              style={{ padding: 17, gap: 5 }}
             >
               <View
                 style={{ flexDirection: "row", alignItems: "center", gap: 9 }}
@@ -113,25 +113,20 @@ export default function Cards() {
                 <Txt
                   style={{
                     flex: 1,
-                    fontSize: 22,
-                    lineHeight: 31,
+                    fontSize: 19,
+                    lineHeight: 26,
                     fontWeight: "600",
                   }}
                 >
-                  {item.zh.replace(/%s/g, "___")}
+                  {item.en.replace(/%s/g, "___")}
                 </Txt>
                 {prefs.favorites.includes(item.id) && (
-                  <Icon name="save" weight="fill" size={19} />
+                  <Icon name="save" weight="fill" size={16} />
                 )}
               </View>
-              {prefs.language !== "zh" && (
-                <Txt variant="caption" color={colors.secondary}>
-                  {L({ en: item.en, ja: item.ja, ko: item.ko }).replace(
-                    /%s/g,
-                    "___",
-                  )}
-                </Txt>
-              )}
+              <Txt variant="caption" color={colors.secondary}>
+                {item.zh.replace(/%s/g, "___")}
+              </Txt>
             </Tap>
             {filter === "saved" && index > 0 && (
               <Tap

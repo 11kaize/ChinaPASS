@@ -37,7 +37,7 @@ export default function Trip() {
             trailing={
               prefs.city === city.id ? <Icon name="checked" /> : undefined
             }
-            onPress={() => update({ city: city.id })}
+            onPress={() => update({ city: city.id, arrivalPort: null })}
             last={i === content.cities.length - 1}
           />
         ))}
@@ -48,7 +48,7 @@ export default function Trip() {
           label={t("noCity")}
           secondary
           icon="close"
-          onPress={() => update({ city: null })}
+          onPress={() => update({ city: null, arrivalPort: null })}
         />
       </View>
     </Page>

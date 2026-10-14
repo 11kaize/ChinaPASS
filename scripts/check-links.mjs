@@ -49,6 +49,20 @@ async function collect() {
       found.get(url).add(file);
     }
   }
+  // The native demo imports the same content. Keep its resolved service and
+  // city-source URLs in this audit too; telephone links are verified in-app.
+  const nativeFile = path.resolve(demoDir, '../mobile/src/content/content.json');
+  const native = JSON.parse(await readFile(nativeFile, 'utf8'));
+  const nativeURLs = [
+    ...native.scenes.flatMap(scene => (scene.actions || []).map(action => action.url)),
+    ...native.cities.map(city => city.source.url),
+    ...native.shortGuides.map(guide => guide.source.url),
+  ];
+  for (const url of nativeURLs) {
+    if (!/^https:\/\//.test(url)) continue;
+    if (!found.has(url)) found.set(url, new Set());
+    found.get(url).add('mobile/src/content/content.json');
+  }
   return found;
 }
 
@@ -81,7 +95,7 @@ async function probe(url) {
 
 const found = await collect();
 const urls = [...found.keys()].sort();
-console.log(`Checking ${urls.length} external URLs found in demo/*.js\n`);
+console.log(`Checking ${urls.length} external URLs found in demo/*.js and native content\n`);
 
 const dead = [];
 for (const url of urls) {

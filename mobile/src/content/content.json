@@ -4339,6 +4339,295 @@
       }
     }
   ],
+  "ports": [
+    {
+      "id": "pvg",
+      "kind": "air",
+      "iata": "PVG",
+      "zh": "上海浦东国际机场",
+      "city": "Shanghai"
+    },
+    {
+      "id": "can",
+      "kind": "air",
+      "iata": "CAN",
+      "zh": "广州白云国际机场",
+      "city": "Guangzhou"
+    },
+    {
+      "id": "pek",
+      "kind": "air",
+      "iata": "PEK",
+      "zh": "北京首都国际机场",
+      "city": "Beijing"
+    },
+    {
+      "id": "pkx",
+      "kind": "air",
+      "iata": "PKX",
+      "zh": "北京大兴国际机场",
+      "city": "Beijing"
+    },
+    {
+      "id": "szx",
+      "kind": "air",
+      "iata": "SZX",
+      "zh": "深圳宝安国际机场",
+      "city": "Shenzhen"
+    },
+    {
+      "id": "wkl",
+      "kind": "rail",
+      "zh": "广深港高铁西九龙站",
+      "cityZh": "香港"
+    },
+    {
+      "id": "tfu",
+      "kind": "air",
+      "iata": "TFU",
+      "zh": "成都天府国际机场",
+      "city": "Chengdu"
+    },
+    {
+      "id": "hgh",
+      "kind": "air",
+      "iata": "HGH",
+      "zh": "杭州萧山国际机场",
+      "city": "Hangzhou"
+    },
+    {
+      "id": "xmn",
+      "kind": "air",
+      "iata": "XMN",
+      "zh": "厦门高崎国际机场",
+      "city": "Xiamen"
+    },
+    {
+      "id": "kmg",
+      "kind": "air",
+      "iata": "KMG",
+      "zh": "昆明长水国际机场",
+      "city": "Kunming"
+    },
+    {
+      "id": "tao",
+      "kind": "air",
+      "iata": "TAO",
+      "zh": "青岛胶东国际机场",
+      "city": "Qingdao"
+    },
+    {
+      "id": "nkg",
+      "kind": "air",
+      "iata": "NKG",
+      "zh": "南京禄口国际机场",
+      "city": "Nanjing"
+    },
+    {
+      "id": "ckg",
+      "kind": "air",
+      "iata": "CKG",
+      "zh": "重庆江北国际机场",
+      "city": "Chongqing"
+    },
+    {
+      "id": "xiy",
+      "kind": "air",
+      "iata": "XIY",
+      "zh": "西安咸阳国际机场",
+      "city": "Xi'an"
+    },
+    {
+      "id": "shekou",
+      "kind": "sea",
+      "zh": "蛇口港",
+      "city": "Shenzhen"
+    }
+  ],
+  "cityLabels": [
+    {
+      "city": "Beijing",
+      "zh": "北京",
+      "ja": "北京",
+      "ko": "베이징"
+    },
+    {
+      "city": "Shanghai",
+      "zh": "上海",
+      "ja": "上海",
+      "ko": "상하이"
+    },
+    {
+      "city": "Guangzhou",
+      "zh": "广州",
+      "ja": "広州",
+      "ko": "광저우"
+    },
+    {
+      "city": "Shenzhen",
+      "zh": "深圳",
+      "ja": "深圳",
+      "ko": "선전"
+    },
+    {
+      "city": "Chengdu",
+      "zh": "成都",
+      "ja": "成都",
+      "ko": "청두"
+    },
+    {
+      "city": "Chongqing",
+      "zh": "重庆",
+      "ja": "重慶",
+      "ko": "충칭"
+    },
+    {
+      "city": "Xi'an",
+      "zh": "西安",
+      "ja": "西安",
+      "ko": "시안"
+    },
+    {
+      "city": "Hangzhou",
+      "zh": "杭州",
+      "ja": "杭州",
+      "ko": "항저우"
+    },
+    {
+      "city": "Nanjing",
+      "zh": "南京",
+      "ja": "南京",
+      "ko": "난징"
+    },
+    {
+      "city": "Suzhou",
+      "zh": "苏州",
+      "ja": "蘇州",
+      "ko": "쑤저우"
+    },
+    {
+      "city": "Wuhan",
+      "zh": "武汉",
+      "ja": "武漢",
+      "ko": "우한"
+    },
+    {
+      "city": "Tianjin",
+      "zh": "天津",
+      "ja": "天津",
+      "ko": "톈진"
+    },
+    {
+      "city": "Qingdao",
+      "zh": "青岛",
+      "ja": "青島",
+      "ko": "칭다오"
+    },
+    {
+      "city": "Kunming",
+      "zh": "昆明",
+      "ja": "昆明",
+      "ko": "쿤밍"
+    },
+    {
+      "city": "Xiamen",
+      "zh": "厦门",
+      "ja": "アモイ",
+      "ko": "샤먼"
+    },
+    {
+      "city": "Harbin",
+      "zh": "哈尔滨",
+      "ja": "ハルビン",
+      "ko": "하얼빈"
+    },
+    {
+      "city": "Sanya",
+      "zh": "三亚",
+      "ja": "三亜",
+      "ko": "싼야"
+    },
+    {
+      "city": "Guilin",
+      "zh": "桂林",
+      "ja": "桂林",
+      "ko": "구이린"
+    },
+    {
+      "city": "Lhasa",
+      "zh": "拉萨",
+      "ja": "ラサ",
+      "ko": "라싸"
+    },
+    {
+      "city": "Urumqi",
+      "zh": "乌鲁木齐",
+      "ja": "ウルムチ",
+      "ko": "우루무치"
+    }
+  ],
+  "arrivalLabels": {
+    "en": {
+      "whereLanded": "Where did you land?",
+      "whereLandedHint": "Pick your arrival port. The Chinese name below it is the part you show a driver.",
+      "changePort": "Change",
+      "yourRoute": "Your route, one step at a time",
+      "routeArrivalDay": "Landing day",
+      "routeLater": "After you settle in",
+      "youAreHere": "You are here",
+      "portAir": "Flight",
+      "portSea": "Ferry",
+      "portRail": "Train",
+      "portLand": "Land border",
+      "portNoDetail": "We haven't written the details for this port yet. The Chinese name above works on its own.",
+      "portOfficialList": "Official list of open ports (in Chinese)"
+    },
+    "zh": {
+      "whereLanded": "你在哪个口岸落地？",
+      "whereLandedHint": "选你入境的口岸。下面的中文名可以直接给司机看。",
+      "changePort": "更换",
+      "yourRoute": "你的路线，一步一步来",
+      "routeArrivalDay": "落地当天",
+      "routeLater": "安顿之后",
+      "youAreHere": "你在这",
+      "portAir": "机场",
+      "portSea": "海港",
+      "portRail": "铁路",
+      "portLand": "陆路",
+      "portNoDetail": "这个口岸的细节我们还没写 -- 上面的中文名本身就能用。",
+      "portOfficialList": "官方口岸名单（中文）"
+    },
+    "ja": {
+      "whereLanded": "どの入国地から入国しましたか？",
+      "whereLandedHint": "入国した入国地を選んでください。下の中国語名を運転手に見せられます。",
+      "changePort": "変更",
+      "yourRoute": "あなたのルート（順番に）",
+      "routeArrivalDay": "到着当日",
+      "routeLater": "落ち着いてから",
+      "youAreHere": "現在ここ",
+      "portAir": "空港",
+      "portSea": "港",
+      "portRail": "鉄道",
+      "portLand": "陸路",
+      "portNoDetail": "この入国地の詳細はまだありません。上の中国語名だけでも使えます。",
+      "portOfficialList": "公式の入国地リスト（中国語）"
+    },
+    "ko": {
+      "whereLanded": "어느 입국지로 입국했나요?",
+      "whereLandedHint": "입국한 입국지를 선택하세요. 아래 중국어 이름을 운전기사에게 보여줄 수 있습니다.",
+      "changePort": "변경",
+      "yourRoute": "나의 경로 (순서대로)",
+      "routeArrivalDay": "입국 당일",
+      "routeLater": "안정된 후",
+      "youAreHere": "현재 위치",
+      "portAir": "공항",
+      "portSea": "항구",
+      "portRail": "철도",
+      "portLand": "육로",
+      "portNoDetail": "이 입국지의 상세 정보는 아직 없습니다. 위의 중국어 이름만으로도 충분합니다.",
+      "portOfficialList": "공식 입국지 목록 (중국어)"
+    }
+  },
   "shortGuides": [
     {
       "id": "entry-check",

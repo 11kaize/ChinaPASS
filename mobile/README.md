@@ -4,7 +4,7 @@ ChinaHand is now a React Native application for iPhone and Android. Screens rend
 
 ## Windows, macOS and Linux
 
-Install Node.js 22.13 or newer (current LTS recommended). Windows does not need Bash or WSL. From the repository root, run `npm run demo:ios` to open the desktop iPhone layout preview and start the same LAN server for Expo Go. On Windows you can instead double-click `Start-ChinaHand.cmd`. Keep the terminal open while using the demo. Dependencies are installed automatically on the first run. Allow Node.js through Windows Firewall on your private Wi-Fi network if you want a phone to connect.
+Install Node.js 22.13 or newer (current LTS recommended). Windows does not need Bash or WSL. From the repository root, run `npm run demo:ios` to open the desktop iPhone layout preview and start the same LAN server for Expo Go. On Windows you can instead double-click `Start-ChinaHand.cmd`. On Linux run `./Start-ChinaHand.sh`. Both launchers automatically check dependencies, choose an available port and open the preview in the default browser. Keep the terminal open while using the demo. Dependencies are installed automatically on the first run. Allow Node.js through Windows Firewall on your private Wi-Fi network if you want a phone to connect.
 
 `npm run demo` starts the mobile QR-code demo; `npm run mobile` starts native development mode. Windows and Linux can serve both iPhone and Android phones. The actual Apple iOS Simulator requires macOS and Xcode; on a configured Mac, use `npm run ios` inside `mobile/`. The desktop preview does not emulate iOS system APIs, and browser CORS restrictions can prevent direct provider calls; validate real AI connections on your phone.
 
@@ -43,6 +43,7 @@ The floating tab bar and top bar use native Liquid Glass when the iOS runtime su
 - Native launch screen and welcome screen with language selection.
 - Five tabs: Today, Guides, Cards, AI and Settings.
 - Task-oriented home, expandable guide steps with completion memory, preparation checklist, FAQs and airport/station notes.
+- 15 arrival ports with Chinese display cards, manual city association and a first-day/later arrival flow. Opening a guide marks the current task; it does not mark its steps completed. All 8 written city guides are available. Missing city notes are stated explicitly.
 - 9 guides, 96 Chinese communication cards and 207 offline phrases imported from the existing content files.
 - Large full-screen Chinese cards, bookmarks with reordering, template blanks and user-written cards.
 - Personal destination card saved only on the device.
@@ -75,7 +76,7 @@ Official model documentation rechecked on 2026-10-14:
 
 ### Session privacy
 
-The API key, provider configuration, configuration form drafts and conversations exist only in JavaScript memory. The app has no backend, account, telemetry, conversation storage, Keychain storage or SecureStore storage. Restarting the process removes the session. **Disconnect & clear chat** immediately clears the application session and cancels its active request. Backgrounding the application cancels an active generation.
+The API key, provider configuration, configuration form drafts and conversations exist only in JavaScript memory. The app has no backend, account, telemetry, conversation storage, Keychain storage or SecureStore storage. Restarting the process removes the session. **Disconnect & clear chat** immediately clears the application session and cancels its active request. Leaving the application for the background clears the API key, provider configuration, chat and any mounted configuration form draft, and cancels active generation or connection testing. The browser preview also clears on page exit and back/forward cache restoration. Returning requires entering your key again. No API configuration is written to AsyncStorage, localStorage, sessionStorage, files, Keychain or SecureStore.
 
 General preferences, checklist/guide progress, bookmarks, user-written cards and destination details use one explicit AsyncStorage whitelist. Android device backups are disabled. The persistence projection excludes API configuration, keys and conversations even if unknown fields are accidentally merged into preferences. Provider policies still apply to the messages sent directly to them. OpenAI requests explicitly use `store: false` and do not create stored Conversations objects.
 

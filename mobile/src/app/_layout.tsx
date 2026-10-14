@@ -72,6 +72,7 @@ function AppNavigation() {
           }}
         />
         <Stack.Screen name="ai-config" options={{ presentation: "modal", animation: reduce ? "none" : "slide_from_bottom" }} />
+        <Stack.Screen name="ports" options={{ presentation: "modal", animation: reduce ? "none" : "slide_from_bottom" }} />
         <Stack.Screen name="trip" options={{ presentation: "modal", animation: reduce ? "none" : "slide_from_bottom" }} />
       </Stack>
     </ThemeProvider>

@@ -30,24 +30,27 @@ export default function Card() {
   const scene =
     kind === "scene" ? content.scenes.find((s) => s.id === id) : null;
   const address = kind === "address" ? prefs.address : null;
+  const port = kind === "port" ? content.ports.find((p) => p.id === id) : null;
   const raw = address
     ? address.address.trim()
       ? `你好，我不太会说中文。\n请带我去：\n${address.name}\n${address.address}${address.phone ? `\n联系电话：${address.phone}` : ""}\n谢谢！`
       : ""
-    : scene?.showCard?.lines.join("\n") || card?.zh || "";
+    : port?.zh || scene?.showCard?.lines.join("\n") || card?.zh || "";
   const blanks = address || card?.custom ? [] : cardBlanks(raw);
   const isTemplate = blanks.length > 0;
   const payload = isTemplate ? fillCard(raw, fill) : raw;
   const gloss = address
     ? t("address")
-    : scene
+    : port
+      ? `${port.city || port.cityZh || ""}${port.iata ? ` · ${port.iata}` : ""}`
+      : scene
       ? L(scene.showCard?.title)
       : card
         ? fillCard(L({ en: card.en, ja: card.ja, ko: card.ko }), fill)
         : t("noResults");
   const bookmarked = card && prefs.favorites.includes(card.id);
   const close = () =>
-    router.canGoBack() ? router.back() : router.replace("/(tabs)/cards");
+    router.canGoBack() ? router.back() : router.replace(kind === "port" ? "/(tabs)" : "/(tabs)/cards");
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.surface }}>
       <View
@@ -67,6 +70,7 @@ export default function Card() {
           </Txt>
         </View>
         <View style={{ flexDirection: "row", gap: 9 }}>
+          <IconButton name="emergency" label={t("emergency")} danger onPress={() => router.push("/emergency")} />
           {card && (
             <IconButton
               name="save"
@@ -149,7 +153,7 @@ export default function Card() {
             {!hide && (
               <Txt
                 color={colors.secondary}
-                style={{ fontSize: 18, lineHeight: 28 }}
+                style={{ fontSize: 15, lineHeight: 23 }}
               >
                 {gloss}
               </Txt>
