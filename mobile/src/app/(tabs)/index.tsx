@@ -68,7 +68,7 @@ export default function Today() {
               marginBottom: 16,
             }}
           >
-            <Icon name="prep" size={31} />
+            <Icon name="prep" size={26} />
             <Txt variant="caption" color={colors.accent}>
               {prefs.prep.length} / {content.prep.length} {t("ready")}
             </Txt>
@@ -109,14 +109,14 @@ export default function Today() {
                 onPress={() => router.push(`/guide/${id}`)}
                 style={{
                   padding: 19,
-                  minHeight: 126,
+                  minHeight: 108,
                   flex: 1,
                   backgroundColor: colors.surface,
                   borderRadius: 22,
                   gap: 15,
                 }}
               >
-                <Icon name={id} size={28} />
+                <Icon name={id} size={23} />
                 <View
                   style={{
                     flexDirection: "row",
@@ -153,7 +153,7 @@ export default function Today() {
             backgroundColor: colors.accentSoft,
           }}
         >
-          <Icon name="chat" size={29} />
+          <Icon name="chat" size={24} />
         </View>
         <View style={{ flex: 1, gap: 4 }}>
           <Txt variant="subheading">{t("assistant")}</Txt>

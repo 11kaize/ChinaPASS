@@ -16,23 +16,24 @@ export default function TabLayout() {
         tabBarHideOnKeyboard: true,
         tabBarActiveTintColor: colors.accent,
         tabBarInactiveTintColor: colors.secondary,
-        tabBarLabelStyle: { fontSize: 11, fontWeight: "600", marginTop: 4 },
+        tabBarLabelStyle: { fontSize: 10, lineHeight: 12, fontWeight: "600", marginTop: 0 },
         tabBarStyle: {
           position: "absolute",
           bottom,
           left: 12,
           right: 12,
-          height: 72,
+          height: 68,
           borderRadius: 30,
           overflow: "hidden",
           borderWidth: 1,
           borderColor: colors.line,
-          paddingTop: 9,
-          paddingBottom: 10,
+          paddingTop: 7,
+          paddingBottom: 7,
           borderTopWidth: 0,
           backgroundColor: "transparent",
         },
-        tabBarItemStyle: { borderRadius: 16 },
+        tabBarIconStyle: { height: 24, width: 24 },
+        tabBarItemStyle: { borderRadius: 16, paddingVertical: 0 },
         tabBarBackground: () => <GlassMaterial radius={30} />,
         // Glass must not sit under a parent whose opacity animates to zero.
         // Page provides the spring transition without fading the native material.
@@ -51,7 +52,7 @@ export default function TabLayout() {
                 tabBarIcon: ({ color, focused }) => (
                   <Icon
                     name={icon}
-                    size={25}
+                    size={21}
                     color={typeof color === "string" ? color : colors.accent}
                     weight={focused ? "fill" : "regular"}
                   />

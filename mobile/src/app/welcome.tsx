@@ -32,7 +32,7 @@ export default function Welcome() {
             <Brand large />
             <Txt
               variant="title"
-              style={{ fontSize: 40, lineHeight: 46, letterSpacing: -1.5 }}
+              style={{ fontSize: 32, lineHeight: 38, letterSpacing: -0.9 }}
             >
               {t("welcomeHeadline")}
             </Txt>

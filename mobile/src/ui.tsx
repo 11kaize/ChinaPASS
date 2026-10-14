@@ -93,7 +93,7 @@ export const icons: Record<string, PhosphorIcon> = {
 };
 export function Icon({
   name,
-  size = 24,
+  size = 20,
   color,
   weight = "regular",
 }: {
@@ -150,27 +150,27 @@ export function Txt({
   );
 }
 const type = StyleSheet.create({
-  body: { fontSize: 16, lineHeight: 24 },
+  body: { fontSize: 15, lineHeight: 22 },
   title: {
-    fontSize: 34,
-    lineHeight: 40,
+    fontSize: 28,
+    lineHeight: 34,
     fontWeight: "700",
-    letterSpacing: -1.1,
+    letterSpacing: -0.7,
   },
   heading: {
-    fontSize: 25,
-    lineHeight: 31,
+    fontSize: 22,
+    lineHeight: 28,
     fontWeight: "700",
     letterSpacing: -0.6,
   },
   subheading: {
-    fontSize: 19,
-    lineHeight: 25,
+    fontSize: 17,
+    lineHeight: 23,
     fontWeight: "600",
     letterSpacing: -0.2,
   },
-  caption: { fontSize: 13, lineHeight: 19 },
-  label: { fontSize: 15, lineHeight: 21, fontWeight: "600" },
+  caption: { fontSize: 12, lineHeight: 18 },
+  label: { fontSize: 14, lineHeight: 20, fontWeight: "600" },
 });
 export function Tap({
   children,
@@ -288,23 +288,11 @@ export function IconButton({
       label={label}
       onPress={onPress}
       selected={selected}
-      style={[
-        styles.iconButton,
-        {
-          backgroundColor: danger
-            ? colors.dangerSoft
-            : selected
-              ? colors.accentSoft
-              : colors.raised,
-        },
-      ]}
+      style={styles.iconButton}
     >
-      <Icon
-        name={name}
-        color={danger ? colors.danger : colors.accent}
-        size={22}
-        weight={selected ? "fill" : "regular"}
-      />
+      <View style={{ width: 34, height: 34, borderRadius: 17, alignItems: "center", justifyContent: "center", backgroundColor: danger ? colors.dangerSoft : selected ? colors.accentSoft : colors.raised }}>
+        <Icon name={name} color={danger ? colors.danger : colors.accent} size={19} weight={selected ? "fill" : "regular"} />
+      </View>
     </Tap>
   );
 }
@@ -314,9 +302,9 @@ export function Brand({ large = false }: { large?: boolean }) {
       source={require("../assets/brand.png")}
       accessibilityLabel="ChinaHand"
       style={{
-        width: large ? 96 : 34,
-        height: large ? 96 : 34,
-        borderRadius: large ? 24 : 10,
+        width: large ? 80 : 28,
+        height: large ? 80 : 28,
+        borderRadius: large ? 22 : 9,
       }}
     />
   );
@@ -394,11 +382,11 @@ export function Page({
       style={{ flex: 1, backgroundColor: colors.bg }}
     >
       <TopBar title={title} back={back} />
-      <Animated.View style={{ flex: 1, transform: [{ translateY: offset }], paddingBottom: !scroll && !back && !keyboard ? 96 : 0 }}>
+      <Animated.View style={{ flex: 1, transform: [{ translateY: offset }], paddingBottom: !scroll && !back && !keyboard ? 86 : 0 }}>
       {scroll ? (
         <ScrollView
           automaticallyAdjustKeyboardInsets
-          contentContainerStyle={[styles.page, { paddingBottom: back ? 40 : 124 }]}
+          contentContainerStyle={[styles.page, { paddingBottom: back ? 40 : 112 }]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
@@ -414,7 +402,7 @@ export function Page({
 export function Heading({ title, body }: { title: string; body?: string }) {
   const { colors } = useApp();
   return (
-    <View style={{ gap: 9, marginTop: 8, marginBottom: 26 }}>
+    <View style={{ gap: 7, marginTop: 6, marginBottom: 20 }}>
       <Txt variant="title">{title}</Txt>
       {body && <Txt color={colors.secondary}>{body}</Txt>}
     </View>
@@ -764,7 +752,7 @@ export const styles = StyleSheet.create({
   page: { padding: 22, paddingTop: 9, paddingBottom: 40, gap: 0 },
   row: { flexDirection: "row", alignItems: "center", gap: 10 },
   topbar: {
-    minHeight: 62,
+    minHeight: 54,
     paddingHorizontal: 22,
     flexDirection: "row",
     alignItems: "center",

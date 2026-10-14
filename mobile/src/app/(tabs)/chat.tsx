@@ -25,9 +25,7 @@ import {
   Tap,
   IconButton,
   Notice,
-  Button,
   RichText,
-  Heading,
   Surface,
   confirmAction,
 } from "../../ui";
@@ -161,9 +159,9 @@ export default function Chat() {
         <View
           style={{
             paddingHorizontal: 22,
-            paddingTop: 7,
-            paddingBottom: 12,
-            gap: 10,
+            paddingTop: 2,
+            paddingBottom: 5,
+            gap: 6,
           }}
         >
           <View
@@ -184,7 +182,7 @@ export default function Chat() {
                 paddingVertical: 8,
               }}
             >
-              <Icon name="chat" size={19} />
+              <Icon name="chat" size={16} />
               <Txt variant="label" color={colors.accent}>
                 {config ? providers[config.provider].name : t("exampleMode")}
               </Txt>
@@ -214,57 +212,41 @@ export default function Chat() {
             list.current?.scrollToEnd({ animated: false })
           }
           contentContainerStyle={{
-            padding: 22,
+            padding: 20,
             paddingTop: 4,
-            paddingBottom: 20,
+            paddingBottom: 12,
             flexGrow: 1,
-            gap: 19,
+            gap: 15,
           }}
+          showsVerticalScrollIndicator={false}
           ListEmptyComponent={
-            <View style={{ paddingTop: 12, gap: 16 }}>
-              <View
-                style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: 20,
-                  backgroundColor: colors.accentSoft,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Icon name="chat" size={30} />
+            <View style={{ paddingTop: 12, gap: 14 }}>
+              <View style={{ alignItems: "center", gap: 8, paddingVertical: 8 }}>
+                <View style={{ width: 38, height: 38, borderRadius: 13, backgroundColor: colors.accentSoft, alignItems: "center", justifyContent: "center" }}>
+                  <Icon name="chat" size={21} />
+                </View>
+                <Txt style={{ fontSize: 22, lineHeight: 28, fontWeight: "600", letterSpacing: -0.4, textAlign: "center" }}>{t("aiTitle")}</Txt>
+                <Txt variant="caption" color={colors.secondary} style={{ textAlign: "center", maxWidth: 270 }}>{t("aiBody")}</Txt>
               </View>
-              <Heading title={t("aiTitle")} body={t("aiBody")} />
-              {!config && <Notice text={t("exampleNote")} />}
               {!config && (
-                <Button
-                  label={t("configure")}
-                  icon="settings"
-                  onPress={() => router.push("/ai-config")}
-                />
+                <Surface style={{ padding: 12, gap: 9 }}>
+                  <View style={{ flexDirection: "row", gap: 8, alignItems: "flex-start" }}>
+                    <Icon name="info" size={15} />
+                    <Txt variant="caption" color={colors.secondary} style={{ flex: 1 }}>{t("exampleNote")}</Txt>
+                  </View>
+                  <Tap label={t("configure")} onPress={() => router.push("/ai-config")} style={{ minHeight: 44, paddingHorizontal: 13, borderRadius: 13, backgroundColor: colors.accent, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                    <Txt variant="label" color={colors.onAccent}>{t("configure")}</Txt>
+                    <Icon name="settings" size={18} color={colors.onAccent} />
+                  </Tap>
+                </Surface>
               )}
               <Surface>
-                {(["promptPay", "promptTaxi", "promptTrain"] as const).map(
-                  (key, i) => (
-                    <Tap
-                      key={key}
-                      label={t(key)}
-                      onPress={() => {
-                        void send(t(key));
-                      }}
-                      style={{
-                        padding: 19,
-                        borderBottomWidth: i === 2 ? 0 : 0.5,
-                        borderBottomColor: colors.line,
-                        flexDirection: "row",
-                        gap: 12,
-                      }}
-                    >
-                      <Txt style={{ flex: 1 }}>{t(key)}</Txt>
-                      <Icon name="arrow" size={19} />
-                    </Tap>
-                  ),
-                )}
+                {(["promptPay", "promptTaxi", "promptTrain"] as const).map((key, i) => (
+                  <Tap key={key} label={t(key)} onPress={() => { void send(t(key)); }} style={{ minHeight: 44, paddingVertical: 11, paddingHorizontal: 14, borderBottomWidth: i === 2 ? 0 : 0.5, borderBottomColor: colors.line, flexDirection: "row", alignItems: "center", gap: 8 }}>
+                    <Txt style={{ flex: 1, fontSize: 14, lineHeight: 20 }}>{t(key)}</Txt>
+                    <Icon name="arrow" size={16} />
+                  </Tap>
+                ))}
               </Surface>
             </View>
           }
@@ -378,15 +360,15 @@ export default function Chat() {
               editable={!busy}
               style={{
                 flex: 1,
-                minHeight: 50,
-                maxHeight: 140,
-                padding: 14,
-                paddingTop: 14,
+                minHeight: 44,
+                maxHeight: 112,
+                padding: 11,
+                paddingTop: 11,
                 borderRadius: 20,
                 backgroundColor: colors.raised,
                 color: colors.ink,
-                fontSize: 16,
-                lineHeight: 23,
+                fontSize: 15,
+                lineHeight: 21,
               }}
             />
             <Tap
@@ -394,9 +376,9 @@ export default function Chat() {
               disabled={!busy && !question.trim()}
               onPress={() => (busy ? abortRef.current?.abort() : void send())}
               style={{
-                width: 50,
-                height: 50,
-                borderRadius: 25,
+                width: 44,
+                height: 44,
+                borderRadius: 22,
                 backgroundColor: colors.accent,
                 justifyContent: "center",
                 alignItems: "center",
@@ -404,7 +386,7 @@ export default function Chat() {
             >
               <Icon
                 name={busy ? "stop" : "send"}
-                size={23}
+                size={19}
                 color={colors.onAccent}
                 weight="fill"
               />
