@@ -1,6 +1,8 @@
 /* China Hand's local shell. Bump this version when shipping new offline content. */
 const CACHE_PREFIX = "chinapass-shell-";
-const CACHE_NAME = CACHE_PREFIX + "2026-10-14-2";
+/* Third digit, not the second: 2026-10-07-18 shipped from the ja/ko branch,
+   2026-10-14-2 never left this machine, and this merge carries both. */
+const CACHE_NAME = CACHE_PREFIX + "2026-10-14-3";
 const SCOPE = self.registration.scope;
 const SHELL_FILES = [
   "./",
@@ -8,6 +10,7 @@ const SHELL_FILES = [
   "styles.css",
   "data.js",
   "phrases.js",
+  "scene-i18n.js",
   "explore.js",
   "explore-ui.js",
   "app.js",
