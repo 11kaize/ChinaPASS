@@ -12,6 +12,7 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "check:links": "node scripts/check-links.mjs",
     "desktop:dev": "electron .",
     "desktop:build": "electron-builder",
     "desktop:win": "electron-builder --win nsis",
