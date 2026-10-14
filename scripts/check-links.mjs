@@ -55,7 +55,6 @@ async function collect() {
 async function probe(url) {
   const base = {
     redirect: "follow",
-    signal: AbortSignal.timeout(20000),
     headers: { "user-agent": UA, accept: "text/html,*/*" }
   };
 
@@ -63,7 +62,7 @@ async function probe(url) {
   // to HEAD while serving the page perfectly well to a browser, and reporting
   // those as dead would train us to ignore this script.
   try {
-    const head = await fetch(url, { ...base, method: "HEAD" });
+    const head = await fetch(url, { ...base, method: "HEAD", signal: AbortSignal.timeout(20000) });
     if (![403, 405, 501].includes(head.status)) {
       return { status: head.status, ok: head.ok, final: head.url };
     }
@@ -72,7 +71,8 @@ async function probe(url) {
   }
 
   try {
-    const res = await fetch(url, { ...base, headers: { ...base.headers, range: "bytes=0-0" } });
+    const res = await fetch(url, { ...base, signal: AbortSignal.timeout(20000), headers: { ...base.headers, range: "bytes=0-0" } });
+    await res.body?.cancel();
     return { status: res.status, ok: res.ok, final: res.url };
   } catch (err) {
     return { status: 0, ok: false, error: `${err.name}: ${err.message}` };

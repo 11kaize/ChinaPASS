@@ -33,3 +33,10 @@ desktop.ini
 # Temp
 *.tmp
 .cache/
+
+# Native demo artifacts and generated projects
+artifacts/*.apk
+artifacts/*.aab
+mobile/.expo/
+mobile/android/
+mobile/ios/

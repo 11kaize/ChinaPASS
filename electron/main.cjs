@@ -7,7 +7,7 @@ const { app, BrowserWindow, shell, session } = require('electron');
 const entryFile = path.resolve(__dirname, '..', 'demo', 'index.html');
 const iconFile = path.resolve(__dirname, '..', 'desktop', 'icon.png');
 
-app.setName('China Hand');
+app.setName('ChinaHand');
 if (process.platform === 'win32') app.setAppUserModelId('org.chinahand.desktop');
 
 function isAppDocument(rawUrl) {
@@ -41,7 +41,7 @@ function openExternalLink(rawUrl) {
 
 function createWindow() {
   const window = new BrowserWindow({
-    title: 'China Hand',
+    title: 'ChinaHand',
     width: 1240,
     height: 840,
     minWidth: 760,
@@ -74,7 +74,7 @@ function createWindow() {
   });
 
   window.loadFile(entryFile).catch((error) => {
-    console.error('Could not load China Hand:', error);
+    console.error('Could not load ChinaHand:', error);
   });
 }
 

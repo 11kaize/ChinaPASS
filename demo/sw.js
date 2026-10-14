@@ -1,12 +1,13 @@
-/* China Hand's local shell. Bump this version when shipping new offline content. */
+/* ChinaHand's local shell. Bump this version when shipping new offline content. */
 const CACHE_PREFIX = "chinapass-shell-";
 /* Third digit, not the second: 2026-10-07-18 shipped from the ja/ko branch,
    2026-10-14-2 never left this machine, and 2026-10-14-3 carried both.
-   -4 is the arrival-port home screen and the four-tab home, and neither has
-   shipped, so both batches ride this one number rather than burning -5 on a
-   batch that is not out yet. Without the bump a returning visitor keeps the
-   cached data.js from before PORTS existed, and the home screen silently
-   loses its port picker instead of failing loudly. */
+   -native-demo-1 shipped the ChinaHand rename and the native mobile demo, and
+   -4 was built in parallel on the arrival-port home screen and the four-tab
+   home. Both are live now that they are merged, and neither holds the other's
+   content, so the merged batch takes a name new to holders of either: nobody
+   is left on the pre-PORTS data.js, which is what silently removes the port
+   picker from the home screen instead of failing loudly. */
 const CACHE_NAME = CACHE_PREFIX + "2026-10-14-4";
 const SCOPE = self.registration.scope;
 const SHELL_FILES = [
