@@ -179,6 +179,29 @@ const UI = {
     savedOk: "Saved",
     deletedOk: "Deleted",
     mineNote: "Your cards are saved on this device only — there is no account and no server copy. Deleting one cannot be undone, so keep anything important somewhere else too.",
+    /* Home screen: the arrival-port picker and the route diagram.
+       Port names themselves are payload and stay in Chinese (see PORTS);
+       everything around them is shell text and lives here. */
+    whereLanded: "Where did you land?",
+    whereLandedHint: "Pick your arrival port. The Chinese name below it is the part you show a driver.",
+    changePort: "Change",
+    yourRoute: "Your route, one step at a time",
+    routeArrivalDay: "Landing day",
+    routeLater: "After you settle in",
+    youAreHere: "You are here",
+    tabArrival: "Arrival",
+    tabRoute: "Steps",
+    tabFeatures: "Guides",
+    tabTools: "Tools",
+    tabNav: "Sections",
+    morePorts: "More ports",
+    portAir: "Flight",
+    portSea: "Ferry",
+    portRail: "Train",
+    portLand: "Land border",
+    portNoDetail: "We haven't written the details for this port yet. The Chinese name above works on its own.",
+    landNoBaggage: "Arriving by land or rail, you clear immigration before boarding, so there is no baggage-claim step.",
+    portOfficialList: "Official list of open ports (in Chinese)",
   },
   zh: {
     heroH1: "3 分钟搞定在中国的日常",
@@ -326,6 +349,26 @@ const UI = {
     savedOk: "已保存",
     deletedOk: "已删除",
     mineNote: "卡片只保存在本设备 —— 没有账号，也没有服务器副本。删除后无法恢复，重要内容请另外留一份。",
+    whereLanded: "你在哪个口岸落地？",
+    whereLandedHint: "选你入境的口岸。下面的中文名可以直接给司机看。",
+    changePort: "更换",
+    yourRoute: "你的路线，一步一步来",
+    routeArrivalDay: "落地当天",
+    routeLater: "安顿之后",
+    youAreHere: "你在这",
+    tabArrival: "落地",
+    tabRoute: "流程",
+    tabFeatures: "功能",
+    tabTools: "工具",
+    tabNav: "分区",
+    morePorts: "更多口岸",
+    portAir: "机场",
+    portSea: "海港",
+    portRail: "铁路",
+    portLand: "陆路",
+    portNoDetail: "这个口岸的细节我们还没写 —— 上面的中文名本身就能用。",
+    landNoBaggage: "陆路或铁路入境是在上车前就办好入境手续的，没有取行李这一步。",
+    portOfficialList: "官方口岸名单（中文）",
   },
   ja: {
     heroH1: "中国での毎日を3分で乗り切るガイド",
@@ -473,6 +516,26 @@ const UI = {
     savedOk: "保存しました",
     deletedOk: "削除しました",
     mineNote: "カードはこの端末にのみ保存されます。アカウントもサーバー上の控えもありません。削除は取り消せないので、大切な内容は別にも残してください。",
+    whereLanded: "どの入国地から入国しましたか？",
+    whereLandedHint: "入国した入国地を選んでください。下の中国語名を運転手に見せられます。",
+    changePort: "変更",
+    yourRoute: "あなたのルート（順番に）",
+    routeArrivalDay: "到着当日",
+    routeLater: "落ち着いてから",
+    youAreHere: "現在ここ",
+    tabArrival: "到着",
+    tabRoute: "手順",
+    tabFeatures: "ガイド",
+    tabTools: "ツール",
+    tabNav: "セクション",
+    morePorts: "その他の入国地",
+    portAir: "空港",
+    portSea: "港",
+    portRail: "鉄道",
+    portLand: "陸路",
+    portNoDetail: "この入国地の詳細はまだありません。上の中国語名だけでも使えます。",
+    landNoBaggage: "陸路・鉄道での入国は乗車前に手続きを済ませるため、荷物受け取りの手順はありません。",
+    portOfficialList: "公式の入国地リスト（中国語）",
   },
   ko: {
     heroH1: "중국 일상생활을 3분 안에 해결하는 가이드",
@@ -620,6 +683,26 @@ const UI = {
     savedOk: "저장했습니다",
     deletedOk: "삭제했습니다",
     mineNote: "카드는 이 기기에만 저장됩니다. 계정도 서버 사본도 없습니다. 삭제는 되돌릴 수 없으니 중요한 내용은 따로 남겨 두세요.",
+    whereLanded: "어느 입국지로 입국했나요?",
+    whereLandedHint: "입국한 입국지를 선택하세요. 아래 중국어 이름을 운전기사에게 보여줄 수 있습니다.",
+    changePort: "변경",
+    yourRoute: "나의 경로 (순서대로)",
+    routeArrivalDay: "입국 당일",
+    routeLater: "안정된 후",
+    youAreHere: "현재 위치",
+    tabArrival: "도착",
+    tabRoute: "절차",
+    tabFeatures: "기능",
+    tabTools: "도구",
+    tabNav: "섹션",
+    morePorts: "다른 입국지",
+    portAir: "공항",
+    portSea: "항구",
+    portRail: "철도",
+    portLand: "육로",
+    portNoDetail: "이 입국지의 상세 정보는 아직 없습니다. 위의 중국어 이름만으로도 충분합니다.",
+    landNoBaggage: "육로·철도 입국은 탑승 전에 입국 수속을 마치므로 수하물 수취 단계가 없습니다.",
+    portOfficialList: "공식 입국지 목록 (중국어)",
   },
 };
 
@@ -1599,6 +1682,50 @@ const CITY_BOXES = [
   { city: "Guilin",    zh: "桂林",   ja: "桂林",       ko: "구이린",     lat: [24.6, 25.9],  lng: [109.6, 110.7] },
   { city: "Lhasa",     zh: "拉萨",   ja: "ラサ",       ko: "라싸",       lat: [29.2, 30.5],  lng: [90.4, 91.8] },
   { city: "Urumqi",    zh: "乌鲁木齐", ja: "ウルムチ", ko: "우루무치",   lat: [42.9, 44.5],  lng: [86.5, 88.5] },
+];
+
+/* ==========================================================================
+   口岸 —— 首页第一屏问「你在哪个口岸落地？」
+
+   中文名照抄国家移民管理局「240 小时过境免签」口岸名单，不自创。选这个名单
+   做底，是因为它是「外国人能落地的口岸」唯一权威且可枚举的公开口径。
+
+   两点必须知道，界面文案里不能混淆：
+   1. 该名单覆盖的是**过境免签**。持签证者还能从更多口岸入境（福田 / 皇岗 /
+      拱北 这些常走的陆路口岸不在名单里）。这里列的是外国旅客实际最常走的，
+      不代表只有这些。
+   2. 名单含机场、海港（客运）、铁路三种，不只是机场。
+
+   本数组**不是**完整的 65 个口岸，只列首页要展示的这批；补齐是纯录入工作，
+   直接照着名单往下加行即可。顺序大致按外国旅客使用量排，是编辑排序，
+   不是公布的统计数据。
+
+   字段：
+     zh      口岸中文全名。给司机看的就是这一条，也是没有明细时唯一还能交付的价值。
+     city    命中 CITY_BOXES.city 才填，决定选这个口岸时写哪个 ccs.city。
+     cityZh  城市**不在** CITY_BOXES 里时的兜底城市名（如香港）。只有这种才填，
+             否则城市名有第二个来源就会漂移。
+     iata    有机场三字码才填；海港、铁路没有。
+   ========================================================================== */
+
+const PORTS = [
+  { id: "pvg",    kind: "air",  iata: "PVG", zh: "上海浦东国际机场",   city: "Shanghai" },
+  { id: "can",    kind: "air",  iata: "CAN", zh: "广州白云国际机场",   city: "Guangzhou" },
+  { id: "pek",    kind: "air",  iata: "PEK", zh: "北京首都国际机场",   city: "Beijing" },
+  { id: "pkx",    kind: "air",  iata: "PKX", zh: "北京大兴国际机场",   city: "Beijing" },
+  { id: "szx",    kind: "air",  iata: "SZX", zh: "深圳宝安国际机场",   city: "Shenzhen" },
+  /* Rail, and the one entry whose city is not in CITY_BOXES at all — Hong Kong.
+     It also exercises the branch where we must not offer a city-guide link. */
+  { id: "wkl",    kind: "rail",              zh: "广深港高铁西九龙站", cityZh: "香港" },
+  { id: "tfu",    kind: "air",  iata: "TFU", zh: "成都天府国际机场",   city: "Chengdu" },
+  { id: "hgh",    kind: "air",  iata: "HGH", zh: "杭州萧山国际机场",   city: "Hangzhou" },
+  { id: "xmn",    kind: "air",  iata: "XMN", zh: "厦门高崎国际机场",   city: "Xiamen" },
+  { id: "kmg",    kind: "air",  iata: "KMG", zh: "昆明长水国际机场",   city: "Kunming" },
+  { id: "tao",    kind: "air",  iata: "TAO", zh: "青岛胶东国际机场",   city: "Qingdao" },
+  { id: "nkg",    kind: "air",  iata: "NKG", zh: "南京禄口国际机场",   city: "Nanjing" },
+  { id: "ckg",    kind: "air",  iata: "CKG", zh: "重庆江北国际机场",   city: "Chongqing" },
+  { id: "xiy",    kind: "air",  iata: "XIY", zh: "西安咸阳国际机场",   city: "Xi'an" },
+  { id: "shekou", kind: "sea",               zh: "蛇口港",             city: "Shenzhen" },
 ];
 
 const FAQ = [

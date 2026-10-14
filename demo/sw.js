@@ -1,8 +1,13 @@
 /* China Hand's local shell. Bump this version when shipping new offline content. */
 const CACHE_PREFIX = "chinapass-shell-";
 /* Third digit, not the second: 2026-10-07-18 shipped from the ja/ko branch,
-   2026-10-14-2 never left this machine, and this merge carries both. */
-const CACHE_NAME = CACHE_PREFIX + "2026-10-14-3";
+   2026-10-14-2 never left this machine, and 2026-10-14-3 carried both.
+   -4 is the arrival-port home screen and the four-tab home, and neither has
+   shipped, so both batches ride this one number rather than burning -5 on a
+   batch that is not out yet. Without the bump a returning visitor keeps the
+   cached data.js from before PORTS existed, and the home screen silently
+   loses its port picker instead of failing loudly. */
+const CACHE_NAME = CACHE_PREFIX + "2026-10-14-4";
 const SCOPE = self.registration.scope;
 const SHELL_FILES = [
   "./",

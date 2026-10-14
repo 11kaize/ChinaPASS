@@ -1,6 +1,6 @@
 # China Hand
 
-China Hand helps visitors handle practical moments in China with eleven travel guides, 96 Chinese phrase cards, an offline English-to-Chinese phrase lookup, a pre-flight checklist, FAQs, a personal address card, and cards you write yourself. It runs as a static website, an offline-capable installable web app, or a desktop app packaged with Electron.
+China Hand helps visitors handle practical moments in China with eleven travel guides, 96 Chinese phrase cards, an offline English-to-Chinese phrase lookup, a pre-flight checklist, FAQs, a personal address card, and cards you write yourself. The interface is four screens behind a bottom tab bar — landing, steps, guides, tools — so nothing is piled onto one page. It runs as a static website, an offline-capable installable web app, or a desktop app packaged with Electron.
 
 ## Run the web demo
 
@@ -15,9 +15,11 @@ Then open `http://localhost:4173`. The service worker and installable PWA featur
 
 ## Use China Hand
 
+- Start by saying which port you landed at. Fifteen entry ports across air, sea and rail, each labelled with its Chinese name — the part you show to a driver, and the part that still works when nothing else loads. Picking one repeats that Chinese name large, and for nine of the fifteen also lists that city's airports and rail stations, so the name on your ticket is not the name you were expecting. Where that guide is not written yet, the page says so rather than showing an empty panel.
+- Follow the arrival route one step at a time: customs, SIM, payment, taxi, hotel on landing day, then metro, train and food once you have settled in. Tapping a step opens it and marks where you are, so you never set your own progress. The 110, 120, 119 and 122 dial links stay on the landing screen, and a permanent SOS slot in the tab bar reaches the emergency card from anywhere else.
 - Work through seven pre-flight items before you fly — passport and visa, connectivity, opening the app once so it can be cached, payment setup, your hotel address saved in Chinese, maps, and emergency contacts.
 - Follow nine travel guides in arrival order — customs, SIM, payment, taxi, hotel, metro, train, food, emergencies — each with a "Do it now" panel, steps, a backup plan, common mistakes and official sources. The panel sits directly under the task statement and hands you off in one tap: official first (12306, Alipay, DiDi, Amap, China Mobile), then an English-friendly alternative (Trip.com and friends) where registration or a Chinese-only interface would otherwise stop you. Each link is badged Official, English-friendly or Chinese only, and says what it costs you.
-- Look up the airport and rail station names for six cities — which one is on your ticket, and which one people usually get wrong.
+- Look up the airport and rail station names for eight cities — which one is on your ticket, and which one people usually get wrong.
 - Browse two additional short guides on entry documents and offline preparation.
 - Save a Chinese destination name, address, and optional phone number for a full-screen help card; clear these details on a shared device.
 - Show any of 96 Chinese cards full screen, with the Chinese line large enough to hand to someone nearby. The interface runs in English, 中文, 日本語 and 한국어.

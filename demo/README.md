@@ -120,9 +120,9 @@ python3 -m http.server 4173
 demo/
 ├── index.html           页面骨架 + 全屏卡片层 + 首启引导层
 ├── styles.css           全部样式（含深色模式与全部 @keyframes）
-├── data.js              内容层：SCENES / CARD_GROUPS / UI / ONBOARDING / PREP / CITY_BOXES / FAQ
+├── data.js              内容层：SCENES / CARD_GROUPS / UI / ONBOARDING / PREP / CITY_BOXES / PORTS / FAQ
 ├── scene-i18n.js        9 个场景正文的日语、韩语语言包
-├── explore.js           六座城市的抵达提示 + 两篇行前攻略（纯数据，正文只有英文）
+├── explore.js           八座城市的抵达提示 + 两篇行前攻略（纯数据，正文只有英文）
 ├── explore-ui.js        城市列表/详情、攻略库、行前预告块和地址卡交互
 ├── app.js               主路由 + 多语言场景渲染（无依赖）
 ├── manifest.webmanifest PWA 清单

@@ -146,6 +146,89 @@ body {
   padding: 3px 9px;
 }
 
+/* ---------- tab bar ----------
+   Four content screens plus a permanent SOS.
+
+   Sticky, not fixed, on purpose: a sticky bar occupies its own space at the
+   end of .app, so no padding has to be added above it to keep content clear,
+   and it inherits .app's width and desktop centring for free.
+
+   z-index 15 is deliberately below .topbar's 20 — the two never meet, but
+   .cardscreen (100), .onboard (150) and .toast (200) all have to cover this
+   bar, and anything above 20 would put it over the top bar on a short page. */
+.tabbar {
+  position: sticky;
+  bottom: 0;
+  z-index: 15;
+  display: flex;
+  align-items: stretch;
+  background: var(--bg);
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: saturate(160%) blur(12px);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  border-top: 1px solid var(--line-soft);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.tabbar__tab,
+.tabbar__sos {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px 2px 9px;
+  font: inherit;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--muted);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tabbar__i { font-size: 18px; line-height: 1; }
+
+/* "Emergency" is the longest label in English and the CJK ones are two glyphs
+   wide, so the label ellipsises rather than pushing the five slots off an
+   equal split. */
+.tabbar__l {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tabbar__tab.is-on { color: var(--brand); }
+
+/* SOS is the one slot that is not a screen: it leaves the tab shell for the
+   emergency page, so it reads as an action and never takes is-on. */
+.tabbar__sos { color: var(--danger); }
+
+/* Everything below is switched on by one class on <body>, set in render().
+
+   A sticky bar only pins to the bottom of the viewport while there is more
+   content than screen; with less, it stays wherever the content ends, which
+   is the middle of the page. Making .app a column at least one screen tall
+   and pushing the bar to the end covers both cases: short screen = bar at the
+   bottom of the viewport, long screen = content scrolls past the bar.
+
+   .app's own 40px bottom padding goes at the same time — the bar carries the
+   safe-area inset now, and keeping the padding would hold it 40px off the
+   floor at the end of every scroll. */
+body.has-tabbar .app {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
+}
+
+body.has-tabbar .tabbar { margin-top: auto; }
+
+/* .toast sits fixed at bottom: 28px, which is exactly where the bar is. */
+body.has-tabbar .toast { bottom: calc(84px + env(safe-area-inset-bottom)); }
+
 /* ---------- hero ---------- */
 
 .hero {
@@ -1137,12 +1220,23 @@ table.mistakes td:last-child { color: var(--ok); padding-right: 0; }
   .app {
     border: 1px solid var(--line);
     border-radius: 20px;
+    /* clip, not hidden. `overflow: hidden` makes .app a scroll container, and
+       a sticky child then sticks to *that* box — which never scrolls, so the
+       bar just sat where it was put. `overflow: clip` still cuts the rounded
+       corners without creating a scroll container, so sticky goes back to
+       resolving against the viewport. Both are listed so a browser without
+       clip falls back to exactly today's behaviour. This is also why the top
+       bar does not actually stick on desktop. */
     overflow: hidden;
+    overflow: clip;
     background: var(--bg);
     box-shadow: var(--shadow);
     min-height: auto;
   }
   .topbar { border-radius: 20px 20px 0 0; }
+  /* 40px = body's own 20px top and bottom padding */
+  body.has-tabbar .app { min-height: calc(100vh - 40px); }
+  body.has-tabbar .tabbar { border-radius: 0 0 20px 20px; }
 }
 
 /* ==========================================================================
@@ -1766,3 +1860,213 @@ table.mistakes td:last-child { color: var(--ok); padding-right: 0; }
 
 /* the way out, sitting under every non-empty result list */
 #say-results .btn { margin-top: 10px; }
+
+/* ==========================================================================
+   Home: the arrival port and the route
+
+   The first screen asks two questions and nothing else. Both are drawn from
+   the existing tokens — no new colour, no icon font, no image, and above all
+   no map tiles. A real map would need an API key and a network round trip,
+   which is exactly what is missing in an arrivals hall.
+   ========================================================================== */
+
+/* ---------- inline link buttons ----------
+
+   .text-link only existed scoped to .explore-page (see that rule further down),
+   so a <button class="text-link"> anywhere else kept its user-agent chrome — a
+   bordered box sitting in the middle of the panel. Define it generally; the
+   scoped rule is more specific, so the explore pages are untouched. */
+
+.text-link {
+  font: inherit;
+  font-weight: 600;
+  color: var(--brand);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.text-link:hover { text-decoration: underline; }
+
+/* ---------- port chips ---------- */
+
+.pchips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.pchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 13px;
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease, color .15s ease;
+}
+
+.pchip:hover { border-color: color-mix(in srgb, var(--brand) 45%, var(--line)); }
+
+.pchip.is-on {
+  background: var(--brand-soft);
+  border-color: var(--brand);
+  color: var(--brand-ink);
+}
+
+.pchip__i { font-size: 14px; line-height: 1; }
+.pchip__code { font-size: 10.5px; font-weight: 700; letter-spacing: .06em; color: var(--faint); }
+.pchip.is-on .pchip__code { color: var(--brand); }
+
+.portsrc { margin: 0; font-size: 12.5px; }
+.portsrc a { color: var(--muted); }
+
+/* ---------- the port you picked ----------
+   The Chinese name leads because it is the payload: it is the one thing on
+   this screen that still works when nothing else does, since you hand the
+   phone to someone. The city and code under it are for you, not for them. */
+
+.portchosen { margin: 0 0 12px; }
+
+.portchosen__zh {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: .01em;
+  overflow-wrap: anywhere;
+}
+
+.portchosen__sub {
+  margin-top: 3px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.portchosen .name-row { margin-top: 10px; }
+
+.portchosen__note {
+  margin: 8px 0 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* ---------- route ----------
+   A node is a scene. The connector is drawn by each node for its own height,
+   so the line is continuous without a wrapper element per group; the two
+   selectors below trim it to the first and last dot. */
+
+.route { position: relative; }
+
+.route__label {
+  margin: 0 0 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.route__label--gap { margin-top: 18px; }
+
+.rnode {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: 8px 8px 8px 0;
+  cursor: pointer;
+  animation: ccs-rise .3s ease-out backwards;
+  animation-delay: calc(var(--i, 0) * 40ms);
+}
+
+.rnode::before {
+  content: "";
+  position: absolute;
+  left: 14.5px;                   /* centres a 1px line under a 30px dot */
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+
+/* the dot after a group label is the first in its run, and the last dot ends
+   its own run — trim the connector to those two centres */
+.route__label + .rnode::before { top: 50%; }
+.rnode:last-child::before { bottom: 50%; }
+
+.rnode__dot {
+  position: relative;
+  z-index: 1;                     /* above its own connector */
+  flex: none;
+  width: 30px; height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1.5px solid var(--line);
+  background: var(--bg);          /* masks the line behind the dot */
+  font-size: 14px;
+  line-height: 1;
+  transition: border-color .15s ease, background .15s ease;
+}
+
+.rnode.is-here .rnode__dot {
+  background: var(--brand-soft);
+  border-color: var(--brand);
+}
+
+.rnode__body { flex: 1; min-width: 0; }
+
+.rnode__t {
+  display: block;
+  font-size: 15.5px;
+  font-weight: 640;
+  letter-spacing: -.01em;
+  line-height: 1.35;
+}
+
+.rnode__sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.rnode__here {
+  flex: none;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* Hover moves the type, not the row background: the dot's fill has to keep
+   matching whatever is behind it, and a row background would break that. */
+.rnode:hover .rnode__t { color: var(--brand); }
+
+.route__note {
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+}

@@ -54,6 +54,20 @@ const CITIES = [
     stations: ['桂林北站', '桂林站', '桂林西站'],
     note: 'High-speed trains stop at 桂林北站, which is north of the centre. 桂林站 is the older central station. Check which one your ticket names before arranging a pickup.',
     source: { label: 'Guilin municipal government', url: 'https://www.guilin.gov.cn/' }
+  },
+  {
+    id: 'guangzhou', name: 'Guangzhou', zh: '广州',
+    airport: ['广州白云国际机场（CAN）'],
+    stations: ['广州南站', '广州站', '广州东站'],
+    note: 'The airport is well north of the centre. High-speed trains mostly use 广州南站, which is south of the river in Panyu — a long way from 广州站 and 广州东站, the older central stations. A ticket naming 广州南 does not mean a station near the centre.',
+    source: { label: 'Guangzhou municipal government', url: 'https://www.gz.gov.cn/' }
+  },
+  {
+    id: 'shenzhen', name: 'Shenzhen', zh: '深圳',
+    airport: ['深圳宝安国际机场（SZX）'],
+    stations: ['深圳北站', '福田站', '深圳站'],
+    note: '深圳北站 is the big high-speed hub, northeast of the centre; 福田站 is underground in the central business district and some high-speed trains use it instead. 深圳站 sits at Luohu, next to the Hong Kong land crossing, and is a different place again.',
+    source: { label: 'Shenzhen municipal government', url: 'https://www.sz.gov.cn/' }
   }
 ];
 

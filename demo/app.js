@@ -335,6 +335,18 @@
   var city = store.get("ccs.city", null);            // "Shanghai"
   var loc = store.get("ccs.loc", null);              // { lat, lng }
 
+  /* The port you landed at and the step you are on. Two new keys, so nothing
+     stored by an older build has to be migrated — ccs.city keeps the exact
+     format it always had. */
+  var port = store.get("ccs.port", null);            // "pvg"
+  var stage = store.get("ccs.stage", "customs");     // scene id the route marks
+
+  /* Home-screen picker state. Not persisted on purpose: whether the chip list
+     happens to be unfolded is not something worth remembering between visits,
+     and the page opens collapsed once a port is chosen anyway. */
+  var portListOpen = false;
+  var portListAll = false;
+
   function cityByKey(k) {
     for (var i = 0; i < CITY_BOXES.length; i++) if (CITY_BOXES[i].city === k) return CITY_BOXES[i];
     return null;
@@ -343,6 +355,69 @@
   function cityLabel(c) {
     return c ? { en: c.city, zh: c.zh, ja: c.ja, ko: c.ko } : null;
   }
+
+  /* Guarded like CITIES above, and for the same reason plus one more: a
+     returning visitor can still be holding a data.js cached from before PORTS
+     existed, and an unguarded read would throw on the home page for them. */
+  function portById(id) {
+    if (typeof PORTS === "undefined" || !id) return null;
+    for (var i = 0; i < PORTS.length; i++) if (PORTS[i].id === id) return PORTS[i];
+    return null;
+  }
+
+  /* The label on a port chip: the city in the reader's language, plus the code.
+     Composed rather than stored, so ports need no translations of their own —
+     CITY_BOXES already carries the city in all four. */
+  function portCityLabel(p) {
+    var box = p.city != null ? cityByKey(p.city) : null;
+    return box ? L(cityLabel(box)) : (p.cityZh || "");
+  }
+
+  /* CITIES keys its entries by a slug ('xian'); CITY_BOXES goes by display name
+     ("Xi'an"). The two do not even agree on the apostrophe — CITY_BOXES has a
+     straight one, explore.js a curly one — so a plain lowercase compare misses
+     and the city-guide lookup quietly returns nothing. Strip everything but
+     a-z and both collapse onto the same key. */
+  function cityDetailId(name) {
+    return String(name == null ? "" : name).toLowerCase().replace(/[^a-z]/g, "");
+  }
+
+  function cityDetail(p) {
+    if (!p || p.city == null || typeof CITIES === "undefined") return null;
+    var id = cityDetailId(p.city);
+    for (var i = 0; i < CITIES.length; i++) if (CITIES[i].id === id) return CITIES[i];
+    return null;
+  }
+
+  /* The one write path for ccs.city. Two places used to assign it directly —
+     the GPS fix and the #/city picker — and neither knew about ccs.port, so
+     picking Shanghai by port and then Beijing on #/city left the home page
+     captioning a Shanghai airport with Beijing. A city set without a port
+     clears the port.
+     A port with no CITY_BOXES city (West Kowloon is in Hong Kong) leaves any
+     existing city alone rather than blanking it: we have no box for Hong Kong,
+     and wiping the city would take the location card down with it. */
+  function setCity(cityKey, portId) {
+    var p = portById(portId);
+    if (p) {
+      port = p.id;
+      if (p.city != null) city = p.city;
+    } else {
+      port = null;
+      city = cityKey || null;
+    }
+    store.set("ccs.city", city);
+    store.set("ccs.port", port);
+  }
+
+  /* A stored port is only believable while it still agrees with the stored
+     city. If they have drifted apart — an older build, a hand-edited key, a
+     port dropped from PORTS — forget the port rather than caption one city
+     with another city's airport. */
+  (function () {
+    var p = portById(port);
+    if (port && (!p || (p.city != null && p.city !== city))) { port = null; store.set("ccs.port", null); }
+  })();
 
   function matchCity(lat, lng) {
     for (var i = 0; i < CITY_BOXES.length; i++) {
@@ -366,9 +441,11 @@
         var m = matchCity(pos.coords.latitude, pos.coords.longitude);
         if (!m) { cb(null, "nomatch"); return; }
         loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-        city = m.city;
         store.set("ccs.loc", loc);
-        store.set("ccs.city", city);
+        /* A fix tells us the city, never the port, so this clears any port the
+           user had picked — otherwise the home page captions a Beijing fix
+           with a Shanghai airport. */
+        setCity(m.city, null);
         cb(m, null);
       },
       function (err) { cb(null, err && err.code === 1 ? "denied" : "failed"); },
@@ -469,12 +546,29 @@
 
   /* ---------------- top bar ---------------- */
 
+  /* Both are set by render() before it draws anything. `tabHere` says whether
+     the page being drawn is one of the four tab screens; `prevTab` is the last
+     tab screen that *was* drawn, which for a detail page is where the reader
+     came from. */
+  var tabHere = false;
+  var prevTab = "";
+
   function topbar(title, opts) {
     opts = opts || {};
+    /* Every detail page in this file — all nine scenes, the card sets, the
+       checklist, the FAQ, the address card, the language picker, the Explore
+       pages — passes back: "/", because "/" used to be the app's only hub and
+       so it meant "the screen you came from". There are four hubs now. Rather
+       than edit eleven call sites and hope the next one remembers, "/" on a
+       detail page resolves here to the tab screen the reader was last on.
+       A cold deep link with nothing remembered still gets the arrival screen,
+       which is exactly what it did before, and the four tab screens themselves
+       always mean the arrival screen. */
+    var back = opts.back === "/" && !tabHere && prevTab ? prevTab : opts.back;
     return '' +
       '<header class="topbar">' +
-        (opts.back
-          ? '<button class="topbar__back" data-go="' + opts.back + '" aria-label="' + esc(t("back")) + '">‹</button>'
+        (back
+          ? '<button class="topbar__back" data-go="' + back + '" aria-label="' + esc(t("back")) + '">‹</button>'
           : '') +
         '<div class="topbar__title">' + esc(title) + "</div>" +
         '<div class="topbar__spacer"></div>' +
@@ -488,9 +582,242 @@
       "</header>";
   }
 
-  /* ---------------- pages ---------------- */
+  /* ---------------- tab bar ----------------
+
+     The four content screens, in order. tabBar() renders them and render() uses
+     the same list to decide whether this page has a tab bar at all, so the two
+     can never disagree about what counts as a tab. The route keys are the hash
+     names; "" is the arrival screen, which is what #/ , a bare URL and the PWA
+     start_url all already resolve to. */
+  var TABS = [
+    { route: "", icon: "🛬", key: "tabArrival" },
+    { route: "/steps", icon: "🧭", key: "tabRoute" },
+    { route: "/features", icon: "🧩", key: "tabFeatures" },
+    { route: "/tools", icon: "🧰", key: "tabTools" }
+  ];
+
+  /* Real <a href="#/…"> anchors, not data-go buttons: changing screens *is* a
+     hash change, so letting the browser do it hands us the back button and
+     long-press-to-copy-the-link for free. In-page jumps must keep using the
+     data-toc buttons instead — see jumpTo() for why a hash cannot be used to
+     scroll down a page.
+
+     The last slot is not a screen. docs/04 asks for the emergency card to be
+     one tap from anywhere, and behind three of these four tabs it would be
+     two; it reuses t("emergency") and leaves the tab shell for the page, so it
+     is tinted as an action and never takes is-on. */
+  function tabBar(active) {
+    var tabs = TABS.map(function (x) {
+      var on = x.route === active;
+      /* "" is the arrival screen, so its href has to be spelled "#/" rather
+         than the bare "#" a naive concatenation gives — "#" sets an empty
+         fragment, which is a different string from "#/" and would make the
+         "am I already here" test below miss. */
+      var href = "#" + (x.route || "/");
+      return '<a class="tabbar__tab' + (on ? " is-on" : "") + '" href="' + href + '"' +
+        ' data-tab="' + esc(x.route || "/") + '"' +
+        (on ? ' aria-current="page"' : "") + ">" +
+        '<span class="tabbar__i" aria-hidden="true">' + x.icon + "</span>" +
+        '<span class="tabbar__l">' + esc(t(x.key)) + "</span>" +
+      "</a>";
+    }).join("");
+    return '<nav class="tabbar" aria-label="' + esc(t("tabNav")) + '">' + tabs +
+      '<a class="tabbar__sos" href="#/emergency">' +
+        '<span class="tabbar__i" aria-hidden="true">🆘</span>' +
+        '<span class="tabbar__l">' + esc(t("emergency")) + "</span>" +
+      "</a></nav>";
+  }
+
+  /* ---------------- pages ----------------
+
+     The home surface is four screens behind one tab bar rather than one long
+     scroll, so nothing is more than one tap from the next screen. Each builder
+     below returns exactly one screen and they share only the two bars, which
+     is what keeps the arrival screen down to the two questions it asks.
+
+     The rule for what goes where, so the next thing added has somewhere to go:
+       Arrival  where you are, and what to do in the next hour
+       Steps    the route, and what each step is
+       Guides   things you do — the nine task pages, the card sets, your own
+       Tools    things you look up — search, city names, the checklist, setup */
 
   function pageHome() {
+    var nums = EMERGENCY_NUMBERS.map(function (n) {
+      return '<a href="tel:' + n.num + '"><div class="n">' + n.num + '</div><div class="l">' +
+        esc(L(n.label)) + "</div></a>";
+    }).join("");
+
+    /* ---------------- the question the arrival screen asks ----------------
+
+       On the plane you have one question, and "which port am I standing in"
+       is it. That question drives the Chinese name you show a driver, which
+       is why the answer repeats it large instead of just ticking a chip.
+       "What do I do next" is the route on the steps screen, and it doubles as
+       the second question — tapping a step is how you say where you are, so
+       there is never a form to fill in. */
+
+    var PORT_VISIBLE = 6;
+    /* kind -> [UI key, glyph]. Every kind named here must have its key in all
+       four language blocks: t() falls back to the key *name*, so a missing one
+       renders the literal word "portLand" in the badge rather than failing. */
+    var PORT_KIND = { air: ["portAir", "✈️"], sea: ["portSea", "⛴️"], rail: ["portRail", "🚄"], land: ["portLand", "🚌"] };
+
+    /* No PORTS means a data.js served from cache before this shipped. Show no
+       picker at all rather than an empty panel — the rest of the page is fine. */
+    var hasPorts = typeof PORTS !== "undefined" && PORTS.length > 0;
+    var chosen = portById(port);
+
+    /* A kind that PORT_KIND does not name gets its city and code and no badge,
+       rather than a tooltip reading "null". */
+    function portChip(p) {
+      var k = PORT_KIND[p.kind];
+      var label = k ? t(k[0]) : "";
+      return '<button class="pchip' + (chosen && chosen.id === p.id ? " is-on" : "") + '"' +
+        ' data-pick-port="' + esc(p.id) + '"' +
+        (label ? ' title="' + esc(label) + '"' : "") + ">" +
+        (k ? '<span class="pchip__i" aria-hidden="true">' + k[1] + "</span>" : "") +
+        '<span class="pchip__c">' + esc(portCityLabel(p)) + "</span>" +
+        (p.iata ? '<span class="pchip__code">' + esc(p.iata) + "</span>" : "") +
+      "</button>";
+    }
+
+    /* The Chinese name is the payload — the one thing here that works even when
+       nothing else does, because you hand the phone to someone. The city guide
+       below it is a bonus, and for most ports it does not exist yet; when it
+       does not, say so plainly and offer no link, because cityPage() renders a
+       "not found" page for an id it does not know. */
+    var portDetail = "";
+    if (chosen) {
+      var det = cityDetail(chosen);
+      var names = det ? det.airport.concat(det.stations).map(function (n) {
+        return '<span class="name-chip"><bdi>' + esc(n) + "</bdi></span>";
+      }).join("") : "";
+      portDetail =
+        '<div class="portchosen">' +
+          '<div class="portchosen__zh"><bdi>' + esc(chosen.zh) + "</bdi></div>" +
+          '<div class="portchosen__sub">' +
+            (PORT_KIND[chosen.kind] ? esc(t(PORT_KIND[chosen.kind][0])) + " · " : "") +
+            esc(portCityLabel(chosen)) +
+            (chosen.iata ? " · " + esc(chosen.iata) : "") +
+          "</div>" +
+          (det
+            ? '<div class="name-row">' + names + "</div>" +
+              '<p class="portchosen__note">' + esc(det.note) + "</p>" +
+              '<a class="text-link" href="#/city/' + esc(det.id) + '">' + esc(t("city")) + " ›</a>"
+            : '<p class="portchosen__note">' + esc(t("portNoDetail")) + "</p>") +
+        "</div>";
+    }
+
+    /* First visit: no choice yet, so the list is open. After a choice: one line
+       that can be changed, and the chips stay hidden until asked for. */
+    var listOpen = portListOpen || !chosen;
+    var portSection = "";
+    if (hasPorts) {
+      var listed = portListAll ? PORTS : PORTS.slice(0, PORT_VISIBLE);
+      portSection =
+        '<section class="section">' +
+          '<div class="panel">' +
+            '<div class="panel__h">' + esc(t("whereLanded")) + "</div>" +
+            (listOpen
+              ? '<p class="panel__d">' + esc(t("whereLandedHint")) + "</p>" +
+                '<div class="pchips">' + listed.map(portChip).join("") + "</div>" +
+                (portListAll || PORTS.length <= PORT_VISIBLE
+                  ? ""
+                  : '<button class="text-link" data-more-ports="1">' + esc(t("morePorts")) + " ›</button>") +
+                '<p class="portsrc"><a href="https://www.nia.gov.cn/" target="_blank" rel="noopener">' +
+                  esc(t("portOfficialList")) + '</a></p>'
+              : portDetail +
+                '<button class="btn btn--sm" data-port-open="1">' + esc(t("changePort")) + "</button>") +
+          "</div>" +
+        "</section>";
+    }
+
+    /* docs/12 asks for 110/120/119 to be listed on the home page; this puts
+       them above the fold as well, which is where a P0 item belongs. It sits
+       after the port question rather than after the route because the route is
+       tall enough to push anything below it off a 390x844 screen — measured,
+       not guessed. Not collapsible, and on the arrival screen only: the tab
+       bar's last slot carries it everywhere else. */
+    var emergencySection =
+      '<section class="section">' +
+        '<div class="section__h"><h2>' + esc(t("emergency")) + '</h2><a href="#/emergency">' + esc(t("helpPage")) + "</a></div>" +
+        '<div class="emergency-strip">' + nums + "</div>" +
+      "</section>";
+
+    return '' +
+      topbar("China Hand", { badge: "DEMO" }) +
+
+      /* The lead block is the value proposition, not a destination. A travel
+         hero ("your China travel companion / explore cities / plan my trip")
+         briefly sat here and pushed every arrival task below the fold; the
+         hero states what the tool is for instead.
+         Its chips are not here either — they are reasons to trust the tool,
+         which is not what someone standing in an arrivals hall needs before
+         they know where they are, so they live on the tools screen. */
+      '<section class="hero">' +
+        '<div class="hero__brand"><span>🇨🇳</span> China Hand</div>' +
+        "<h1>" + esc(t("heroH1")) + "</h1>" +
+        "<p>" + md(t("heroP")) + "</p>" +
+      "</section>" +
+
+      portSection +
+      emergencySection +
+      tabBar("");
+  }
+
+  /* The route, on its own screen. Node = scene, so one tap both reads the page
+     and says where you are — there is no separate "set your progress" step.
+     Emergency is deliberately absent from the route: it is eta "now" and P0,
+     not a stage you reach after landing, and the tab bar carries it instead. */
+  function pageSteps() {
+    /* only used for the land/rail note below */
+    var chosen = portById(port);
+
+    var ARRIVAL_ROUTE = ["customs", "sim", "pay", "taxi", "hotel"];
+    var LATER_ROUTE = ["metro", "train", "food"];
+
+    function routeNode(id, i) {
+      var s = sceneById(id);
+      if (!s) return "";
+      var here = id === stage;
+      return '<button class="rnode' + (here ? " is-here" : "") + '"' +
+        ' data-go="/s/' + esc(id) + '" data-stage="' + esc(id) + '"' +
+        ' style="--i:' + i + '">' +
+        '<span class="rnode__dot" aria-hidden="true">' + s.icon + "</span>" +
+        '<span class="rnode__body">' +
+          '<span class="rnode__t">' + esc(L(s.title)) + "</span>" +
+          '<span class="rnode__sub">' + esc(L(s.eta)) + "</span>" +
+        "</span>" +
+        (here ? '<span class="rnode__here">' + esc(t("youAreHere")) + "</span>" : "") +
+      "</button>";
+    }
+
+    var routeSection =
+      '<section class="section">' +
+        '<div class="section__h"><h2>' + esc(t("yourRoute")) + "</h2></div>" +
+        '<div class="route">' +
+          '<div class="route__label">' + esc(t("routeArrivalDay")) + "</div>" +
+          ARRIVAL_ROUTE.map(routeNode).join("") +
+          '<div class="route__label route__label--gap">' + esc(t("routeLater")) + "</div>" +
+          LATER_ROUTE.map(routeNode).join("") +
+        "</div>" +
+        /* A land or rail crossing clears immigration before boarding, so the
+           airport steps in the customs scene (baggage claim) do not describe
+           it. Say so instead of letting the page imply they do. */
+        (chosen && (chosen.kind === "rail" || chosen.kind === "land")
+          ? '<p class="route__note">' + esc(t("landNoBaggage")) + "</p>" : "") +
+      "</section>";
+
+    return '' +
+      topbar(t("tabRoute"), { back: "/" }) +
+      routeSection +
+      tabBar("/steps");
+  }
+
+  /* The nine task pages. This was the home screen's second half; the "all
+     features" button that used to sit under the route pointed here, and the
+     tab bar now does that job, so it is gone. */
+  function pageFeatures() {
     var tiles = scenesInOrder().map(function (s, i) {
       return '' +
         '<button class="tile" data-go="/s/' + s.id + '" style="--i:' + i + '">' +
@@ -502,10 +829,25 @@
         "</button>";
     }).join("");
 
-    var nums = EMERGENCY_NUMBERS.map(function (n) {
-      return '<a href="tel:' + n.num + '"><div class="n">' + n.num + '</div><div class="l">' +
-        esc(L(n.label)) + "</div></a>";
-    }).join("");
+    return '' +
+      topbar(t("tabFeatures"), { back: "/" }) +
+      '<section class="section">' +
+        '<div class="section__h"><h2>' + esc(t("wantTo")) + '</h2><a href="#/cards">' + esc(t("allHelpCards")) + "</a></div>" +
+        '<div class="grid">' + tiles + "</div>" +
+        /* The one chip that belongs with "things you do" rather than "things
+           you look up": writing your own card is what you fall back on when
+           none of the 96 is the sentence you need. */
+        '<div class="meta">' +
+          '<button class="chip chip--say" data-go="/mine">💬 ' + esc(t("sayTitle")) + "</button>" +
+        "</div>" +
+      "</section>" +
+      tabBar("/features");
+  }
+
+  /* Lookups, the checklist and setup. Split from the guides screen along one
+     line: guides are things you do, tools are things you look up. */
+  function pageTools() {
+    var c = cityByKey(city);
 
     var pc = prepCount(), ptot = PREP.length;
     var ppct = ptot ? Math.round((pc / ptot) * 100) : 0;
@@ -522,38 +864,12 @@
         "</button>" +
       "</section>";
 
-    var c = cityByKey(city);
-    var cityChip = c
-      ? '<button class="chip chip--city" data-go="/city">📍 ' + esc(t("citySet")) + " " + esc(L(cityLabel(c))) + "</button>"
-      : '<button class="chip chip--city" data-go="/city">📍 ' + esc(t("cityTitle")) + "</button>";
-
     return '' +
-      topbar("China Hand", { badge: "DEMO" }) +
+      topbar(t("tabTools"), { back: "/" }) +
 
-      /* The lead block is the value proposition, not a destination. A travel
-         hero ("your China travel companion / explore cities / plan my trip")
-         briefly sat here and pushed every arrival task below the fold; the
-         hero states what the tool is for instead. */
-      '<section class="hero">' +
-        '<div class="hero__brand"><span>🇨🇳</span> China Hand</div>' +
-        "<h1>" + esc(t("heroH1")) + "</h1>" +
-        "<p>" + md(t("heroP")) + "</p>" +
-        '<div class="meta">' +
-          '<span class="chip">' + esc(t("chipEnglishFirst")) + "</span>" +
-          '<span class="chip">' + esc(t("chipNoDownload")) + "</span>" +
-          '<span class="chip">' + esc(t("chipNoSignup")) + "</span>" +
-          '<span class="chip">' + esc(t("chipOffline")) + "</span>" +
-        "</div>" +
-        '<div class="meta">' +
-          cityChip +
-          '<button class="chip chip--help" data-go="/help">🪪 ' + esc(t("helpCardChip")) + "</button>" +
-          '<button class="chip chip--say" data-go="/mine">💬 ' + esc(t("sayTitle")) + "</button>" +
-          '<button class="chip chip--how" data-go="/how">❓ ' + esc(t("howToUse")) + "</button>" +
-        "</div>" +
-      "</section>" +
-
-      prepTeaser +
-
+      /* The search box is why this screen exists, so it is at the top of it.
+         Only its results subtree is repainted as you type (see the input
+         handler), so it survives its own results. */
       '<div class="search">' +
         '<div class="search__box">' +
           '<input id="q" type="search" placeholder="' + esc(t("searchPlaceholder")) + '" autocomplete="off" aria-label="Search">' +
@@ -561,19 +877,19 @@
         '<div class="search__results" id="results" hidden></div>' +
       "</div>" +
 
-      '<section class="section">' +
-        '<div class="section__h"><h2>' + esc(t("wantTo")) + '</h2><a href="#/cards">' + esc(t("allHelpCards")) + "</a></div>" +
-        '<div class="grid">' + tiles + "</div>" +
-      "</section>" +
+      '<section class="section"><div class="meta">' +
+        (c
+          ? '<button class="chip chip--city" data-go="/city">📍 ' + esc(t("citySet")) + " " + esc(L(cityLabel(c))) + "</button>"
+          : '<button class="chip chip--city" data-go="/city">📍 ' + esc(t("cityTitle")) + "</button>") +
+        '<button class="chip chip--help" data-go="/help">🪪 ' + esc(t("helpCardChip")) + "</button>" +
+        '<button class="chip chip--how" data-go="/how">❓ ' + esc(t("howToUse")) + "</button>" +
+      "</div></section>" +
 
-      /* The city module sits below the task grid on purpose. It is a lookup
+      prepTeaser +
+
+      /* The city module sits below the checklist on purpose. It is a lookup
          for names you may have to show someone, not a reason to open the app. */
       CPExplore.homeBlock(lang) +
-
-      '<section class="section">' +
-        '<div class="section__h"><h2>' + esc(t("emergency")) + '</h2><a href="#/emergency">' + esc(t("helpPage")) + "</a></div>" +
-        '<div class="emergency-strip">' + nums + "</div>" +
-      "</section>" +
 
       '<section class="section">' +
         '<div class="section__h"><h2>' + esc(t("beforeYouAsk")) + '</h2><a href="#/faq">' + esc(t("allFaq")) + "</a></div>" +
@@ -584,7 +900,19 @@
         "</div></div>" +
       "</section>" +
 
-      '<p class="footnote">' + esc(t("footnote")) + "</p>";
+      /* The four claims about the product stay claims, not headings. They
+         answer "can I trust this" for someone already a screen or two in, so
+         they belong beside the fine print rather than beside the tasks. */
+      '<section class="section"><div class="meta">' +
+        '<span class="chip">' + esc(t("chipEnglishFirst")) + "</span>" +
+        '<span class="chip">' + esc(t("chipNoDownload")) + "</span>" +
+        '<span class="chip">' + esc(t("chipNoSignup")) + "</span>" +
+        '<span class="chip">' + esc(t("chipOffline")) + "</span>" +
+      "</div></section>" +
+
+      '<p class="footnote">' + esc(t("footnote")) + "</p>" +
+
+      tabBar("/tools");
   }
 
   function troublerow(tk, bk) {
@@ -1514,6 +1842,22 @@
        should outlive the visit. */
     if (page !== "mine") { sayQuery = ""; sayHits = []; }
 
+    /* One class does two jobs, both of them about a bar pinned to the bottom
+       of the viewport: it takes the app's own bottom padding back (the bar
+       carries the safe-area inset itself) and it lifts the toast clear of the
+       bar, which would otherwise sit on top of it. */
+    var here = null;
+    for (var ti = 0; ti < TABS.length; ti++) {
+      if (TABS[ti].route.slice(1) === page) { here = TABS[ti]; break; }
+    }
+    tabHere = !!here;
+    /* Remembered for topbar(): a detail page opened from the guides screen
+       should go back to the guides screen, not to the arrival screen. Detail
+       pages leave this alone, so it always holds the last hub the reader was
+       standing in. */
+    if (here) prevTab = here.route || "/";
+    document.body.classList.toggle("has-tabbar", tabHere);
+
     var exploreView = CPExplore.render(hash.replace(/^\//, ""), lang);
     if (exploreView && !(page === "city" && !parts[1])) {
       var sectionTitle = L({
@@ -1555,6 +1899,12 @@
       app.innerHTML = pageLang();
     } else if (page === "city") {
       app.innerHTML = pageCity();
+    } else if (page === "steps") {
+      app.innerHTML = pageSteps();
+    } else if (page === "features") {
+      app.innerHTML = pageFeatures();
+    } else if (page === "tools") {
+      app.innerHTML = pageTools();
     } else {
       app.innerHTML = pageHome();
     }
@@ -1583,12 +1933,43 @@
   }
 
   document.addEventListener("click", function (e) {
-    var t2 = e.target.closest("[data-go], [data-step], [data-card], [data-show], [data-stale], [data-loc], [data-pick-lang], [data-pick-city], [data-detect], [data-install], [data-toc], [data-open], [data-fav-up], [data-fav-down], [data-fav-off], [data-say], [data-say-eg], [data-say-own], [data-mine-save], [data-mine-edit], [data-mine-del], [data-mine-cancel]");
+    var t2 = e.target.closest("[data-go], [data-step], [data-card], [data-show], [data-stale], [data-loc], [data-pick-lang], [data-pick-city], [data-pick-port], [data-more-ports], [data-port-open], [data-stage], [data-detect], [data-install], [data-toc], [data-tab], [data-open], [data-fav-up], [data-fav-down], [data-fav-off], [data-say], [data-say-eg], [data-say-own], [data-mine-save], [data-mine-edit], [data-mine-del], [data-mine-cancel]");
     if (!t2) return;
 
     if (t2.hasAttribute("data-toc")) { jumpTo(t2.getAttribute("data-toc")); return; }
 
     if (t2.hasAttribute("data-install")) { install(); return; }
+
+    /* A route node carries data-go as well, so this has to come first: reading
+       a step and declaring you are on it are the same tap by design. */
+    if (t2.hasAttribute("data-stage")) {
+      stage = t2.dataset.stage;
+      store.set("ccs.stage", stage);
+      go("#" + t2.dataset.go);
+      return;
+    }
+
+    if (t2.hasAttribute("data-pick-port")) {
+      setCity(city, t2.dataset.pickPort);
+      portListOpen = false;
+      portListAll = false;
+      render();
+      return;
+    }
+
+    if (t2.hasAttribute("data-more-ports")) { portListAll = true; render(); return; }
+
+    if (t2.hasAttribute("data-port-open")) { portListOpen = true; render(); return; }
+
+    /* A tab you are already on fires no hashchange — assigning the hash it
+       already has is a no-op for the browser — so the tap used to look dead.
+       Re-render in place instead, which also means re-tapping the tab you are
+       on scrolls that screen back to the top. Every other tab is left alone:
+       returning without preventing the default lets the browser navigate. */
+    if (t2.hasAttribute("data-tab")) {
+      if ("#" + t2.getAttribute("data-tab") === location.hash) render();
+      return;
+    }
 
     if (t2.hasAttribute("data-go")) { go("#" + t2.dataset.go); return; }
 
@@ -1636,8 +2017,7 @@
     }
 
     if (t2.hasAttribute("data-pick-city")) {
-      city = t2.dataset.pickCity;
-      store.set("ccs.city", city);
+      setCity(t2.dataset.pickCity, null);
       render();
       return;
     }

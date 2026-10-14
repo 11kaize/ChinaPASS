@@ -56,10 +56,10 @@ const CPExplore = (() => {
 
   function cityWords() {
     return {
-      en: { tag: 'ARRIVAL NOTES', title: 'Which airport, which station', detail: 'A city can have two airports and several railway stations, and the Chinese names look nothing alike. Keep the one on your ticket in front of you.', airport: 'Airport', stations: 'Railway stations', note: 'What catches people out', back: 'All cities', notFound: 'City not found', notFoundBody: 'Pick another city from the list.', browse: 'Browse cities →', sourceNote: 'Names and codes change. Confirm with the operator before you travel.', sourceTitle: 'Official source', homeTitle: 'Airport and station names', homeBody: 'Six cities, with the Chinese names you may need to show someone.', homeLink: 'See the names', open: 'Details', mapsNote: 'Tap a name to find it on the map' },
-      zh: { tag: '落地提示', title: '哪个机场，哪个车站', detail: '一座城市可能有两个机场、好几个火车站，中文名看着完全不同。把票上的那一个留在眼前。', airport: '机场', stations: '火车站', note: '最容易踩的坑', back: '全部城市', notFound: '没有这座城市', notFoundBody: '从列表里另选一个。', browse: '浏览城市 →', sourceNote: '名称与代码会变，出行前请与承运方确认。', sourceTitle: '官方来源', homeTitle: '机场与车站中文名', homeBody: '六座城市，以及可能需要出示给别人的中文名。', homeLink: '查看中文名', open: '查看详情', mapsNote: '点名称可在地图上找到它' },
-      ja: { tag: '到着メモ', title: 'どの空港、どの駅か', detail: '一つの都市に空港が二つ、駅が複数あることがあり、中国語名は全く似ていません。チケットに書かれた名前を手元に。', airport: '空港', stations: '鉄道駅', note: 'つまずきやすい点', back: 'すべての都市', notFound: '都市が見つかりません', notFoundBody: '一覧から選び直してください。', browse: '都市を見る →', sourceNote: '名称とコードは変わります。移動前に事業者へ確認してください。', sourceTitle: '公式情報', homeTitle: '空港と駅の中国語名', homeBody: '6都市と、見せる必要があるかもしれない中国語名。', homeLink: '中国語名を見る', open: '詳細を見る', mapsNote: '名前をタップすると地図で確認できます' },
-      ko: { tag: '도착 메모', title: '어느 공항, 어느 역', detail: '한 도시에 공항이 둘, 기차역이 여럿일 수 있고 중국어 이름은 전혀 다릅니다. 표에 적힌 이름을 확인하세요.', airport: '공항', stations: '기차역', note: '가장 자주 하는 실수', back: '모든 도시', notFound: '도시를 찾을 수 없습니다', notFoundBody: '목록에서 다시 선택하세요.', browse: '도시 보기 →', sourceNote: '이름과 코드는 바뀝니다. 이동 전에 운영사에 확인하세요.', sourceTitle: '공식 출처', homeTitle: '공항·역 중국어 이름', homeBody: '6개 도시와 보여줘야 할 수 있는 중국어 이름.', homeLink: '중국어 이름 보기', open: '자세히 보기', mapsNote: '이름을 누르면 지도에서 확인할 수 있습니다' }
+      en: { tag: 'ARRIVAL NOTES', title: 'Which airport, which station', detail: 'A city can have two airports and several railway stations, and the Chinese names look nothing alike. Keep the one on your ticket in front of you.', airport: 'Airport', stations: 'Railway stations', note: 'What catches people out', back: 'All cities', notFound: 'City not found', notFoundBody: 'Pick another city from the list.', browse: 'Browse cities →', sourceNote: 'Names and codes change. Confirm with the operator before you travel.', sourceTitle: 'Official source', homeTitle: 'Airport and station names', homeBody: 'Their Chinese names — the part you may need to show someone.', homeLink: 'See the names', open: 'Details', mapsNote: 'Tap a name to find it on the map' },
+      zh: { tag: '落地提示', title: '哪个机场，哪个车站', detail: '一座城市可能有两个机场、好几个火车站，中文名看着完全不同。把票上的那一个留在眼前。', airport: '机场', stations: '火车站', note: '最容易踩的坑', back: '全部城市', notFound: '没有这座城市', notFoundBody: '从列表里另选一个。', browse: '浏览城市 →', sourceNote: '名称与代码会变，出行前请与承运方确认。', sourceTitle: '官方来源', homeTitle: '机场与车站中文名', homeBody: '它们的中文名 —— 可能需要出示给别人的那一部分。', homeLink: '查看中文名', open: '查看详情', mapsNote: '点名称可在地图上找到它' },
+      ja: { tag: '到着メモ', title: 'どの空港、どの駅か', detail: '一つの都市に空港が二つ、駅が複数あることがあり、中国語名は全く似ていません。チケットに書かれた名前を手元に。', airport: '空港', stations: '鉄道駅', note: 'つまずきやすい点', back: 'すべての都市', notFound: '都市が見つかりません', notFoundBody: '一覧から選び直してください。', browse: '都市を見る →', sourceNote: '名称とコードは変わります。移動前に事業者へ確認してください。', sourceTitle: '公式情報', homeTitle: '空港と駅の中国語名', homeBody: '中国語名 — 見せる必要があるかもしれない部分です。', homeLink: '中国語名を見る', open: '詳細を見る', mapsNote: '名前をタップすると地図で確認できます' },
+      ko: { tag: '도착 메모', title: '어느 공항, 어느 역', detail: '한 도시에 공항이 둘, 기차역이 여럿일 수 있고 중국어 이름은 전혀 다릅니다. 표에 적힌 이름을 확인하세요.', airport: '공항', stations: '기차역', note: '가장 자주 하는 실수', back: '모든 도시', notFound: '도시를 찾을 수 없습니다', notFoundBody: '목록에서 다시 선택하세요.', browse: '도시 보기 →', sourceNote: '이름과 코드는 바뀝니다. 이동 전에 운영사에 확인하세요.', sourceTitle: '공식 출처', homeTitle: '공항·역 중국어 이름', homeBody: '중국어 이름 — 보여줘야 할 수 있는 부분입니다.', homeLink: '중국어 이름 보기', open: '자세히 보기', mapsNote: '이름을 누르면 지도에서 확인할 수 있습니다' }
     }[language] || {};
   }
 
@@ -136,8 +136,15 @@ const CPExplore = (() => {
     return { zh: lines.join('\n'), en: 'Please take me to this address.', ja: 'この住所まで連れて行ってください。', ko: '이 주소로 데려다 주세요.' };
   }
 
-  /* A small block for the home page, sitting below the task grid rather than
-     above it. It replaced a full-width travel hero.
+  /* A small block for the home surface, on the tools screen below the
+     checklist rather than on the arrival screen. It replaced a full-width
+     travel hero.
+
+     Every city, not a slice of them, and no count written into the copy: the
+     block used to take the first six and all four languages said "six cities",
+     so when Guangzhou and Shenzhen were added they were reachable from
+     everywhere except here, and the sentence was quietly wrong. A number in
+     prose is a number that goes stale.
 
      No "some of this is still English" banner here, unlike every other explore
      route: the block's own text is Chinese city names, which are the payload
@@ -145,7 +152,7 @@ const CPExplore = (() => {
   function homeBlock(code = 'en') {
     language = code;
     const w = cityWords();
-    return `<section class="section"><div class="section__h"><h2>${esc(w.homeTitle)}</h2><a href="#/cities">${esc(w.homeLink)} →</a></div><button class="panel city-teaser" data-go="/cities"><span class="city-teaser__body"><span class="city-teaser__d">${esc(w.homeBody)}</span><span class="city-teaser__names">${CITIES.slice(0, 6).map(item => nameChip(item.zh)).join('')}</span></span><span class="city-teaser__go" aria-hidden="true">›</span></button></section>`;
+    return `<section class="section"><div class="section__h"><h2>${esc(w.homeTitle)}</h2><a href="#/cities">${esc(w.homeLink)} →</a></div><button class="panel city-teaser" data-go="/cities"><span class="city-teaser__body"><span class="city-teaser__d">${esc(w.homeBody)}</span><span class="city-teaser__names">${CITIES.map(item => nameChip(item.zh)).join('')}</span></span><span class="city-teaser__go" aria-hidden="true">›</span></button></section>`;
   }
 
   function render(route, code = 'en') {
@@ -171,6 +178,10 @@ const CPExplore = (() => {
   function search(q) {
     if (!q) return [];
     const term = q.toLowerCase();
+    /* CITIES only. PORTS (the home screen's arrival picker) is deliberately not
+       searched here: it is a different question — which airport did I land at,
+       versus what is this city's station called — and folding it in would bury
+       the city entries under a dozen near-identical airport rows. */
     return [
       ...CITIES.filter(item => `${item.name} ${item.zh} ${item.airport} ${item.stations.join(' ')}`.toLowerCase().includes(term)).map(item => ({ html: `<a class="explore-search-result" href="#/city/${item.id}"><b>${esc(item.name)} · ${esc(item.zh)}</b><small>Airport &amp; station names</small></a>` })),
       ...allGuides().filter(item => !item.scene && `${item.title} ${item.summary}`.toLowerCase().includes(term)).map(item => ({ html: `<a class="explore-search-result" href="#/guide/${item.id}"><b>${esc(item.title)}</b><small>Guide · ${esc(item.category)}</small></a>` }))
