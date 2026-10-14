@@ -17,6 +17,10 @@ import {
   RichText,
   openURL,
 } from "../../ui";
+export function generateStaticParams() {
+  return [...content.scenes, ...content.shortGuides].map(({ id }) => ({ id }));
+}
+
 export default function Guide() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { t, L, colors, prefs, update, setGuideId } = useApp();

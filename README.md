@@ -2,6 +2,14 @@
 
 ChinaHand now includes a **native iPhone/Android app demo** with an iOS-inspired interface and bring-your-own-key AI chat. Run the interactive demo in Expo Go with `npm run demo` (`npm run mobile` for development). The project is in the design and demo iteration phase. See [mobile setup and API configuration](mobile/README.md), [native design notes](docs/13-原生应用设计与验证.md), and the [expanded English project introduction](docs/14-ChinaHand-project-introduction.md).
 
+## Online mobile demo
+
+Open [ChinaHand Demo](https://11kaize.github.io/ChinaPASS/demo/). GitHub Pages now opens the iPhone interaction preview built from the native app code. It includes Today, Guides, Cards, AI and Settings, arrival ports, preparation, FAQs, city information, emergency contacts and custom help cards. API configuration, keys and conversations live only in memory: **refreshing or closing the page clears them**. General display preferences and saved help cards remain on your device.
+
+The [earlier web demo](https://11kaize.github.io/ChinaPASS/demo/legacy.html) retains browser city detection, ranked offline phrase lookup and installable PWA functionality. The newer preview uses manual city selection and is not an Apple Simulator. Native Expo Go usage remains available.
+
+Run `npm run demo:build` after changing native code or source content, then commit `demo/app/` together with those changes. This synchronizes content, exports all guide routes, applies `/ChinaPASS/demo/app` as the Pages base path and creates directory index files so deep links work after refresh. `.nojekyll` preserves Expo assets. Existing main-branch Pages deployment publishes the committed output. A different hosting path can be supplied with `CHINAHAND_WEB_BASE_URL`.
+
 ## Desktop iPhone layout preview / Windows
 
 Run `npm run demo:ios`, or double-click `Start-ChinaHand.cmd` on Windows after installing Node.js 22.13 or newer. On Linux run `./Start-ChinaHand.sh`. Launchers check dependencies, pick an available port and open the demo automatically. This opens a clickable iPhone layout preview and serves the native app for iPhone/Android Expo Go. No Bash or WSL is needed. It is an interaction preview, not the Apple iOS Simulator; that simulator requires a Mac with Xcode.
@@ -13,14 +21,14 @@ ChinaHand helps visitors handle practical moments in China with eleven travel gu
 
 ## Run the web demo
 
-Open `demo/index.html` in a browser, or serve the `demo/` directory over HTTP:
+Open `demo/legacy.html` in a browser, or serve the `demo/` directory over HTTP:
 
 ```bash
 cd demo
 python3 -m http.server 4173
 ```
 
-Then open `http://localhost:4173`. The service worker and installable PWA features require HTTP or HTTPS. Directly opening the HTML file still works for the core phrase cards.
+Then open `http://localhost:4173/legacy.html`. The service worker and installable PWA features require HTTP or HTTPS. Directly opening the HTML file still works for the core phrase cards.
 
 ## Use ChinaHand
 
@@ -42,7 +50,7 @@ Then open `http://localhost:4173`. The service worker and installable PWA featur
 
 The Chinese line on a card is the sentence you show to a Chinese speaker, so it is never translated. Switching the interface language changes only the gloss printed underneath it and the surrounding interface.
 
-ChinaHand does not book, pay, dispatch or translate anything itself, and nothing here is a transaction — there is no backend and no provider API. What it does is hand you off: every guide, the city pages and the emergency page link straight to the service that owns the job, in a new tab, badged Official, English-friendly or Chinese only, so you know what you are opening before you tap. Phone calls, payment setup, translation, map downloads and rail bookings are all completed on the provider's own site or app, under their terms. Emergency numbers are dial links, and whether a call can be placed depends on the device and the network.
+ChinaHand does not book, pay, dispatch or translate anything itself, and nothing here is a transaction — the earlier demo has no backend or provider API; the new AI tab calls the user-configured provider directly. What it does is hand you off: every guide, the city pages and the emergency page link straight to the service that owns the job, in a new tab, badged Official, English-friendly or Chinese only, so you know what you are opening before you tap. Phone calls, payment setup, translation, map downloads and rail bookings are all completed on the provider's own site or app, under their terms. Emergency numbers are dial links, and whether a call can be placed depends on the device and the network.
 
 Those links need an internet connection. The app shell and all its content work offline; the hand-off links do not, and the panel says so.
 

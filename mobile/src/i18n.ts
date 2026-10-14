@@ -113,7 +113,7 @@ const en = {
   contextBody:
     "Project guides, your chosen city, trip stage, language, checklist progress and device environment. Your address and API key are never included.",
   sessionOnly:
-    "API configuration and chats stay in memory. They clear when you leave the app, restart it or disconnect.",
+    "API configuration and chats stay in memory. They clear when you refresh or close the page, leave the app, restart it or disconnect.",
   connect: "Connect for this session",
   disconnect: "Disconnect & clear chat",
   provider: "Provider",
@@ -293,7 +293,7 @@ const zh: Record<Key, string> = {
   context: "助手了解哪些信息",
   contextBody:
     "项目指南、所选城市、旅程阶段、语言、清单进度和设备环境。不包含地址和 API Key。",
-  sessionOnly: "API 配置和对话仅在本次使用的内存中。离开应用、重启或断开连接后清除，需要重新输入 Key。",
+  sessionOnly: "API 配置和对话仅在本次使用的内存中。刷新页面、关闭页面、离开应用、重启或断开连接后清除，需要重新输入 Key。",
   connect: "连接，仅本次运行",
   disconnect: "断开连接并清除对话",
   provider: "服务商",

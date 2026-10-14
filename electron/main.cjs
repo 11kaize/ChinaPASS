@@ -4,7 +4,7 @@ const path = require('node:path');
 const { fileURLToPath } = require('node:url');
 const { app, BrowserWindow, shell, session } = require('electron');
 
-const entryFile = path.resolve(__dirname, '..', 'demo', 'index.html');
+const entryFile = path.resolve(__dirname, '..', 'demo', 'legacy.html');
 const iconFile = path.resolve(__dirname, '..', 'desktop', 'icon.png');
 
 app.setName('ChinaHand');

@@ -8,11 +8,12 @@ const CACHE_PREFIX = "chinapass-shell-";
    content, so the merged batch takes a name new to holders of either: nobody
    is left on the pre-PORTS data.js, which is what silently removes the port
    picker from the home screen instead of failing loudly. */
-const CACHE_NAME = CACHE_PREFIX + "2026-10-14-4";
+const CACHE_NAME = CACHE_PREFIX + "2026-10-15-pages-1";
 const SCOPE = self.registration.scope;
 const SHELL_FILES = [
   "./",
   "index.html",
+  "legacy.html",
   "styles.css",
   "data.js",
   "phrases.js",

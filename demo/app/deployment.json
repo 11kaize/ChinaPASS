@@ -1,0 +1,7 @@
+{
+  "baseUrl": "/ChinaPASS/demo/app",
+  "scenes": 9,
+  "shortGuides": 2,
+  "ports": 15,
+  "apiKeyStorage": "memory-only; reload clears session"
+}

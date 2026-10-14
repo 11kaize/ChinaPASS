@@ -22,7 +22,8 @@
     "demo": "node scripts/start-mobile.mjs --no-dev --minify",
     "mobile:check": "npm --prefix mobile run check",
     "mobile:apk": "npm --prefix mobile run build:apk",
-    "demo:ios": "node scripts/start-mobile.mjs --preview"
+    "demo:ios": "node scripts/start-mobile.mjs --preview",
+    "demo:build": "node scripts/build-pages-demo.mjs"
   },
   "devDependencies": {
     "electron": "44.4.5",

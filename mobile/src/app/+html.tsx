@@ -36,6 +36,8 @@ export default function Root({ children }: { children: React.ReactNode }) {
             <small>CHINAHAND / INTERACTIVE DEMO</small>
             <h1>A hand with<br />everyday life.</h1>
             <p>Explore the iPhone layout, practical guides, Chinese help cards and your personal AI companion.</p>
+            {process.env.EXPO_PUBLIC_LEGACY_DEMO_URL && <p><a href={process.env.EXPO_PUBLIC_LEGACY_DEMO_URL} style={{ color: "#165645" }}>Earlier web demo · 原版功能</a></p>}
+            <small>API Key stays in memory only. Reloading or closing clears it.</small>
             <small>iPhone 布局交互预览 · 可点击操作<br />复用原生应用代码，非 Apple iOS 模拟器。<br />iPhone 真机：Expo Go 扫描终端二维码。</small>
           </aside>
           <section id="phone" aria-label="ChinaHand iPhone layout preview">

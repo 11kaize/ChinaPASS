@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, View, Alert } from "react-native";
+import { Switch, View, Alert, Platform } from "react-native";
 import { router } from "expo-router";
 import { useApp } from "../../state";
 import { Language } from "../../content";
@@ -15,6 +15,7 @@ import {
   confirmAction,
   Brand,
   Button,
+  openURL,
 } from "../../ui";
 import { providers } from "../../ai/providers";
 export default function Settings() {
@@ -134,6 +135,11 @@ export default function Settings() {
           />
         )}
       </Section>
+      {Platform.OS === "web" && process.env.EXPO_PUBLIC_LEGACY_DEMO_URL && (
+        <Section title="Demo">
+          <Button secondary label="Earlier web demo · 原版功能" onPress={() => openURL(process.env.EXPO_PUBLIC_LEGACY_DEMO_URL!)} />
+        </Section>
+      )}
       <View style={{ gap: 14, marginBottom: 24 }}>
         <Brand />
         <Txt variant="subheading">ChinaHand</Txt>
