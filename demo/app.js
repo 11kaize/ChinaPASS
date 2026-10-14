@@ -78,6 +78,39 @@
       .replace(/`(.+?)`/g, "<code>$1</code>");
   }
 
+  /* One action row on a guide page: the link, plus what kind of thing it is.
+     A `tel:` action is a phone call, not a page — giving it target/rel would
+     make the browser open a blank tab instead of the dialler, so both are
+     dropped for anything that is not http(s).
+
+     explore-ui.js has its own copy of the same idea (`source`). The two
+     modules are separate IIFEs and neither can reach into the other, so this
+     is duplication by construction, not by accident. */
+  function extLink(a) {
+    var isWeb = /^https?:/i.test(a.url);
+    /* A lookup, not a fall-through ternary: a new `kind` should show up as a
+       missing badge in review, not silently borrow another kind's word. An
+       unmapped kind falls back to its own name rather than to "Call" — which
+       would be the worst guess, since it tells someone to dial a web link. */
+    var BADGE = { official: "badgeOfficial", easy: "badgeEasy", local: "badgeLocal", call: "badgeCall" };
+    var badge = BADGE[a.kind];
+    /* The badge sits on the title line, hard right. Beside the title instead,
+       its width decided where the title started — "English-friendly" is twice
+       the width of "Official", so two stacked rows had ragged left edges and
+       the longer note wrapped a line early. */
+    return '<a class="qlink qlink--' + esc(a.kind) + '" href="' + esc(a.url) + '"' +
+      (isWeb ? ' target="_blank" rel="noopener noreferrer"' : "") + ">" +
+      '<span class="qlink__body">' +
+        '<span class="qlink__head">' +
+          '<span class="qlink__t">' + esc(L(a.label)) + "</span>" +
+          '<span class="qlink__badge">' + esc(badge ? t(badge) : a.kind) + "</span>" +
+        "</span>" +
+        '<span class="qlink__d">' + esc(L(a.note)) + "</span>" +
+      "</span>" +
+      '<span class="qlink__go" aria-hidden="true">' + (isWeb ? "↗" : "📞") + "</span>" +
+    "</a>";
+  }
+
   var store = (function () {
     var ok = true;
     try { window.localStorage.setItem("__ccs", "1"); window.localStorage.removeItem("__ccs"); }
@@ -614,11 +647,23 @@
         "</div></div>"
       : "";
 
-    var sources = (scene.sources || []).length
-      ? '<p class="footnote" style="padding:0 20px">' + esc(t("officialSources")) +
-          scene.sources.map(function (s) {
-            return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label) + "</a>";
-          }).join(" · ") + "</p>"
+    /* The one thing a visitor came here to do. This used to be a 12px footnote
+       at the very bottom of the page, joined by " · " — under the fold on any
+       phone, and reading as attribution rather than as a way to get something
+       done. It now sits directly under the task statement, above the steps.
+
+       The hint is only true of the web rows. The emergency page's panel is
+       four `tel:` dials and no links at all, and telling someone mid-emergency
+       that the police need an internet connection is worse than saying
+       nothing. */
+    var sceneActions = scene.actions || [];
+    var anyWebAction = sceneActions.some(function (a) { return /^https?:/i.test(a.url); });
+    var doNow = sceneActions.length
+      ? '<div class="panel panel--do">' +
+          '<div class="panel__h">🔗 ' + esc(t("doNow")) + "</div>" +
+          '<div class="qlist">' + sceneActions.map(extLink).join("") + "</div>" +
+          (anyWebAction ? '<p class="qlist__hint">' + esc(t("doNowHint")) + "</p>" : "") +
+        "</div>"
       : "";
 
     var note = scene.disclaimer
@@ -633,12 +678,15 @@
        location.hash as the route and ends with window.scrollTo(0, 0), so a
        bare "#steps" hash would look like an unknown route and yank the page
        back to the top before the jump could land. */
-    var tocSections = [
-      { key: "task", label: t("tocTask") },
+    var tocSections = [{ key: "task", label: t("tocTask") }];
+    /* Order here must match the order these sections render in, or the strip
+       points at the wrong place on the page. */
+    if (doNow) tocSections.push({ key: "do", label: t("tocDo") });
+    tocSections.push(
       { key: "before", label: t("tocBefore") },
       { key: "steps", label: t("tocSteps") },
       { key: "cards", label: t("tocCards") }
-    ];
+    );
     if (mistakes) tocSections.push({ key: "mistakes", label: t("tocMistakes") });
     if (planB) tocSections.push({ key: "planB", label: t("tocPlanB") });
     if (trouble) tocSections.push({ key: "trouble", label: t("tocTrouble") });
@@ -669,6 +717,8 @@
           "</div>" +
         "</div>" +
       "</section>" +
+
+      (doNow ? '<section class="section" id="sec-do">' + doNow + "</section>" : "") +
 
       toc +
 
@@ -707,8 +757,6 @@
       (planB ? '<section class="section" id="sec-planB">' + planB + "</section>" : "") +
       (trouble ? '<section class="section" id="sec-trouble">' + trouble + "</section>" : "") +
       (note ? '<section class="section" id="sec-note">' + note + "</section>" : "") +
-
-      sources +
 
       '<section class="section">' +
         '<div class="btn-row stale">' +

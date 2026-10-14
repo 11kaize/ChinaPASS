@@ -16,7 +16,7 @@ Then open `http://localhost:4173`. The service worker and installable PWA featur
 ## Use China Hand
 
 - Work through seven pre-flight items before you fly — passport and visa, connectivity, opening the app once so it can be cached, payment setup, your hotel address saved in Chinese, maps, and emergency contacts.
-- Follow nine travel guides in arrival order — customs, SIM, payment, taxi, hotel, metro, train, food, emergencies — each with steps, a backup plan, common mistakes and official sources.
+- Follow nine travel guides in arrival order — customs, SIM, payment, taxi, hotel, metro, train, food, emergencies — each with a "Do it now" panel, steps, a backup plan, common mistakes and official sources. The panel sits directly under the task statement and hands you off in one tap: official first (12306, Alipay, DiDi, Amap, China Mobile), then an English-friendly alternative (Trip.com and friends) where registration or a Chinese-only interface would otherwise stop you. Each link is badged Official, English-friendly or Chinese only, and says what it costs you.
 - Look up the airport and rail station names for six cities — which one is on your ticket, and which one people usually get wrong.
 - Browse two additional short guides on entry documents and offline preparation.
 - Save a Chinese destination name, address, and optional phone number for a full-screen help card; clear these details on a shared device.
@@ -31,7 +31,9 @@ Then open `http://localhost:4173`. The service worker and installable PWA featur
 
 The Chinese line on a card is the sentence you show to a Chinese speaker, so it is never translated. Switching the interface language changes only the gloss printed underneath it and the surrounding interface.
 
-Phone calls, payment setup, translation, map downloads and rail bookings are handled by their respective providers. China Hand offers preparation prompts and communication phrases, not real-time travel booking or emergency dispatch.
+China Hand does not book, pay, dispatch or translate anything itself, and nothing here is a transaction — there is no backend and no provider API. What it does is hand you off: every guide, the city pages and the emergency page link straight to the service that owns the job, in a new tab, badged Official, English-friendly or Chinese only, so you know what you are opening before you tap. Phone calls, payment setup, translation, map downloads and rail bookings are all completed on the provider's own site or app, under their terms. Emergency numbers are dial links, and whether a call can be placed depends on the device and the network.
+
+Those links need an internet connection. The app shell and all its content work offline; the hand-off links do not, and the panel says so.
 
 ## Build a desktop app
 

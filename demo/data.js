@@ -54,6 +54,7 @@ const UI = {
        fails", a nav chip cannot. Borrowing the headings made the strip wrap to
        four rows and eat a fifth of the screen. */
     tocTask: "Summary",
+    tocDo: "Do it",
     tocBefore: "Before",
     tocSteps: "Steps",
     tocCards: "Cards",
@@ -77,7 +78,14 @@ const UI = {
     planB: "Plan B — if the main path fails",
     trouble: "If something goes wrong",
     pleaseNote: "⚠️ Please note",
-    officialSources: "Official sources: ",
+    /* The "do it now" panel at the top of a guide. Labels and notes for the
+       links themselves live on each scene's `actions`, not here. */
+    doNow: "Do it now",
+    doNowHint: "Opens in a new tab. Needs an internet connection.",
+    badgeOfficial: "Official",
+    badgeEasy: "English-friendly",
+    badgeLocal: "Chinese only",
+    badgeCall: "Call",
     outdated: "This info is outdated",
     backToTasks: "Back to all tasks",
     show: "Show ›",
@@ -196,6 +204,7 @@ const UI = {
     task: "简单说",
     onThisPage: "本页内容",
     tocTask: "摘要",
+    tocDo: "去办",
     tocBefore: "准备",
     tocSteps: "步骤",
     tocCards: "卡片",
@@ -219,7 +228,12 @@ const UI = {
     planB: "备用方案 —— 主路径失败时",
     trouble: "如果出问题了",
     pleaseNote: "⚠️ 请注意",
-    officialSources: "官方来源：",
+    doNow: "直接去办",
+    doNowHint: "在新窗口打开，需要联网。",
+    badgeOfficial: "官方",
+    badgeEasy: "英文友好",
+    badgeLocal: "中文界面",
+    badgeCall: "拨打",
     outdated: "这一页信息过期了",
     backToTasks: "返回全部任务",
     show: "出示 ›",
@@ -337,6 +351,7 @@ const UI = {
     task: "ひとことで言うと",
     onThisPage: "このページの内容",
     tocTask: "要点",
+    tocDo: "手続き",
     tocBefore: "準備",
     tocSteps: "手順",
     tocCards: "カード",
@@ -360,7 +375,12 @@ const UI = {
     planB: "代替案 — うまくいかないとき",
     trouble: "トラブルが起きたら",
     pleaseNote: "⚠️ ご注意",
-    officialSources: "公式情報：",
+    doNow: "いますぐ手続き",
+    doNowHint: "新しいタブで開きます。ネット接続が必要です。",
+    badgeOfficial: "公式",
+    badgeEasy: "英語対応",
+    badgeLocal: "中国語のみ",
+    badgeCall: "電話",
     outdated: "この情報は古い",
     backToTasks: "タスク一覧に戻る",
     show: "見せる ›",
@@ -478,6 +498,7 @@ const UI = {
     task: "한마디로",
     onThisPage: "이 페이지 목차",
     tocTask: "요약",
+    tocDo: "하기",
     tocBefore: "준비",
     tocSteps: "단계",
     tocCards: "카드",
@@ -501,7 +522,12 @@ const UI = {
     planB: "대안 — 안 될 때",
     trouble: "문제가 생기면",
     pleaseNote: "⚠️ 주의",
-    officialSources: "공식 출처: ",
+    doNow: "바로 하기",
+    doNowHint: "새 탭에서 열립니다. 인터넷 연결이 필요합니다.",
+    badgeOfficial: "공식",
+    badgeEasy: "영어 지원",
+    badgeLocal: "중국어 전용",
+    badgeCall: "전화",
     outdated: "이 정보는 오래되었습니다",
     backToTasks: "전체 목록으로",
     show: "보여주기 ›",
@@ -906,9 +932,22 @@ const SCENES = [
       { p: "Your bag did not arrive", a: "Go to the airline's Lost & Found desk before you leave the hall. File a report and keep the copy." },
       { p: "You have goods to declare and are unsure", a: "Take the red channel and ask the officer. Declaring is always safer than not declaring." },
     ],
-    sources: [
-      { label: "National Immigration Administration", url: "https://www.nia.gov.cn/" },
-      { label: "General Administration of Customs", url: "http://www.customs.gov.cn/" },
+    /* `kind` is the only new enum: "official" | "easy" | "call". It drives the
+       badge on the panel and nothing else. Labels are verb-first — the whole
+       point of this panel is that a visitor can tap and be done, so a bare
+       noun ("National Immigration Administration") tells them nothing about
+       what happens next. */
+    actions: [
+      /* The General Administration of Customs used to sit here as a second row.
+         It is gone on purpose: www.customs.gov.cn serves no working HTTPS — the
+         edge hands back a CDN default certificate for default.ssl.cdn.jiasule.com
+         and a 504, so a browser opens a security warning — while the http form
+         works only on the web build, because electron/main.cjs:22-32 hands the
+         OS https: and tel: alone and would swallow it silently. One verified
+         link beats a second one that breaks depending on how the app is run. */
+      { kind: "official", url: "https://www.nia.gov.cn/",
+        label: { en: "Check the entry and customs rules", zh: "查入境与海关规定", ja: "入国・税関の規則を確認", ko: "입국·세관 규정 확인" },
+        note: { en: "National Immigration Administration · both in one place", zh: "国家移民管理局 · 两项规定都在这里", ja: "国家移民管理局・どちらもここに", ko: "국가이민관리국 · 두 규정 모두 확인" } },
     ],
     disclaimer: "Entry rules depend on your nationality, visa and current policy. This page describes the airport steps only. It is not legal or visa advice, and it cannot promise any outcome at the border.",
   },
@@ -962,8 +1001,13 @@ const SCENES = [
       { p: "Refund not received", a: "Refunds go back to the original card. This can take several working days." },
       { p: "Charged twice", a: "Open the order → Feedback and report it. Keep the receipt." },
     ],
-    sources: [
-      { label: "Alipay official site", url: "https://www.alipay.com/" },
+    actions: [
+      { kind: "official", url: "https://www.alipay.com/",
+        label: { en: "Set up Alipay", zh: "去开通支付宝", ja: "Alipay を設定する", ko: "알리페이 설정하기" },
+        note: { en: "Official site · international cards accepted", zh: "官方网站 · 支持境外银行卡", ja: "公式サイト・海外カード対応", ko: "공식 사이트 · 해외 카드 지원" } },
+      { kind: "easy", url: "https://english.www.gov.cn/services/",
+        label: { en: "How visitors pay in China", zh: "外国人怎么在中国付款", ja: "外国人向けの支払い方法", ko: "외국인의 중국 결제 방법" },
+        note: { en: "Chinese government guide, in English", zh: "中国政府网英文版指南", ja: "中国政府の英語ガイド", ko: "중국 정부 영어 가이드" } },
     ],
     disclaimer: "Limits and card support change often. Check the current limit inside the app before you rely on it.",
   },
@@ -1019,7 +1063,14 @@ const SCENES = [
       { p: "You were charged too much", a: "Open the order → Feedback and report the fare." },
       { p: "Driver canceled", a: "Just re-order. No action needed." },
     ],
-    sources: [],
+    actions: [
+      { kind: "official", url: "https://www.didiglobal.com/",
+        label: { en: "Get DiDi", zh: "去装滴滴", ja: "DiDi を入手", ko: "디디 설치하기" },
+        note: { en: "Official · English UI · international cards", zh: "官方 · 英文界面 · 支持境外卡", ja: "公式・英語UI・海外カード対応", ko: "공식 · 영어 UI · 해외 카드 지원" } },
+      { kind: "easy", url: "https://www.alipay.com/",
+        label: { en: "Hail a ride from Alipay", zh: "在支付宝里打车", ja: "Alipay から配車", ko: "알리페이에서 차 부르기" },
+        note: { en: "No extra app to install", zh: "不用另外装 App", ja: "アプリの追加インストール不要", ko: "추가 앱 설치 불필요" } },
+    ],
   },
 
   {
@@ -1075,8 +1126,13 @@ const SCENES = [
       { p: "You missed the train", a: "Change to a later train on the same day in the app, as soon as possible." },
       { p: "You lost your passport", a: "Report it to the police, then go to your embassy." },
     ],
-    sources: [
-      { label: "12306 official site", url: "https://www.12306.cn/en/index.html" },
+    actions: [
+      { kind: "official", url: "https://www.12306.cn/en/index.html",
+        label: { en: "Book on 12306", zh: "去 12306 订票", ja: "12306 で予約する", ko: "12306에서 예약하기" },
+        note: { en: "Official · no booking fee · verify your passport first", zh: "官方 · 无手续费 · 需先做护照核验", ja: "公式・手数料なし・パスポート認証が必要", ko: "공식 · 수수료 없음 · 여권 인증 필요" } },
+      { kind: "easy", url: "https://www.trip.com/trains/",
+        label: { en: "Book on Trip.com", zh: "去 Trip.com 订票", ja: "Trip.com で予約する", ko: "Trip.com에서 예약하기" },
+        note: { en: "English UI · small booking fee", zh: "英文界面 · 每张少量手续费", ja: "英語UI・1枚につき少額の手数料", ko: "영어 UI · 장당 소액 수수료" } },
     ],
     disclaimer: "Ticket rules and change fees follow railway policy. Check the app for the current rules.",
   },
@@ -1124,7 +1180,14 @@ const SCENES = [
       { p: "You went the wrong way", a: "Get off at the next station and take a train back." },
       { p: "Machine will not take your note", a: "Most accept 5 and 10 yuan notes, and some take coins." },
     ],
-    sources: [],
+    actions: [
+      { kind: "official", url: "https://www.amap.com/",
+        label: { en: "Plan the route on Amap", zh: "用高德查线路", ja: "高徳マップで経路を調べる", ko: "가오더 지도로 경로 찾기" },
+        note: { en: "Official map · Chinese interface", zh: "官方地图 · 中文界面", ja: "公式マップ・中国語UI", ko: "공식 지도 · 중국어 UI" } },
+      { kind: "easy", url: "https://www.alipay.com/",
+        label: { en: "Get the metro QR code in Alipay", zh: "在支付宝里领乘车码", ja: "Alipay で乗車コードを取得", ko: "알리페이에서 교통 QR 받기" },
+        note: { en: "Tap the phone at the gate — no ticket needed", zh: "刷手机进站，不用买票", ja: "改札でスマホをかざすだけ", ko: "개찰구에서 휴대폰 태그" } },
+    ],
   },
 
   {
@@ -1173,8 +1236,17 @@ const SCENES = [
       { p: "Deposit not returned", a: "Show your receipt and the original payment record." },
       { p: "You need to stay longer", a: "Ask at the front desk as early as possible. Rooms sell out." },
     ],
-    sources: [
-      { label: "National Immigration Administration", url: "https://www.nia.gov.cn/" },
+    /* Booking first, rule second. Every other scene leads with the official
+       option, but there is no official site a foreigner can book a Chinese
+       hotel through — the thing you actually came here to do is book, so it
+       goes on top and the badge says what it is. */
+    actions: [
+      { kind: "easy", url: "https://www.trip.com/hotels/",
+        label: { en: "Book a hotel", zh: "去订酒店", ja: "ホテルを予約する", ko: "호텔 예약하기" },
+        note: { en: "English UI · filter for hotels that accept foreign guests", zh: "英文界面 · 可筛「接待外宾」的酒店", ja: "英語UI・外国人対応の宿を絞り込める", ko: "영어 UI · 외국인 투숙 가능 호텔 필터" } },
+      { kind: "official", url: "https://www.nia.gov.cn/",
+        label: { en: "Check the registration rule", zh: "查住宿登记规定", ja: "宿泊登録の規定を確認", ko: "숙박 등록 규정 확인" },
+        note: { en: "Foreign guests must be registered within 24 hours", zh: "外国旅客须在 24 小时内完成登记", ja: "外国人は24時間以内の登録が必要", ko: "외국인은 24시간 내 등록 필요" } },
     ],
     disclaimer: "Rules on registering foreign guests vary by city and by hotel. This page describes the usual steps only — it is not legal advice.",
   },
@@ -1228,7 +1300,17 @@ const SCENES = [
       { p: "Wrong order", a: "Photograph it and report it in the app." },
       { p: "The food is too spicy", a: "Order again and write 不要辣 in the Notes." },
     ],
-    sources: [],
+    actions: [
+      { kind: "easy", url: "https://www.alipay.com/",
+        label: { en: "Order food from Alipay", zh: "在支付宝里点外卖", ja: "Alipay から注文する", ko: "알리페이에서 주문하기" },
+        note: { en: "English menu inside · no extra app to install", zh: "内置英文菜单 · 不用另外装 App", ja: "英語メニューあり・アプリの追加不要", ko: "영어 메뉴 지원 · 추가 앱 설치 불필요" } },
+      { kind: "local", url: "https://www.dianping.com/",
+        label: { en: "Find a restaurant", zh: "找餐厅", ja: "レストランを探す", ko: "식당 찾기" },
+        note: { en: "Dianping · Chinese interface · reviews and menus", zh: "大众点评 · 中文界面 · 有评价和菜单", ja: "大衆点評・中国語UI・口コミとメニュー", ko: "따중띠엔핑 · 중국어 UI · 리뷰와 메뉴" } },
+      { kind: "local", url: "https://www.meituan.com/",
+        label: { en: "Order delivery", zh: "点外卖", ja: "デリバリーを頼む", ko: "배달 주문하기" },
+        note: { en: "Meituan · Chinese interface · needs a Chinese phone number", zh: "美团 · 中文界面 · 需要中国手机号", ja: "美団・中国語UI・中国の電話番号が必要", ko: "메이투안 · 중국어 UI · 중국 전화번호 필요" } },
+    ],
   },
 
   {
@@ -1272,9 +1354,16 @@ const SCENES = [
       { p: "You cannot receive SMS", a: "Data-only plans do not include SMS. Use your home number for codes." },
       { p: "You ran out of data", a: "Top up in the carrier app or the shop." },
     ],
-    sources: [
-      { label: "China Mobile", url: "https://www.chinamobileltd.com/" },
-      { label: "China Unicom", url: "https://www.chinaunicom.com.hk/" },
+    actions: [
+      { kind: "official", url: "https://www.chinamobileltd.com/",
+        label: { en: "China Mobile", zh: "中国移动", ja: "中国移動", ko: "차이나모바일" },
+        note: { en: "Largest network · best coverage outside the cities", zh: "网络最大 · 出了城信号最好", ja: "最大手・都市部以外でも電波が強い", ko: "최대 망 · 도시 외곽 커버리지 우수" } },
+      { kind: "official", url: "https://www.chinaunicom.com.hk/",
+        label: { en: "China Unicom", zh: "中国联通", ja: "中国聯通", ko: "차이나유니콤" },
+        note: { en: "Good for short stays", zh: "短期停留够用", ja: "短期滞在に向く", ko: "단기 체류에 적합" } },
+      { kind: "easy", url: "https://www.airalo.com/",
+        label: { en: "Get an eSIM instead", zh: "改用 eSIM", ja: "eSIM を使う", ko: "eSIM 사용하기" },
+        note: { en: "Third-party · no shop queue · install before you fly", zh: "第三方 · 不用排队 · 出发前就能装好", ja: "サードパーティ・行列不要・出発前に設定可", ko: "서드파티 · 대기 없음 · 출발 전 설치" } },
     ],
     disclaimer: "SIM registration requires your passport — this is a legal requirement, not a shop policy. Which services are reachable on a local network is set by current regulation, and this page takes no position on it.",
   },
@@ -1322,8 +1411,23 @@ const SCENES = [
       { p: "Your phone is dead", a: "Ask to charge it at a shop, or use the phone battery card." },
       { p: "You lost your passport", a: "Report it to the police first, then go to your embassy with the police report." },
     ],
-    sources: [
-      { label: "China emergency numbers: 110 / 120 / 119 / 122", url: "https://www.gov.cn/" },
+    /* The one scene where the action is a phone call, not a website. These
+       numbers appear as plain text in the steps below and were not tappable
+       anywhere on this page — the dial links only existed on the home strip.
+       `tel:` needs no target/rel; extLink() drops them for it. */
+    actions: [
+      { kind: "call", url: "tel:110",
+        label: { en: "Call the police", zh: "打 110 报警", ja: "110 に電話（警察）", ko: "110 경찰 신고" },
+        note: { en: "Free · the operator may not speak English", zh: "免费 · 接线员可能不会说英语", ja: "無料・英語が通じない場合あり", ko: "무료 · 영어가 안 통할 수 있음" } },
+      { kind: "call", url: "tel:120",
+        label: { en: "Call an ambulance", zh: "打 120 叫急救", ja: "120 に電話（救急車）", ko: "120 구급차 요청" },
+        note: { en: "Emergencies only", zh: "仅限紧急情况", ja: "緊急時のみ", ko: "응급 상황에만" } },
+      { kind: "call", url: "tel:119",
+        label: { en: "Call the fire service", zh: "打 119 报火警", ja: "119 に電話（消防）", ko: "119 소방 신고" },
+        note: { en: "Fire and rescue", zh: "火警与救援", ja: "火災・救助", ko: "화재 · 구조" } },
+      { kind: "call", url: "tel:122",
+        label: { en: "Report a traffic accident", zh: "打 122 报交通事故", ja: "122 に電話（交通事故）", ko: "122 교통사고 신고" },
+        note: { en: "Traffic accidents", zh: "交通事故", ja: "交通事故", ko: "교통사고" } },
     ],
     disclaimer: "This page gives contact steps only. It is not legal, medical or safety advice.",
   },

@@ -453,6 +453,71 @@ body {
 
 .toc__item:hover { border-color: var(--brand); color: var(--brand); }
 
+/* ---------- "do it now" action panel (scene pages) ---------- */
+
+/* The only block on a guide page that does something rather than says
+   something, so it is allowed to be the loudest panel. They used to be a 12px
+   inline footnote at the very bottom of the page, joined by " · " — below the
+   fold on a phone, and reading as attribution rather than as a thing to press.
+   At the top the rows are full-width tap targets, because on a phone this is
+   the part people actually touch. */
+.panel--do {
+  border-color: color-mix(in srgb, var(--brand) 26%, var(--line));
+  box-shadow: var(--shadow-sm);
+}
+
+.qlist { display: flex; flex-direction: column; gap: 8px; }
+
+.qlink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: inherit;
+  text-decoration: none;
+}
+
+.qlink:hover { background: var(--surface); border-color: var(--brand); }
+.qlink:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+.qlink__body { display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; }
+.qlink__head { display: flex; align-items: center; gap: 8px; }
+.qlink__t { font-size: 14.5px; font-weight: 600; line-height: 1.35; }
+.qlink__d { font-size: 12.5px; line-height: 1.4; color: var(--muted); }
+
+/* The badge is the honesty device: it says whether this tap leaves for an
+   official service or a commercial one *before* the visitor commits to it.
+   Pushed to the right edge of the title line so the badge's own width never
+   decides where the title starts. */
+.qlink__badge {
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding: 3px 7px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.qlink--official .qlink__badge { background: var(--brand-soft); color: var(--brand-ink); }
+.qlink--easy .qlink__badge { background: var(--line-soft); color: var(--muted); }
+/* Warn, not danger: a Chinese-only app is harder, not broken — and these are
+   still the sites a local would use. */
+.qlink--local .qlink__badge { background: var(--warn-soft); color: var(--warn); }
+.qlink--call .qlink__badge { background: var(--danger-soft); color: var(--danger); }
+
+/* Not the external-link marker. ↗ already means "open the detail" on this
+   app's internal links (city cards, guide cards), so it cannot carry "this
+   leaves the site" on its own — the badge does that. Here it just marks the
+   row as a thing you press. The phone rows get 📞 instead. */
+.qlink__go { flex: 0 0 auto; font-size: 15px; color: var(--muted); }
+
+.qlist__hint { margin: 10px 0 0; font-size: 12px; line-height: 1.5; color: var(--muted); }
+
 /* The top bar is sticky, so a jump would land with the section heading tucked
    underneath it. scrollIntoView honours scroll-margin. */
 [id^="sec-"] { scroll-margin-top: calc(66px + env(safe-area-inset-top)); }
@@ -1523,6 +1588,14 @@ table.mistakes td:last-child { color: var(--ok); padding-right: 0; }
   border-radius: 8px;
   padding: 3px 9px;
 }
+
+/* The detail page's chips are tappable (they open an Amap search for that
+   exact Chinese name). The list page's are not — they sit inside the card's
+   own anchor, and a nested <a> is invalid HTML. */
+.name-chip--link { text-decoration: none; }
+.name-chip--link:hover, .name-chip--link:focus-visible { border-color: var(--brand); color: var(--brand); }
+.name-chip__go { margin-left: 4px; font-size: 10px; color: var(--faint); font-weight: 500; }
+.name-hint { margin: 0 0 8px; font-size: 12px; line-height: 1.5; color: var(--muted); }
 
 .name-row { display: flex; flex-wrap: wrap; gap: 6px; }
 .city-card-foot .city-names { display: flex; flex-wrap: wrap; gap: 5px; }

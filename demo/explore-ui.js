@@ -35,12 +35,31 @@ const CPExplore = (() => {
      direction on the whole page. */
   const nameChip = value => `<span class="name-chip"><bdi>${esc(value)}</bdi></span>`;
 
+  /* A station name is the one thing on this page a visitor has to get right,
+     and the quickest way to check it is to see where the map puts it.
+
+     Plain https search, not the app's own scheme: amapuri:// and iosamap://
+     are blocked by modern browsers, and WeChat's webview blocks the hand-off
+     outright. A search URL also means we don't need coordinates — which is
+     just as well, since Amap works in GCJ-02 and we only have the name.
+
+     The IATA code in "北京首都国际机场（PEK）" is stripped before searching —
+     Amap matches the Chinese name, and the parenthetical only dilutes it.
+
+     Only the detail page uses this. On the list page the chips sit *inside*
+     an <a> that opens the city, and nesting an anchor in an anchor is invalid
+     HTML that breaks the whole card's tap area. */
+  const mapUrl = name =>
+    `https://www.amap.com/search?query=${encodeURIComponent(name.replace(/（[^）]*）/g, '').trim())}`;
+  const nameChipLink = value =>
+    `<a class="name-chip name-chip--link" href="${esc(mapUrl(value))}" target="_blank" rel="noopener noreferrer"><bdi>${esc(value)}</bdi><span class="name-chip__go" aria-hidden="true">↗</span></a>`;
+
   function cityWords() {
     return {
-      en: { tag: 'ARRIVAL NOTES', title: 'Which airport, which station', detail: 'A city can have two airports and several railway stations, and the Chinese names look nothing alike. Keep the one on your ticket in front of you.', airport: 'Airport', stations: 'Railway stations', note: 'What catches people out', back: 'All cities', notFound: 'City not found', notFoundBody: 'Pick another city from the list.', browse: 'Browse cities →', sourceNote: 'Names and codes change. Confirm with the operator before you travel.', sourceTitle: 'Official source', homeTitle: 'Airport and station names', homeBody: 'Six cities, with the Chinese names you may need to show someone.', homeLink: 'See the names', open: 'Details' },
-      zh: { tag: '落地提示', title: '哪个机场，哪个车站', detail: '一座城市可能有两个机场、好几个火车站，中文名看着完全不同。把票上的那一个留在眼前。', airport: '机场', stations: '火车站', note: '最容易踩的坑', back: '全部城市', notFound: '没有这座城市', notFoundBody: '从列表里另选一个。', browse: '浏览城市 →', sourceNote: '名称与代码会变，出行前请与承运方确认。', sourceTitle: '官方来源', homeTitle: '机场与车站中文名', homeBody: '六座城市，以及可能需要出示给别人的中文名。', homeLink: '查看中文名', open: '查看详情' },
-      ja: { tag: '到着メモ', title: 'どの空港、どの駅か', detail: '一つの都市に空港が二つ、駅が複数あることがあり、中国語名は全く似ていません。チケットに書かれた名前を手元に。', airport: '空港', stations: '鉄道駅', note: 'つまずきやすい点', back: 'すべての都市', notFound: '都市が見つかりません', notFoundBody: '一覧から選び直してください。', browse: '都市を見る →', sourceNote: '名称とコードは変わります。移動前に事業者へ確認してください。', sourceTitle: '公式情報', homeTitle: '空港と駅の中国語名', homeBody: '6都市と、見せる必要があるかもしれない中国語名。', homeLink: '中国語名を見る', open: '詳細を見る' },
-      ko: { tag: '도착 메모', title: '어느 공항, 어느 역', detail: '한 도시에 공항이 둘, 기차역이 여럿일 수 있고 중국어 이름은 전혀 다릅니다. 표에 적힌 이름을 확인하세요.', airport: '공항', stations: '기차역', note: '가장 자주 하는 실수', back: '모든 도시', notFound: '도시를 찾을 수 없습니다', notFoundBody: '목록에서 다시 선택하세요.', browse: '도시 보기 →', sourceNote: '이름과 코드는 바뀝니다. 이동 전에 운영사에 확인하세요.', sourceTitle: '공식 출처', homeTitle: '공항·역 중국어 이름', homeBody: '6개 도시와 보여줘야 할 수 있는 중국어 이름.', homeLink: '중국어 이름 보기', open: '자세히 보기' }
+      en: { tag: 'ARRIVAL NOTES', title: 'Which airport, which station', detail: 'A city can have two airports and several railway stations, and the Chinese names look nothing alike. Keep the one on your ticket in front of you.', airport: 'Airport', stations: 'Railway stations', note: 'What catches people out', back: 'All cities', notFound: 'City not found', notFoundBody: 'Pick another city from the list.', browse: 'Browse cities →', sourceNote: 'Names and codes change. Confirm with the operator before you travel.', sourceTitle: 'Official source', homeTitle: 'Airport and station names', homeBody: 'Six cities, with the Chinese names you may need to show someone.', homeLink: 'See the names', open: 'Details', mapsNote: 'Tap a name to find it on the map' },
+      zh: { tag: '落地提示', title: '哪个机场，哪个车站', detail: '一座城市可能有两个机场、好几个火车站，中文名看着完全不同。把票上的那一个留在眼前。', airport: '机场', stations: '火车站', note: '最容易踩的坑', back: '全部城市', notFound: '没有这座城市', notFoundBody: '从列表里另选一个。', browse: '浏览城市 →', sourceNote: '名称与代码会变，出行前请与承运方确认。', sourceTitle: '官方来源', homeTitle: '机场与车站中文名', homeBody: '六座城市，以及可能需要出示给别人的中文名。', homeLink: '查看中文名', open: '查看详情', mapsNote: '点名称可在地图上找到它' },
+      ja: { tag: '到着メモ', title: 'どの空港、どの駅か', detail: '一つの都市に空港が二つ、駅が複数あることがあり、中国語名は全く似ていません。チケットに書かれた名前を手元に。', airport: '空港', stations: '鉄道駅', note: 'つまずきやすい点', back: 'すべての都市', notFound: '都市が見つかりません', notFoundBody: '一覧から選び直してください。', browse: '都市を見る →', sourceNote: '名称とコードは変わります。移動前に事業者へ確認してください。', sourceTitle: '公式情報', homeTitle: '空港と駅の中国語名', homeBody: '6都市と、見せる必要があるかもしれない中国語名。', homeLink: '中国語名を見る', open: '詳細を見る', mapsNote: '名前をタップすると地図で確認できます' },
+      ko: { tag: '도착 메모', title: '어느 공항, 어느 역', detail: '한 도시에 공항이 둘, 기차역이 여럿일 수 있고 중국어 이름은 전혀 다릅니다. 표에 적힌 이름을 확인하세요.', airport: '공항', stations: '기차역', note: '가장 자주 하는 실수', back: '모든 도시', notFound: '도시를 찾을 수 없습니다', notFoundBody: '목록에서 다시 선택하세요.', browse: '도시 보기 →', sourceNote: '이름과 코드는 바뀝니다. 이동 전에 운영사에 확인하세요.', sourceTitle: '공식 출처', homeTitle: '공항·역 중국어 이름', homeBody: '6개 도시와 보여줘야 할 수 있는 중국어 이름.', homeLink: '중국어 이름 보기', open: '자세히 보기', mapsNote: '이름을 누르면 지도에서 확인할 수 있습니다' }
     }[language] || {};
   }
 
@@ -63,8 +82,8 @@ const CPExplore = (() => {
     return `<a href="#/cities" class="back-link">← ${esc(w.back)}</a>
       <section class="city-detail-hero"><div><h1>${esc(item.name)}</h1><p class="city-zh"><bdi>${esc(item.zh)}</bdi></p></div></section>
       <div class="detail-grid"><article>
-        <section class="detail-section"><h2>${esc(w.airport)}</h2><div class="name-row">${item.airport.map(nameChip).join('')}</div></section>
-        <section class="detail-section"><h2>${esc(w.stations)}</h2><div class="name-row">${item.stations.map(nameChip).join('')}</div></section>
+        <section class="detail-section"><h2>${esc(w.airport)}</h2><p class="name-hint">${esc(w.mapsNote)}</p><div class="name-row">${item.airport.map(nameChipLink).join('')}</div></section>
+        <section class="detail-section"><h2>${esc(w.stations)}</h2><p class="name-hint">${esc(w.mapsNote)}</p><div class="name-row">${item.stations.map(nameChipLink).join('')}</div></section>
         <section class="detail-section"><h2>${esc(w.note)}</h2><p>${esc(item.note)}</p></section>
       </article><aside class="detail-aside"><h2>${esc(w.sourceTitle)}</h2><p>${esc(w.sourceNote)}</p>${source(item.source)}</aside></div>`;
   }
