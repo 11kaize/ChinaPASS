@@ -6,6 +6,7 @@ import {
   makeRequest,
   SSEParser,
   streamAnswer,
+  verifyDeepSeekConnection,
   errorMessage,
 } from "../src/ai/client";
 import {
@@ -383,4 +384,33 @@ test("manual arrival port is shared only with permission and never persists AI c
   assert.equal(safe.arrivalPort,"pvg");
   assert.equal(safe.arrivalTask,"taxi");
   assert(!JSON.stringify(safe).includes(base.key));
+});
+
+test("fetch is called without the options object as its receiver", async () => {
+  const result = await streamAnswer(base, "Reply OK", [{ role: "user", content: "OK" }], {
+    signal: new AbortController().signal,
+    onText: () => {},
+    fetcher: async function (this: unknown) {
+      assert.equal(this, undefined);
+      return response('data: {"choices":[{"delta":{"content":"OK"}}]}\n\ndata: [DONE]\n\n');
+    },
+  });
+  assert.equal(result, "OK");
+});
+
+test("DeepSeek connection probe validates authentication and selected model without generation", async () => {
+  await verifyDeepSeekConnection(base, {
+    signal: new AbortController().signal,
+    fetcher: async function (this: unknown, url, init) {
+      assert.equal(this, undefined);
+      assert.equal(url, "https://api.deepseek.com/models");
+      assert.equal(init?.body, undefined);
+      assert.equal((init?.headers as Record<string,string>).Authorization, `Bearer ${base.key}`);
+      return Response.json({ data: [{ id: base.model }] });
+    },
+  });
+  for (const status of [401,403,429]) {
+    await assert.rejects(verifyDeepSeekConnection(base, { signal: new AbortController().signal, fetcher: async () => new Response(null,{status}) }), (error: unknown) => error instanceof AIError && error.status === status);
+  }
+  await assert.rejects(verifyDeepSeekConnection(base, { signal: new AbortController().signal, fetcher: async () => Response.json({ data: [] }) }), (error: unknown) => error instanceof AIError && error.kind === "model");
 });

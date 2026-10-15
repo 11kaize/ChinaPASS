@@ -12,7 +12,7 @@ import {
   Region,
   validateConfig,
 } from "../ai/providers";
-import { streamAnswer, errorMessage } from "../ai/client";
+import { streamAnswer, verifyDeepSeekConnection, errorMessage } from "../ai/client";
 import {
   Page,
   Heading,
@@ -104,7 +104,9 @@ function ConfigForm() {
     const control = new AbortController();
     testAbort.current = control;
     try {
-      await streamAnswer(
+      if (provider === "deepseek") {
+        await verifyDeepSeekConnection(current(), { signal: control.signal, fetcher: nativeFetch as typeof globalThis.fetch });
+      } else await streamAnswer(
         current(),
         "Reply with OK. This is a connection test.",
         [{ role: "user", content: "Reply OK." }],
@@ -112,11 +114,13 @@ function ConfigForm() {
           signal: control.signal,
           fetcher: nativeFetch as typeof globalThis.fetch,
           onText: () => {},
-          timeoutMs: 45000,
+          timeoutMs: 120000,
         },
       );
       if (alive.current && testAbort.current === control)
-        setResult(t("connectionOk"));
+        setResult(provider === "deepseek"
+          ? (prefs.language === "zh" ? "Key 和模型列表验证成功；生成回答仍可能排队等待" : "Key and model list verified; generating an answer may still queue")
+          : t("connectionOk"));
     } catch (e) {
       if (alive.current && testAbort.current === control)
         setError(errorMessage(e, prefs.language === "zh"));
@@ -311,8 +315,8 @@ function ConfigForm() {
         />
         <Txt variant="caption" color={colors.secondary}>
           {prefs.language === "zh"
-            ? "测试会发送一个简短请求，消耗少量服务商额度。"
-            : "Testing sends a short request and may use a small amount of your provider credit."}
+            ? "DeepSeek 检查 Key 和模型列表，不生成回答；其他服务商发送简短生成请求，可能消耗少量额度。"
+            : "DeepSeek checks your key and model list without generating an answer. Other providers send a short generation request that may use credit."}
         </Txt>
         {Boolean(result) && <Notice text={`${result}. ${t("connectedNote")}`} />}
         <Button

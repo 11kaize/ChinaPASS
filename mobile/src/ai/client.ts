@@ -86,6 +86,40 @@ export class SSEParser {
   }
 }
 type FetchFn = typeof globalThis.fetch;
+// DeepSeek exposes model discovery without starting a billable generation job.
+// Verify authentication and the selected model separately from inference queue latency.
+export async function verifyDeepSeekConnection(
+  config: APIConfig,
+  options: { signal: AbortSignal; fetcher: FetchFn; timeoutMs?: number },
+) {
+  if (config.provider !== "deepseek" || validateConfig(config)) throw new AIError("invalid");
+  const control = new AbortController();
+  const cancel = () => control.abort();
+  options.signal.addEventListener("abort", cancel, { once: true });
+  if (options.signal.aborted) control.abort();
+  let timedOut = false;
+  const timer = setTimeout(() => { timedOut = true; control.abort(); }, options.timeoutMs ?? 30000);
+  try {
+    const fetcher = options.fetcher;
+    const result = await fetcher(`${config.baseURL.trim().replace(/\/+$/, "")}/models`, {
+      headers: { Authorization: `Bearer ${config.key.trim()}`, Accept: "application/json" },
+      signal: control.signal,
+      redirect: "error",
+    });
+    if (!result.ok) throw new AIError(result.status === 401 ? "auth" : result.status === 403 ? "access" : result.status === 404 ? "model" : result.status === 429 ? "limit" : "server", result.status);
+    const data = await result.json();
+    if (!Array.isArray(data.data)) throw new AIError("server");
+    if (!data.data.some((model: { id?: string }) => model.id === config.model.trim())) throw new AIError("model");
+  } catch (error) {
+    if (timedOut) throw new AIError("timeout");
+    if (options.signal.aborted) throw new AIError("cancelled");
+    if (error instanceof AIError) throw error;
+    throw new AIError("network");
+  } finally {
+    clearTimeout(timer);
+    options.signal.removeEventListener("abort", cancel);
+  }
+}
 export async function streamAnswer(
   config: APIConfig,
   instructions: string,
@@ -110,7 +144,10 @@ export async function streamAnswer(
   let text = "",
     complete = false;
   try {
-    const res = await options.fetcher(request.url, {
+    // Invoke as a standalone function: browser fetch rejects an options-object
+    // receiver (Illegal invocation) before any network request is sent.
+    const fetcher = options.fetcher;
+    const res = await fetcher(request.url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
