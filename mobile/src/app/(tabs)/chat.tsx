@@ -1,3 +1,4 @@
+import { artwork } from "../../artwork";
 import React, { useRef, useState } from "react";
 import * as Crypto from "expo-crypto";
 import {
@@ -232,7 +233,7 @@ function ChatSession() {
           ListEmptyComponent={
             <View style={{ paddingTop: 12, gap: 14 }}>
               <View style={{ alignItems: "center", gap: 8, paddingVertical: 8 }}>
-                <Image source={require("../../../assets/ai-companion.png")} accessibilityLabel="ChinaHand AI companion" style={{width:76,height:68}} resizeMode="contain"/>
+                <Image source={artwork.assistant} accessibilityLabel="ChinaHand AI companion" style={{width:76,height:68}} resizeMode="contain"/>
                 <Txt style={{ fontSize: 22, lineHeight: 28, fontWeight: "600", letterSpacing: -0.4, textAlign: "center" }}>{t("aiTitle")}</Txt>
                 <Txt variant="caption" color={colors.secondary} style={{ textAlign: "center", maxWidth: 270 }}>{t("aiBody")}</Txt>
               </View>

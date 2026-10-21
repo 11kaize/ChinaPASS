@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Stack, ThemeProvider, DefaultTheme, DarkTheme } from "expo-router";
 import {
   StatusBar,
@@ -6,7 +6,6 @@ import {
   Appearance,
   View,
   ActivityIndicator,
-  ImageBackground,
   Text,
 } from "react-native";
 import { isRunningInExpoGo } from "expo";
@@ -15,18 +14,29 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ProductProvider, useProduct } from "../product-state";
 import { AppProvider, useApp } from "../state";
 import { useReducedMotion } from "../ui";
+import { prepareArtwork } from "../prepare-artwork";
 void SplashScreen.preventAutoHideAsync().catch(() => {});
 function AppNavigation() {
   const { hydrated, colors, isDark, prefs } = useApp();
   const reduce = useReducedMotion();
   const { ready } = useProduct();
+  const [artworkReady, setArtworkReady] = useState(false);
   useEffect(() => {
-    if (hydrated && ready) {
+    let live = true;
+    void prepareArtwork().finally(() => {
+      if (live) setArtworkReady(true);
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
+  useEffect(() => {
+    if (hydrated && ready && artworkReady) {
       if (!isRunningInExpoGo())
         SplashScreen.setOptions({ duration: reduce ? 0 : 350, fade: !reduce });
       void SplashScreen.hideAsync();
     }
-  }, [hydrated, ready, reduce]);
+  }, [hydrated, ready, artworkReady, reduce]);
   useEffect(() => {
     if (hydrated && Platform.OS !== "web")
       Appearance.setColorScheme(
@@ -39,33 +49,28 @@ function AppNavigation() {
         .getElementById("phone")
         ?.setAttribute("data-theme", isDark ? "dark" : "light");
   }, [isDark]);
-  if (!hydrated || !ready)
+  if (!hydrated || !ready || !artworkReady)
     return (
-      <ImageBackground
-        source={require("../../assets/login-gateway.png")}
-        imageStyle={{ width: "100%", height: "100%" }}
+      <View
+        accessibilityLabel="Preparing ChinaHand"
         style={{
           flex: 1,
-          backgroundColor: "#081426",
+          backgroundColor: colors.bg,
           alignItems: "center",
           justifyContent: "center",
+          gap: 20,
         }}
       >
-        <View
-          style={{
-            gap: 20,
-            alignItems: "center",
-            padding: 26,
-            borderRadius: 28,
-            backgroundColor: "rgba(5,17,39,0.55)",
-          }}
-        >
-          <ActivityIndicator size="large" color="#C4DDFF" />
-          <Text style={{ color: "#E1EDFF", fontSize: 13, letterSpacing: 2 }}>
-            CHINAHAND
-          </Text>
-        </View>
-      </ImageBackground>
+        <ActivityIndicator size="large" color={colors.accent} />
+        <Text style={{ color: colors.ink, fontSize: 13, letterSpacing: 2 }}>
+          CHINAHAND
+        </Text>
+        <Text style={{ color: colors.secondary, fontSize: 12 }}>
+          {prefs.language === "zh"
+            ? "正在准备你的生活助手…"
+            : "Preparing your companion…"}
+        </Text>
+      </View>
     );
   const base = isDark ? DarkTheme : DefaultTheme;
   return (

@@ -1,3 +1,4 @@
+import { artwork } from "./artwork";
 import React, { useCallback, useState } from "react";
 import {
   ActivityIndicator,
@@ -103,7 +104,7 @@ export function AuthScreen({ register = false }: { register?: boolean }) {
   );
   return (
     <ImageBackground
-      source={require("../assets/login-gateway.png")}
+      source={artwork.login}
       imageStyle={{ width: "100%", height: "100%" }}
       style={{ flex: 1, backgroundColor: "#071326" }}
     >

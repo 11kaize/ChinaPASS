@@ -40,6 +40,7 @@
     "@types/react": "~19.2.2",
     "eslint": "^9.39.0",
     "eslint-config-expo": "~57.0.2",
+    "sharp": "^0.35.5",
     "tsx": "^4.21.0",
     "typescript": "~6.0.3"
   },
@@ -54,7 +55,8 @@
     "test": "tsx --test tests/*.test.ts",
     "check": "npm run typecheck && npm run lint && npm test",
     "export:native": "expo export --platform android --platform ios",
-    "build:apk": "bash scripts/build-android.sh"
+    "build:apk": "bash scripts/build-android.sh",
+    "assets:prepare": "node scripts/prepare-artwork.mjs"
   },
   "private": true
 }

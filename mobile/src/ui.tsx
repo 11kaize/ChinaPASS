@@ -1,3 +1,4 @@
+import { artwork } from "./artwork";
 import { LinearGradient } from "expo-linear-gradient";
 import { useReducedMotion } from "./motion";
 import { PageMotion } from "./page-motion";
@@ -356,7 +357,7 @@ export function IconButton({
 export function Brand({ large = false }: { large?: boolean }) {
   return (
     <Image
-      source={require("../assets/brand-blue.png")}
+      source={artwork.brand}
       accessibilityLabel="ChinaHand"
       style={{
         width: large ? 80 : 28,
@@ -445,8 +446,8 @@ export function Page({
         source={
           backdrop ||
           (isDark
-            ? require("../assets/home-night.png")
-            : require("../assets/home-portrait.png"))
+            ? artwork.homeNight
+            : artwork.homeDay)
         }
         resizeMode="cover"
         accessibilityLabel={

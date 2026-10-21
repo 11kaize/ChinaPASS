@@ -1,0 +1,72 @@
+[
+  {
+    "key": "brand",
+    "sourceBytes": 1172452,
+    "encodedBytes": 28644,
+    "width": 256,
+    "height": 256
+  },
+  {
+    "key": "skyline",
+    "sourceBytes": 2266842,
+    "encodedBytes": 69052,
+    "width": 960,
+    "height": 640
+  },
+  {
+    "key": "homeDay",
+    "sourceBytes": 1897552,
+    "encodedBytes": 91096,
+    "width": 768,
+    "height": 1621
+  },
+  {
+    "key": "homeNight",
+    "sourceBytes": 2228958,
+    "encodedBytes": 179996,
+    "width": 768,
+    "height": 1625
+  },
+  {
+    "key": "arrivalDay",
+    "sourceBytes": 1799608,
+    "encodedBytes": 40192,
+    "width": 960,
+    "height": 537
+  },
+  {
+    "key": "arrivalNight",
+    "sourceBytes": 1995915,
+    "encodedBytes": 58140,
+    "width": 960,
+    "height": 537
+  },
+  {
+    "key": "login",
+    "sourceBytes": 2120048,
+    "encodedBytes": 67826,
+    "width": 768,
+    "height": 1152
+  },
+  {
+    "key": "assistant",
+    "sourceBytes": 1062439,
+    "encodedBytes": 12876,
+    "width": 256,
+    "height": 234
+  },
+  {
+    "key": "foodDay",
+    "sourceBytes": 2320419,
+    "encodedBytes": 71082,
+    "width": 576,
+    "height": 720
+  },
+  {
+    "key": "foodNight",
+    "sourceBytes": 2213011,
+    "encodedBytes": 72692,
+    "width": 576,
+    "height": 768
+  }
+]

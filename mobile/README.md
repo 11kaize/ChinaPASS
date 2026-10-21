@@ -106,3 +106,17 @@ The current demo adds a crystal-blue material system, colorful launcher, a singl
 A trusted app-page directory and keyword retrieval supplement guide retrieval. Each provider gets the directory before answering. For eligible memberships, an explicit `[[chinahand:page-id]]` returned by the model becomes an allowlisted button after the answer completes. A plain user query never directly inserts a navigation button. Unknown IDs are discarded. User stories, email, password digests and media are excluded from model context.
 
 Browser attachments use IndexedDB blobs and short-lived object URLs; native attachments are copied to the app document directory. Clearing local data removes the community demo and its attachments as well as the existing preferences. API keys still clear on refresh and are never included in either persistence store.
+
+## Built-in demo artwork
+
+The browser demo embeds ten phone-sized WebP illustrations in its JavaScript bundle (`src/artwork.web.ts`). They are decoded during startup and reused across routes and appearance changes, so pages do not fetch large PNG files separately. The first visit still downloads the application bundle; this is not an offline-install guarantee.
+
+Original PNG artwork is retained for editing and native app packaging. Native screens use `src/artwork.ts`, which references local bundled assets. App icons and splash configuration keep their platform-compatible original files. User-uploaded community attachments continue to use the device media store and are not included in this artwork bundle.
+
+To regenerate after changing original artwork:
+
+```sh
+npm run assets:prepare
+```
+
+This uses Sharp as a development dependency to produce `assets/optimized/*.webp`, a size manifest and both platform registries. `npm run demo:build` from the repository root regenerates these automatically. Checked-in generated files let the Windows/Linux demo launchers start without running image conversion each time.

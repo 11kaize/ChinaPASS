@@ -1,3 +1,4 @@
+import { artwork } from "../../artwork";
 import React from "react";
 import { View, Image, ImageBackground } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -89,8 +90,8 @@ function HomeHeader() {
     <ImageBackground
       source={
         isDark
-          ? require("../../../assets/home-night.png")
-          : require("../../../assets/skyline.png")
+          ? artwork.homeNight
+          : artwork.skyline
       }
       resizeMode="cover"
       imageStyle={{
@@ -165,8 +166,8 @@ export default function Home() {
     <Page
       backdrop={
         isDark
-          ? require("../../../assets/home-night.png")
-          : require("../../../assets/home-portrait.png")
+          ? artwork.homeNight
+          : artwork.homeDay
       }
       header={<HomeHeader />}
     >
@@ -248,8 +249,8 @@ export default function Home() {
         <ImageBackground
           source={
             isDark
-              ? require("../../../assets/arrival-night.png")
-              : require("../../../assets/arrival-hero.png")
+              ? artwork.arrivalNight
+              : artwork.arrivalDay
           }
           imageStyle={{ width: "100%", height: "100%" }}
           resizeMode="cover"
@@ -307,7 +308,7 @@ export default function Home() {
           }}
         >
           <Image
-            source={require("../../../assets/ai-companion.png")}
+            source={artwork.assistant}
             accessibilityLabel="ChinaHand AI companion"
             style={{ width: 65, height: 65 }}
             resizeMode="contain"
@@ -411,8 +412,8 @@ export default function Home() {
                 <Image
                   source={
                     isDark
-                      ? require("../../../assets/arrival-night.png")
-                      : require("../../../assets/arrival-hero.png")
+                      ? artwork.arrivalNight
+                      : artwork.arrivalDay
                   }
                   accessibilityLabel="Airport arrival illustration"
                   style={{ width: "100%", height: 68, borderRadius: 12 }}

@@ -16,5 +16,12 @@
   ],
   "membership": "local demo; no billing",
   "community": "local demo; media supported",
-  "appearance": "day and night artwork"
+  "appearance": "day and night artwork",
+  "artwork": {
+    "count": 10,
+    "sourceBytes": 19077244,
+    "encodedBytes": 691596,
+    "webTransport": "embedded WebP data URIs; decoded before navigation",
+    "nativeTransport": "packaged local assets"
+  }
 }

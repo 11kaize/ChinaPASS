@@ -1,3 +1,4 @@
+import { artwork } from "../../artwork";
 import React, { useState } from "react";
 import { View, Image } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
@@ -78,15 +79,15 @@ export default function Community() {
             source={
               post.id === "sample-food"
                 ? isDark
-                  ? require("../../../assets/community-food-night.png")
-                  : require("../../../assets/community-food.png")
+                  ? artwork.foodNight
+                  : artwork.foodDay
                 : post.id === "sample-pay"
                   ? isDark
-                    ? require("../../../assets/arrival-night.png")
-                    : require("../../../assets/arrival-hero.png")
+                    ? artwork.arrivalNight
+                    : artwork.arrivalDay
                   : isDark
-                    ? require("../../../assets/home-night.png")
-                    : require("../../../assets/skyline.png")
+                    ? artwork.homeNight
+                    : artwork.skyline
             }
             accessibilityLabel={
               post.id === "sample-food"
