@@ -83,30 +83,12 @@ const shortcuts = [
     path: "/emergency",
   },
 ];
+// Page paints one continuous backdrop behind this transparent header and the shortcuts.
 function HomeHeader() {
-  const { colors, prefs, isDark } = useApp();
+  const { colors, prefs } = useApp();
   const zh = prefs.language === "zh";
   return (
-    <ImageBackground
-      source={
-        isDark
-          ? artwork.homeNight
-          : artwork.skyline
-      }
-      resizeMode="cover"
-      imageStyle={{
-        opacity: isDark ? 0.8 : 0.7,
-        width: "100%",
-        height: "100%",
-      }}
-      style={{ padding: 20, paddingBottom: 17, gap: 8, minHeight: 127 }}
-    >
-      {isDark && (
-        <LinearGradient
-          colors={["#081326AA", "#08132688"]}
-          style={{ position: "absolute", top: 0, bottom: 0, left: 0, right: 0 }}
-        />
-      )}
+    <View style={{ padding: 20, paddingBottom: 17, gap: 8, minHeight: 127 }}>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
         <Brand />
         <Txt
@@ -155,7 +137,7 @@ function HomeHeader() {
           day: "numeric",
         })}
       </Txt>
-    </ImageBackground>
+    </View>
   );
 }
 export default function Home() {
