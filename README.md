@@ -4,11 +4,19 @@ ChinaHand now includes a **native iPhone/Android app demo** with an iOS-inspired
 
 ## Online mobile demo
 
-Open [ChinaHand Demo](https://11kaize.github.io/ChinaPASS/demo/). GitHub Pages now opens the iPhone interaction preview built from the native app code. It includes Today, Guides, Cards, AI and Settings, arrival ports, preparation, FAQs, city information, emergency contacts and custom help cards. API configuration, keys and conversations live only in memory: **refreshing or closing the page clears them**. General display preferences and saved help cards remain on your device.
+Open [ChinaHand Demo](https://11kaize.github.io/ChinaPASS/demo/). GitHub Pages now opens the iPhone interaction preview built from the native app code. It includes Home, Community, Cards, AI and Me, plus the full guide directory, arrival ports, preparation, FAQs, city information, emergency contacts and custom help cards. API configuration, keys and conversations live only in memory: **refreshing or closing the page clears them**. General display preferences and saved help cards remain on your device.
 
 The [earlier web demo](https://11kaize.github.io/ChinaPASS/demo/legacy.html) retains browser city detection, ranked offline phrase lookup and installable PWA functionality. The newer preview uses manual city selection and is not an Apple Simulator. Native Expo Go usage remains available.
 
 Run `npm run demo:build` after changing native code or source content, then commit `demo/app/` together with those changes. This synchronizes content, exports all guide routes, applies `/ChinaPASS/demo/app` as the Pages base path and creates directory index files so deep links work after refresh. `.nojekyll` preserves Expo assets. Existing main-branch Pages deployment publishes the committed output. A different hosting path can be supplied with `CHINAHAND_WEB_BASE_URL`.
+
+## Membership and community demo
+
+The homepage now has two rows of colorful mini-app shortcuts, including one **Transport** entrance for taxis, metro and trains. Me contains local demo sign-in/registration, preferences and membership upgrades: **Plus $9/month**, **Pro $89/year**. The configurable demonstration AI allowance is 20 / 500 / 2,000 questions per calendar month for Free / Plus / Pro. Plus and Pro enable model-triggered in-app navigation buttons and silver / multicolor display-name treatments. Your own provider key is still required; it remains memory-only.
+
+Community supports searchable stories, help requests, sample editor picks, likes, saves, replies and up to six image/video attachments (30 MB each). The hot list ranks up to ten posts using the last seven days of activity: likes ×1, saves ×3, replies ×2 with a 72-hour half-life. Demonstration engagement is labeled.
+
+Accounts, membership, stories and attachments are **on-device demo functionality**. There is no real charge, public posting, shared user directory or server-enforced entitlement. Use made-up details for registration. See [the feature and verification notes](docs/18-2026-10-21-community-membership.md).
 
 ## Desktop iPhone layout preview / Windows
 

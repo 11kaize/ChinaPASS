@@ -41,7 +41,7 @@ The floating tab bar and top bar use native Liquid Glass when the iOS runtime su
 ## What changed
 
 - Native launch screen and welcome screen with language selection.
-- Five tabs: Today, Guides, Cards, AI and Settings.
+- Five tabs: Home, Community, Cards, AI and Me. The complete guide directory remains accessible from the home launcher.
 - Task-oriented home, expandable guide steps with completion memory, preparation checklist, FAQs and airport/station notes.
 - 15 arrival ports with Chinese display cards, manual city association and a first-day/later arrival flow. Opening a guide marks the current task; it does not mark its steps completed. All 8 written city guides are available. Missing city notes are stated explicitly.
 - 9 guides, 96 Chinese communication cards and 207 offline phrases imported from the existing content files.
@@ -50,12 +50,12 @@ The floating tab bar and top bar use native Liquid Glass when the iOS runtime su
 - 21 service actions across the nine guides retain official, English-friendly, Chinese-only and call labels, with account/language notes. Airport and station names open Amap search.
 - Emergency numbers open the system phone interface.
 - System, light and dark appearance; accessible control labels, large targets and reduced-motion support.
-- English and Chinese UI. Japanese and Korean guide translations and card glosses are retained; some new UI labels fall back to English, with a notice in Settings.
+- English and Chinese UI. Japanese and Korean guide translations and card glosses are retained; some new UI labels fall back to English, with a notice in Me → Preferences & privacy.
 - All guide/card content is packaged with the app. AI requires network access. Nothing in the app books tickets, makes payments or dispatches emergency services.
 
 ## Bring your own API key
 
-Open **AI → Connect a model**. Choose the provider, enter your own API key, review the endpoint and consent to sending your messages. Optionally test the connection, then tap **Connect for this session**. A test sends a short request and may consume provider credit. Keys must have access to the selected model.
+Open **AI → Connect a model**. Choose the provider, enter your own API key, review the endpoint and consent to sending your messages. Optionally test the connection, then tap **Connect for this session**. DeepSeek testing checks authentication and the model list without generation. Other providers send a short generation request and may consume provider credit. Keys must have access to the selected model.
 
 | Provider | Model IDs | API protocol / base URL |
 | --- | --- | --- |
@@ -76,7 +76,7 @@ Official model documentation rechecked on 2026-10-14:
 
 ### Session privacy
 
-The API key, provider configuration, configuration form drafts and conversations exist only in JavaScript memory. The app has no backend, account, telemetry, conversation storage, Keychain storage or SecureStore storage. Restarting the process removes the session. **Disconnect & clear chat** immediately clears the application session and cancels its active request. Leaving the application for the background clears the API key, provider configuration, chat and any mounted configuration form draft, and cancels active generation or connection testing. The browser preview also clears on page exit and back/forward cache restoration. Returning requires entering your key again. No API configuration is written to AsyncStorage, localStorage, sessionStorage, files, Keychain or SecureStore.
+The API key, provider configuration, configuration form drafts and conversations exist only in JavaScript memory. The app has no backend, telemetry, conversation storage, Keychain storage or SecureStore storage. Separate local demo accounts and community data never receive the API configuration. Restarting the process removes the session. **Disconnect & clear chat** immediately clears the application session and cancels its active request. Leaving the application for the background clears the API key, provider configuration, chat and any mounted configuration form draft, and cancels active generation or connection testing. The browser preview also clears on page exit and back/forward cache restoration. Returning requires entering your key again. No API configuration is written to AsyncStorage, localStorage, sessionStorage, files, Keychain or SecureStore.
 
 General preferences, checklist/guide progress, bookmarks, user-written cards and destination details use one explicit AsyncStorage whitelist. Android device backups are disabled. The persistence projection excludes API configuration, keys and conversations even if unknown fields are accidentally merged into preferences. Provider policies still apply to the messages sent directly to them. OpenAI requests explicitly use `store: false` and do not create stored Conversations objects.
 
@@ -98,3 +98,11 @@ npm run export:native # Android and iOS Hermes bundles
 The earlier README said 480 phrase entries; the actual source contains 207. The native app and documentation use the measured count.
 
 See [design and verification notes](../docs/13-原生应用设计与验证.md) for the visual decisions and validation record.
+
+## 2026-10-21 iteration
+
+The current demo adds a crystal-blue material system, colorful launcher, a single Transport hub, local account and membership flows, community photos/videos, search, saved posts and a weighted recent hot list. Refer to [the full feature matrix](../docs/18-2026-10-21-community-membership.md). Local accounts use salted password digests only for demo matching; this is not production authentication. Do not use real passwords. Account entitlements are simulated on device; there is no live billing or shared backend.
+
+A trusted app-page directory and keyword retrieval supplement guide retrieval. Each provider gets the directory before answering. For eligible memberships, an explicit `[[chinahand:page-id]]` returned by the model becomes an allowlisted button after the answer completes. A plain user query never directly inserts a navigation button. Unknown IDs are discarded. User stories, email, password digests and media are excluded from model context.
+
+Browser attachments use IndexedDB blobs and short-lived object URLs; native attachments are copied to the app document directory. Clearing local data removes the community demo and its attachments as well as the existing preferences. API keys still clear on refresh and are never included in either persistence store.

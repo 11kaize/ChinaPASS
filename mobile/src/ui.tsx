@@ -1,3 +1,4 @@
+import { LinearGradient } from "expo-linear-gradient";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   AccessibilityInfo,
@@ -6,6 +7,7 @@ import {
   Animated,
   Alert,
   Image,
+  ImageSourcePropType,
   Linking,
   Pressable,
   ScrollView,
@@ -23,7 +25,6 @@ import { AirplaneLanding } from "phosphor-react-native/src/icons/AirplaneLanding
 import { ArrowLeft } from "phosphor-react-native/src/icons/ArrowLeft";
 import { ArrowRight } from "phosphor-react-native/src/icons/ArrowRight";
 import { BookmarkSimple } from "phosphor-react-native/src/icons/BookmarkSimple";
-import { Buildings } from "phosphor-react-native/src/icons/Buildings";
 import { Car } from "phosphor-react-native/src/icons/Car";
 import { ChatCircleDots } from "phosphor-react-native/src/icons/ChatCircleDots";
 import { Check } from "phosphor-react-native/src/icons/Check";
@@ -32,7 +33,9 @@ import { CircleIcon } from "phosphor-react-native/src/icons/Circle";
 import { Checks } from "phosphor-react-native/src/icons/Checks";
 import { CaretRight } from "phosphor-react-native/src/icons/CaretRight";
 import { ClipboardText } from "phosphor-react-native/src/icons/ClipboardText";
-import { CurrencyCircleDollar } from "phosphor-react-native/src/icons/CurrencyCircleDollar";
+import { Scan } from "phosphor-react-native/src/icons/Scan";
+import { Bed } from "phosphor-react-native/src/icons/Bed";
+import { Lifebuoy } from "phosphor-react-native/src/icons/Lifebuoy";
 import { FirstAid } from "phosphor-react-native/src/icons/FirstAid";
 import { House } from "phosphor-react-native/src/icons/House";
 import { Info } from "phosphor-react-native/src/icons/Info";
@@ -55,12 +58,26 @@ import { MagnifyingGlass } from "phosphor-react-native/src/icons/MagnifyingGlass
 import type { Icon as PhosphorIcon } from "phosphor-react-native";
 import { useApp } from "./state";
 import { GlassMaterial } from "./material";
+import { UserCircle } from "phosphor-react-native/src/icons/UserCircle";
+import { UsersThree } from "phosphor-react-native/src/icons/UsersThree";
+import { Heart } from "phosphor-react-native/src/icons/Heart";
+import { Star } from "phosphor-react-native/src/icons/Star";
+import { ImageSquare } from "phosphor-react-native/src/icons/ImageSquare";
+import { Crown } from "phosphor-react-native/src/icons/Crown";
 export const icons: Record<string, PhosphorIcon> = {
+  profile: UserCircle,
+  community: UsersThree,
+  heart: Heart,
+  star: Star,
+  image: ImageSquare,
+  crown: Crown,
+  transport: Train,
   customs: AirplaneLanding,
   sim: SimCard,
-  pay: CurrencyCircleDollar,
+  pay: Scan,
   taxi: Car,
-  hotel: Buildings,
+  hotel: Bed,
+  help: Lifebuoy,
   metro: Train,
   train: Train,
   food: ForkKnife,
@@ -114,7 +131,9 @@ export function useMotionValue(initial: number) {
 export function useReducedMotion() {
   const [reduced, set] = useState(false);
   useEffect(() => {
-    AccessibilityInfo.isReduceMotionEnabled().then(set).catch(() => {});
+    AccessibilityInfo.isReduceMotionEnabled()
+      .then(set)
+      .catch(() => {});
     const event = AccessibilityInfo.addEventListener(
       "reduceMotionChanged",
       set,
@@ -241,11 +260,7 @@ export function Button({
   danger?: boolean;
 }) {
   const { colors } = useApp();
-  const ink = danger
-    ? colors.danger
-    : secondary
-      ? colors.accent
-      : colors.onAccent;
+  const ink = danger ? colors.danger : secondary ? colors.accent : "#FFFFFF";
   return (
     <Tap
       label={label}
@@ -262,6 +277,15 @@ export function Button({
         },
       ]}
     >
+      {!secondary && !danger && (
+        <LinearGradient
+          pointerEvents="none"
+          colors={["#258CFF", "#3A6AF0"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={[StyleSheet.absoluteFill, { borderRadius: 17 }]}
+        />
+      )}
       <Txt variant="label" color={ink} style={{ flexShrink: 1 }}>
         {label}
       </Txt>
@@ -290,8 +314,26 @@ export function IconButton({
       selected={selected}
       style={styles.iconButton}
     >
-      <View style={{ width: 34, height: 34, borderRadius: 17, alignItems: "center", justifyContent: "center", backgroundColor: danger ? colors.dangerSoft : selected ? colors.accentSoft : colors.raised }}>
-        <Icon name={name} color={danger ? colors.danger : colors.accent} size={18} weight={selected ? "fill" : "regular"} />
+      <View
+        style={{
+          width: 34,
+          height: 34,
+          borderRadius: 17,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: danger
+            ? colors.dangerSoft
+            : selected
+              ? colors.accentSoft
+              : colors.raised,
+        }}
+      >
+        <Icon
+          name={name}
+          color={danger ? colors.danger : colors.accent}
+          size={18}
+          weight={selected ? "fill" : "regular"}
+        />
       </View>
     </Tap>
   );
@@ -299,7 +341,7 @@ export function IconButton({
 export function Brand({ large = false }: { large?: boolean }) {
   return (
     <Image
-      source={require("../assets/brand.png")}
+      source={require("../assets/brand-blue.png")}
       accessibilityLabel="ChinaHand"
       style={{
         width: large ? 80 : 28,
@@ -355,46 +397,92 @@ export function Page({
   title,
   back = false,
   scroll = true,
+  backdrop,
+  header,
 }: {
   children: React.ReactNode;
   title?: string;
   back?: boolean;
   scroll?: boolean;
+  backdrop?: ImageSourcePropType;
+  header?: React.ReactNode;
 }) {
-  const { colors } = useApp();
+  const { colors, isDark } = useApp();
   const reduced = useReducedMotion();
   const offset = useMotionValue(0);
   const [keyboard, setKeyboard] = useState(false);
   useEffect(() => {
-    const show = Keyboard.addListener("keyboardDidShow", () => setKeyboard(true));
-    const hide = Keyboard.addListener("keyboardDidHide", () => setKeyboard(false));
-    return () => { show.remove(); hide.remove(); };
+    const show = Keyboard.addListener("keyboardDidShow", () =>
+      setKeyboard(true),
+    );
+    const hide = Keyboard.addListener("keyboardDidHide", () =>
+      setKeyboard(false),
+    );
+    return () => {
+      show.remove();
+      hide.remove();
+    };
   }, []);
-  useFocusEffect(useCallback(() => {
-    offset.setValue(reduced ? 0 : 10);
-    const animation = Animated.spring(offset, { toValue: 0, damping: 22, stiffness: 210, mass: 0.8, useNativeDriver: Platform.OS !== "web" });
-    animation.start();
-    return () => animation.stop();
-  }, [offset, reduced]));
+  useFocusEffect(
+    useCallback(() => {
+      offset.setValue(reduced ? 0 : 10);
+      const animation = Animated.spring(offset, {
+        toValue: 0,
+        damping: 22,
+        stiffness: 210,
+        mass: 0.8,
+        useNativeDriver: Platform.OS !== "web",
+      });
+      animation.start();
+      return () => animation.stop();
+    }, [offset, reduced]),
+  );
   return (
     <SafeAreaView
       edges={["top", "left", "right"]}
       style={{ flex: 1, backgroundColor: colors.bg }}
     >
-      <TopBar title={title} back={back} />
-      <Animated.View style={{ flex: 1, transform: [{ translateY: offset }], paddingBottom: !scroll && !back && !keyboard ? 86 : 0 }}>
-      {scroll ? (
-        <ScrollView
-          automaticallyAdjustKeyboardInsets
-          contentContainerStyle={[styles.page, { paddingBottom: back ? 40 : 112 }]}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          {children}
-        </ScrollView>
-      ) : (
-        <View style={{ flex: 1 }}>{children}</View>
-      )}
+      <Image
+        source={
+          backdrop ||
+          (isDark
+            ? require("../assets/home-night.png")
+            : require("../assets/home-portrait.png"))
+        }
+        resizeMode="cover"
+        accessibilityLabel={
+          isDark
+            ? "Shanghai night skyline background"
+            : "Shanghai morning skyline background"
+        }
+        style={[
+          StyleSheet.absoluteFill,
+          { width: "100%", height: "100%", opacity: backdrop ? 0.8 : 0.15 },
+        ]}
+      />
+      {header || <TopBar title={title} back={back} />}
+      <Animated.View
+        style={{
+          flex: 1,
+          transform: [{ translateY: offset }],
+          paddingBottom: !scroll && !back && !keyboard ? 86 : 0,
+        }}
+      >
+        {scroll ? (
+          <ScrollView
+            automaticallyAdjustKeyboardInsets
+            contentContainerStyle={[
+              styles.page,
+              { paddingBottom: back ? 40 : 112 },
+            ]}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            {children}
+          </ScrollView>
+        ) : (
+          <View style={{ flex: 1 }}>{children}</View>
+        )}
       </Animated.View>
     </SafeAreaView>
   );
@@ -443,7 +531,7 @@ export function Section({
 export function Surface({
   children,
   style,
-  glass = false,
+  glass = true,
 }: {
   children: React.ReactNode;
   style?: ViewStyle;
@@ -451,7 +539,18 @@ export function Surface({
 }) {
   const { colors, isDark } = useApp();
   return (
-    <View style={[styles.surface, { backgroundColor: colors.surface }, style, glass && { backgroundColor: "transparent", borderWidth: 1, borderColor: isDark ? "#3D5448" : "#FFFFFF" }]}>
+    <View
+      style={[
+        styles.surface,
+        { backgroundColor: colors.surface },
+        style,
+        glass && {
+          backgroundColor: "transparent",
+          borderWidth: 1,
+          borderColor: isDark ? "#3B4E70" : "#FFFFFF",
+        },
+      ]}
+    >
       {glass && <GlassMaterial />}
       {children}
     </View>
@@ -484,8 +583,31 @@ export function Row({
       ]}
     >
       {icon && (
-        <View style={[styles.rowIcon, { backgroundColor: colors.accentSoft }]}>
-          <Icon name={icon} />
+        <View
+          style={[
+            styles.rowIcon,
+            {
+              backgroundColor:
+                (
+                  {
+                    emergency: "#FF8B86",
+                    food: "#FFB146",
+                    hotel: "#9C8BF0",
+                    prep: "#70AFE8",
+                    taxi: "#F1B642",
+                    train: "#9382EE",
+                    metro: "#56A9EE",
+                    pay: "#478FF0",
+                    sim: "#EC8C99",
+                    cards: "#8E8CE5",
+                    address: "#5CB3D4",
+                    save: "#C19CE4",
+                  } as Record<string, string>
+                )[icon] || "#559FEF",
+            },
+          ]}
+        >
+          <Icon name={icon} color="#FFFFFF" />
         </View>
       )}
       <View style={{ flex: 1, gap: 3 }}>

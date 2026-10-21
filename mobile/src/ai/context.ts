@@ -1,3 +1,4 @@
+import { navigationInstructions } from "../domain/navigation";
 import { portCityLabel } from "../arrival";
 import { content, cards, localize, Language, Scene } from "../content";
 export type TripContext = {
@@ -138,7 +139,7 @@ export function describeContext(ctx: TripContext) {
         personalTripContext: "Withheld by user",
       };
 }
-export function buildInstructions(query: string, ctx: TripContext): string {
+export function buildInstructions(query: string, ctx: TripContext, pageActions = false): string {
   const scenes = relevantScenes(
     query,
     ctx.shareContext ? ctx.guideId : undefined,
@@ -174,7 +175,9 @@ export function buildInstructions(query: string, ctx: TripContext): string {
     .filter((c) => ids.has(c.cat))
     .slice(0, 12)
     .map((c) => ({ zh: c.zh, en: c.en }));
-  return `You are the ChinaHand assistant for international visitors preparing for or navigating everyday life in China.
+  return `${navigationInstructions(query, pageActions)}
+
+You are the ChinaHand assistant for international visitors preparing for or navigating everyday life in China.
 ChinaHand is a native mobile companion, with 9 task guides (entry, connectivity, payments, taxis, hotels, metro, trains, food, emergencies), 7 preparation items, 96 ready-to-show Chinese cards, ${content.phrases.length} curated offline phrases, a personal address card, city arrival notes and FAQs.
 Help the user finish a practical task independently. Keep instructions short, concrete and in the user's language (interface preference: ${ctx.language}, follow the language of their latest question if different). Explain the next action, what is needed, a backup and, when useful, a Chinese sentence with its translation.
 Bundled entry instructions may describe airport arrival. For a selected rail or sea port, do not assume airport baggage steps apply or invent port-specific border procedures. Flag the limitation and suggest checking on-site instructions and official sources.

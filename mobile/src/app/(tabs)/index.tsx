@@ -1,217 +1,457 @@
 import React from "react";
-import { View, Alert } from "react-native";
-import { router } from "expo-router";
+import { View, Image, ImageBackground } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { router, Href } from "expo-router";
 import { useApp } from "../../state";
-import { arrivalText, portCityLabel } from "../../arrival";
 import { content } from "../../content";
 import {
   Page,
-  openURL,
-  Heading,
-  Section,
   Surface,
   Row,
-  Icon,
+  Section,
   Txt,
   Tap,
+  Icon,
   Button,
   Notice,
+  Brand,
 } from "../../ui";
-export default function Today() {
-  const { colors, prefs, t, online } = useApp();
-  const city = content.cities.find((c) => c.id === prefs.city);
+const shortcuts = [
+  {
+    id: "transport",
+    en: "Transport",
+    zh: "交通",
+    icon: "transport",
+    colors: ["#FFD65F", "#FFAE2D"],
+    path: "/transport",
+  },
+  {
+    id: "pay",
+    en: "Pay",
+    zh: "支付",
+    icon: "pay",
+    colors: ["#53CFFF", "#3487FA"],
+    path: "/guide/pay",
+  },
+  {
+    id: "sim",
+    en: "Internet",
+    zh: "网络",
+    icon: "sim",
+    colors: ["#FFAD9B", "#FF7885"],
+    path: "/guide/sim",
+  },
+  {
+    id: "hotel",
+    en: "Stay",
+    zh: "住宿",
+    icon: "hotel",
+    colors: ["#62CDFF", "#408AFA"],
+    path: "/guide/hotel",
+  },
+  {
+    id: "food",
+    en: "Food",
+    zh: "餐饮",
+    icon: "food",
+    colors: ["#FFCE68", "#FF9738"],
+    path: "/guide/food",
+  },
+  {
+    id: "customs",
+    en: "Arrival",
+    zh: "落地",
+    icon: "customs",
+    colors: ["#88C5FF", "#5B9FF6"],
+    path: "/ports",
+  },
+  {
+    id: "guides",
+    en: "Guides",
+    zh: "指南",
+    icon: "guides",
+    colors: ["#AEB5FF", "#8177F0"],
+    path: "/guides",
+  },
+  {
+    id: "emergency",
+    en: "Help",
+    zh: "帮助",
+    icon: "help",
+    colors: ["#FFAC99", "#FF7A85"],
+    path: "/emergency",
+  },
+];
+function HomeHeader() {
+  const { colors, prefs, isDark } = useApp();
+  const zh = prefs.language === "zh";
+  return (
+    <ImageBackground
+      source={
+        isDark
+          ? require("../../../assets/home-night.png")
+          : require("../../../assets/skyline.png")
+      }
+      resizeMode="cover"
+      imageStyle={{
+        opacity: isDark ? 0.8 : 0.7,
+        width: "100%",
+        height: "100%",
+      }}
+      style={{ padding: 20, paddingBottom: 17, gap: 8, minHeight: 127 }}
+    >
+      {isDark && (
+        <LinearGradient
+          colors={["#081326AA", "#08132688"]}
+          style={{ position: "absolute", top: 0, bottom: 0, left: 0, right: 0 }}
+        />
+      )}
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+        <Brand />
+        <Txt
+          style={{
+            fontSize: 27,
+            lineHeight: 34,
+            fontWeight: "750",
+            letterSpacing: -1,
+            color: colors.ink,
+          }}
+        >
+          ChinaHand
+        </Txt>
+        <View style={{ flex: 1 }} />
+        <Tap
+          label="Emergency help"
+          onPress={() => router.push("/emergency")}
+          style={{
+            backgroundColor: "#FFF2F3DD",
+            borderWidth: 1,
+            borderColor: "#FFFFFF",
+            borderRadius: 19,
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+            flexDirection: "row",
+            gap: 4,
+            alignItems: "center",
+          }}
+        >
+          <Icon name="phone" color="#EF6F78" size={15} weight="fill" />
+          <Txt style={{ fontSize: 11, fontWeight: "700", color: "#D84859" }}>
+            SOS
+          </Txt>
+        </Tap>
+      </View>
+      <Txt variant="caption" color={colors.secondary}>
+        {zh
+          ? "在中国，每一天都多一只帮手。"
+          : "A hand with everyday life in China."}
+      </Txt>
+      <Txt variant="caption" color={colors.secondary} style={{ fontSize: 11 }}>
+        {new Date().toLocaleDateString(zh ? "zh-CN" : "en-US", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}
+      </Txt>
+    </ImageBackground>
+  );
+}
+export default function Home() {
+  const { colors, prefs, t, online, isDark } = useApp();
+  const zh = prefs.language === "zh";
   const port = content.ports.find((p) => p.id === prefs.arrivalPort);
   return (
-    <Page>
-      <View
+    <Page
+      backdrop={
+        isDark
+          ? require("../../../assets/home-night.png")
+          : require("../../../assets/home-portrait.png")
+      }
+      header={<HomeHeader />}
+    >
+      <Surface
+        glass
         style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginTop: 10,
-          marginBottom: 19,
+          padding: 10,
+          marginTop: 6,
+          marginBottom: 12,
+          borderRadius: 28,
         }}
       >
-        <Tap
-          label={t("city")}
-          onPress={() => router.push("/trip")}
+        {[shortcuts.slice(0, 4), shortcuts.slice(4)].map((row, index) => (
+          <View
+            key={index}
+            style={{ flexDirection: "row", gap: 5, paddingVertical: 5 }}
+          >
+            {row.map((item) => (
+              <Tap
+                key={item.id}
+                label={zh ? item.zh : item.en}
+                onPress={() => router.push(item.path as Href)}
+                style={{
+                  flex: 1,
+                  alignItems: "center",
+                  gap: 6,
+                  paddingVertical: 10,
+                  borderRadius: 21,
+                  backgroundColor: isDark
+                    ? "rgba(255,255,255,0.06)"
+                    : "rgba(255,255,255,0.48)",
+                }}
+              >
+                <LinearGradient
+                  colors={item.colors as [string, string]}
+                  style={{
+                    width: 46,
+                    height: 46,
+                    borderRadius: 16,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderWidth: 1,
+                    borderColor: "rgba(255,255,255,0.7)",
+                    shadowColor: item.colors[1],
+                    shadowOffset: { width: 0, height: 4 },
+                    shadowOpacity: 0.23,
+                    shadowRadius: 8,
+                  }}
+                >
+                  <Icon
+                    name={item.icon}
+                    size={25}
+                    color="#FFFFFF"
+                    weight="fill"
+                  />
+                </LinearGradient>
+                <Txt
+                  variant="caption"
+                  style={{ fontSize: 11, fontWeight: "600" }}
+                >
+                  {zh ? item.zh : item.en}
+                </Txt>
+              </Tap>
+            ))}
+          </View>
+        ))}
+      </Surface>
+      {online === false && <Notice text={t("offlineNow")} />}
+      <View
+        style={{
+          borderRadius: 26,
+          overflow: "hidden",
+          borderWidth: 1,
+          borderColor: isDark ? "#42567B" : "#FFFFFF",
+          marginBottom: 12,
+          backgroundColor: isDark ? "#0D203E" : "#DFF1FF",
+        }}
+      >
+        <ImageBackground
+          source={
+            isDark
+              ? require("../../../assets/arrival-night.png")
+              : require("../../../assets/arrival-hero.png")
+          }
+          imageStyle={{ width: "100%", height: "100%" }}
+          resizeMode="cover"
+          style={{ minHeight: 198 }}
+        >
+          <View style={{ padding: 19, gap: 8, width: "71%" }}>
+            <Txt
+              style={{
+                fontSize: 24,
+                lineHeight: 28,
+                fontWeight: "750",
+                letterSpacing: -0.7,
+                color: isDark ? "#F1F6FF" : "#10294F",
+              }}
+            >
+              {zh
+                ? "你的第一天，\n可以更轻松。"
+                : "Your first day,\nmade easier."}
+            </Txt>
+            <Txt
+              style={{
+                fontSize: 12,
+                lineHeight: 18,
+                color: isDark ? "#BDCDE5" : "#4C6686",
+                maxWidth: 185,
+              }}
+            >
+              {port
+                ? port.zh
+                : zh
+                  ? "实用指南与清单，陪你从落地到适应生活。"
+                  : "Essential guides and little tips to help you settle in."}
+            </Txt>
+            <View style={{ alignSelf: "flex-start", marginTop: 4 }}>
+              <Button
+                label={zh ? "查看落地指南" : "View arrival guide"}
+                onPress={() => router.push(port ? "/arrival" : "/ports")}
+              />
+            </View>
+          </View>
+        </ImageBackground>
+      </View>
+      <Tap
+        label={zh ? "问问 ChinaHand AI" : "Ask ChinaHand AI"}
+        onPress={() => router.navigate("/chat")}
+        style={{ marginBottom: 16 }}
+      >
+        <Surface
+          glass
           style={{
             flexDirection: "row",
             alignItems: "center",
-            gap: 7,
-            paddingVertical: 8,
+            padding: 12,
+            gap: 10,
           }}
         >
-          <Icon name="address" size={17} />
-          <Txt variant="caption" color={colors.accent}>
-            {city ? `${city.name} / ${city.zh}` : port ? portCityLabel(port,prefs.language) : t("city")}
-          </Txt>
-          <Icon name="next" size={14} />
-        </Tap>
-        <Txt variant="caption" color={colors.secondary}>
-          {t(prefs.stage)}
-        </Txt>
-      </View>
-      <Heading title={t("welcome")} body={t("tagline")} />
-      <Surface glass style={{ marginBottom: 18 }}>
-        <Row title={arrivalText("whereLanded",prefs.language)} subtitle={port ? `${port.iata ? `${port.iata} · ` : ""}${port.zh}` : arrivalText("whereLandedHint",prefs.language)} icon="customs" last onPress={() => router.push("/ports")} />
-      </Surface>
-      <View style={{ flexDirection: "row", gap: 6, marginBottom: 18 }}>
-        {([{key:"police",num:"110"},{key:"ambulance",num:"120"},{key:"fire",num:"119"},{key:"traffic",num:"122"}] as const).map(item => <Tap key={item.num} label={`${t(item.key)} ${item.num}`} onPress={() => openURL(`tel:${item.num}`, () => Alert.alert(t("emergency"),t("callFailed")))} style={{ flex: 1, minHeight: 54, paddingVertical: 8, borderRadius: 14, backgroundColor: colors.dangerSoft, alignItems: "center", justifyContent: "center", gap: 2 }}><Txt variant="label" color={colors.danger}>{item.num}</Txt><Txt variant="caption" color={colors.danger} style={{fontSize:10}}>{t(item.key)}</Txt></Tap>)}
-      </View>
-      {port && <View style={{ gap: 10, marginBottom: 18 }}>
-        <Button secondary label={t("show")} icon="cards" onPress={() => router.push({pathname:"/card",params:{id:port.id,kind:"port"}})} />
-        <Button secondary label={arrivalText("yourRoute",prefs.language)} icon="guides" onPress={() => router.push("/arrival")} />
-      </View>}
-
-      {online === false && <Notice text={t("offlineNow")} icon="offline" />}
-      {prefs.stage === "before" && !port ? (
-        <Surface
-          glass
-          style={{
-            padding: 20,
-            backgroundColor: colors.accentSoft,
-            marginBottom: 29,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: 16,
-            }}
-          >
-            <Icon name="prep" size={23} />
-            <Txt variant="caption" color={colors.accent}>
-              {prefs.prep.length} / {content.prep.length} {t("ready")}
+          <Image
+            source={require("../../../assets/ai-companion.png")}
+            accessibilityLabel="ChinaHand AI companion"
+            style={{ width: 65, height: 65 }}
+            resizeMode="contain"
+          />
+          <View style={{ flex: 1, gap: 5 }}>
+            <Txt variant="subheading" style={{ fontSize: 16 }}>
+              {zh ? "问问 ChinaHand AI" : "Ask ChinaHand AI"}
+            </Txt>
+            <Txt variant="caption" color={colors.secondary}>
+              {zh
+                ? "关于中国生活，给你清楚、实用的回答。"
+                : "Clear, practical answers about life in China."}
             </Txt>
           </View>
-          <Txt variant="subheading">{t("essentials")}</Txt>
-          <Txt
-            variant="caption"
-            color={colors.secondary}
-            style={{ marginTop: 8, marginBottom: 16 }}
-          >
-            {t("essentialsBody")}
-          </Txt>
-          <Button
-            label={t("prepare")}
-            onPress={() => router.push("/preparation")}
-          />
+          <Icon name="arrow" size={19} />
         </Surface>
-      ) : (
-        <Surface
-          glass
-          style={{ marginBottom: 27, backgroundColor: colors.accentSoft }}
-        >
-          <Row
-            title={t("essentials")}
-            subtitle={`${prefs.prep.length} / ${content.prep.length} ${t("ready")}`}
-            icon="prep"
-            last
-            onPress={() => router.push("/preparation")}
-          />
-        </Surface>
-      )}
-      <Section title={t("now")}>
-        <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 12 }}>
-          {(["taxi", "pay", "hotel", "food"] as const).map((id) => (
-            <View key={id} style={{ width: "48%", flexGrow: 1 }}>
-              <Tap
-                label={t(id)}
-                onPress={() => router.push(`/guide/${id}`)}
-                style={{
-                  padding: 19,
-                  minHeight: 108,
-                  flex: 1,
-                  backgroundColor: colors.surface,
-                  borderRadius: 22,
-                  gap: 15,
-                }}
-              >
-                <Icon name={id} size={22} />
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: 4,
-                  }}
-                >
-                  <Txt variant="label" style={{ flexShrink: 1 }}>
-                    {t(id)}
-                  </Txt>
-                  <Icon name="next" size={17} />
-                </View>
-              </Tap>
-            </View>
-          ))}
-        </View>
-      </Section>
-      <Tap
-        label={t("ask")}
-        onPress={() => router.navigate("/(tabs)/chat")}
-        style={{
-          paddingVertical: 5,
-          marginBottom: 30,
-          flexDirection: "row",
-          gap: 16,
-          alignItems: "center",
-        }}
-      >
+      </Tap>
+      <Surface glass style={{ padding: 14, marginBottom: 20 }}>
         <View
           style={{
-            padding: 15,
-            borderRadius: 21,
-            backgroundColor: colors.accentSoft,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: 10,
           }}
         >
-          <Icon name="chat" size={22} />
-        </View>
-        <View style={{ flex: 1, gap: 4 }}>
-          <Txt variant="subheading">{t("assistant")}</Txt>
-          <Txt variant="caption" color={colors.secondary}>
-            {t("assistantBody")}
+          <Txt variant="subheading" style={{ fontSize: 16 }}>
+            {zh ? "来自社区" : "From the community"}
           </Txt>
+          <Tap
+            label={zh ? "查看社区" : "See all community"}
+            onPress={() => router.navigate("/community")}
+          >
+            <Txt variant="caption" color={colors.accent}>
+              {zh ? "查看全部" : "See all"} ›
+            </Txt>
+          </Tap>
         </View>
-        <Icon name="next" size={20} />
-      </Tap>
-      <Section title={t("toolkit")}>
-        <Surface>
-          <Row
-            title={t("address")}
-            subtitle={t("addressHint")}
-            icon="address"
-            onPress={() => router.push("/address")}
-          />
-          <Row
-            title={t("cityNotes")}
-            subtitle={t("cityHint")}
-            icon="train"
-            onPress={() => router.push("/city")}
-          />
-          <Row
-            title={t("faq")}
-            icon="info"
-            onPress={() => router.push("/faq")}
-            last
-          />
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          {[
+            {
+              id: "help",
+              icon: "community",
+              en: "Help nearby",
+              zh: "救助贴",
+              body: zh
+                ? "真实的问题，来自身边的帮助。"
+                : "Real questions. A little help nearby.",
+              color: "#43AEF4",
+            },
+            {
+              id: "featured",
+              icon: "star",
+              en: "Editor’s picks",
+              zh: "精华贴",
+              body: zh
+                ? "让落地更轻松的实用经验。"
+                : "Practical stories for a smoother arrival.",
+              color: "#F8BC38",
+            },
+          ].map((x) => (
+            <Tap
+              key={x.id}
+              label={zh ? x.zh : x.en}
+              onPress={() =>
+                router.push({
+                  pathname: "/community",
+                  params: { filter: x.id },
+                })
+              }
+              style={{
+                flex: 1,
+                padding: 10,
+                borderRadius: 20,
+                backgroundColor: isDark
+                  ? "rgba(255,255,255,0.06)"
+                  : "rgba(255,255,255,0.5)",
+                gap: 8,
+              }}
+            >
+              <View
+                style={{ flexDirection: "row", alignItems: "center", gap: 6 }}
+              >
+                <View
+                  style={{
+                    width: 27,
+                    height: 27,
+                    borderRadius: 11,
+                    backgroundColor: x.color,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Icon name={x.icon} color="#FFFFFF" size={16} weight="fill" />
+                </View>
+                <Txt style={{ fontSize: 12, fontWeight: "700", flexShrink: 1 }}>
+                  {zh ? x.zh : x.en}
+                </Txt>
+              </View>
+              {x.id === "featured" && (
+                <Image
+                  source={
+                    isDark
+                      ? require("../../../assets/arrival-night.png")
+                      : require("../../../assets/arrival-hero.png")
+                  }
+                  accessibilityLabel="Airport arrival illustration"
+                  style={{ width: "100%", height: 68, borderRadius: 12 }}
+                  resizeMode="cover"
+                />
+              )}
+              <Txt
+                variant="caption"
+                color={colors.secondary}
+                style={{ fontSize: 11, lineHeight: 16 }}
+              >
+                {x.body}
+              </Txt>
+            </Tap>
+          ))}
+        </View>
+      </Surface>
+      <Section title={zh ? "你的生活工具箱" : "Your everyday toolkit"}>
+        <Surface glass>
+          {[
+            { label: t("prep"), icon: "prep", path: "/preparation" },
+            { label: t("address"), icon: "address", path: "/address" },
+            {
+              label: zh ? "机场与车站" : "Airports & stations",
+              icon: "transport",
+              path: "/city",
+            },
+            { label: t("faq"), icon: "info", path: "/faq" },
+          ].map((x, i) => (
+            <Row
+              key={x.path}
+              title={x.label}
+              icon={x.icon}
+              last={i === 3}
+              onPress={() => router.push(x.path as Href)}
+            />
+          ))}
         </Surface>
       </Section>
-      <View
-        style={{
-          flexDirection: "row",
-          gap: 8,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Icon name="privacy" size={15} />
-        <Txt variant="caption" color={colors.secondary}>
-          {t("offline")}
-        </Txt>
-      </View>
     </Page>
   );
 }

@@ -1,31 +1,12 @@
-// iOS-inspired native UI. No web glass approximation or WebView is used.
-// Radius system: grouped surfaces 24, small controls 14, chips circular.
+// Crystal blue palette, with native accessibility fallbacks in material.tsx.
 export const light = {
-  bg: "#F3F5F4",
-  surface: "#FCFDFC",
-  raised: "#E9EDEA",
-  ink: "#19251F",
-  secondary: "#53665A",
-  line: "#DDE4DF",
-  accent: "#216348",
-  accentSoft: "#E0EDE4",
-  onAccent: "#F7FAF8",
-  danger: "#B83732",
-  dangerSoft: "#FCECEB",
-  placeholder: "#677A6C",
+  bg: "#EFF5FC", surface: "#FFFFFF", raised: "#E6EEF9", ink: "#102442",
+  secondary: "#526680", line: "#D8E4F1", accent: "#246BEB", accentSoft: "#E0EDFF",
+  onAccent: "#FFFFFF", danger: "#C3404B", dangerSoft: "#FFF0F1", placeholder: "#6F8097",
 };
 export const dark = {
-  bg: "#101813",
-  surface: "#1C2720",
-  raised: "#28372D",
-  ink: "#F2F6F3",
-  secondary: "#B2C4B7",
-  line: "#35483B",
-  accent: "#A3D7B5",
-  accentSoft: "#2B4434",
-  onAccent: "#12301F",
-  danger: "#FFAAA5",
-  dangerSoft: "#422625",
-  placeholder: "#A3B7A8",
+  bg: "#0B1425", surface: "#142139", raised: "#202F48", ink: "#F1F6FF",
+  secondary: "#A6B8D2", line: "#31415C", accent: "#94BDFF", accentSoft: "#203C65",
+  onAccent: "#0B2145", danger: "#FFA9B2", dangerSoft: "#462A38", placeholder: "#A3B4CB",
 };
 export type Palette = typeof light;

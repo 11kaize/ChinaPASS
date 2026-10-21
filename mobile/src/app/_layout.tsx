@@ -1,22 +1,24 @@
 import React, { useEffect } from "react";
 import { Stack, ThemeProvider, DefaultTheme, DarkTheme } from "expo-router";
-import { StatusBar, Platform, Appearance } from "react-native";
+import { StatusBar, Platform, Appearance, View, ActivityIndicator, ImageBackground, Text } from "react-native";
 import { isRunningInExpoGo } from "expo";
 import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { ProductProvider, useProduct } from "../product-state";
 import { AppProvider, useApp } from "../state";
 import { useReducedMotion } from "../ui";
 void SplashScreen.preventAutoHideAsync().catch(() => {});
 function AppNavigation() {
   const { hydrated, colors, isDark, prefs } = useApp();
   const reduce = useReducedMotion();
+  const { ready } = useProduct();
   useEffect(() => {
-    if (hydrated) {
+    if (hydrated && ready) {
       if (!isRunningInExpoGo())
         SplashScreen.setOptions({ duration: reduce ? 0 : 350, fade: !reduce });
       void SplashScreen.hideAsync();
     }
-  }, [hydrated, reduce]);
+  }, [hydrated, ready, reduce]);
   useEffect(() => {
     if (hydrated && Platform.OS !== "web")
       Appearance.setColorScheme(
@@ -26,7 +28,7 @@ function AppNavigation() {
   useEffect(() => {
     if (Platform.OS === "web") document.getElementById("phone")?.setAttribute("data-theme", isDark ? "dark" : "light");
   }, [isDark]);
-  if (!hydrated) return null;
+  if (!hydrated || !ready) return <ImageBackground source={require("../../assets/login-gateway.png")} imageStyle={{width:"100%",height:"100%"}} style={{flex:1,backgroundColor:"#081426",alignItems:"center",justifyContent:"center"}}><View style={{gap:20,alignItems:"center",padding:26,borderRadius:28,backgroundColor:"rgba(5,17,39,0.55)"}}><ActivityIndicator size="large" color="#C4DDFF"/><Text style={{color:"#E1EDFF",fontSize:13,letterSpacing:2}}>CHINAHAND</Text></View></ImageBackground>;
   const base = isDark ? DarkTheme : DefaultTheme;
   return (
     <ThemeProvider
@@ -82,7 +84,7 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <AppProvider>
-        <AppNavigation />
+        <ProductProvider><AppNavigation /></ProductProvider>
       </AppProvider>
     </SafeAreaProvider>
   );

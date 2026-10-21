@@ -1,23 +1,26 @@
 import React, { useRef, useState } from "react";
+import * as Crypto from "expo-crypto";
 import {
   View,
+  Image,
   FlatList,
   TextInput,
   KeyboardAvoidingView,
   Platform,
   Keyboard,
 } from "react-native";
-import { router } from "expo-router";
+import { router, Href } from "expo-router";
 import { fetch as nativeFetch } from "expo/fetch";
 import { useApp, Message } from "../../state";
 import {
   buildInstructions,
   offlineExample,
-  relevantScenes,
 } from "../../ai/context";
 import { streamAnswer, errorMessage, AIError } from "../../ai/client";
 import { providers } from "../../ai/providers";
-import { content } from "../../content";
+import { useProduct } from "../../product-state";
+import { plans, remainingQuestions } from "../../domain/membership";
+import { parsePageActions } from "../../domain/navigation";
 import {
   Page,
   Txt,
@@ -29,9 +32,8 @@ import {
   Surface,
   confirmAction,
 } from "../../ui";
-let messageSequence = 0;
 function nextMessageId() {
-  return `message-${++messageSequence}`;
+  return Crypto.randomUUID();
 }
 export default function Chat() {
   const { sessionEpoch } = useApp();
@@ -47,9 +49,8 @@ function ChatSession() {
     setMessages,
     tripContext,
     abortRef,
-    guideId,
-    L,
   } = useApp();
+  const { tier, usage, reserve, refund } = useProduct();
   const [question, setQuestion] = useState(""),
     [busy, setBusy] = useState(false),
     [error, setError] = useState("");
@@ -66,6 +67,7 @@ function ChatSession() {
       );
       return;
     }
+    if (config && remainingQuestions(tier, usage) === 0) { setError(prefs.language === "zh" ? "本月 AI 额度已用完，请在个人中心查看会员。" : "Monthly AI allowance reached. See membership in Me."); return; }
     Keyboard.dismiss();
     setQuestion("");
     setError("");
@@ -73,8 +75,7 @@ function ChatSession() {
     setBusy(true);
     const uid = nextMessageId(),
       aid = nextMessageId();
-    const selected = tripContext.shareContext ? guideId : undefined;
-    const related = relevantScenes(query, selected)[0]?.id;
+    if (config) { try { reserve(aid); } catch (e) { setError((e as Error).message); setBusy(false); sending.current=false; return; } }
     const prior = messages
       .filter((m) => m.status === "complete" && !m.example)
       .map((m) => ({ role: m.role, content: m.content }));
@@ -93,7 +94,7 @@ function ChatSession() {
         content: "",
         status: "pending",
         example: !config,
-        guideId: related,
+        pageActionsEnabled: plans[tier].pageActions,
       },
     ]);
     const control = new AbortController();
@@ -107,7 +108,7 @@ function ChatSession() {
       if (config) {
         await streamAnswer(
           config,
-          buildInstructions(query, tripContext),
+          buildInstructions(query, tripContext, plans[tier].pageActions),
           [...prior, { role: "user", content: query }],
           {
             signal: control.signal,
@@ -128,6 +129,7 @@ function ChatSession() {
         old.map((m) => (m.id === aid ? { ...m, status: "complete" } : m)),
       );
     } catch (e) {
+      if (config) refund(aid);
       if (abortRef.current !== control) return;
       const stopped = e instanceof AIError && e.kind === "cancelled";
       setMessages((old) =>
@@ -230,9 +232,7 @@ function ChatSession() {
           ListEmptyComponent={
             <View style={{ paddingTop: 12, gap: 14 }}>
               <View style={{ alignItems: "center", gap: 8, paddingVertical: 8 }}>
-                <View style={{ width: 38, height: 38, borderRadius: 13, backgroundColor: colors.accentSoft, alignItems: "center", justifyContent: "center" }}>
-                  <Icon name="chat" size={21} />
-                </View>
+                <Image source={require("../../../assets/ai-companion.png")} accessibilityLabel="ChinaHand AI companion" style={{width:76,height:68}} resizeMode="contain"/>
                 <Txt style={{ fontSize: 22, lineHeight: 28, fontWeight: "600", letterSpacing: -0.4, textAlign: "center" }}>{t("aiTitle")}</Txt>
                 <Txt variant="caption" color={colors.secondary} style={{ textAlign: "center", maxWidth: 270 }}>{t("aiBody")}</Txt>
               </View>
@@ -286,7 +286,7 @@ function ChatSession() {
                   </Txt>
                 </View>
                 {item.content ? (
-                  <RichText text={item.content} />
+                  <RichText text={parsePageActions(item.content).text.replace(/\[\[chinahand:[^\]]*$/, "")} />
                 ) : item.status === "pending" ? (
                   <View
                     accessibilityLabel={t("thinking")}
@@ -312,28 +312,11 @@ function ChatSession() {
                     {item.status === "stopped" ? t("stop") : t("noResults")}
                   </Txt>
                 )}
-                {item.guideId && item.status !== "pending" && (
-                  <Tap
-                    label={t("guides")}
-                    onPress={() => router.push(`/guide/${item.guideId}`)}
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 7,
-                      paddingVertical: 10,
-                    }}
-                  >
-                    <Icon name="guides" size={16} />
-                    <Txt variant="caption" color={colors.accent}>
-                      {t("guides")}:{" "}
-                      {L(
-                        content.scenes.find((s) => s.id === item.guideId)
-                          ?.title,
-                      )}
-                    </Txt>
-                    <Icon name="next" size={14} />
+                {!item.example && item.pageActionsEnabled && plans[tier].pageActions && item.status === "complete" && parsePageActions(item.content).actions.map(action => (
+                  <Tap key={action.id} label={prefs.language === "zh" ? action.zh : action.title} onPress={() => router.push(action.path as Href)} style={{flexDirection:"row",alignItems:"center",gap:10,paddingVertical:13,paddingHorizontal:15,borderRadius:18,backgroundColor:colors.accentSoft,borderWidth:1,borderColor:colors.line}}>
+                    <Icon name={action.id === "emergency" ? "emergency" : "guides"} size={18}/><View style={{flex:1,gap:3}}><Txt variant="label">{prefs.language === "zh" ? action.zh : action.title}</Txt><Txt variant="caption" color={colors.secondary}>{prefs.language === "zh" ? "在 ChinaHand 中打开" : "Open in ChinaHand"}</Txt></View><Icon name="arrow" size={17}/>
                   </Tap>
-                )}
+                ))}
                 {item.example && (
                   <Txt variant="caption" color={colors.secondary}>
                     {t("exampleNote")}

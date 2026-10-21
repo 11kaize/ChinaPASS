@@ -142,7 +142,7 @@ const en = {
   privacy: "Privacy",
   clearData: "Clear local data",
   clearDataBody:
-    "Remove your checklist, guide progress, saved cards, destination and preferences?",
+    "Remove your checklist, guide progress, saved cards, destination, preferences, local demo accounts, posts and media?",
   cancel: "Cancel",
   confirm: "Clear",
   about: "About ChinaHand",
@@ -319,7 +319,7 @@ const zh: Record<Key, string> = {
   localData: "本机数据",
   privacy: "隐私",
   clearData: "清除本机数据",
-  clearDataBody: "清除清单、指南进度、收藏卡片、目的地和偏好设置？",
+  clearDataBody: "清除清单、指南进度、收藏卡片、目的地、偏好设置，以及本机演示账号、帖子和附件？",
   cancel: "取消",
   confirm: "清除",
   about: "关于 ChinaHand",

@@ -21,6 +21,7 @@ export type Message = {
   content: string;
   example?: boolean;
   guideId?: string;
+  pageActionsEnabled?: boolean;
   status?: "pending" | "complete" | "stopped" | "error";
 };
 const STORAGE_KEY = "chinahand.native.preferences.v1";

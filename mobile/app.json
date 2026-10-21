@@ -10,7 +10,7 @@
       "android",
       "web"
     ],
-    "icon": "./assets/brand.png",
+    "icon": "./assets/brand-blue.png",
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
@@ -23,8 +23,8 @@
       "package": "org.chinahand.mobile",
       "versionCode": 2,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/brand.png",
-        "backgroundColor": "#165645"
+        "foregroundImage": "./assets/brand-blue.png",
+        "backgroundColor": "#246BEB"
       },
       "permissions": [],
       "blockedPermissions": [
@@ -42,12 +42,21 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/brand.png",
+          "image": "./assets/brand-blue.png",
           "imageWidth": 96,
-          "backgroundColor": "#F3F5F4",
+          "backgroundColor": "#EFF5FC",
           "dark": {
-            "backgroundColor": "#101813"
+            "backgroundColor": "#0B1425"
           }
+        }
+      ],
+      "expo-video",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Choose photos and videos to attach to your ChinaHand post.",
+          "cameraPermission": false,
+          "microphonePermission": false
         }
       ]
     ],
@@ -57,7 +66,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/brand.png"
+      "favicon": "./assets/brand-blue.png"
     }
   }
 }

@@ -28,8 +28,10 @@ const content = JSON.parse(await readFile(path.join(mobile, 'src/content/content
 for (const { id } of [...content.scenes, ...content.shortGuides]) {
   await readFile(path.join(source, 'guide', id, 'index.html'));
 }
+const productRoutes = ['community', 'create-post', 'post', 'login', 'register', 'upgrade', 'preferences', 'transport'];
+for (const route of productRoutes) await readFile(path.join(source, route, 'index.html'));
 const destination = path.join(root, 'demo/app');
 await rm(destination, { recursive: true, force: true });
 await cp(source, destination, { recursive: true });
-await writeFile(path.join(destination, 'deployment.json'), JSON.stringify({ baseUrl, scenes: content.scenes.length, shortGuides: content.shortGuides.length, ports: content.ports.length, apiKeyStorage: 'memory-only; reload clears session' }, null, 2) + '\n');
+await writeFile(path.join(destination, 'deployment.json'), JSON.stringify({ baseUrl, scenes: content.scenes.length, shortGuides: content.shortGuides.length, ports: content.ports.length, apiKeyStorage: 'memory-only; reload clears session', productRoutes, membership: 'local demo; no billing', community: 'local demo; media supported', appearance: 'day and night artwork' }, null, 2) + '\n');
 console.log(`Published static demo files: ${destination} (${baseUrl})`);

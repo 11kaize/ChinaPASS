@@ -40,15 +40,16 @@ export default function TabLayout() {
         animation: "none",
       }}
     >
-      {(["index", "guides", "cards", "chat", "settings"] as const).map(
+      <Tabs.Screen name="guides" options={{ href: null }} />
+      {(["index", "community", "cards", "chat", "settings"] as const).map(
         (name, i) => {
-          const icon = ["today", "guides", "cards", "chat", "settings"][i];
+          const icon = ["today", "community", "cards", "chat", "profile"][i];
           return (
             <Tabs.Screen
               key={name}
               name={name}
               options={{
-                title: t(icon as "today"),
+                title: name === "community" ? (prefs.language === "zh" ? "社区" : "Community") : name === "settings" ? (prefs.language === "zh" ? "我的" : "Me") : t(icon as "today"),
                 tabBarIcon: ({ color, focused }) => (
                   <Icon
                     name={icon}

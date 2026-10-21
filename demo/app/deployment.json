@@ -3,5 +3,18 @@
   "scenes": 9,
   "shortGuides": 2,
   "ports": 15,
-  "apiKeyStorage": "memory-only; reload clears session"
+  "apiKeyStorage": "memory-only; reload clears session",
+  "productRoutes": [
+    "community",
+    "create-post",
+    "post",
+    "login",
+    "register",
+    "upgrade",
+    "preferences",
+    "transport"
+  ],
+  "membership": "local demo; no billing",
+  "community": "local demo; media supported",
+  "appearance": "day and night artwork"
 }

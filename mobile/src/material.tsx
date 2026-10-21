@@ -27,6 +27,6 @@ export function GlassMaterial({ radius = 24 }: { radius?: number }) {
   if (Platform.OS === "ios" && isLiquidGlassAvailable() && isGlassEffectAPIAvailable())
     return <GlassView pointerEvents="none" colorScheme={isDark ? "dark" : "light"} glassEffectStyle="regular" style={style} />;
   return (
-    <BlurView pointerEvents="none" tint={isDark ? "systemChromeMaterialDark" : "systemChromeMaterialLight"} intensity={65} style={[style, { overflow: "hidden", backgroundColor: isDark ? "rgba(23,39,31,0.48)" : "rgba(250,255,252,0.55)" }]} />
+    <BlurView pointerEvents="none" tint={isDark ? "systemChromeMaterialDark" : "systemChromeMaterialLight"} intensity={65} style={[style, { overflow: "hidden", backgroundColor: isDark ? "rgba(15,29,53,0.65)" : "rgba(255,255,255,0.66)" }]} />
   );
 }
