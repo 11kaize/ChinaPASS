@@ -1,3 +1,4 @@
+import { backOrReplace } from "../navigation-back";
 import React, { useEffect, useRef, useState } from "react";
 import { View, Switch, Keyboard } from "react-native";
 import { router } from "expo-router";
@@ -328,7 +329,7 @@ function ConfigForm() {
               disconnect();
               setConfig(current());
               setKey("");
-              router.back();
+              backOrReplace(router, "/chat");
             }
           }}
         />
@@ -340,7 +341,7 @@ function ConfigForm() {
             onPress={() => {
               disconnect();
               setKey("");
-              router.back();
+              backOrReplace(router, "/chat");
             }}
           />
         )}

@@ -1,3 +1,4 @@
+import { backOrReplace } from "./navigation-back";
 import { artwork } from "./artwork";
 import { LinearGradient } from "expo-linear-gradient";
 import { useReducedMotion } from "./motion";
@@ -383,7 +384,7 @@ export function TopBar({
           name="back"
           label={t("back")}
           onPress={() =>
-            router.canGoBack() ? router.back() : router.replace("/(tabs)")
+            backOrReplace(router)
           }
         />
       ) : (

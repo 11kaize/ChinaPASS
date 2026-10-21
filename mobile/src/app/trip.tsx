@@ -1,3 +1,4 @@
+import { backOrReplace } from "../navigation-back";
 import React from "react";
 import { View } from "react-native";
 import { router } from "expo-router";
@@ -43,7 +44,7 @@ export default function Trip() {
         ))}
       </Surface>
       <View style={{ marginTop: 23, gap: 12 }}>
-        <Button label={t("done")} icon="check" onPress={() => router.back()} />
+        <Button label={t("done")} icon="check" onPress={() => backOrReplace(router, "/(tabs)")} />
         <Button
           label={t("noCity")}
           secondary

@@ -1,3 +1,4 @@
+import { backOrReplace } from "./navigation-back";
 import { artwork } from "./artwork";
 import React, { useCallback, useState } from "react";
 import {
@@ -128,7 +129,7 @@ export function AuthScreen({ register = false }: { register?: boolean }) {
           >
             <Tap
               label={zh ? "返回" : "Back"}
-              onPress={() => router.back()}
+              onPress={() => backOrReplace(router, "/settings")}
               style={{
                 alignSelf: "flex-start",
                 padding: 10,

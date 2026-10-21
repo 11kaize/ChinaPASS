@@ -1,5 +1,5 @@
 import { artwork } from "../../artwork";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import * as Crypto from "expo-crypto";
 import {
   View,
@@ -10,7 +10,7 @@ import {
   Platform,
   Keyboard,
 } from "react-native";
-import { router, Href } from "expo-router";
+import { router, Href, useFocusEffect, useIsFocused } from "expo-router";
 import { fetch as nativeFetch } from "expo/fetch";
 import { useApp, Message } from "../../state";
 import {
@@ -57,6 +57,17 @@ function ChatSession() {
     [error, setError] = useState("");
   const list = useRef<FlatList<Message>>(null),
     sending = useRef(false);
+  const focused = useIsFocused();
+  const newestFirst = useMemo(() => [...messages].reverse(), [messages]);
+  // Keep the most recent reply mounted when returning from an action page.
+  useFocusEffect(
+    useCallback(() => {
+      const frame = requestAnimationFrame(() =>
+        list.current?.scrollToOffset({ offset: 0, animated: false }),
+      );
+      return () => cancelAnimationFrame(frame);
+    }, []),
+  );
   const send = async (input = question) => {
     const query = input.trim();
     if (!query || sending.current) return;
@@ -216,12 +227,16 @@ function ChatSession() {
         </View>
         <FlatList
           ref={list}
-          data={messages}
+          data={newestFirst}
+          inverted={messages.length > 0}
           keyExtractor={(m) => m.id}
           keyboardShouldPersistTaps="handled"
-          onContentSizeChange={() =>
-            list.current?.scrollToEnd({ animated: false })
-          }
+          onLayout={() => {
+            if (focused) list.current?.scrollToOffset({ offset: 0, animated: false });
+          }}
+          onContentSizeChange={() => {
+            if (focused) list.current?.scrollToOffset({ offset: 0, animated: false });
+          }}
           contentContainerStyle={{
             padding: 20,
             paddingTop: 4,

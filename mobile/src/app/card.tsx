@@ -1,3 +1,4 @@
+import { backOrReplace } from "../navigation-back";
 import React, { useState } from "react";
 import { View, ScrollView, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -50,7 +51,7 @@ export default function Card() {
         : t("noResults");
   const bookmarked = card && prefs.favorites.includes(card.id);
   const close = () =>
-    router.canGoBack() ? router.back() : router.replace(kind === "port" ? "/(tabs)" : "/(tabs)/cards");
+    backOrReplace(router, kind === "port" ? "/(tabs)" : "/(tabs)/cards");
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.surface }}>
       <View

@@ -1,3 +1,4 @@
+import { backOrReplace } from "../navigation-back";
 import React, { useState } from "react";
 import { View } from "react-native";
 import { router } from "expo-router";
@@ -58,7 +59,7 @@ export default function Address() {
           disabled={!address.trim()}
           onPress={() => {
             save();
-            router.back();
+            backOrReplace(router, "/(tabs)");
           }}
         />
         <Button
