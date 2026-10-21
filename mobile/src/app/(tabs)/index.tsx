@@ -152,6 +152,7 @@ export default function Home() {
           : artwork.homeDay
       }
       header={<HomeHeader />}
+      headerScrolls
     >
       <Surface
         glass

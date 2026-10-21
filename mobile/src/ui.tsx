@@ -415,6 +415,7 @@ export function Page({
   scroll = true,
   backdrop,
   header,
+  headerScrolls = false,
 }: {
   children: React.ReactNode;
   title?: string;
@@ -422,8 +423,10 @@ export function Page({
   scroll?: boolean;
   backdrop?: ImageSourcePropType;
   header?: React.ReactNode;
+  headerScrolls?: boolean;
 }) {
   const { colors, isDark } = useApp();
+  const scrollingHeader = scroll && headerScrolls && Boolean(header);
   const [keyboard, setKeyboard] = useState(false);
   useEffect(() => {
     const show = Keyboard.addListener("keyboardDidShow", () =>
@@ -460,7 +463,7 @@ export function Page({
           { width: "100%", height: "100%", opacity: backdrop ? 0.8 : 0.15 },
         ]}
       />
-      {header || <TopBar title={title} back={back} />}
+      {!scrollingHeader && (header || <TopBar title={title} back={back} />)}
       <PageMotion
         style={{
           flex: 1,
@@ -477,6 +480,11 @@ export function Page({
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
+            {scrollingHeader && (
+              <View style={{ marginHorizontal: -22, marginTop: -9, marginBottom: 9 }}>
+                {header}
+              </View>
+            )}
             {children}
           </ScrollView>
         ) : (
