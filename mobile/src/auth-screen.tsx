@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   ActivityIndicator,
   Animated,
@@ -10,7 +10,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { useProduct } from "./product-state";
 import { useApp } from "./state";
@@ -26,25 +26,30 @@ export function AuthScreen({ register = false }: { register?: boolean }) {
     [error, setError] = useState("");
   const glow = useMotionValue(1),
     reduce = useReducedMotion();
-  useEffect(() => {
-    if (reduce) return;
-    const animation = Animated.loop(
-      Animated.sequence([
-        Animated.timing(glow, {
-          toValue: 1,
-          duration: 2600,
-          useNativeDriver: Platform.OS !== "web",
-        }),
-        Animated.timing(glow, {
-          toValue: 0.82,
-          duration: 2600,
-          useNativeDriver: Platform.OS !== "web",
-        }),
-      ]),
-    );
-    animation.start();
-    return () => animation.stop();
-  }, [glow, reduce]);
+  useFocusEffect(
+    useCallback(() => {
+      glow.setValue(1);
+      if (reduce || Platform.OS === "web") return;
+      const animation = Animated.loop(
+        Animated.sequence([
+          Animated.timing(glow, {
+            toValue: 1,
+            duration: 2600,
+            isInteraction: false,
+            useNativeDriver: true,
+          }),
+          Animated.timing(glow, {
+            toValue: 0.82,
+            duration: 2600,
+            isInteraction: false,
+            useNativeDriver: true,
+          }),
+        ]),
+      );
+      animation.start();
+      return () => animation.stop();
+    }, [glow, reduce]),
+  );
   const submit = async () => {
     if (busy) return;
     setBusy(true);
@@ -102,7 +107,11 @@ export function AuthScreen({ register = false }: { register?: boolean }) {
       imageStyle={{ width: "100%", height: "100%" }}
       style={{ flex: 1, backgroundColor: "#071326" }}
     >
-      <LinearGradient colors={["#06102200", "#06102266", "#030A18DD"]} locations={[0, 0.45, 1]} style={{position:"absolute",top:0,right:0,bottom:0,left:0}} />
+      <LinearGradient
+        colors={["#06102200", "#06102266", "#030A18DD"]}
+        locations={[0, 0.45, 1]}
+        style={{ position: "absolute", top: 0, right: 0, bottom: 0, left: 0 }}
+      />
       <SafeAreaView style={{ flex: 1 }}>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
@@ -129,6 +138,7 @@ export function AuthScreen({ register = false }: { register?: boolean }) {
               <Icon name="back" color="#E5F0FF" size={18} />
             </Tap>
             <Animated.View
+              nativeID="auth-gateway-mark"
               style={{
                 alignItems: "center",
                 paddingTop: 30,

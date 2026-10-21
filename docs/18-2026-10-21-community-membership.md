@@ -45,3 +45,11 @@ The current iteration verifies context construction and navigation marker parsin
 - Day/night layouts, name-only membership styling and exported routes are checked before publication. Screenshots are under `docs/screenshots/2026-10-21/`.
 
 Relevant implementation: `mobile/src/domain/`, `product-state.tsx`, `identity.tsx`, `local-media.ts`, `local-media.web.ts`, and the screens under `mobile/src/app/`.
+
+## Motion refinement
+
+Page content no longer resets its vertical position and springs on every focus. Native screens use a single navigator transition (280 ms for the iOS simple push); native tabs switch without a second page animation. The browser uses one cancellable transform animation: 160 ms for tabs and 240 ms for other Page screens, without fading the glass materials. Its button feedback uses CSS transitions; native button feedback uses the native animation driver and does not block list interaction work.
+
+Reduce Motion uses one shared system subscription rather than a subscription and async preference read per button. Preference changes cancel web page motion. The login mark uses CSS animation on the web; its native animation stops on blur and is non-interactive. The web reduced-motion stylesheet also limits animation iterations, preventing decorative loops from becoming rapid flicker.
+
+TypeScript and Expo lint passed for this refinement. Browser checks covered entering Transport, returning Home and consecutive Cards/Community/Me/Home tab changes; both native platform exports succeeded. No physical-device frame-rate measurement was performed on this Linux host.

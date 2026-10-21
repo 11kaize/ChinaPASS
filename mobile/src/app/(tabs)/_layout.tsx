@@ -16,7 +16,12 @@ export default function TabLayout() {
         tabBarHideOnKeyboard: true,
         tabBarActiveTintColor: colors.accent,
         tabBarInactiveTintColor: colors.secondary,
-        tabBarLabelStyle: { fontSize: 10, lineHeight: 12, fontWeight: "600", marginTop: 0 },
+        tabBarLabelStyle: {
+          fontSize: 10,
+          lineHeight: 12,
+          fontWeight: "600",
+          marginTop: 0,
+        },
         tabBarStyle: {
           position: "absolute",
           bottom,
@@ -36,7 +41,7 @@ export default function TabLayout() {
         tabBarItemStyle: { borderRadius: 16, paddingVertical: 0 },
         tabBarBackground: () => <GlassMaterial radius={30} />,
         // Glass must not sit under a parent whose opacity animates to zero.
-        // Page provides the spring transition without fading the native material.
+        // Native tab changes stay immediate; PageMotion owns the short web transition.
         animation: "none",
       }}
     >
@@ -49,7 +54,16 @@ export default function TabLayout() {
               key={name}
               name={name}
               options={{
-                title: name === "community" ? (prefs.language === "zh" ? "社区" : "Community") : name === "settings" ? (prefs.language === "zh" ? "我的" : "Me") : t(icon as "today"),
+                title:
+                  name === "community"
+                    ? prefs.language === "zh"
+                      ? "社区"
+                      : "Community"
+                    : name === "settings"
+                      ? prefs.language === "zh"
+                        ? "我的"
+                        : "Me"
+                      : t(icon as "today"),
                 tabBarIcon: ({ color, focused }) => (
                   <Icon
                     name={icon}

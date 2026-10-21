@@ -1,6 +1,14 @@
 import React, { useEffect } from "react";
 import { Stack, ThemeProvider, DefaultTheme, DarkTheme } from "expo-router";
-import { StatusBar, Platform, Appearance, View, ActivityIndicator, ImageBackground, Text } from "react-native";
+import {
+  StatusBar,
+  Platform,
+  Appearance,
+  View,
+  ActivityIndicator,
+  ImageBackground,
+  Text,
+} from "react-native";
 import { isRunningInExpoGo } from "expo";
 import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -26,9 +34,39 @@ function AppNavigation() {
       );
   }, [hydrated, prefs.appearance]);
   useEffect(() => {
-    if (Platform.OS === "web") document.getElementById("phone")?.setAttribute("data-theme", isDark ? "dark" : "light");
+    if (Platform.OS === "web")
+      document
+        .getElementById("phone")
+        ?.setAttribute("data-theme", isDark ? "dark" : "light");
   }, [isDark]);
-  if (!hydrated || !ready) return <ImageBackground source={require("../../assets/login-gateway.png")} imageStyle={{width:"100%",height:"100%"}} style={{flex:1,backgroundColor:"#081426",alignItems:"center",justifyContent:"center"}}><View style={{gap:20,alignItems:"center",padding:26,borderRadius:28,backgroundColor:"rgba(5,17,39,0.55)"}}><ActivityIndicator size="large" color="#C4DDFF"/><Text style={{color:"#E1EDFF",fontSize:13,letterSpacing:2}}>CHINAHAND</Text></View></ImageBackground>;
+  if (!hydrated || !ready)
+    return (
+      <ImageBackground
+        source={require("../../assets/login-gateway.png")}
+        imageStyle={{ width: "100%", height: "100%" }}
+        style={{
+          flex: 1,
+          backgroundColor: "#081426",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <View
+          style={{
+            gap: 20,
+            alignItems: "center",
+            padding: 26,
+            borderRadius: 28,
+            backgroundColor: "rgba(5,17,39,0.55)",
+          }}
+        >
+          <ActivityIndicator size="large" color="#C4DDFF" />
+          <Text style={{ color: "#E1EDFF", fontSize: 13, letterSpacing: 2 }}>
+            CHINAHAND
+          </Text>
+        </View>
+      </ImageBackground>
+    );
   const base = isDark ? DarkTheme : DefaultTheme;
   return (
     <ThemeProvider
@@ -55,7 +93,12 @@ function AppNavigation() {
         screenOptions={{
           headerShown: false,
           contentStyle: { backgroundColor: colors.bg },
-          animation: reduce ? "none" : "slide_from_right",
+          animation: reduce
+            ? "none"
+            : Platform.OS === "ios"
+              ? "simple_push"
+              : "slide_from_right",
+          animationDuration: 280,
         }}
       >
         <Stack.Screen name="(tabs)" />
@@ -73,9 +116,27 @@ function AppNavigation() {
             animation: reduce ? "none" : "slide_from_bottom",
           }}
         />
-        <Stack.Screen name="ai-config" options={{ presentation: "modal", animation: reduce ? "none" : "slide_from_bottom" }} />
-        <Stack.Screen name="ports" options={{ presentation: "modal", animation: reduce ? "none" : "slide_from_bottom" }} />
-        <Stack.Screen name="trip" options={{ presentation: "modal", animation: reduce ? "none" : "slide_from_bottom" }} />
+        <Stack.Screen
+          name="ai-config"
+          options={{
+            presentation: "modal",
+            animation: reduce ? "none" : "slide_from_bottom",
+          }}
+        />
+        <Stack.Screen
+          name="ports"
+          options={{
+            presentation: "modal",
+            animation: reduce ? "none" : "slide_from_bottom",
+          }}
+        />
+        <Stack.Screen
+          name="trip"
+          options={{
+            presentation: "modal",
+            animation: reduce ? "none" : "slide_from_bottom",
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );
@@ -84,7 +145,9 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <AppProvider>
-        <ProductProvider><AppNavigation /></ProductProvider>
+        <ProductProvider>
+          <AppNavigation />
+        </ProductProvider>
       </AppProvider>
     </SafeAreaProvider>
   );

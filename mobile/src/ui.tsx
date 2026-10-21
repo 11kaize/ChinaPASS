@@ -1,7 +1,9 @@
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useCallback, useEffect, useState } from "react";
+import { useReducedMotion } from "./motion";
+import { PageMotion } from "./page-motion";
+import React, { useEffect, useState } from "react";
 import {
-  AccessibilityInfo,
+  Easing,
   Keyboard,
   Platform,
   Animated,
@@ -19,7 +21,7 @@ import {
   ViewStyle,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router, useFocusEffect } from "expo-router";
+import { router } from "expo-router";
 import * as Haptics from "expo-haptics";
 import { AirplaneLanding } from "phosphor-react-native/src/icons/AirplaneLanding";
 import { ArrowLeft } from "phosphor-react-native/src/icons/ArrowLeft";
@@ -64,6 +66,8 @@ import { Heart } from "phosphor-react-native/src/icons/Heart";
 import { Star } from "phosphor-react-native/src/icons/Star";
 import { ImageSquare } from "phosphor-react-native/src/icons/ImageSquare";
 import { Crown } from "phosphor-react-native/src/icons/Crown";
+export { useReducedMotion } from "./motion";
+
 export const icons: Record<string, PhosphorIcon> = {
   profile: UserCircle,
   community: UsersThree,
@@ -127,20 +131,6 @@ export function Icon({
 }
 export function useMotionValue(initial: number) {
   return useState(() => new Animated.Value(initial))[0];
-}
-export function useReducedMotion() {
-  const [reduced, set] = useState(false);
-  useEffect(() => {
-    AccessibilityInfo.isReduceMotionEnabled()
-      .then(set)
-      .catch(() => {});
-    const event = AccessibilityInfo.addEventListener(
-      "reduceMotionChanged",
-      set,
-    );
-    return () => event.remove();
-  }, []);
-  return reduced;
 }
 export function Txt({
   children,
@@ -211,13 +201,19 @@ export function Tap({
   const scale = useMotionValue(1);
   const reduced = useReducedMotion();
   const press = (value: number) => {
-    if (!reduced)
-      Animated.spring(scale, {
-        toValue: value,
-        useNativeDriver: Platform.OS !== "web",
-        speed: 32,
-        bounciness: value === 1 ? 5 : 0,
-      }).start();
+    if (Platform.OS === "web") return;
+    scale.stopAnimation();
+    if (reduced) {
+      scale.setValue(1);
+      return;
+    }
+    Animated.timing(scale, {
+      toValue: value,
+      duration: value === 1 ? 180 : 100,
+      easing: Easing.out(Easing.cubic),
+      isInteraction: false,
+      useNativeDriver: true,
+    }).start();
   };
   const layout = StyleSheet.flatten(style) || {};
   return (
@@ -230,7 +226,8 @@ export function Tap({
       onPressIn={() => press(0.98)}
       onPressOut={() => press(1)}
       onPress={() => {
-        void Haptics.selectionAsync().catch(() => {});
+        if (Platform.OS !== "web")
+          void Haptics.selectionAsync().catch(() => {});
         onPress();
       }}
       style={{
@@ -238,9 +235,27 @@ export function Tap({
         ...(layout.flex !== undefined ? { flex: layout.flex } : {}),
       }}
     >
-      <Animated.View style={[style, { transform: [{ scale }] }]}>
-        {children}
-      </Animated.View>
+      {({ pressed }) => (
+        <Animated.View
+          style={[
+            style,
+            Platform.OS === "web"
+              ? ({
+                  transform: [{ scale: !reduced && pressed ? 0.985 : 1 }],
+                  transitionProperty: "transform",
+                  transitionDuration: reduced
+                    ? "0ms"
+                    : pressed
+                      ? "100ms"
+                      : "180ms",
+                  transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+                } as ViewStyle)
+              : { transform: [{ scale }] },
+          ]}
+        >
+          {children}
+        </Animated.View>
+      )}
     </Pressable>
   );
 }
@@ -408,8 +423,6 @@ export function Page({
   header?: React.ReactNode;
 }) {
   const { colors, isDark } = useApp();
-  const reduced = useReducedMotion();
-  const offset = useMotionValue(0);
   const [keyboard, setKeyboard] = useState(false);
   useEffect(() => {
     const show = Keyboard.addListener("keyboardDidShow", () =>
@@ -423,20 +436,6 @@ export function Page({
       hide.remove();
     };
   }, []);
-  useFocusEffect(
-    useCallback(() => {
-      offset.setValue(reduced ? 0 : 10);
-      const animation = Animated.spring(offset, {
-        toValue: 0,
-        damping: 22,
-        stiffness: 210,
-        mass: 0.8,
-        useNativeDriver: Platform.OS !== "web",
-      });
-      animation.start();
-      return () => animation.stop();
-    }, [offset, reduced]),
-  );
   return (
     <SafeAreaView
       edges={["top", "left", "right"]}
@@ -461,10 +460,9 @@ export function Page({
         ]}
       />
       {header || <TopBar title={title} back={back} />}
-      <Animated.View
+      <PageMotion
         style={{
           flex: 1,
-          transform: [{ translateY: offset }],
           paddingBottom: !scroll && !back && !keyboard ? 86 : 0,
         }}
       >
@@ -483,7 +481,7 @@ export function Page({
         ) : (
           <View style={{ flex: 1 }}>{children}</View>
         )}
-      </Animated.View>
+      </PageMotion>
     </SafeAreaView>
   );
 }
