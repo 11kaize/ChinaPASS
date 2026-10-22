@@ -243,7 +243,7 @@ export default function Profile() {
           {[
             {
               icon: "address",
-              label: text("地址卡", "Address card"),
+              label: text("地址钱包", "Places"),
               path: "/address",
               color: "#2E91AF",
             },
@@ -282,6 +282,20 @@ export default function Profile() {
             </Surface>
           ))}
         </View>
+      </Section>
+      <Section title={text("离线沟通工具", "Offline communication")}>
+        <Surface>
+          <Row
+            title={text("双向沟通板", "Two-way talk")}
+            subtitle={text(
+              "中文提问，固定答复与金额回显",
+              "Show Chinese; get a preset reply or CNY amount",
+            )}
+            icon="chat"
+            last
+            onPress={() => router.push("/talk")}
+          />
+        </Surface>
       </Section>
       <Section title={text("账户与服务", "Account & services")}>
         <Surface>

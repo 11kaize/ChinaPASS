@@ -107,6 +107,20 @@ A trusted app-page directory and keyword retrieval supplement guide retrieval. E
 
 Browser attachments use IndexedDB blobs and short-lived object URLs; native attachments are copied to the app document directory. Clearing local data removes the community demo and its attachments as well as the existing preferences. API keys still clear on refresh and are never included in either persistence store.
 
+## Offline communication tools (2026-10-22)
+
+**Cards → Open two-way talk** lets a visitor choose a bundled phrase, show Chinese, and ask the other person to select a preset bilingual reply or enter a CNY amount. Replies are fixed phrases, not live translation; amounts never initiate payment. Non-template Chinese cards and saved destination cards can open this board directly.
+
+**Me → Places** opens the address wallet: save up to 30 destinations, edit them, select a default, or import a bundled airport/station name. Existing single-address data remains available. Any destination can open a full-screen Chinese address card. The default also works with existing card templates. Places are stored only on this device and are not automatically shared with AI.
+
+Open a card and use **Edit template** to save your own copy; custom cards offer **Edit my card**, **Save changes** and **Save a new copy**. The editor also creates new cards and preserves fillable template blanks.
+
+The optional **Free Chinese–English translation** panel uses MyMemory without an API key. Each request requires fresh consent, sends only the current source text and language direction, and returns a preview for manual application. Its current anonymous allowance is 5,000 characters/day and 500 UTF-8 bytes/request. The provider may retain text: use non-sensitive short phrases only. See [official limits](https://mymemory.translated.net/doc/usagelimits.php) and [service terms/privacy](https://mymemory.translated.net/terms-and-conditions). AI provider keys and chat state are never used for this feature.
+
+Deleting a local community story now removes its attachments before removing the post. If cleanup fails, the story remains and can be retried. Unpublished attachments have best-effort cleanup when leaving the editor.
+
+See the [static feature audit and next suggestions](../docs/22-2026-10-22-static-feature-audit.md).
+
 ## Built-in demo artwork
 
 The browser demo embeds ten phone-sized WebP illustrations in its JavaScript bundle (`src/artwork.web.ts`). They are decoded during startup and reused across routes and appearance changes, so pages do not fetch large PNG files separately. The first visit still downloads the application bundle; this is not an offline-install guarantee.

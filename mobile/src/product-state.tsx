@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { clearAllMedia } from "./local-media";
+import { clearAllMedia, deleteMedia } from "./local-media";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Crypto from "expo-crypto";
 import {
@@ -66,7 +66,7 @@ type Product = {
   save: (id: string) => void;
   reply: (id: string, body: string) => void;
   requestReview: (id: string) => void;
-  removePost: (id: string) => void;
+  removePost: (id: string) => Promise<void>;
   reserve: (id: string) => void;
   refund: (id: string) => void;
   reset: () => Promise<void>;
@@ -344,12 +344,19 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
         ),
       }));
     },
-    removePost(postId) {
+    async removePost(postId) {
       const p = signedIn();
+      const post = current.current.posts.find(
+        (item) => item.id === postId && item.authorId === p.id,
+      );
+      if (!post)
+        throw new Error("Story is unavailable or belongs to another author.");
+      // Keep the post available for retry if media cleanup fails.
+      for (const media of post.media) await deleteMedia(media);
       commit((old) => ({
         ...old,
         posts: old.posts.filter(
-          (post) => post.id !== postId || post.authorId !== p.id,
+          (item) => item.id !== postId || item.authorId !== p.id,
         ),
       }));
     },

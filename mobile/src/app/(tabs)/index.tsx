@@ -146,11 +146,7 @@ export default function Home() {
   const port = content.ports.find((p) => p.id === prefs.arrivalPort);
   return (
     <Page
-      backdrop={
-        isDark
-          ? artwork.homeNight
-          : artwork.homeDay
-      }
+      backdrop={isDark ? artwork.homeNight : artwork.homeDay}
       header={<HomeHeader />}
       headerScrolls
     >
@@ -230,11 +226,7 @@ export default function Home() {
         }}
       >
         <ImageBackground
-          source={
-            isDark
-              ? artwork.arrivalNight
-              : artwork.arrivalDay
-          }
+          source={isDark ? artwork.arrivalNight : artwork.arrivalDay}
           imageStyle={{ width: "100%", height: "100%" }}
           resizeMode="cover"
           style={{ minHeight: 198 }}
@@ -393,11 +385,7 @@ export default function Home() {
               </View>
               {x.id === "featured" && (
                 <Image
-                  source={
-                    isDark
-                      ? artwork.arrivalNight
-                      : artwork.arrivalDay
-                  }
+                  source={isDark ? artwork.arrivalNight : artwork.arrivalDay}
                   accessibilityLabel="Airport arrival illustration"
                   style={{ width: "100%", height: 68, borderRadius: 12 }}
                   resizeMode="cover"
@@ -418,7 +406,16 @@ export default function Home() {
         <Surface glass>
           {[
             { label: t("prep"), icon: "prep", path: "/preparation" },
-            { label: t("address"), icon: "address", path: "/address" },
+            {
+              label: zh ? "地址钱包" : "Address wallet",
+              icon: "address",
+              path: "/address",
+            },
+            {
+              label: zh ? "双向沟通板" : "Two-way talk",
+              icon: "chat",
+              path: "/talk",
+            },
             {
               label: zh ? "机场与车站" : "Airports & stations",
               icon: "transport",

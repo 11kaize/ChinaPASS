@@ -26,6 +26,7 @@ export default function PostDetail() {
     zh = prefs.language === "zh";
   const [body, setBody] = useState(""),
     [error, setError] = useState("");
+  const [deleting, setDeleting] = useState(false);
   if (!post)
     return (
       <Page back>
@@ -188,7 +189,16 @@ export default function PostDetail() {
         <View style={{ marginTop: 20 }}>
           <Button
             danger
-            label={zh ? "删除我的帖子" : "Delete my story"}
+            label={
+              deleting
+                ? zh
+                  ? "清理附件中…"
+                  : "Removing attachments…"
+                : zh
+                  ? "删除我的帖子"
+                  : "Delete my story"
+            }
+            disabled={deleting}
             onPress={() =>
               confirmAction(
                 zh ? "删除帖子？" : "Delete this story?",
@@ -196,8 +206,17 @@ export default function PostDetail() {
                   ? "从当前设备的社区演示中移除。"
                   : "Remove this story from the on-device demo.",
                 () => {
-                  removePost(post.id);
-                  router.replace("/community");
+                  setDeleting(true);
+                  void removePost(post.id)
+                    .then(() => router.replace("/community"))
+                    .catch(() => {
+                      setError(
+                        zh
+                          ? "附件清理失败，帖子尚未删除。请重试。"
+                          : "Attachment cleanup failed. The story is still available; please retry.",
+                      );
+                    })
+                    .finally(() => setDeleting(false));
                 },
                 t,
               )

@@ -53,6 +53,7 @@ import { ForkKnife } from "phosphor-react-native/src/icons/ForkKnife";
 import { WifiSlash } from "phosphor-react-native/src/icons/WifiSlash";
 import { X } from "phosphor-react-native/src/icons/X";
 import { GearSix } from "phosphor-react-native/src/icons/GearSix";
+import { PencilSimple } from "phosphor-react-native/src/icons/PencilSimple";
 import { Plus } from "phosphor-react-native/src/icons/Plus";
 import { PaperPlaneTilt } from "phosphor-react-native/src/icons/PaperPlaneTilt";
 import { Stop } from "phosphor-react-native/src/icons/Stop";
@@ -95,6 +96,7 @@ export const icons: Record<string, PhosphorIcon> = {
   today: House,
   guides: SquaresFour,
   settings: GearSix,
+  edit: PencilSimple,
   check: Check,
   checked: CheckCircle,
   unchecked: CircleIcon,

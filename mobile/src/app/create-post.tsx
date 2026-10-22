@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import { router } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
@@ -31,6 +31,18 @@ export default function CreatePost() {
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
   const publishing = useRef(false);
+  const mounted = useRef(true),
+    attachments = useRef<Media[]>([]),
+    published = useRef(false);
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+      if (!published.current)
+        for (const item of attachments.current)
+          void deleteMedia(item).catch(() => {});
+    };
+  }, []);
   const attach = async () => {
     if (busy || media.length >= 6) return;
     setError("");
@@ -41,21 +53,26 @@ export default function CreatePost() {
         selectionLimit: 6 - media.length,
         quality: 0.8,
       });
-      if (result.canceled) return;
+      if (result.canceled || !mounted.current) return;
       setBusy(true);
       const added: Media[] = [];
       try {
         for (const asset of result.assets.slice(0, 6 - media.length))
           added.push(await persistMedia(asset, Crypto.randomUUID()));
-        setMedia((old) => [...old, ...added]);
+        if (!mounted.current) {
+          for (const item of added) await deleteMedia(item).catch(() => {});
+          return;
+        }
+        attachments.current = [...attachments.current, ...added];
+        setMedia(attachments.current);
       } catch (e) {
         for (const item of added) await deleteMedia(item).catch(() => {});
         throw e;
       }
     } catch (e) {
-      setError((e as Error).message);
+      if (mounted.current) setError((e as Error).message);
     } finally {
-      setBusy(false);
+      if (mounted.current) setBusy(false);
     }
   };
   const submit = () => {
@@ -63,6 +80,7 @@ export default function CreatePost() {
     publishing.current = true;
     try {
       const id = publish(title, body, city, category, media);
+      published.current = true;
       router.replace({ pathname: "/post", params: { id } });
     } catch (e) {
       setError((e as Error).message);
@@ -131,9 +149,27 @@ export default function CreatePost() {
               <PostMedia media={item} />
               <Tap
                 label={`Remove attachment ${index + 1}`}
+                disabled={busy}
                 onPress={() => {
-                  void deleteMedia(item).catch(() => {});
-                  setMedia((old) => old.filter((x) => x.id !== item.id));
+                  setBusy(true);
+                  void deleteMedia(item)
+                    .then(() => {
+                      attachments.current = attachments.current.filter(
+                        (x) => x.id !== item.id,
+                      );
+                      if (mounted.current) setMedia(attachments.current);
+                    })
+                    .catch(() => {
+                      if (mounted.current)
+                        setError(
+                          zh
+                            ? "附件删除失败，请重试。"
+                            : "Could not remove the attachment. Please retry.",
+                        );
+                    })
+                    .finally(() => {
+                      if (mounted.current) setBusy(false);
+                    });
                 }}
                 style={{
                   minHeight: 36,

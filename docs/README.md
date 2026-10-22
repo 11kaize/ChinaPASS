@@ -13,3 +13,4 @@
 - [10 月 21 日真实 AI 跳转测试与返回修复](19-2026-10-21-live-ai-routing.md)
 - [10 月 22 日个人中心与会员页更新](20-2026-10-22-account-membership.md)
 - [10 月 22 日社区独立搜索页](21-2026-10-22-community-search.md)
+- [10 月 22 日静态功能审查：双向沟通与地址钱包](22-2026-10-22-static-feature-audit.md)

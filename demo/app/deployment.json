@@ -15,7 +15,9 @@
     "preferences",
     "transport",
     "account",
-    "orders"
+    "orders",
+    "place-edit",
+    "talk"
   ],
   "membership": "local demo; no billing",
   "community": "local demo; media supported",

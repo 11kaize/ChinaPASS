@@ -15,6 +15,7 @@ import {
   Brand,
   confirmAction,
 } from "../ui";
+import { savedPlaces, placeLines } from "../places";
 import { cardBlanks, fillCard } from "../card-template";
 export default function Card() {
   const { id, kind } = useLocalSearchParams<{ id: string; kind?: string }>();
@@ -30,14 +31,19 @@ export default function Card() {
   );
   const scene =
     kind === "scene" ? content.scenes.find((s) => s.id === id) : null;
-  const address = kind === "address" ? prefs.address : null;
+  const address =
+    kind === "place"
+      ? savedPlaces(prefs).find((place) => place.id === id)
+      : kind === "address"
+        ? prefs.address
+        : null;
   const port = kind === "port" ? content.ports.find((p) => p.id === id) : null;
   const raw = address
     ? address.address.trim()
-      ? `你好，我不太会说中文。\n请带我去：\n${address.name}\n${address.address}${address.phone ? `\n联系电话：${address.phone}` : ""}\n谢谢！`
+      ? `你好，我不太会说中文。\n请带我去：\n${placeLines(address)}${address.phone ? `\n联系电话：${address.phone}` : ""}\n谢谢！`
       : ""
     : port?.zh || scene?.showCard?.lines.join("\n") || card?.zh || "";
-  const blanks = address || card?.custom ? [] : cardBlanks(raw);
+  const blanks = address ? [] : cardBlanks(raw);
   const isTemplate = blanks.length > 0;
   const payload = isTemplate ? fillCard(raw, fill) : raw;
   const gloss = address
@@ -45,13 +51,20 @@ export default function Card() {
     : port
       ? `${port.city || port.cityZh || ""}${port.iata ? ` · ${port.iata}` : ""}`
       : scene
-      ? L(scene.showCard?.title)
-      : card
-        ? fillCard(L({ en: card.en, ja: card.ja, ko: card.ko }), fill)
-        : t("noResults");
+        ? L(scene.showCard?.title)
+        : card
+          ? fillCard(L({ en: card.en, ja: card.ja, ko: card.ko }), fill)
+          : t("noResults");
   const bookmarked = card && prefs.favorites.includes(card.id);
   const close = () =>
-    backOrReplace(router, kind === "port" ? "/(tabs)" : "/(tabs)/cards");
+    backOrReplace(
+      router,
+      kind === "place" || kind === "address"
+        ? "/address"
+        : kind === "port"
+          ? "/(tabs)"
+          : "/(tabs)/cards",
+    );
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.surface }}>
       <View
@@ -71,7 +84,32 @@ export default function Card() {
           </Txt>
         </View>
         <View style={{ flexDirection: "row", gap: 9 }}>
-          <IconButton name="emergency" label={t("emergency")} danger onPress={() => router.push("/emergency")} />
+          <IconButton
+            name="emergency"
+            label={t("emergency")}
+            danger
+            onPress={() => router.push("/emergency")}
+          />
+          {card && (
+            <IconButton
+              name="edit"
+              label={
+                card.custom
+                  ? prefs.language === "zh"
+                    ? "编辑我的卡片"
+                    : "Edit my card"
+                  : prefs.language === "zh"
+                    ? "编辑模板"
+                    : "Edit template"
+              }
+              onPress={() =>
+                router.push({
+                  pathname: "/write-card",
+                  params: { id: card.id },
+                })
+              }
+            />
+          )}
           {card && (
             <IconButton
               name="save"
@@ -177,6 +215,18 @@ export default function Card() {
                       ),
                     );
                 }}
+              />
+            )}
+            {payload && !isTemplate && (
+              <Button
+                secondary
+                icon="chat"
+                label={
+                  prefs.language === "zh" ? "让对方点选答复" : "Let them reply"
+                }
+                onPress={() =>
+                  router.push({ pathname: "/talk", params: { id, kind } })
+                }
               />
             )}
             {prefs.language !== "zh" && (

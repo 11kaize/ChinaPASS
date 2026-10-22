@@ -249,10 +249,29 @@ export const appPages: AppPage[] = [
   {
     id: "address",
     path: "/address",
-    title: "My address card",
-    zh: "地址卡",
-    description: "Save Chinese destination details to show a driver.",
+    title: "Address wallet",
+    zh: "地址钱包",
+    description:
+      "Save multiple places, choose a default destination and show a Chinese address card.",
     keywords: ["address", "destination", "地址", "目的地"],
+  },
+  {
+    id: "talk",
+    path: "/talk",
+    title: "Two-way talk",
+    zh: "双向沟通板",
+    description:
+      "Show a Chinese question; the other person selects a preset bilingual reply or enters a CNY amount. Offline, no live translation or payment.",
+    keywords: ["two-way", "reply board", "communicate", "回答", "沟通", "金额"],
+  },
+  {
+    id: "place-edit",
+    path: "/place-edit",
+    title: "Add a place",
+    zh: "添加地点",
+    description:
+      "Save a named Chinese destination in the on-device address wallet.",
+    keywords: ["save place", "add address", "保存地点", "添加地址"],
   },
   {
     id: "city",
@@ -300,7 +319,7 @@ export const appPages: AppPage[] = [
     path: "/write-card",
     title: "Create a help card",
     zh: "制作求助卡",
-    description: "Supply your own Chinese phrase and English note.",
+    description: "Create or edit a Chinese card, save a bundled template as a personal copy, and optionally preview a MyMemory translation after consent. Translation requires network access.",
     keywords: ["custom card", "write card", "自定义卡", "制作卡"],
   },
   ...content.scenes.map((scene) => ({

@@ -14,6 +14,7 @@ import {
   Icon,
   Empty,
   IconButton,
+  Button,
 } from "../../ui";
 export default function Cards() {
   const { t, colors, prefs, L, update } = useApp();
@@ -72,6 +73,18 @@ export default function Cards() {
                 onPress={() => router.push("/write-card")}
               />
             </View>
+            <View style={{ marginBottom: 16 }}>
+              <Button
+                secondary
+                icon="chat"
+                label={
+                  prefs.language === "zh"
+                    ? "打开双向沟通板"
+                    : "Open two-way talk"
+                }
+                onPress={() => router.push("/talk")}
+              />
+            </View>
             <Search
               value={query}
               onChange={setQuery}
@@ -119,6 +132,7 @@ export default function Cards() {
                     lineHeight: 26,
                     fontWeight: "600",
                   }}
+                  numberOfLines={3}
                 >
                   {item.en.replace(/%s/g, "___")}
                 </Txt>
@@ -126,7 +140,7 @@ export default function Cards() {
                   <Icon name="save" weight="fill" size={16} />
                 )}
               </View>
-              <Txt variant="caption" color={colors.secondary}>
+              <Txt variant="caption" color={colors.secondary} numberOfLines={2}>
                 {item.zh.replace(/%s/g, "___")}
               </Txt>
             </Tap>
