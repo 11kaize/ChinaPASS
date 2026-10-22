@@ -152,6 +152,22 @@ export const appPages: AppPage[] = [
     keywords: ["plus", "pro", "upgrade", "subscription", "会员", "升级"],
   },
   {
+    id: "account",
+    path: "/account",
+    title: "Personal details",
+    zh: "个人资料",
+    description: "Edit your local display name and bio. Sign-in email cannot be changed here.",
+    keywords: ["profile edit", "display name", "bio", "昵称", "简介", "个人资料"],
+  },
+  {
+    id: "orders",
+    path: "/orders",
+    title: "Activation history",
+    zh: "开通记录",
+    description: "Local demo membership activations only. No actual payments or receipts.",
+    keywords: ["activation", "order history", "billing", "开通记录", "订单", "充值记录"],
+  },
+  {
     id: "emergency",
     path: "/emergency",
     title: "Emergency help",

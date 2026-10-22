@@ -53,6 +53,7 @@ type Product = {
   signup: (name: string, email: string, password: string) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  editProfile: (name: string, bio: string) => void;
   upgrade: (tier: "plus" | "pro") => void;
   publish: (
     title: string,
@@ -209,10 +210,49 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
     logout() {
       commit((old) => ({ ...old, activeId: null }));
     },
+    editProfile(name, bio) {
+      if (!name.trim() || name.trim().length > 40 || bio.trim().length > 160)
+        throw new Error(
+          "Use a name of 1–40 characters and a bio of up to 160 characters.",
+        );
+      const p = signedIn();
+      commit((old) => ({
+        ...old,
+        accounts: old.accounts.map((a) =>
+          a.profile.id === p.id
+            ? {
+                ...a,
+                profile: { ...a.profile, name: name.trim(), bio: bio.trim() },
+              }
+            : a,
+        ),
+        posts: old.posts.map((post) => ({
+          ...post,
+          authorName: post.authorId === p.id ? name.trim() : post.authorName,
+          replies: post.replies.map((reply) =>
+            reply.authorId === p.id
+              ? { ...reply, authorName: name.trim() }
+              : reply,
+          ),
+        })),
+      }));
+    },
     upgrade(next) {
+      const createdAt = new Date().toISOString();
+      const expiresAt = nextExpiry(next);
       updateProfile((p) => ({
         ...p,
-        membership: { tier: next, expiresAt: nextExpiry(next) },
+        membership: { tier: next, expiresAt },
+        orders: [
+          {
+            id: id(),
+            tier: next,
+            priceUSD: plans[next].priceUSD,
+            createdAt,
+            expiresAt,
+          },
+          ...(p.orders || []),
+        ],
       }));
     },
     publish(title, body, city, category, media) {

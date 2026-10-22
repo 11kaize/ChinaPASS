@@ -12,7 +12,9 @@
     "register",
     "upgrade",
     "preferences",
-    "transport"
+    "transport",
+    "account",
+    "orders"
   ],
   "membership": "local demo; no billing",
   "community": "local demo; media supported",

@@ -45,7 +45,10 @@ export default function Community() {
           ? p.authorId === profile?.id
           : filter === "saved"
             ? (p.savedBy || []).includes(profile?.id || "")
-            : true,
+            : filter === "activity"
+              ? p.likedBy.includes(profile?.id || "") ||
+                p.replies.some((r) => r.authorId === profile?.id)
+              : true,
   );
   const ranked = hotPosts(posts);
   const act = (fn: () => void) => {
@@ -249,6 +252,7 @@ export default function Community() {
           { id: "featured", label: zh ? "精华贴" : "Editor's picks" },
           { id: "saved", label: zh ? "收藏" : "Saved" },
           { id: "mine", label: zh ? "我的" : "Mine" },
+          { id: "activity", label: zh ? "互动" : "Activity" },
         ]}
       />
       {Boolean(error) && <Notice danger text={error} />}

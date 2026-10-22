@@ -12,6 +12,14 @@ export type Profile = {
   email: string;
   membership: Membership;
   usage: Usage;
+  bio?: string;
+  orders?: {
+    id: string;
+    tier: "plus" | "pro";
+    priceUSD: number;
+    createdAt: string;
+    expiresAt: string;
+  }[];
 };
 export type Reply = {
   id: string;

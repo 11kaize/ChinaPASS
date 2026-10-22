@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { FlatList, View } from "react-native";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useApp } from "../../state";
 import { cards, phrases, searchPhrases, content } from "../../content";
 import {
@@ -17,8 +17,10 @@ import {
 } from "../../ui";
 export default function Cards() {
   const { t, colors, prefs, L, update } = useApp();
-  const [query, setQuery] = useState(""),
-    [filter, setFilter] = useState("all");
+  const [query, setQuery] = useState("");
+  const params = useLocalSearchParams<{ filter?: string }>();
+  const filter = params.filter || "all";
+  const setFilter = (value: string) => router.setParams({ filter: value });
   const bank = useMemo(
     () => [...cards, ...prefs.customCards, ...phrases],
     [prefs.customCards],
