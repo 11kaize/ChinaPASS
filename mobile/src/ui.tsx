@@ -385,9 +385,7 @@ export function TopBar({
         <IconButton
           name="back"
           label={t("back")}
-          onPress={() =>
-            backOrReplace(router)
-          }
+          onPress={() => backOrReplace(router)}
         />
       ) : (
         <View style={styles.row}>
@@ -401,6 +399,13 @@ export function TopBar({
         </Txt>
       ) : (
         <View style={{ flex: 1 }} />
+      )}
+      {!back && (
+        <IconButton
+          name="search"
+          label="Search all of ChinaHand"
+          onPress={() => router.push("/search")}
+        />
       )}
       <IconButton
         name="emergency"
@@ -449,12 +454,7 @@ export function Page({
       style={{ flex: 1, backgroundColor: colors.bg }}
     >
       <Image
-        source={
-          backdrop ||
-          (isDark
-            ? artwork.homeNight
-            : artwork.homeDay)
-        }
+        source={backdrop || (isDark ? artwork.homeNight : artwork.homeDay)}
         resizeMode="cover"
         accessibilityLabel={
           isDark
@@ -484,7 +484,13 @@ export function Page({
             showsVerticalScrollIndicator={false}
           >
             {scrollingHeader && (
-              <View style={{ marginHorizontal: -22, marginTop: -9, marginBottom: 9 }}>
+              <View
+                style={{
+                  marginHorizontal: -22,
+                  marginTop: -9,
+                  marginBottom: 9,
+                }}
+              >
                 {header}
               </View>
             )}

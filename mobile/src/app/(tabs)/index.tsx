@@ -5,6 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { router, Href } from "expo-router";
 import { useApp } from "../../state";
 import { content } from "../../content";
+import { CommunicationTools } from "../../communication-tools";
 import {
   Page,
   Surface,
@@ -150,6 +151,25 @@ export default function Home() {
       header={<HomeHeader />}
       headerScrolls
     >
+      <Tap
+        label={zh ? "搜索整个 ChinaHand" : "Search all of ChinaHand"}
+        onPress={() => router.push("/search")}
+        style={{
+          paddingHorizontal: 14,
+          minHeight: 44,
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 9,
+          borderRadius: 16,
+          backgroundColor: colors.surface,
+          marginBottom: 8,
+        }}
+      >
+        <Icon name="search" size={17} />
+        <Txt variant="caption" color={colors.secondary}>
+          {zh ? "搜索指南、短语、机场…" : "Search guides, phrases, airports…"}
+        </Txt>
+      </Tap>
       <Surface
         glass
         style={{
@@ -268,6 +288,7 @@ export default function Home() {
           </View>
         </ImageBackground>
       </View>
+      <CommunicationTools />
       <Tap
         label={zh ? "问问 ChinaHand AI" : "Ask ChinaHand AI"}
         onPress={() => router.navigate("/chat")}
@@ -405,6 +426,16 @@ export default function Home() {
       <Section title={zh ? "你的生活工具箱" : "Your everyday toolkit"}>
         <Surface glass>
           {[
+            {
+              label: zh ? "我的行程本" : "My planner",
+              icon: "prep",
+              path: "/planner",
+            },
+            {
+              label: zh ? "人民币账本" : "CNY budget",
+              icon: "pay",
+              path: "/budget",
+            },
             { label: t("prep"), icon: "prep", path: "/preparation" },
             {
               label: zh ? "地址钱包" : "Address wallet",

@@ -25,6 +25,12 @@ export default function Upgrade() {
     new Date(value).toLocaleDateString(zh ? "zh-CN" : "en-US");
   const benefits = [
     {
+      title: text("面对面双向翻译", "Face-to-face translation"),
+      free: "—",
+      plus: "✓",
+      pro: "✓",
+    },
+    {
       title: text("每月 AI 问答", "Monthly AI questions"),
       free: "20",
       plus: "500",
@@ -50,6 +56,16 @@ export default function Upgrade() {
     },
   ];
   const questions = [
+    [
+      text(
+        "面对面翻译需要 Key 吗？",
+        "Does face-to-face translation need a key?",
+      ),
+      text(
+        "不需要。Plus 和 Pro 包含面对面布局与双向同步文字翻译，使用 MyMemory 在线服务；匿名每天 5,000 字符、单次最多 500 字节，会员不增加服务商额度。开始前须双方同意发送文字，服务商可能保留文字。卡片内翻译和离线沟通板免费。",
+        "No. Plus and Pro include the shared layout and two-way live text translation using MyMemory online. The anonymous provider limit is 5,000 characters/day and 500 bytes/request; membership does not raise it. Both people should agree before text is sent; the provider may retain text. Card translation and offline talk remain free.",
+      ),
+    ],
     [
       text("充值后还需要 API Key 吗？", "Do I still need my own API key?"),
       text(
@@ -108,8 +124,8 @@ export default function Upgrade() {
         </Txt>
         <Txt variant="caption" color={colors.secondary}>
           {text(
-            "更多 AI 问答、实用快捷跳转，让中国生活更顺手。",
-            "More room to ask, useful shortcuts, and a smoother everyday life in China.",
+            "面对面翻译、更多 AI 问答与实用快捷跳转。",
+            "Face-to-face translation, more room to ask, and useful app shortcuts.",
           )}
         </Txt>
         <View

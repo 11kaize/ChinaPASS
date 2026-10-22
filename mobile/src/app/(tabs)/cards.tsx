@@ -3,6 +3,7 @@ import { FlatList, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useApp } from "../../state";
 import { cards, phrases, searchPhrases, content } from "../../content";
+import { CommunicationTools } from "../../communication-tools";
 import {
   Page,
   Heading,
@@ -14,7 +15,6 @@ import {
   Icon,
   Empty,
   IconButton,
-  Button,
 } from "../../ui";
 export default function Cards() {
   const { t, colors, prefs, L, update } = useApp();
@@ -73,18 +73,7 @@ export default function Cards() {
                 onPress={() => router.push("/write-card")}
               />
             </View>
-            <View style={{ marginBottom: 16 }}>
-              <Button
-                secondary
-                icon="chat"
-                label={
-                  prefs.language === "zh"
-                    ? "打开双向沟通板"
-                    : "Open two-way talk"
-                }
-                onPress={() => router.push("/talk")}
-              />
-            </View>
+            <CommunicationTools />
             <Search
               value={query}
               onChange={setQuery}

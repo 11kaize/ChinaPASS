@@ -249,8 +249,8 @@ export default function Profile() {
             },
             {
               icon: "prep",
-              label: text("我的行程", "My trip"),
-              path: "/trip",
+              label: text("行程本", "My planner"),
+              path: "/planner",
               color: "#5276C9",
             },
             {
@@ -267,7 +267,7 @@ export default function Profile() {
                   router.push(
                     item.path === "/cards"
                       ? { pathname: "/cards", params: { filter: "custom" } }
-                      : (item.path as "/trip" | "/address"),
+                      : (item.path as "/planner" | "/address"),
                   )
                 }
                 style={{ paddingVertical: 16, alignItems: "center", gap: 9 }}
@@ -283,8 +283,17 @@ export default function Profile() {
           ))}
         </View>
       </Section>
-      <Section title={text("离线沟通工具", "Offline communication")}>
+      <Section title={text("沟通与翻译", "Talk & translate")}>
         <Surface>
+          <Row
+            title={text("面对面翻译", "Face-to-face translation")}
+            subtitle={text(
+              "Plus / Pro · 中英双向同步",
+              "Plus / Pro · two-way live text translation",
+            )}
+            icon="cards"
+            onPress={() => router.push("/translate")}
+          />
           <Row
             title={text("双向沟通板", "Two-way talk")}
             subtitle={text(
@@ -298,6 +307,27 @@ export default function Profile() {
         </Surface>
       </Section>
       <Section title={text("账户与服务", "Account & services")}>
+        <Surface style={{ marginBottom: 12 }}>
+          <Row
+            title={text("人民币账本", "CNY budget")}
+            subtitle={text(
+              "设置预算、分类记录每笔支出",
+              "Set a budget and track spending by category",
+            )}
+            icon="pay"
+            onPress={() => router.push("/budget")}
+          />
+          <Row
+            title={text("城市与旅程阶段", "City & journey stage")}
+            subtitle={text(
+              "选择生活指南的使用环境",
+              "Choose the context for your guides",
+            )}
+            icon="address"
+            last
+            onPress={() => router.push("/trip")}
+          />
+        </Surface>
         <Surface>
           <Row
             title={text("个人资料", "Personal details")}
@@ -335,6 +365,15 @@ export default function Profile() {
             }
             icon="privacy"
             onPress={() => router.push("/ai-config")}
+          />
+          <Row
+            title={text("搜索整个 ChinaHand", "Search all of ChinaHand")}
+            subtitle={text(
+              "离线搜索指南正文、卡片与常见问题",
+              "Find guide details, cards and common questions offline",
+            )}
+            icon="search"
+            onPress={() => router.push("/search")}
           />
           <Row
             title={text("帮助中心", "Help centre")}

@@ -1,5 +1,7 @@
 import type { SavedPlace } from "./places";
 import type { Language, Phrase } from "./content";
+import { sanitizeExpenses, type Expense } from "./budget";
+import { sanitizeItinerary, type ItineraryItem } from "./itinerary";
 export type Preferences = {
   language: Language;
   appearance: "system" | "light" | "dark";
@@ -14,6 +16,9 @@ export type Preferences = {
   address: { name: string; address: string; phone: string };
   places: SavedPlace[];
   defaultPlaceId: string | null;
+  itinerary: ItineraryItem[];
+  budgetCents: number | null;
+  expenses: Expense[];
   onboarded: boolean;
   shareContext: boolean;
 };
@@ -31,6 +36,9 @@ export const freshPreferences = (): Preferences => ({
   address: { name: "", address: "", phone: "" },
   places: [],
   defaultPlaceId: null,
+  itinerary: [],
+  budgetCents: null,
+  expenses: [],
   onboarded: false,
   shareContext: true,
 });
@@ -73,6 +81,15 @@ export function persistable(p: Preferences): Preferences {
       : [],
     defaultPlaceId:
       typeof p.defaultPlaceId === "string" ? p.defaultPlaceId : null,
+    itinerary: sanitizeItinerary(p.itinerary),
+    budgetCents:
+      Number.isSafeInteger(p.budgetCents) &&
+      p.budgetCents !== null &&
+      p.budgetCents >= 0 &&
+      p.budgetCents <= 99_999_999
+        ? p.budgetCents
+        : null,
+    expenses: sanitizeExpenses(p.expenses),
     onboarded: p.onboarded,
     shareContext: p.shareContext,
   };

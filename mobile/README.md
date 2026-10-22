@@ -121,6 +121,20 @@ Deleting a local community story now removes its attachments before removing the
 
 See the [static feature audit and next suggestions](../docs/22-2026-10-22-static-feature-audit.md).
 
+## Face-to-face translation and offline search
+
+**Home / Cards / Me → Face-to-face translation** opens a dedicated shared-screen tool for Plus and Pro demo memberships. The Chinese half rotates 180° toward the other reader. After both people agree, typing in either half translates to the opposite half after a 1-second pause. Text translation uses the same keyless MyMemory service and provider limits as the free card editor; membership does not buy or increase provider credit. It does not include microphone capture or speech recognition. The system keyboard keeps the device orientation.
+
+Pause before handing the device over; resume explicitly to send the current original. Backgrounding or leaving the screen stops sync. Clear removes both texts, and refreshing clears the entire translation session. Membership expiry/sign-out cancels requests and clears this screen’s text. Nothing is saved to cards or chat automatically, and AI keys are never read by translation.
+
+**Home → Search**, or the search icon in the main app bar, searches bundled guide bodies, FAQs, cards, phrases, cities and arrival ports without sending a query anywhere. Custom cards are included; private saved addresses, AI chat and community posts are excluded. Matching guide text is shown at the top of the guide; matching FAQ entries open first. Community search remains separate and retains its own trending flow.
+
+See [face-to-face translation and the follow-up static audit](../docs/23-2026-10-22-face-to-face-search.md).
+
+**Home / Me → My planner** saves up to 100 dated events with China local time (UTC+8), notes, completion status and an optional address-wallet destination. Open a linked Chinese place card directly from an event. Removing a place does not delete the event. City and journey-stage selection remains under its original settings.
+
+**Home / Me → CNY budget** stores an optional trip budget and up to 200 manually entered expenses. Add/edit an amount, category, China local date and note; review category totals, recorded spending and remaining budget. Calculations use integer cents. These records have no bank integration, payments or live exchange rates. Both tools persist on this device and clear with local data; neither is added to AI context.
+
 ## Built-in demo artwork
 
 The browser demo embeds ten phone-sized WebP illustrations in its JavaScript bundle (`src/artwork.web.ts`). They are decoded during startup and reused across routes and appearance changes, so pages do not fetch large PNG files separately. The first visit still downloads the application bundle; this is not an offline-install guarantee.

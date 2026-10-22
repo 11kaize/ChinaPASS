@@ -32,6 +32,42 @@ export const transportModes = [
 ] as const;
 export const appPages: AppPage[] = [
   {
+    id: "planner",
+    path: "/planner",
+    title: "My planner",
+    zh: "本机行程本",
+    description:
+      "Plan dated events in China local time, mark completion and link saved destination cards. On-device notes only, no booking or reminders.",
+    keywords: ["planner", "itinerary", "schedule", "行程本", "日程", "安排"],
+  },
+  {
+    id: "budget",
+    path: "/budget",
+    title: "CNY budget",
+    zh: "人民币账本",
+    description:
+      "Set a CNY trip budget, manually record expenses and review remaining budget and category totals on this device. No payments, account sync or live exchange rates.",
+    keywords: ["budget", "expense", "spending", "账本", "预算", "记账"],
+  },
+  {
+    id: "translate",
+    path: "/translate",
+    title: "Face-to-face translation",
+    zh: "面对面翻译",
+    description:
+      "Plus and Pro shared-screen English–Chinese live text translation via MyMemory after consent. Chinese half faces the other person, rotated 180 degrees. Online, provider limits apply; no voice recognition.",
+    keywords: ["translation", "translate", "face-to-face", "翻译", "面对面"],
+  },
+  {
+    id: "search",
+    path: "/search",
+    title: "Search ChinaHand offline",
+    zh: "全应用离线搜索",
+    description:
+      "Search bundled guide details, FAQs, cards, phrases, cities and arrival ports offline.",
+    keywords: ["offline search", "find guide", "搜索", "查找"],
+  },
+  {
     id: "home",
     path: "/",
     title: "Home",
@@ -319,7 +355,8 @@ export const appPages: AppPage[] = [
     path: "/write-card",
     title: "Create a help card",
     zh: "制作求助卡",
-    description: "Create or edit a Chinese card, save a bundled template as a personal copy, and optionally preview a MyMemory translation after consent. Translation requires network access.",
+    description:
+      "Create or edit a Chinese card, save a bundled template as a personal copy, and optionally preview a MyMemory translation after consent. Translation requires network access.",
     keywords: ["custom card", "write card", "自定义卡", "制作卡"],
   },
   ...content.scenes.map((scene) => ({

@@ -4,6 +4,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useApp } from "../../state";
 import { content } from "../../content";
 import { ServiceActions } from "../../service-actions";
+import { guideSections } from "../../offline-search";
 import {
   Page,
   Heading,
@@ -22,11 +23,39 @@ export function generateStaticParams() {
 }
 
 export default function Guide() {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id, match } = useLocalSearchParams<{ id: string; match?: string }>();
   const { t, L, colors, prefs, update, setGuideId } = useApp();
-  const [expanded, setExpanded] = useState(0);
+  const [choice, setChoice] = useState({ route: "", value: 0 });
   const scene = content.scenes.find((s) => s.id === id);
   const short = content.shortGuides.find((s) => s.id === id);
+  const searchMatch = scene
+    ? guideSections(scene, prefs.language).find(
+        (section) => section.id === match,
+      )
+    : short?.steps
+        .map(([title, body], i) => ({ id: `step-${i}`, title, body, step: i }))
+        .find((section) => section.id === match);
+  const routeKey = `${id}:${match || ""}`;
+  const expanded =
+    choice.route === routeKey ? choice.value : (searchMatch?.step ?? 0);
+  const setExpanded = (value: number) => setChoice({ route: routeKey, value });
+  const matchedContent = searchMatch ? (
+    <Surface
+      style={{
+        padding: 18,
+        gap: 8,
+        marginBottom: 20,
+        borderWidth: 1,
+        borderColor: colors.accent,
+      }}
+    >
+      <Txt variant="caption" color={colors.accent}>
+        {prefs.language === "zh" ? "搜索定位" : "Search match"}
+      </Txt>
+      <Txt variant="subheading">{searchMatch.title}</Txt>
+      <Txt selectable>{searchMatch.body}</Txt>
+    </Surface>
+  ) : null;
   useEffect(() => {
     setGuideId(id);
     if (scene) update({ arrivalTask: id });
@@ -41,6 +70,7 @@ export default function Guide() {
     return (
       <Page back>
         <Heading title={short.title} body={short.summary} />
+        {matchedContent}
         <Surface style={{ padding: 22, gap: 24 }}>
           {short.steps.map(([title, body]) => (
             <View key={title} style={{ gap: 8 }}>
@@ -66,6 +96,7 @@ export default function Guide() {
   return (
     <Page back>
       <Heading title={L(s.title)} body={L(s.subtitle)} />
+      {matchedContent}
       <View style={{ flexDirection: "row", gap: 12, marginBottom: 20 }}>
         <Txt variant="caption" color={colors.accent}>
           {done.length}/{s.steps.length} {t("completed")}
@@ -74,7 +105,15 @@ export default function Guide() {
           {L(s.eta)}
         </Txt>
       </View>
-      {s.id === "customs" && port && port.kind !== "air" && <Notice text={prefs.language === "zh" ? "此指南含机场步骤。你选择的是铁路或海港口岸，行李和入境流程可能不同，请遵循现场指引。" : "This guide includes airport steps. Your rail or ferry port may use a different arrival process; follow staff instructions."} />}
+      {s.id === "customs" && port && port.kind !== "air" && (
+        <Notice
+          text={
+            prefs.language === "zh"
+              ? "此指南含机场步骤。你选择的是铁路或海港口岸，行李和入境流程可能不同，请遵循现场指引。"
+              : "This guide includes airport steps. Your rail or ferry port may use a different arrival process; follow staff instructions."
+          }
+        />
+      )}
       {zhMissing && <Notice text={t("englishFallback")} />}
       <RichText text={L(s.task)} />
       <View style={{ height: 25 }} />

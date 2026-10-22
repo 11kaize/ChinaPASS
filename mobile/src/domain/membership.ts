@@ -6,6 +6,7 @@ export const plans = {
     period: "month",
     monthlyQuestions: 20,
     pageActions: false,
+    faceToFace: false,
   },
   plus: {
     name: "Plus",
@@ -13,6 +14,7 @@ export const plans = {
     period: "month",
     monthlyQuestions: 500,
     pageActions: true,
+    faceToFace: true,
   },
   pro: {
     name: "Pro",
@@ -20,6 +22,7 @@ export const plans = {
     period: "year",
     monthlyQuestions: 2000,
     pageActions: true,
+    faceToFace: true,
   },
 } as const;
 export type Membership = { tier: Tier; expiresAt: string | null };

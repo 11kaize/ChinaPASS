@@ -17,7 +17,11 @@
     "account",
     "orders",
     "place-edit",
-    "talk"
+    "talk",
+    "translate",
+    "search",
+    "planner",
+    "budget"
   ],
   "membership": "local demo; no billing",
   "community": "local demo; media supported",

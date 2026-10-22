@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { clearAllMedia, deleteMedia } from "./local-media";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AppState } from "react-native";
 import * as Crypto from "expo-crypto";
 import {
   Profile,
@@ -138,6 +139,25 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
   }, [data, ready]);
   const profile =
     data.accounts.find((a) => a.profile.id === data.activeId)?.profile || null;
+  const [membershipClock, setMembershipClock] = useState(0);
+  const expiresAt = profile?.membership.expiresAt;
+  useEffect(() => {
+    if (!expiresAt) return;
+    const remaining = Date.parse(expiresAt) - new Date().getTime();
+    if (!Number.isFinite(remaining) || remaining <= 0) return;
+    // Annual subscriptions exceed the maximum timeout; recheck in bounded chunks.
+    const timer = setTimeout(
+      () => setMembershipClock((value) => value + 1),
+      Math.min(remaining + 10, 2_000_000_000),
+    );
+    return () => clearTimeout(timer);
+  }, [expiresAt, membershipClock]);
+  useEffect(() => {
+    const listener = AppState.addEventListener("change", (state) => {
+      if (state === "active") setMembershipClock((value) => value + 1);
+    });
+    return () => listener.remove();
+  }, []);
   const tier = profile ? effectiveTier(profile.membership) : "free";
   const signedIn = () => {
     const p = current.current.accounts.find(
