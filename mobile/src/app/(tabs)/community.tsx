@@ -4,24 +4,15 @@ import { View, Image } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useApp } from "../../state";
 import { useProduct } from "../../product-state";
-import {
-  Post,
-  hotPosts,
-  hotScore,
-  isFeatured,
-  likeCount,
-  searchPosts,
-} from "../../domain/community";
+import { Post, isFeatured, likeCount } from "../../domain/community";
 import {
   Page,
   Heading,
-  Section,
   Surface,
   Txt,
   Tap,
   Icon,
   Button,
-  Field,
   Chips,
   Notice,
 } from "../../ui";
@@ -34,9 +25,8 @@ export default function Community() {
   const params = useLocalSearchParams<{ filter?: string }>();
   const filter = params.filter || "all";
   const setFilter = (value: string) => router.setParams({ filter: value });
-  const [query, setQuery] = useState(""),
-    [error, setError] = useState("");
-  const visible = searchPosts(posts, query).filter((p) =>
+  const [error, setError] = useState("");
+  const visible = posts.filter((p) =>
     filter === "help"
       ? p.category === "help"
       : filter === "featured"
@@ -50,7 +40,6 @@ export default function Community() {
                 p.replies.some((r) => r.authorId === profile?.id)
               : true,
   );
-  const ranked = hotPosts(posts);
   const act = (fn: () => void) => {
     if (!profile) {
       router.push("/login");
@@ -237,12 +226,27 @@ export default function Community() {
           <Icon name="plus" color={colors.onAccent} size={22} />
         </Tap>
       </View>
-      <Field
-        label={zh ? "搜索帖子" : "Search posts"}
-        placeholder={zh ? "机场、优惠券、酒店…" : "Airport, coupons, hotel…"}
-        value={query}
-        onChangeText={setQuery}
-      />
+      <Tap
+        label={zh ? "搜索社区" : "Search community"}
+        onPress={() => router.push("/community-search")}
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 10,
+          paddingHorizontal: 15,
+          minHeight: 46,
+          borderRadius: 17,
+          backgroundColor: colors.raised,
+          marginBottom: 18,
+        }}
+      >
+        <Icon name="search" size={18} color={colors.secondary} />
+        <Txt variant="label" color={colors.secondary} numberOfLines={1} style={{ flex: 1 }}>
+          {zh
+            ? "搜索帖子、城市和生活经验"
+            : "Search stories, places & everyday tips"}
+        </Txt>
+      </Tap>
       <Chips
         value={filter}
         onChange={setFilter}
@@ -265,11 +269,6 @@ export default function Community() {
           }
         />
       )}
-      {Boolean(query.trim()) && (
-        <Txt variant="caption" style={{ marginVertical: 12 }}>
-          {visible.length} {zh ? "条匹配帖子" : "matching posts"}
-        </Txt>
-      )}
       <View style={{ flexDirection: "row", gap: 10, marginTop: 16 }}>
         {[0, 1].map((column) => (
           <View key={column} style={{ flex: 1 }}>
@@ -289,65 +288,6 @@ export default function Community() {
           />
         </Surface>
       )}
-      <Section title={zh ? "近期热度 · TOP 10" : "Trending this week · TOP 10"}>
-        <Txt
-          variant="caption"
-          color={colors.secondary}
-          style={{ marginBottom: 10 }}
-        >
-          {zh
-            ? "近 7 天点赞 ×1、收藏 ×3、评论 ×2，随时间衰减。示例帖包含演示数据。"
-            : "Past 7 days: likes ×1, saves ×3, replies ×2, decayed over time. Sample posts include demo activity."}
-        </Txt>
-        <Surface glass>
-          {ranked.map((post, index) => (
-            <Tap
-              key={post.id}
-              label={`Trending ${index + 1}: ${post.title}`}
-              onPress={() =>
-                router.push({ pathname: "/post", params: { id: post.id } })
-              }
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 12,
-                padding: 15,
-                borderBottomWidth: index === ranked.length - 1 ? 0 : 0.5,
-                borderColor: colors.line,
-              }}
-            >
-              <Txt
-                style={{
-                  fontSize: 17,
-                  fontWeight: "700",
-                  color: index < 3 ? colors.accent : colors.secondary,
-                  width: 22,
-                }}
-              >
-                {String(index + 1).padStart(2, "0")}
-              </Txt>
-              <View style={{ flex: 1, gap: 4 }}>
-                <Txt variant="label" numberOfLines={1}>
-                  {post.title}
-                </Txt>
-                <Txt variant="caption" color={colors.secondary}>
-                  {Math.round(hotScore(post)).toLocaleString()}{" "}
-                  {zh ? "热度" : "points"}
-                  {post.sample ? " · DEMO" : ""}
-                </Txt>
-              </View>
-              <Icon name="next" size={14} />
-            </Tap>
-          ))}
-        </Surface>
-        {!ranked.length && (
-          <Txt variant="caption">
-            {zh
-              ? "最近七天暂无活跃帖子。"
-              : "No activity in the past seven days."}
-          </Txt>
-        )}
-      </Section>
     </Page>
   );
 }

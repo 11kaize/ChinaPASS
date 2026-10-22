@@ -28,7 +28,7 @@ const content = JSON.parse(await readFile(path.join(mobile, 'src/content/content
 for (const { id } of [...content.scenes, ...content.shortGuides]) {
   await readFile(path.join(source, 'guide', id, 'index.html'));
 }
-const productRoutes = ['community', 'create-post', 'post', 'login', 'register', 'upgrade', 'preferences', 'transport', 'account', 'orders'];
+const productRoutes = ['community', 'community-search', 'create-post', 'post', 'login', 'register', 'upgrade', 'preferences', 'transport', 'account', 'orders'];
 for (const route of productRoutes) await readFile(path.join(source, route, 'index.html'));
 const artworkReport = JSON.parse(await readFile(path.join(mobile, 'assets/optimized/manifest.json'), 'utf8'));
 const artwork = {

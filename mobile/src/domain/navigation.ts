@@ -74,6 +74,22 @@ export const appPages: AppPage[] = [
     keywords: ["charger", "charging", "help nearby", "充电", "求助", "救助贴"],
   },
   {
+    id: "community-search",
+    path: "/community-search",
+    title: "Search community",
+    zh: "社区搜索",
+    description:
+      "Search community posts and see the weekly trending list before entering a query.",
+    keywords: [
+      "search posts",
+      "trending",
+      "hot ranking",
+      "搜索",
+      "热榜",
+      "热门",
+    ],
+  },
+  {
     id: "community-featured",
     path: "/community?filter=featured",
     title: "Editor's picks",
@@ -156,16 +172,32 @@ export const appPages: AppPage[] = [
     path: "/account",
     title: "Personal details",
     zh: "个人资料",
-    description: "Edit your local display name and bio. Sign-in email cannot be changed here.",
-    keywords: ["profile edit", "display name", "bio", "昵称", "简介", "个人资料"],
+    description:
+      "Edit your local display name and bio. Sign-in email cannot be changed here.",
+    keywords: [
+      "profile edit",
+      "display name",
+      "bio",
+      "昵称",
+      "简介",
+      "个人资料",
+    ],
   },
   {
     id: "orders",
     path: "/orders",
     title: "Activation history",
     zh: "开通记录",
-    description: "Local demo membership activations only. No actual payments or receipts.",
-    keywords: ["activation", "order history", "billing", "开通记录", "订单", "充值记录"],
+    description:
+      "Local demo membership activations only. No actual payments or receipts.",
+    keywords: [
+      "activation",
+      "order history",
+      "billing",
+      "开通记录",
+      "订单",
+      "充值记录",
+    ],
   },
   {
     id: "emergency",

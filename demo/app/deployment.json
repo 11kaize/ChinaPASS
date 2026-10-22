@@ -6,6 +6,7 @@
   "apiKeyStorage": "memory-only; reload clears session",
   "productRoutes": [
     "community",
+    "community-search",
     "create-post",
     "post",
     "login",
