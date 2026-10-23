@@ -18,8 +18,8 @@ import { useProduct } from "./product-state";
 import { useApp } from "./state";
 import { Brand, Txt, Tap, Icon, useMotionValue, useReducedMotion } from "./ui";
 export function AuthScreen({ register = false }: { register?: boolean }) {
-  const { signup, login } = useProduct();
-  const { prefs } = useApp();
+  const { signup, login, loginDemo, ready } = useProduct();
+  const { prefs, update, disconnect } = useApp();
   const zh = prefs.language === "zh";
   const [name, setName] = useState(""),
     [email, setEmail] = useState(""),
@@ -60,6 +60,22 @@ export function AuthScreen({ register = false }: { register?: boolean }) {
       if (register) await signup(name, email, password);
       else await login(email, password);
       setPassword("");
+      router.replace("/settings");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Please try again.");
+    } finally {
+      setBusy(false);
+    }
+  };
+  const enterDemo = () => {
+    if (busy || !ready) return;
+    setBusy(true);
+    setError("");
+    try {
+      loginDemo();
+      disconnect();
+      setPassword("");
+      update({ onboarded: true });
       router.replace("/settings");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Please try again.");
@@ -120,6 +136,7 @@ export function AuthScreen({ register = false }: { register?: boolean }) {
           behavior={Platform.OS === "ios" ? "padding" : undefined}
         >
           <ScrollView
+            showsVerticalScrollIndicator={false}
             contentContainerStyle={{
               padding: 24,
               paddingBottom: 32,
@@ -143,22 +160,24 @@ export function AuthScreen({ register = false }: { register?: boolean }) {
               nativeID="auth-gateway-mark"
               style={{
                 alignItems: "center",
-                paddingTop: 30,
-                paddingBottom: 24,
+                justifyContent: "center",
+                flexDirection: register ? "column" : "row",
+                paddingTop: register ? 30 : 16,
+                paddingBottom: register ? 24 : 14,
                 gap: 10,
                 opacity: glow,
               }}
             >
-              <Brand large />
+              <Brand large={register} />
               <Txt style={{ fontSize: 11, letterSpacing: 3, color: "#D1E2FC" }}>
                 CHINAHAND
               </Txt>
             </Animated.View>
-            <View style={{ marginTop: "auto", paddingTop: 28 }}>
+            <View style={{ marginTop: "auto", paddingTop: register ? 28 : 12 }}>
               <Txt
                 style={{
-                  fontSize: 31,
-                  lineHeight: 36,
+                  fontSize: register ? 31 : 27,
+                  lineHeight: register ? 36 : 32,
                   fontWeight: "600",
                   letterSpacing: -0.8,
                   color: "#F5F8FF",
@@ -233,7 +252,51 @@ export function AuthScreen({ register = false }: { register?: boolean }) {
                   </>
                 )}
               </Tap>
+              {!register && (
+                <View style={{ marginTop: 10, gap: 7 }}>
+                  <Tap
+                    disabled={busy || !ready}
+                    label={zh ? "一键登录 Demo 账号" : "One-tap demo sign-in"}
+                    onPress={enterDemo}
+                    style={{
+                      minHeight: 50,
+                      borderRadius: 18,
+                      borderWidth: 1,
+                      borderColor: "rgba(216,233,255,0.45)",
+                      backgroundColor: "rgba(190,215,255,0.12)",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 9,
+                    }}
+                  >
+                    <Icon name="profile" color="#E5F0FF" size={19} />
+                    <Txt
+                      style={{
+                        color: "#F0F6FF",
+                        fontSize: 14,
+                        fontWeight: "600",
+                      }}
+                    >
+                      {zh ? "一键登录 Demo 账号" : "One-tap demo sign-in"}
+                    </Txt>
+                  </Tap>
+                  <Txt
+                    style={{
+                      color: "#C5D6EE",
+                      fontSize: 11,
+                      lineHeight: 17,
+                      textAlign: "center",
+                    }}
+                  >
+                    {zh
+                      ? "无需邮箱或密码 · Pro 演示权益 · 不扣款"
+                      : "No email or password · Pro demo access · no charge"}
+                  </Txt>
+                </View>
+              )}
               <Tap
+                disabled={busy}
                 label={register ? "Sign in instead" : "Create account"}
                 onPress={() =>
                   router.replace(register ? "/login" : "/register")
@@ -259,8 +322,12 @@ export function AuthScreen({ register = false }: { register?: boolean }) {
                 }}
               >
                 {zh
-                  ? "仅用于本机演示，不会发送邮件。请使用虚拟邮箱和演示密码。"
-                  : "On-device demo only. No email is sent. Use a made-up email and demo password."}
+                  ? register
+                    ? "仅用于本机演示，不会发送邮件。请使用虚拟邮箱和演示密码。"
+                    : "指南和卡片可直接使用。登录仅用于个人资料、社区互动与会员演示。"
+                  : register
+                    ? "On-device demo only. No email is sent. Use a made-up email and demo password."
+                    : "Guides and cards work without signing in. Sign-in is for profiles, community activity and membership demos."}
               </Txt>
             </View>
           </ScrollView>

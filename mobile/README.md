@@ -123,6 +123,8 @@ See the [static feature audit and next suggestions](../docs/22-2026-10-22-static
 
 ## Face-to-face translation and offline search
 
+**Sign in → One-tap demo sign-in** enters a local `ChinaHand Demo` account without an email or password, skips first-run setup and grants Pro demo access. Reusing the button reopens the same demo identity, preserving its posts and profile while refreshing the demo allowance. It does not charge, connect a model or replace your other local accounts. Existing AI connections clear when switching to the demo; bring your own key only if you want to test real AI. Guides and cards can still be browsed without signing in.
+
 **Home / Cards / Me → Face-to-face translation** opens a dedicated shared-screen tool for Plus and Pro demo memberships. The Chinese half rotates 180° toward the other reader. After both people agree, typing in either half translates to the opposite half after a 1-second pause. Text translation uses the same keyless MyMemory service and provider limits as the free card editor; membership does not buy or increase provider credit. It does not include microphone capture or speech recognition. The system keyboard keeps the device orientation.
 
 Pause before handing the device over; resume explicitly to send the current original. Backgrounding or leaving the screen stops sync. Clear removes both texts, and refreshing clears the entire translation session. Membership expiry/sign-out cancels requests and clears this screen’s text. Nothing is saved to cards or chat automatically, and AI keys are never read by translation.

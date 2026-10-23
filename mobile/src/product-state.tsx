@@ -44,6 +44,7 @@ const initial = (): ProductData => ({
   guestUsage: { month: monthKey(), requestIds: [] },
 });
 const STORAGE = "chinahand.demo.community.v1";
+const DEMO_ACCOUNT_ID = "chinahand-local-demo-account";
 type Product = {
   ready: boolean;
   error: string;
@@ -53,6 +54,7 @@ type Product = {
   usage: Usage;
   signup: (name: string, email: string, password: string) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
+  loginDemo: () => void;
   logout: () => void;
   editProfile: (name: string, bio: string) => void;
   upgrade: (tier: "plus" | "pro") => void;
@@ -219,13 +221,48 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
     },
     async login(email, password) {
       const account = current.current.accounts.find(
-        (a) => a.profile.email === email.trim().toLowerCase(),
+        (a) =>
+          a.profile.id !== DEMO_ACCOUNT_ID &&
+          a.profile.email === email.trim().toLowerCase(),
       );
       if (!account || (await digest(account.salt, password)) !== account.digest)
         throw new Error(
           "Email or password does not match a local demo account.",
         );
       commit((old) => ({ ...old, activeId: account.profile.id }));
+    },
+    loginDemo() {
+      if (!ready)
+        throw new Error(
+          "Your local demo is still loading. Try again in a moment.",
+        );
+      commit((old) => {
+        const existing = old.accounts.find(
+          (account) => account.profile.id === DEMO_ACCOUNT_ID,
+        );
+        const demo: Account = {
+          salt: "",
+          digest: "",
+          profile: {
+            ...(existing?.profile || {
+              id: DEMO_ACCOUNT_ID,
+              name: "ChinaHand Demo",
+              email: "demo@chinahand.example",
+            }),
+            membership: { tier: "pro", expiresAt: nextExpiry("pro") },
+            usage: { month: monthKey(), requestIds: [] },
+          },
+        };
+        return {
+          ...old,
+          activeId: DEMO_ACCOUNT_ID,
+          accounts: existing
+            ? old.accounts.map((account) =>
+                account.profile.id === DEMO_ACCOUNT_ID ? demo : account,
+              )
+            : [...old.accounts, demo],
+        };
+      });
     },
     logout() {
       commit((old) => ({ ...old, activeId: null }));
