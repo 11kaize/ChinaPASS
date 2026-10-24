@@ -393,6 +393,7 @@ function ChatSession() {
             >
               <Icon
                 name={busy ? "stop" : "send"}
+                animated
                 size={19}
                 color={colors.onAccent}
                 weight="fill"

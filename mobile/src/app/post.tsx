@@ -115,6 +115,7 @@ export default function PostDetail() {
           <Button
             secondary
             icon="heart"
+            selected={post.likedBy.includes(profile?.id || "")}
             label={`${post.likedBy.includes(profile?.id || "") ? (zh ? "已赞" : "Liked") : zh ? "点赞" : "Like"} · ${likeCount(post).toLocaleString()}`}
             onPress={() => act(() => like(post.id))}
           />
@@ -123,6 +124,7 @@ export default function PostDetail() {
           <Button
             secondary
             icon="save"
+            selected={(post.savedBy || []).includes(profile?.id || "")}
             label={
               (post.savedBy || []).includes(profile?.id || "")
                 ? zh

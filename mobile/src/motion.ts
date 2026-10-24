@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from "react";
-import { AccessibilityInfo, Platform } from "react-native";
+import { AccessibilityInfo, AppState, Platform } from "react-native";
 
 // One system subscription for the whole app, rather than one per button/card.
 const listeners = new Set<() => void>();
@@ -51,4 +51,40 @@ function snapshot() {
 }
 export function useReducedMotion() {
   return useSyncExternalStore(subscribe, snapshot, () => false);
+}
+
+const activityListeners = new Set<() => void>();
+let stopActivity: (() => void) | undefined;
+function activitySnapshot() {
+  if (Platform.OS === "web")
+    return typeof document !== "undefined" && !document.hidden;
+  return (
+    AppState.currentState !== "background" &&
+    AppState.currentState !== "inactive"
+  );
+}
+function subscribeActivity(listener: () => void) {
+  activityListeners.add(listener);
+  if (activityListeners.size === 1) {
+    const changed = () => activityListeners.forEach((notify) => notify());
+    if (Platform.OS === "web" && typeof document !== "undefined") {
+      document.addEventListener("visibilitychange", changed);
+      stopActivity = () =>
+        document.removeEventListener("visibilitychange", changed);
+    } else {
+      const event = AppState.addEventListener("change", changed);
+      stopActivity = () => event.remove();
+    }
+  }
+  return () => {
+    activityListeners.delete(listener);
+    if (!activityListeners.size) {
+      stopActivity?.();
+      stopActivity = undefined;
+    }
+  };
+}
+// Share one foreground listener across every icon; no per-icon AppState subscriptions.
+export function useMotionActive() {
+  return useSyncExternalStore(subscribeActivity, activitySnapshot, () => false);
 }

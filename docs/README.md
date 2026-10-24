@@ -15,3 +15,4 @@
 - [10 月 22 日社区独立搜索页](21-2026-10-22-community-search.md)
 - [10 月 22 日静态功能审查：双向沟通与地址钱包](22-2026-10-22-static-feature-audit.md)
 - [10 月 22 日面对面翻译、离线搜索与静态功能复审](23-2026-10-22-face-to-face-search.md)
+- [10 月 24 日 Morphicons 图标动效](24-2026-10-24-morphicons.md)

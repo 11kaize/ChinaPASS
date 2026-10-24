@@ -3,7 +3,9 @@ import { artwork } from "./artwork";
 import { LinearGradient } from "expo-linear-gradient";
 import { useReducedMotion } from "./motion";
 import { PageMotion } from "./page-motion";
-import React, { useEffect, useState } from "react";
+import { MorphGlyph } from "./morph-icon";
+import { motionIcons } from "./generated/motion-icons";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Easing,
   Keyboard,
@@ -36,6 +38,7 @@ import { CheckCircle } from "phosphor-react-native/src/icons/CheckCircle";
 import { CircleIcon } from "phosphor-react-native/src/icons/Circle";
 import { Checks } from "phosphor-react-native/src/icons/Checks";
 import { CaretRight } from "phosphor-react-native/src/icons/CaretRight";
+import { CaretDown } from "phosphor-react-native/src/icons/CaretDown";
 import { ClipboardText } from "phosphor-react-native/src/icons/ClipboardText";
 import { Scan } from "phosphor-react-native/src/icons/Scan";
 import { Bed } from "phosphor-react-native/src/icons/Bed";
@@ -104,6 +107,7 @@ export const icons: Record<string, PhosphorIcon> = {
   arrow: ArrowRight,
   back: ArrowLeft,
   next: CaretRight,
+  down: CaretDown,
   save: BookmarkSimple,
   close: X,
   plus: Plus,
@@ -121,13 +125,20 @@ export function Icon({
   size = 18,
   color,
   weight = "regular",
+  animated = name === "checked" || name === "unchecked",
 }: {
   name: string;
   size?: number;
   color?: string;
   weight?: "regular" | "fill" | "bold";
+  animated?: boolean;
 }) {
   const { colors } = useApp();
+  const shape = animated ? motionIcons[`${name}:${weight}`] : undefined;
+  if (shape)
+    return (
+      <MorphGlyph shape={shape} size={size} color={color || colors.accent} />
+    );
   const Component = icons[name] || Info;
   return (
     <Component size={size} color={color || colors.accent} weight={weight} />
@@ -192,6 +203,7 @@ export function Tap({
   label,
   disabled = false,
   selected,
+  expanded,
   testID,
 }: {
   children: React.ReactNode;
@@ -200,6 +212,7 @@ export function Tap({
   label: string;
   disabled?: boolean;
   selected?: boolean;
+  expanded?: boolean;
   testID?: string;
 }) {
   const scale = useMotionValue(1);
@@ -224,7 +237,9 @@ export function Tap({
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
-      accessibilityState={{ disabled, selected }}
+      accessibilityState={{ disabled, selected, expanded }}
+      aria-selected={selected}
+      aria-expanded={expanded}
       disabled={disabled}
       testID={testID}
       onPressIn={() => press(0.98)}
@@ -270,6 +285,7 @@ export function Button({
   secondary = false,
   disabled = false,
   danger = false,
+  selected,
 }: {
   label: string;
   onPress: () => void;
@@ -277,6 +293,7 @@ export function Button({
   secondary?: boolean;
   disabled?: boolean;
   danger?: boolean;
+  selected?: boolean;
 }) {
   const { colors } = useApp();
   const ink = danger ? colors.danger : secondary ? colors.accent : "#FFFFFF";
@@ -285,6 +302,7 @@ export function Button({
       label={label}
       onPress={onPress}
       disabled={disabled}
+      selected={selected}
       style={[
         styles.button,
         {
@@ -308,7 +326,13 @@ export function Button({
       <Txt variant="label" color={ink} style={{ flexShrink: 1 }}>
         {label}
       </Txt>
-      <Icon name={icon} size={18} color={ink} />
+      <Icon
+        name={icon}
+        size={18}
+        color={ink}
+        animated={selected !== undefined}
+        weight={selected ? "fill" : "regular"}
+      />
     </Tap>
   );
 }
@@ -352,6 +376,7 @@ export function IconButton({
           color={danger ? colors.danger : colors.accent}
           size={18}
           weight={selected ? "fill" : "regular"}
+          animated={name === "save" || name === "heart"}
         />
       </View>
     </Tap>
@@ -655,15 +680,41 @@ export function Search({
   onChange: (v: string) => void;
   label: string;
 }) {
-  const { colors } = useApp();
+  const { colors, prefs } = useApp();
+  const input = useRef<TextInput>(null);
   return (
     <View style={{ gap: 8, marginBottom: 20 }}>
       <Txt variant="caption" color={colors.secondary}>
         {label}
       </Txt>
       <View style={[styles.search, { backgroundColor: colors.raised }]}>
-        <Icon name="search" size={20} color={colors.secondary} />
+        <Pressable
+          accessibilityRole={value ? "button" : undefined}
+          accessibilityLabel={
+            prefs.language === "zh" ? "清空搜索" : "Clear search"
+          }
+          accessible={!!value}
+          disabled={!value}
+          onPress={() => {
+            onChange("");
+            input.current?.focus();
+          }}
+          style={{
+            width: 44,
+            minHeight: 44,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Icon
+            name={value ? "close" : "search"}
+            animated
+            size={20}
+            color={colors.secondary}
+          />
+        </Pressable>
         <TextInput
+          ref={input}
           accessibilityLabel={label}
           placeholder={label}
           placeholderTextColor={colors.placeholder}
@@ -671,7 +722,7 @@ export function Search({
           onChangeText={onChange}
           autoCapitalize="none"
           autoCorrect={false}
-          clearButtonMode="while-editing"
+          clearButtonMode="never"
           style={{ flex: 1, color: colors.ink, fontSize: 16, minHeight: 44 }}
         />
       </View>

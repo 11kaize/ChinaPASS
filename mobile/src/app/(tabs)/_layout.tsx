@@ -66,6 +66,7 @@ export default function TabLayout() {
                       : t(icon as "today"),
                 tabBarIcon: ({ color, focused }) => (
                   <Icon
+                    animated
                     name={icon}
                     size={21}
                     color={typeof color === "string" ? color : colors.accent}

@@ -24,6 +24,7 @@
     "expo-status-bar": "~57.0.1",
     "expo-system-ui": "~57.0.4",
     "expo-video": "~57.0.5",
+    "morphicons": "2.0.2",
     "phosphor-react-native": "^3.0.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -54,9 +55,10 @@
     "lint": "expo lint",
     "test": "tsx --test tests/*.test.ts",
     "check": "npm run typecheck && npm run lint && npm test",
-    "export:native": "expo export --platform android --platform ios",
+    "export:native": "node scripts/prepare-motion-icons.mjs && expo export --platform android --platform ios && node scripts/copy-notices.mjs",
     "build:apk": "bash scripts/build-android.sh",
-    "assets:prepare": "node scripts/prepare-artwork.mjs"
+    "assets:prepare": "node scripts/prepare-artwork.mjs",
+    "icons:prepare": "node scripts/prepare-motion-icons.mjs"
   },
   "private": true
 }

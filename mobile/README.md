@@ -150,3 +150,9 @@ npm run assets:prepare
 ```
 
 This uses Sharp as a development dependency to produce `assets/optimized/*.webp`, a size manifest and both platform registries. `npm run demo:build` from the repository root regenerates these automatically. Checked-in generated files let the Windows/Linux demo launchers start without running image conversion each time.
+
+## Local icon motion
+
+Morphicons 2.0.2 animates the existing Phosphor artwork for navigation selection, bookmarks, likes, checklists, search clearing, FAQ disclosure and send/stop state. The 22 shapes are prepared during builds and bundled locally; icons never need a runtime download. Run `npm run icons:prepare` after changing the selected artwork. Shapes and region code are shared by the platform-specific Web and native renderers.
+
+Motion respects the system reduced-motion preference and stops when its screen loses focus or the app enters the background. The native renderer uses JavaScript animation frames and SVG updates. Full licenses are in `NOTICE.md` and copied into exported distributions. See the [implementation and verification record](../docs/24-2026-10-24-morphicons.md).

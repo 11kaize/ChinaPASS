@@ -46,13 +46,18 @@ export default function FAQ() {
             )}
             <Tap
               label={L(f.q)}
+              expanded={expanded === i}
               onPress={() => set(expanded === i ? null : i)}
               style={{ flexDirection: "row", gap: 10, alignItems: "center" }}
             >
               <Txt variant="label" style={{ flex: 1 }}>
                 {L(f.q)}
               </Txt>
-              <Icon name="next" size={17} />
+              <Icon
+                name={expanded === i ? "down" : "next"}
+                animated
+                size={17}
+              />
             </Tap>
             {expanded === i && (
               <Txt color={colors.secondary} style={{ marginTop: 13 }}>
