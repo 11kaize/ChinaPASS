@@ -1,3 +1,5 @@
+import { localeTag, uiText } from "../../locale-ui";
+import { locationLabel } from "../../geography";
 import { artwork } from "../../artwork";
 import React from "react";
 import { View, Image, ImageBackground } from "react-native";
@@ -101,7 +103,7 @@ function HomeHeader() {
             color: colors.ink,
           }}
         >
-          ChinaHand
+          ChinaBuddy
         </Txt>
         <View style={{ flex: 1 }} />
         <Tap
@@ -131,7 +133,7 @@ function HomeHeader() {
           : "A hand with everyday life in China."}
       </Txt>
       <Txt variant="caption" color={colors.secondary} style={{ fontSize: 11 }}>
-        {new Date().toLocaleDateString(zh ? "zh-CN" : "en-US", {
+        {new Date().toLocaleDateString(localeTag(prefs.language), {
           weekday: "long",
           year: "numeric",
           month: "long",
@@ -152,7 +154,7 @@ export default function Home() {
       headerScrolls
     >
       <Tap
-        label={zh ? "搜索整个 ChinaHand" : "Search all of ChinaHand"}
+        label={zh ? "搜索整个 ChinaBuddy" : "Search all of ChinaBuddy"}
         onPress={() => router.push("/search")}
         style={{
           paddingHorizontal: 14,
@@ -274,7 +276,7 @@ export default function Home() {
               }}
             >
               {port
-                ? port.zh
+                ? locationLabel(port.zh, prefs.language)
                 : zh
                   ? "实用指南与清单，陪你从落地到适应生活。"
                   : "Essential guides and little tips to help you settle in."}
@@ -282,7 +284,7 @@ export default function Home() {
             <View style={{ alignSelf: "flex-start", marginTop: 4 }}>
               <Button
                 label={zh ? "查看落地指南" : "View arrival guide"}
-                onPress={() => router.push(port ? "/arrival" : "/ports")}
+                onPress={() => router.push("/arrival")}
               />
             </View>
           </View>
@@ -290,7 +292,7 @@ export default function Home() {
       </View>
       <CommunicationTools />
       <Tap
-        label={zh ? "问问 ChinaHand AI" : "Ask ChinaHand AI"}
+        label={zh ? "问问 ChinaBuddy AI" : "Ask ChinaBuddy AI"}
         onPress={() => router.navigate("/chat")}
         style={{ marginBottom: 16 }}
       >
@@ -305,13 +307,16 @@ export default function Home() {
         >
           <Image
             source={artwork.assistant}
-            accessibilityLabel="ChinaHand AI companion"
+            accessibilityLabel={uiText(
+              prefs.language,
+              "ChinaBuddy AI companion",
+            )}
             style={{ width: 65, height: 65 }}
             resizeMode="contain"
           />
           <View style={{ flex: 1, gap: 5 }}>
             <Txt variant="subheading" style={{ fontSize: 16 }}>
-              {zh ? "问问 ChinaHand AI" : "Ask ChinaHand AI"}
+              {zh ? "问问 ChinaBuddy AI" : "Ask ChinaBuddy AI"}
             </Txt>
             <Txt variant="caption" color={colors.secondary}>
               {zh
@@ -407,7 +412,10 @@ export default function Home() {
               {x.id === "featured" && (
                 <Image
                   source={isDark ? artwork.arrivalNight : artwork.arrivalDay}
-                  accessibilityLabel="Airport arrival illustration"
+                  accessibilityLabel={uiText(
+                    prefs.language,
+                    "Airport arrival illustration",
+                  )}
                   style={{ width: "100%", height: 68, borderRadius: 12 }}
                   resizeMode="cover"
                 />

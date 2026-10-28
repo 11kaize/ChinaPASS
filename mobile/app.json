@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "ChinaHand",
-    "slug": "chinahand",
+    "name": "ChinaBuddy",
+    "slug": "chinabuddy",
     "version": "2.0.0",
-    "scheme": "chinahand",
+    "scheme": "chinabuddy",
     "orientation": "portrait",
     "platforms": [
       "ios",
@@ -14,13 +14,13 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "org.chinahand.mobile",
+      "bundleIdentifier": "org.chinabuddy.mobile",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
-      "package": "org.chinahand.mobile",
+      "package": "org.chinabuddy.mobile",
       "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/brand-blue.png",
@@ -54,7 +54,7 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Choose photos and videos to attach to your ChinaHand post.",
+          "photosPermission": "Choose photos and videos to attach to your ChinaBuddy post.",
           "cameraPermission": false,
           "microphonePermission": false
         }

@@ -15,7 +15,7 @@ const runtime = process.platform !== 'win32' && existsSync(bundled) ? bundled : 
 const version = spawnSync(runtime, ['-p', 'process.versions.node'], { encoding: 'utf8' });
 const [major, minor] = (version.stdout || '').trim().split('.').map(Number);
 if (version.status !== 0 || !(major > 22 || (major === 22 && minor >= 13))) {
-  console.error('ChinaHand requires Node.js 22.13 or newer. Install the current Node.js LTS, then restart this launcher.');
+  console.error('ChinaBuddy requires Node.js 22.13 or newer. Install the current Node.js LTS, then restart this launcher.');
   process.exit(1);
 }
 const env = { ...process.env, PATH: `${dirname(runtime)}${delimiter}${process.env.PATH || ''}` };
@@ -28,7 +28,7 @@ function npm(args) {
 }
 const lock = JSON.parse(readFileSync(resolve(mobile, 'package-lock.json'), 'utf8'));
 const fingerprint = createHash('sha256').update(readFileSync(resolve(mobile, 'package-lock.json'))).digest('hex');
-const stamp = resolve(mobile, 'node_modules/.chinahand-lock.sha256');
+const stamp = resolve(mobile, 'node_modules/.chinabuddy-lock.sha256');
 const dependencies = JSON.parse(readFileSync(resolve(mobile, 'package.json'), 'utf8')).dependencies;
 const installed = Object.keys(dependencies).every(name => {
   try { return JSON.parse(readFileSync(resolve(mobile, 'node_modules', name, 'package.json'), 'utf8')).version === lock.packages[`node_modules/${name}`]?.version; }
@@ -36,7 +36,7 @@ const installed = Object.keys(dependencies).every(name => {
 });
 const changed = existsSync(stamp) && readFileSync(stamp, 'utf8') !== fingerprint;
 if (!installed || changed) {
-  console.log('Preparing ChinaHand dependencies…');
+  console.log('Preparing ChinaBuddy dependencies…');
   const result = npm(['ci']);
   if (result.status !== 0) process.exit(result.status || 1);
 }
@@ -73,7 +73,7 @@ child.on('exit', (code, signal) => { process.exitCode = code ?? (signal ? 1 : 0)
 
 if (preview) {
   const url = `http://localhost:${port}`;
-  console.log(`ChinaHand preview: ${url}`);
+  console.log(`ChinaBuddy preview: ${url}`);
   void (async () => {
     const deadline = Date.now() + 60000;
     while (Date.now() < deadline && child.exitCode === null && child.signalCode === null) {
@@ -85,7 +85,7 @@ if (preview) {
             : spawn(process.platform === 'darwin' ? 'open' : 'xdg-open', [url], { env, stdio: 'ignore' });
           opener.on('error', () => console.log(`Open ${url} in your browser.`));
           opener.on('exit', code => { if (code) console.log(`Open ${url} in your browser.`); });
-          console.log(`Opening ChinaHand demo: ${url}`);
+          console.log(`Opening ChinaBuddy demo: ${url}`);
           return;
         }
       } catch { /* Metro is still starting. */ }

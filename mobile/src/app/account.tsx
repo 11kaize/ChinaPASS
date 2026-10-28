@@ -51,7 +51,7 @@ export default function Account() {
               <Icon name="profile" size={24} />
               <Identity name={name || profile.name} tier={tier} />
             </View>
-            <Txt variant="caption" color={colors.secondary}>
+            <Txt verbatim variant="caption" color={colors.secondary}>
               {profile.email}
             </Txt>
           </Surface>

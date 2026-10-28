@@ -19,6 +19,7 @@ export function Identity({
     : ["#2461AE", "#7351B1", "#A33F80", "#AD513D", "#856318"];
   return (
     <Txt
+      verbatim
       style={{
         fontSize: compact ? 13 : 24,
         fontWeight: "700",
@@ -28,6 +29,7 @@ export function Identity({
       {tier === "pro"
         ? Array.from(name).map((char, i) => (
             <Txt
+              verbatim
               key={i}
               style={{
                 color: rainbow[i % rainbow.length],

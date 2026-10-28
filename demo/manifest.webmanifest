@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "ChinaHand — step-by-step guide to China",
-  "short_name": "ChinaHand",
+  "name": "ChinaBuddy — step-by-step guide to China",
+  "short_name": "ChinaBuddy",
   "description": "Offline Chinese phrase cards and a practical China travel checklist.",
   "lang": "en",
   "start_url": "./legacy.html",

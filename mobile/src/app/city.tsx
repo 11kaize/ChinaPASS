@@ -1,3 +1,5 @@
+import { uiText } from "../locale-ui";
+import { locationLabel, cityLabel } from "../geography";
 import React from "react";
 import { router } from "expo-router";
 import { useApp } from "../state";
@@ -16,7 +18,7 @@ import {
   openURL,
 } from "../ui";
 export default function City() {
-  const { t, prefs, online } = useApp();
+  const { t, L, prefs, online } = useApp();
   const search = (name: string) => {
     if (online === false) {
       Alert.alert(t("cityNotes"), t("offlineNow"));
@@ -25,9 +27,7 @@ export default function City() {
     openURL(mapSearchURL(name), () =>
       Alert.alert(
         t("cityNotes"),
-        prefs.language === "zh"
-          ? "无法打开地图搜索。"
-          : "Could not open the map search.",
+        uiText(prefs.language, "Could not open the map search."),
       ),
     );
   };
@@ -36,10 +36,35 @@ export default function City() {
   return (
     <Page back title={t("cityNotes")}>
       <Heading
-        title={city ? `${city.name} / ${city.zh}` : t("cityNotes")}
+        title={city ? cityLabel(city.name, prefs.language) : t("cityNotes")}
         body={t("cityHint")}
       />
-      {!city && port ? <Surface style={{ padding: 18, gap: 12 }}><Heading title={port.zh} body={arrivalText("portNoDetail",prefs.language)} /><Button label={t("show")} onPress={() => router.push({pathname:"/card",params:{id:port.id,kind:"port"}})} /><Button secondary label={prefs.language === "zh" ? "在地图上搜索这个口岸" : "Find this port on a map"} onPress={() => search(port.zh)} /></Surface> : !city ? (
+      {!city && port ? (
+        <Surface style={{ padding: 18, gap: 12 }}>
+          <Heading
+            title={locationLabel(port.zh, prefs.language)}
+            body={arrivalText("portNoDetail", prefs.language)}
+          />
+          <Button
+            label={t("show")}
+            onPress={() =>
+              router.push({
+                pathname: "/card",
+                params: { id: port.id, kind: "port" },
+              })
+            }
+          />
+          <Button
+            secondary
+            label={
+              prefs.language === "zh"
+                ? "在地图上搜索这个口岸"
+                : "Find this port on a map"
+            }
+            onPress={() => search(port.zh)}
+          />
+        </Surface>
+      ) : !city ? (
         <Button
           label={t("chooseCity")}
           icon="address"
@@ -47,13 +72,13 @@ export default function City() {
         />
       ) : (
         <>
-          <Notice text={city.note} />
+          <Notice text={L(city.note)} />
           <Section title={prefs.language === "zh" ? "机场" : "Airports"}>
             <Surface>
               {city.airport.map((name, i) => (
                 <Row
                   key={name}
-                  title={name}
+                  title={locationLabel(name, prefs.language)}
                   icon="customs"
                   onPress={() => search(name)}
                   last={i === city.airport.length - 1}
@@ -68,7 +93,7 @@ export default function City() {
               {city.stations.map((name, i) => (
                 <Row
                   key={name}
-                  title={name}
+                  title={locationLabel(name, prefs.language)}
                   icon="train"
                   onPress={() => search(name)}
                   last={i === city.stations.length - 1}
@@ -77,7 +102,7 @@ export default function City() {
             </Surface>
           </Section>
           <Button
-            label={city.source.label}
+            label={L(city.source.label)}
             secondary
             onPress={() => openURL(city.source.url)}
           />

@@ -1,3 +1,4 @@
+import { localeTag, uiText } from "../locale-ui";
 import { artwork } from "../artwork";
 import React, { useState } from "react";
 import { View, Image } from "react-native";
@@ -61,7 +62,10 @@ export default function PostDetail() {
       <View style={{ gap: 10, marginBottom: 20 }}>
         <Identity name={post.authorName} tier={post.tier} />
         <Txt variant="caption" color={colors.secondary}>
-          {post.city} · {new Date(post.createdAt).toLocaleDateString()}
+          {post.city} ·{" "}
+          {new Date(post.createdAt).toLocaleDateString(
+            localeTag(prefs.language),
+          )}
         </Txt>
         {post.sample && (
           <Notice
@@ -72,7 +76,7 @@ export default function PostDetail() {
             }
           />
         )}
-        <Heading title={post.title} />
+        <Heading verbatim={!post.sample} title={post.title} />
         {isFeatured(post) && (
           <Txt color={colors.accent} variant="caption">
             {zh ? "精华经验 · 示例精选" : "Editor’s pick · sample selection"}
@@ -98,17 +102,20 @@ export default function PostDetail() {
                       ? artwork.homeNight
                       : artwork.skyline
               }
-              accessibilityLabel={
+              accessibilityLabel={uiText(
+                prefs.language,
                 post.id === "sample-food"
                   ? "Illustrative Chinese food sample"
                   : post.id === "sample-pay"
                     ? "Illustrative airport arrival sample"
-                    : "Illustrative Shanghai skyline"
-              }
+                    : "Illustrative Shanghai skyline",
+              )}
               style={{ width: "100%", height: 210, borderRadius: 22 }}
             />
           )}
-        <Txt selectable>{post.body}</Txt>
+        <Txt verbatim={!post.sample} selectable>
+          {post.body}
+        </Txt>
       </View>
       <View style={{ flexDirection: "row", gap: 10, marginBottom: 20 }}>
         <View style={{ flex: 1 }}>
@@ -116,7 +123,7 @@ export default function PostDetail() {
             secondary
             icon="heart"
             selected={post.likedBy.includes(profile?.id || "")}
-            label={`${post.likedBy.includes(profile?.id || "") ? (zh ? "已赞" : "Liked") : zh ? "点赞" : "Like"} · ${likeCount(post).toLocaleString()}`}
+            label={`${post.likedBy.includes(profile?.id || "") ? (zh ? "已赞" : "Liked") : zh ? "点赞" : "Like"} · ${likeCount(post).toLocaleString(localeTag(prefs.language))}`}
             onPress={() => act(() => like(post.id))}
           />
         </View>
@@ -147,9 +154,11 @@ export default function PostDetail() {
             style={{ padding: 15, gap: 8, marginBottom: 10 }}
           >
             <Identity name={item.authorName} tier={item.tier} compact />
-            <Txt>{item.body}</Txt>
+            <Txt verbatim>{item.body}</Txt>
             <Txt variant="caption" color={colors.secondary}>
-              {new Date(item.createdAt).toLocaleString()}
+              {new Date(item.createdAt).toLocaleString(
+                localeTag(prefs.language),
+              )}
             </Txt>
           </Surface>
         ))}

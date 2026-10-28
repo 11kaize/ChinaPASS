@@ -1,3 +1,4 @@
+import { locationLabel, cityLabel } from "../geography";
 import React, { useMemo, useState } from "react";
 import { View } from "react-native";
 import { router, type Href } from "expo-router";
@@ -26,7 +27,7 @@ import {
 } from "../ui";
 
 export default function OfflineSearch() {
-  const { prefs, colors } = useApp();
+  const { prefs, colors, L } = useApp();
   const zh = prefs.language === "zh";
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("all");
@@ -56,10 +57,8 @@ export default function OfflineSearch() {
   };
   const cityDetails = city ? (
     <Surface style={{ padding: 18, gap: 12, marginBottom: 18 }}>
-      <Txt variant="subheading">
-        {city.name} · {city.zh}
-      </Txt>
-      <Txt>{city.note}</Txt>
+      <Txt variant="subheading">{cityLabel(city.name, prefs.language)}</Txt>
+      <Txt>{L(city.note)}</Txt>
       <Txt variant="caption" color={colors.secondary}>
         {zh
           ? "选择地点，保存到地址钱包。内置名称不含实时导航或航站楼信息。"
@@ -68,7 +67,7 @@ export default function OfflineSearch() {
       {[...city.airport, ...city.stations].map((name, i) => (
         <Row
           key={`${name}-${i}`}
-          title={name}
+          title={locationLabel(name, prefs.language)}
           icon={i < city.airport.length ? "customs" : "train"}
           onPress={() => {
             const clean = (value: string) =>

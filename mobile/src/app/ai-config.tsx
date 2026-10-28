@@ -13,7 +13,11 @@ import {
   Region,
   validateConfig,
 } from "../ai/providers";
-import { streamAnswer, verifyDeepSeekConnection, errorMessage } from "../ai/client";
+import {
+  streamAnswer,
+  verifyDeepSeekConnection,
+  errorMessage,
+} from "../ai/client";
 import {
   Page,
   Heading,
@@ -106,25 +110,33 @@ function ConfigForm() {
     testAbort.current = control;
     try {
       if (provider === "deepseek") {
-        await verifyDeepSeekConnection(current(), { signal: control.signal, fetcher: nativeFetch as typeof globalThis.fetch });
-      } else await streamAnswer(
-        current(),
-        "Reply with OK. This is a connection test.",
-        [{ role: "user", content: "Reply OK." }],
-        {
+        await verifyDeepSeekConnection(current(), {
           signal: control.signal,
           fetcher: nativeFetch as typeof globalThis.fetch,
-          onText: () => {},
-          timeoutMs: 120000,
-        },
-      );
+        });
+      } else
+        await streamAnswer(
+          current(),
+          "Reply with OK. This is a connection test.",
+          [{ role: "user", content: "Reply OK." }],
+          {
+            signal: control.signal,
+            fetcher: nativeFetch as typeof globalThis.fetch,
+            onText: () => {},
+            timeoutMs: 120000,
+          },
+        );
       if (alive.current && testAbort.current === control)
-        setResult(provider === "deepseek"
-          ? (prefs.language === "zh" ? "Key 和模型列表验证成功；生成回答仍可能排队等待" : "Key and model list verified; generating an answer may still queue")
-          : t("connectionOk"));
+        setResult(
+          provider === "deepseek"
+            ? prefs.language === "zh"
+              ? "Key 和模型列表验证成功；生成回答仍可能排队等待"
+              : "Key and model list verified; generating an answer may still queue"
+            : t("connectionOk"),
+        );
     } catch (e) {
       if (alive.current && testAbort.current === control)
-        setError(errorMessage(e, prefs.language === "zh"));
+        setError(errorMessage(e, prefs.language));
     } finally {
       if (testAbort.current === control) {
         if (alive.current) setBusy(false);
@@ -319,7 +331,9 @@ function ConfigForm() {
             ? "DeepSeek 检查 Key 和模型列表，不生成回答；其他服务商发送简短生成请求，可能消耗少量额度。"
             : "DeepSeek checks your key and model list without generating an answer. Other providers send a short generation request that may use credit."}
         </Txt>
-        {Boolean(result) && <Notice text={`${result}. ${t("connectedNote")}`} />}
+        {Boolean(result) && (
+          <Notice text={`${result}. ${t("connectedNote")}`} />
+        )}
         <Button
           label={t("connect")}
           icon="check"

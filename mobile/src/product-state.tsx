@@ -1,3 +1,4 @@
+import { readRenamedStorage, previousDemoId } from "./storage-identity";
 import React, {
   createContext,
   useContext,
@@ -43,8 +44,8 @@ const initial = (): ProductData => ({
   posts: seedPosts(),
   guestUsage: { month: monthKey(), requestIds: [] },
 });
-const STORAGE = "chinahand.demo.community.v1";
-const DEMO_ACCOUNT_ID = "chinahand-local-demo-account";
+const STORAGE = "chinabuddy.demo.community.v1";
+const DEMO_ACCOUNT_ID = "chinabuddy-local-demo-account";
 type Product = {
   ready: boolean;
   error: string;
@@ -98,13 +99,50 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
   };
   useEffect(() => {
     let live = true;
-    AsyncStorage.getItem(STORAGE)
+    readRenamedStorage(STORAGE)
       .then((raw) => {
         if (!raw || !live) return;
         const saved = JSON.parse(raw);
         if (!Array.isArray(saved.accounts) || !Array.isArray(saved.posts))
           throw new Error("Invalid saved demo data");
-        const restored = { ...initial(), ...saved };
+        // Migrate identity references without rewriting user-authored text.
+        const id = (value: string) =>
+          value === previousDemoId ? DEMO_ACCOUNT_ID : value;
+        const previousName = ["China", "Hand"].join("") + " Demo";
+        const name = (value: string) =>
+          value === previousName ? "ChinaBuddy Demo" : value;
+        const migrated = {
+          ...saved,
+          activeId: id(saved.activeId),
+          accounts: saved.accounts.map((account: Account) => ({
+            ...account,
+            profile: {
+              ...account.profile,
+              id: id(account.profile.id),
+              name: name(account.profile.name),
+              ...(account.profile.id === previousDemoId
+                ? { email: "demo@chinabuddy.example" }
+                : {}),
+            },
+          })),
+          posts: saved.posts.map((post: Post) => ({
+            ...post,
+            authorId: id(post.authorId),
+            authorName: name(post.authorName),
+            likedBy: post.likedBy.map(id),
+            savedBy: post.savedBy?.map(id),
+            activity: post.activity?.map((item) => ({
+              ...item,
+              actor: id(item.actor),
+            })),
+            replies: post.replies.map((reply) => ({
+              ...reply,
+              authorId: id(reply.authorId),
+              authorName: name(reply.authorName),
+            })),
+          })),
+        };
+        const restored = { ...initial(), ...migrated };
         current.current = restored;
         setData(restored);
       })
@@ -246,8 +284,8 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
           profile: {
             ...(existing?.profile || {
               id: DEMO_ACCOUNT_ID,
-              name: "ChinaHand Demo",
-              email: "demo@chinahand.example",
+              name: "ChinaBuddy Demo",
+              email: "demo@chinabuddy.example",
             }),
             membership: { tier: "pro", expiresAt: nextExpiry("pro") },
             usage: { month: monthKey(), requestIds: [] },

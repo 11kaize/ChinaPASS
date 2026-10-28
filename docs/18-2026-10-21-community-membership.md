@@ -1,4 +1,4 @@
-# ChinaHand demo — 2026-10-21
+# ChinaBuddy demo — 2026-10-21
 
 ## Navigation and visual design
 
@@ -16,7 +16,7 @@
 | Plus | $9/month | 500 | Yes | Silver |
 | Pro | $89/year | 2,000 | Yes | Colored |
 
-Upgrades are local demonstrations: no money is charged, no payment processor is connected, and entitlements are not server verified. Provider API costs are separate. Questions reserve allowance before dispatch; failed and cancelled requests are refunded. Offline examples do not consume allowance. Limits are device-local and are not suitable for enforcing paid production access.
+Upgrades are local demonstrations: no money is charged, no payment processor is connected, and entitlements are not server verified. Provider API costs are separate. Questions reserve allowance before dispatch; failed and cancelled requests are refunded. Preset examples do not consume allowance. Limits are device-local and are not suitable for enforcing paid production access.
 
 Login and registration use local demo accounts with salted password digests. Use fictitious email addresses and demo passwords. These accounts are not a production authentication system and do not sync between devices.
 
@@ -31,7 +31,7 @@ Login and registration use local demo accounts with salted password digests. Use
 
 ## AI context and routing
 
-The assistant receives trusted project information, the allowlisted app page directory, selected trip context and relevant page matches before answering. Eligible plans can display navigation buttons when a completed model response contains `[[chinahand:page-id]]`. Unknown IDs are removed; arbitrary model-generated URLs are not executed. Buttons are not synthesized simply because a user question contains a keyword.
+The assistant receives trusted project information, the allowlisted app page directory, selected trip context and relevant page matches before answering. Eligible plans can display navigation buttons when a completed model response contains `[[chinabuddy:page-id]]`. Unknown IDs are removed; arbitrary model-generated URLs are not executed. Buttons are not synthesized simply because a user question contains a keyword.
 
 API credentials stay in React memory. Neither local account persistence nor community persistence receives the API configuration. Refresh, page exit or disconnect clears the connection; there is no API-key autofill from storage. Local community/account data is separately persistent by design.
 

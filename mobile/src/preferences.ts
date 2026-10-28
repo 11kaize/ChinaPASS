@@ -2,7 +2,9 @@ import type { SavedPlace } from "./places";
 import type { Language, Phrase } from "./content";
 import { sanitizeExpenses, type Expense } from "./budget";
 import { sanitizeItinerary, type ItineraryItem } from "./itinerary";
+export const guideContentVersion = "2026-10-28";
 export type Preferences = {
+  guideContentVersion: string;
   language: Language;
   appearance: "system" | "light" | "dark";
   city: string | null;
@@ -23,6 +25,7 @@ export type Preferences = {
   shareContext: boolean;
 };
 export const freshPreferences = (): Preferences => ({
+  guideContentVersion,
   language: "en",
   appearance: "system",
   city: null,
@@ -45,6 +48,7 @@ export const freshPreferences = (): Preferences => ({
 // Whitelist projection: even an accidentally merged API config cannot be persisted.
 export function persistable(p: Preferences): Preferences {
   return {
+    guideContentVersion,
     language: p.language,
     appearance: p.appearance,
     city: p.city,

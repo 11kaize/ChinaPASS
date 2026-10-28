@@ -1,3 +1,4 @@
+import { localeTag } from "../../locale-ui";
 import React from "react";
 import { View } from "react-native";
 import { router } from "expo-router";
@@ -54,7 +55,7 @@ export default function Profile() {
         }}
       >
         <View>
-          <Txt variant="title">{text("我的", "My ChinaHand")}</Txt>
+          <Txt variant="title">{text("我的", "My ChinaBuddy")}</Txt>
           <Txt variant="caption" color={colors.secondary}>
             {text(
               "为在中国的每一天，做好准备。",
@@ -192,8 +193,8 @@ export default function Profile() {
               <Identity
                 name={
                   tier === "free"
-                    ? "ChinaHand membership"
-                    : `ChinaHand ${plans[tier].name}`
+                    ? "ChinaBuddy membership"
+                    : `ChinaBuddy ${plans[tier].name}`
                 }
                 tier={tier}
                 compact
@@ -216,7 +217,7 @@ export default function Profile() {
             style={{ flexDirection: "row", alignItems: "baseline", gap: 6 }}
           >
             <Txt style={{ fontSize: 28, lineHeight: 34, fontWeight: "700" }}>
-              {left.toLocaleString()}
+              {left.toLocaleString(localeTag(prefs.language))}
             </Txt>
             <Txt variant="caption" color={colors.secondary}>
               {text("次 AI 问答剩余 / 本月", "AI questions left this month")}
@@ -227,7 +228,9 @@ export default function Profile() {
           >
             <Txt variant="caption" color={colors.secondary}>
               {text("已用", "Used")} {plans[tier].monthlyQuestions - left} /{" "}
-              {plans[tier].monthlyQuestions.toLocaleString()}
+              {plans[tier].monthlyQuestions.toLocaleString(
+                localeTag(prefs.language),
+              )}
             </Txt>
             <Txt variant="label" color={colors.accent}>
               {tier === "free"
@@ -367,7 +370,7 @@ export default function Profile() {
             onPress={() => router.push("/ai-config")}
           />
           <Row
-            title={text("搜索整个 ChinaHand", "Search all of ChinaHand")}
+            title={text("搜索整个 ChinaBuddy", "Search all of ChinaBuddy")}
             subtitle={text(
               "离线搜索指南正文、卡片与常见问题",
               "Find guide details, cards and common questions offline",

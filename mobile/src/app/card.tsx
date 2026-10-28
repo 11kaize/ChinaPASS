@@ -1,3 +1,4 @@
+import { uiText } from "../locale-ui";
 import { backOrReplace } from "../navigation-back";
 import React, { useState } from "react";
 import { View, ScrollView, Alert } from "react-native";
@@ -53,7 +54,7 @@ export default function Card() {
       : scene
         ? L(scene.showCard?.title)
         : card
-          ? fillCard(L({ en: card.en, ja: card.ja, ko: card.ko }), fill)
+          ? fillCard(L(card), fill)
           : t("noResults");
   const bookmarked = card && prefs.favorites.includes(card.id);
   const close = () =>
@@ -80,7 +81,7 @@ export default function Card() {
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
           <Brand />
           <Txt variant="caption" color={colors.secondary}>
-            ChinaHand
+            ChinaBuddy
           </Txt>
         </View>
         <View style={{ flexDirection: "row", gap: 9 }}>
@@ -130,7 +131,7 @@ export default function Card() {
       {isTemplate && !filled ? (
         <ScrollView contentContainerStyle={{ padding: 26, gap: 14 }}>
           <Txt variant="heading">{t("template")}</Txt>
-          <Txt style={{ fontSize: 27, lineHeight: 38 }}>
+          <Txt verbatim style={{ fontSize: 27, lineHeight: 38 }}>
             {raw.replace(/%s/g, "___")}
           </Txt>
           {blanks.map((blank) => (
@@ -176,6 +177,7 @@ export default function Card() {
               <Notice text={t("addressRequired")} />
             ) : (
               <Txt
+                verbatim
                 selectable
                 style={{
                   fontSize:
@@ -191,6 +193,7 @@ export default function Card() {
             )}
             {!hide && (
               <Txt
+                verbatim={card?.custom}
                 color={colors.secondary}
                 style={{ fontSize: 15, lineHeight: 23 }}
               >
@@ -209,9 +212,10 @@ export default function Card() {
                     .catch(() =>
                       Alert.alert(
                         t("copy"),
-                        prefs.language === "zh"
-                          ? "复制失败，请长按中文选择。"
-                          : "Copy failed. Long-press the Chinese to select it.",
+                        uiText(
+                          prefs.language,
+                          "Copy failed. Long-press the Chinese to select it.",
+                        ),
                       ),
                     );
                 }}

@@ -1,5 +1,7 @@
+import { localeTag } from "../locale-ui";
+import { TextInput, type InputRef } from "../localized-input";
 import React, { useMemo, useRef, useState } from "react";
-import { Keyboard, TextInput, View } from "react-native";
+import { Keyboard, View } from "react-native";
 import { router } from "expo-router";
 import { useApp } from "../state";
 import { useProduct } from "../product-state";
@@ -23,7 +25,7 @@ export default function CommunitySearch() {
   const { posts } = useProduct();
   const zh = prefs.language === "zh";
   const text = (cn: string, en: string) => (zh ? cn : en);
-  const input = useRef<TextInput>(null);
+  const input = useRef<InputRef>(null);
   const [draft, setDraft] = useState("");
   const [submitted, setSubmitted] = useState<string | null>(null);
   const [recent, setRecent] = useState<string[]>([]);
@@ -182,6 +184,7 @@ export default function CommunitySearch() {
             <Surface key={post.id} style={{ marginBottom: 12 }}>
               <Tap
                 label={post.title}
+                verbatim={!post.sample}
                 onPress={() =>
                   router.push({ pathname: "/post", params: { id: post.id } })
                 }
@@ -201,13 +204,18 @@ export default function CommunitySearch() {
                     {post.sample ? " · DEMO" : ""}
                   </Txt>
                 </View>
-                <Txt variant="subheading" numberOfLines={2}>
+                <Txt
+                  variant="subheading"
+                  numberOfLines={2}
+                  verbatim={!post.sample}
+                >
                   {post.title}
                 </Txt>
                 <Txt
                   variant="caption"
                   color={colors.secondary}
                   numberOfLines={3}
+                  verbatim={!post.sample}
                 >
                   {post.body}
                 </Txt>
@@ -225,7 +233,7 @@ export default function CommunitySearch() {
                   </Txt>
                   <Icon name="heart" size={13} color={colors.secondary} />
                   <Txt variant="caption" color={colors.secondary}>
-                    {likeCount(post).toLocaleString()}
+                    {likeCount(post).toLocaleString(localeTag(prefs.language))}
                   </Txt>
                 </View>
               </Tap>
@@ -280,6 +288,7 @@ export default function CommunitySearch() {
             <Tap
               key={post.id}
               label={post.title}
+              verbatim={!post.sample}
               onPress={() => search(post.title)}
               style={{
                 flexDirection: "row",
@@ -290,7 +299,12 @@ export default function CommunitySearch() {
               }}
             >
               <Icon name="search" size={16} color={colors.secondary} />
-              <Txt variant="label" numberOfLines={2} style={{ flex: 1 }}>
+              <Txt
+                variant="label"
+                numberOfLines={2}
+                style={{ flex: 1 }}
+                verbatim={!post.sample}
+              >
                 {post.title}
               </Txt>
               <Icon name="next" size={14} color={colors.secondary} />
@@ -367,7 +381,11 @@ export default function CommunitySearch() {
                     {index + 1}
                   </Txt>
                   <View style={{ flex: 1, gap: 5 }}>
-                    <Txt variant="label" numberOfLines={2}>
+                    <Txt
+                      variant="label"
+                      numberOfLines={2}
+                      verbatim={!post.sample}
+                    >
                       {post.title}
                     </Txt>
                     <Txt variant="caption" color={colors.secondary}>

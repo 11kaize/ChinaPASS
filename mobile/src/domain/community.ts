@@ -146,7 +146,7 @@ export function seedPosts(): Post[] {
       authorName: "Jamie",
       tier: "free",
       title: "The station name I almost got wrong",
-      body: "Hongqiao Railway Station and Shanghai Railway Station are different places. Match the Chinese station name on your ticket before leaving your hotel. ChinaHand has the airport and station names ready to show.",
+      body: "Hongqiao Railway Station and Shanghai Railway Station are different places. Match the Chinese station name on your ticket before leaving your hotel. ChinaBuddy has the airport and station names ready to show.",
       city: "Shanghai",
       category: "experience",
       baseLikes: 386,

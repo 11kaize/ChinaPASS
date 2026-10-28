@@ -3,7 +3,9 @@ import { AccessibilityInfo, AppState, Platform } from "react-native";
 
 // One system subscription for the whole app, rather than one per button/card.
 const listeners = new Set<() => void>();
-let reduced = false;
+// Native accessibility preferences arrive asynchronously. Stay quiet until
+// their first value is known, including when the platform query fails.
+let reduced = true;
 let stop: (() => void) | undefined;
 function publish(value: boolean) {
   if (reduced === value) return;

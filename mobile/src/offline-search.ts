@@ -1,3 +1,7 @@
+import { uiText } from "./locale-ui";
+import { cityLabel, locationLabel } from "./geography";
+import { arrivalGuideTitle, arrivalStages } from "./arrival-guide";
+import { paymentHelp } from "./payment-help";
 import {
   cards,
   phrases,
@@ -46,21 +50,20 @@ export function guideSections(
   language: Language,
 ): GuideSection[] {
   const L = (value: Localized) => plain(localize(value, language));
-  const zh = language === "zh";
-  return [
+  const sections = [
     {
       id: "overview",
-      title: zh ? "任务概览" : "Overview",
+      title: uiText(language, "Overview"),
       body: L(scene.task),
     },
     {
       id: "before",
-      title: zh ? "开始前" : "Before you start",
+      title: uiText(language, "Before you start"),
       body: scene.before.map(L).join(" · "),
     },
     {
       id: "tip",
-      title: zh ? "实用提示" : "Useful tip",
+      title: uiText(language, "Useful tip"),
       body: scene.tip ? L(scene.tip) : "",
     },
     ...scene.steps.map((step, i) => ({
@@ -71,30 +74,50 @@ export function guideSections(
     })),
     {
       id: "plan-b",
-      title: zh ? "备用方案" : "Plan B",
+      title: uiText(language, "Plan B"),
       body: scene.planB.map(L).join(" · "),
     },
     {
       id: "trouble",
-      title: zh ? "遇到问题" : "Troubleshooting",
+      title: uiText(language, "Troubleshooting"),
       body: scene.trouble
         .map((item) => `${L(item.p)} ${L(item.a)}`)
         .join(" · "),
     },
     {
       id: "mistakes",
-      title: zh ? "常见误区" : "Common mistakes",
+      title: uiText(language, "Common mistakes"),
       body: scene.mistakes
         .map((item) => `${L(item.m)} ${L(item.w)} ${L(item.d)}`)
         .join(" · "),
     },
   ].filter((section) => section.body);
+  return scene.id === "pay"
+    ? [
+        ...sections.filter(
+          (section) => !["plan-b", "trouble", "mistakes"].includes(section.id),
+        ),
+        ...paymentHelp.map((item, i) => ({
+          id: `payment-help-${i}`,
+          title: plain(localize(item.title, language)),
+          body: plain(localize(item.body, language)),
+        })),
+      ]
+    : sections;
 }
 export function buildOfflineIndex(
   language: Language,
   customCards: Phrase[] = [],
 ): OfflineEntry[] {
-  const entries: OfflineEntry[] = [];
+  const entries: OfflineEntry[] = arrivalStages.map((stage) => ({
+    id: `arrival:${stage.id}`,
+    group: "guides",
+    title: `${localize(arrivalGuideTitle, language)} · ${localize(stage.title, language)}`,
+    body: localize(stage.body, language),
+    searchable: allText(stage),
+    destination: { pathname: "/arrival" },
+    collapse: "arrival",
+  }));
   for (const scene of content.scenes) {
     const variants = (["en", "zh", "ja", "ko"] as Language[]).map((lang) =>
       guideSections(scene, lang),
@@ -124,9 +147,9 @@ export function buildOfflineIndex(
       entries.push({
         id: `short:${guide.id}:${i}`,
         group: "guides",
-        title: `${guide.title} · ${title}`,
-        body,
-        searchable: `${guide.title} ${guide.summary} ${title} ${body}`,
+        title: `${localize(guide.title, language)} · ${localize(title, language)}`,
+        body: localize(body, language),
+        searchable: allText(guide),
         destination: {
           pathname: `/guide/${guide.id}`,
           params: { match: `step-${i}` },
@@ -158,7 +181,7 @@ export function buildOfflineIndex(
             ? card.zh
             : localize({ en: card.en, ja: card.ja, ko: card.ko }, language) ||
               card.zh,
-        body: language === "zh" ? card.en : card.zh,
+        body: uiText(language, "Show in Chinese"),
         searchable: allText(card),
         destination: { pathname: "/card", params: { id: card.id } },
       });
@@ -167,8 +190,8 @@ export function buildOfflineIndex(
     entries.push({
       id: `city:${city.id}`,
       group: "places",
-      title: `${city.name} · ${city.zh}`,
-      body: city.note,
+      title: cityLabel(city.name, language),
+      body: localize(city.note, language),
       searchable: allText(city),
       cityId: city.id,
     });
@@ -176,8 +199,10 @@ export function buildOfflineIndex(
     entries.push({
       id: `port:${port.id}`,
       group: "places",
-      title: `${port.zh}${port.iata ? ` · ${port.iata}` : ""}`,
-      body: [port.city, port.cityZh].filter(Boolean).join(" · "),
+      title: `${locationLabel(port.zh, language)}${port.iata ? ` · ${port.iata}` : ""}`,
+      body: port.city
+        ? cityLabel(port.city, language)
+        : uiText(language, "Hong Kong"),
       searchable: allText(port),
       destination: { pathname: "/card", params: { kind: "port", id: port.id } },
     });

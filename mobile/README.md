@@ -1,10 +1,10 @@
-# ChinaHand native mobile demo
+# ChinaBuddy native mobile demo
 
-ChinaHand is now a React Native application for iPhone and Android. Screens render with native views, native text inputs and native navigation. The iPhone and Android applications use native views, without a WebView. A separate desktop browser preview reuses the React Native components for reviewing the iPhone layout; this is not an Apple iOS simulator.
+ChinaBuddy is now a React Native application for iPhone and Android. Screens render with native views, native text inputs and native navigation. The iPhone and Android applications use native views, without a WebView. A separate desktop browser preview reuses the React Native components for reviewing the iPhone layout; this is not an Apple iOS simulator.
 
 ## Windows, macOS and Linux
 
-Install Node.js 22.13 or newer (current LTS recommended). Windows does not need Bash or WSL. From the repository root, run `npm run demo:ios` to open the desktop iPhone layout preview and start the same LAN server for Expo Go. On Windows you can instead double-click `Start-ChinaHand.cmd`. On Linux run `./Start-ChinaHand.sh`. Both launchers automatically check dependencies, choose an available port and open the preview in the default browser. Keep the terminal open while using the demo. Dependencies are installed automatically on the first run. Allow Node.js through Windows Firewall on your private Wi-Fi network if you want a phone to connect.
+Install Node.js 22.13 or newer (current LTS recommended). Windows does not need Bash or WSL. From the repository root, run `npm run demo:ios` to open the desktop iPhone layout preview and start the same LAN server for Expo Go. On Windows you can instead double-click `Start-ChinaBuddy.cmd`. On Linux run `./Start-ChinaBuddy.sh`. Both launchers automatically check dependencies, choose an available port and open the preview in the default browser. Keep the terminal open while using the demo. Dependencies are installed automatically on the first run. Allow Node.js through Windows Firewall on your private Wi-Fi network if you want a phone to connect.
 
 `npm run demo` starts the mobile QR-code demo; `npm run mobile` starts native development mode. Windows and Linux can serve both iPhone and Android phones. The actual Apple iOS Simulator requires macOS and Xcode; on a configured Mac, use `npm run ios` inside `mobile/`. The desktop preview does not emulate iOS system APIs, and browser CORS restrictions can prevent direct provider calls; validate real AI connections on your phone.
 
@@ -80,9 +80,9 @@ The API key, provider configuration, configuration form drafts and conversations
 
 General preferences, checklist/guide progress, bookmarks, user-written cards and destination details use one explicit AsyncStorage whitelist. Android device backups are disabled. The persistence projection excludes API configuration, keys and conversations even if unknown fields are accidentally merged into preferences. Provider policies still apply to the messages sent directly to them. OpenAI requests explicitly use `store: false` and do not create stored Conversations objects.
 
-The AI receives ChinaHand's purpose and capabilities, matching bundled guides and official source links, FAQs, selected language and, if enabled, manually chosen city, journey stage, checklist/guide progress, platform, connectivity, device date and timezone. It does not automatically receive the personal address card, passport, payment information, GPS coordinates, custom cards or API key. **What the assistant knows** previews the context; **Share trip context** switches personal trip/device context off.
+The AI receives ChinaBuddy's purpose and capabilities, matching bundled guides and official source links, FAQs, selected language and, if enabled, manually chosen city, journey stage, checklist/guide progress, platform, connectivity, device date and timezone. It does not automatically receive the personal address card, passport, payment information, GPS coordinates, custom cards or API key. **What the assistant knows** previews the context; **Share trip context** switches personal trip/device context off.
 
-Answers stream as they arrive. Stop, timeout, offline failures, authentication failures, quota/access errors, interrupted streams and empty answers are handled explicitly. Failed or unfinished assistant turns are not replayed as complete answers. The app does not provide the model with live web search. Offline replies are deterministic examples from bundled guides, always labeled as examples; they never imply a model was called.
+Answers stream as they arrive. Stop, timeout, offline failures, authentication failures, quota/access errors, interrupted streams and empty answers are handled explicitly. Failed or unfinished assistant turns are not replayed as complete answers. The app does not provide the model with live web search. Only the three preset buttons can show fixed, labeled example replies. Arbitrary questions require a configured provider. Connection failures are reported explicitly; no generated offline answer or fallback is used.
 
 ## Content and development
 
@@ -103,7 +103,7 @@ See [design and verification notes](../docs/13-原生应用设计与验证.md) f
 
 The current demo adds a crystal-blue material system, colorful launcher, a single Transport hub, local account and membership flows, community photos/videos, search, saved posts and a weighted recent hot list. Refer to [the full feature matrix](../docs/18-2026-10-21-community-membership.md). Local accounts use salted password digests only for demo matching; this is not production authentication. Do not use real passwords. Account entitlements are simulated on device; there is no live billing or shared backend.
 
-A trusted app-page directory and keyword retrieval supplement guide retrieval. Each provider gets the directory before answering. For eligible memberships, an explicit `[[chinahand:page-id]]` returned by the model becomes an allowlisted button after the answer completes. A plain user query never directly inserts a navigation button. Unknown IDs are discarded. User stories, email, password digests and media are excluded from model context.
+A trusted app-page directory and keyword retrieval supplement guide retrieval. Each provider gets the directory before answering. For eligible memberships, an explicit `[[chinabuddy:page-id]]` returned by the model becomes an allowlisted button after the answer completes. A plain user query never directly inserts a navigation button. Unknown IDs are discarded. User stories, email, password digests and media are excluded from model context.
 
 Browser attachments use IndexedDB blobs and short-lived object URLs; native attachments are copied to the app document directory. Clearing local data removes the community demo and its attachments as well as the existing preferences. API keys still clear on refresh and are never included in either persistence store.
 
@@ -123,7 +123,7 @@ See the [static feature audit and next suggestions](../docs/22-2026-10-22-static
 
 ## Face-to-face translation and offline search
 
-**Sign in → One-tap demo sign-in** enters a local `ChinaHand Demo` account without an email or password, skips first-run setup and grants Pro demo access. Reusing the button reopens the same demo identity, preserving its posts and profile while refreshing the demo allowance. It does not charge, connect a model or replace your other local accounts. Existing AI connections clear when switching to the demo; bring your own key only if you want to test real AI. Guides and cards can still be browsed without signing in.
+**Sign in → One-tap demo sign-in** enters a local `ChinaBuddy Demo` account without an email or password, skips first-run setup and grants Pro demo access. Reusing the button reopens the same demo identity, preserving its posts and profile while refreshing the demo allowance. It does not charge, connect a model or replace your other local accounts. Existing AI connections clear when switching to the demo; bring your own key only if you want to test real AI. Guides and cards can still be browsed without signing in.
 
 **Home / Cards / Me → Face-to-face translation** opens a dedicated shared-screen tool for Plus and Pro demo memberships. The Chinese half rotates 180° toward the other reader. After both people agree, typing in either half translates to the opposite half after a 1-second pause. Text translation uses the same keyless MyMemory service and provider limits as the free card editor; membership does not buy or increase provider credit. It does not include microphone capture or speech recognition. The system keyboard keeps the device orientation.
 

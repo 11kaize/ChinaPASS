@@ -61,7 +61,7 @@ export const appPages: AppPage[] = [
   {
     id: "search",
     path: "/search",
-    title: "Search ChinaHand offline",
+    title: "Search ChinaBuddy offline",
     zh: "全应用离线搜索",
     description:
       "Search bundled guide details, FAQs, cards, phrases, cities and arrival ports offline.",
@@ -148,7 +148,7 @@ export const appPages: AppPage[] = [
     path: "/chat",
     title: "AI companion",
     zh: "AI 助手",
-    description: "Ask your configured model with ChinaHand knowledge.",
+    description: "Ask your configured model with ChinaBuddy knowledge.",
     keywords: ["ai", "assistant", "问答"],
   },
   {
@@ -374,10 +374,10 @@ export const appPages: AppPage[] = [
   ...content.shortGuides.map((guide) => ({
     id: `guide-${guide.id}`,
     path: `/guide/${guide.id}`,
-    title: guide.title,
-    zh: guide.title,
-    description: guide.summary,
-    keywords: [guide.id, guide.title.toLowerCase()],
+    title: localize(guide.title, "en"),
+    zh: localize(guide.title, "zh"),
+    description: localize(guide.summary, "en"),
+    keywords: [guide.id, localize(guide.title, "en").toLowerCase()],
   })),
 ];
 export function retrievePages(query: string, limit = 5): AppPage[] {
@@ -399,7 +399,7 @@ export function retrievePages(query: string, limit = 5): AppPage[] {
     .slice(0, limit)
     .map((x) => x.page);
 }
-const marker = /\[\[chinahand:([a-z0-9-]+)\]\]/g;
+const marker = /\[\[chinabuddy:([a-z0-9-]+)\]\]/g;
 // Model-triggered allowlisted IDs only. Never infer action buttons from the user's query.
 export function parsePageActions(answer: string): {
   text: string;
@@ -417,5 +417,5 @@ export function parsePageActions(answer: string): {
   return { text, actions };
 }
 export function navigationInstructions(query: string, enabled: boolean) {
-  return `APP PAGE DIRECTORY (trusted app-owned IDs, never invent paths): ${JSON.stringify(appPages.map(({ id, title, zh, description }) => ({ id, title, zh, description })))}\nRETRIEVED PAGE CONTEXT: ${JSON.stringify(retrievePages(query))}\n${enabled ? "After your normal answer, optionally recommend up to 3 directly relevant app pages using exactly [[chinahand:PAGE_ID]]. These markers become navigation buttons. Only choose IDs from the trusted directory. For police or emergency numbers prefer [[chinahand:emergency]]. Do not emit a button unless useful for this answer. Never claim navigation has already occurred. Do not put markers in code blocks." : "Do not emit navigation action markers for this account. Provide the normal helpful answer without app action buttons."}`;
+  return `APP PAGE DIRECTORY (trusted app-owned IDs, never invent paths): ${JSON.stringify(appPages.map(({ id, title, zh, description }) => ({ id, title, zh, description })))}\nRETRIEVED PAGE CONTEXT: ${JSON.stringify(retrievePages(query))}\n${enabled ? "After your normal answer, optionally recommend up to 3 directly relevant app pages using exactly [[chinabuddy:PAGE_ID]]. These markers become navigation buttons. Only choose IDs from the trusted directory. For police or emergency numbers prefer [[chinabuddy:emergency]]. Do not emit a button unless useful for this answer. Never claim navigation has already occurred. Do not put markers in code blocks." : "Do not emit navigation action markers for this account. Provide the normal helpful answer without app action buttons."}`;
 }

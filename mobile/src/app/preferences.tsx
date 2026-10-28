@@ -1,9 +1,12 @@
+import { uiText } from "../locale-ui";
+import { cityLabel } from "../geography";
+import { content, type Language } from "../content";
+import { languageOptions } from "../i18n";
 import React from "react";
 import { useProduct } from "../product-state";
 import { Switch, View, Alert, Platform } from "react-native";
 import { router } from "expo-router";
 import { useApp } from "../state";
-import { Language } from "../content";
 import {
   Page,
   Heading,
@@ -21,7 +24,7 @@ import {
 import { providers } from "../ai/providers";
 export default function Settings() {
   const { reset } = useProduct();
-  const { t, colors, prefs, update, config, clearData, storageError } =
+  const { t, L, colors, prefs, update, config, clearData, storageError } =
     useApp();
   return (
     <Page back title={t("settings")}>
@@ -30,7 +33,15 @@ export default function Settings() {
         <Surface>
           <Row
             title={t("city")}
-            subtitle={prefs.city || t("noCity")}
+            subtitle={
+              prefs.city
+                ? cityLabel(
+                    content.cities.find((city) => city.id === prefs.city)
+                      ?.name || prefs.city,
+                    prefs.language,
+                  )
+                : t("noCity")
+            }
             icon="address"
             onPress={() => router.push("/trip")}
           />
@@ -46,16 +57,9 @@ export default function Settings() {
         <Chips
           value={prefs.language}
           onChange={(language) => update({ language: language as Language })}
-          items={[
-            { id: "en", label: "English" },
-            { id: "zh", label: "中文" },
-            { id: "ja", label: "日本語" },
-            { id: "ko", label: "한국어" },
-          ]}
+          verbatim
+          items={languageOptions(prefs.language)}
         />
-        {["ja", "ko"].includes(prefs.language) && (
-          <Notice text="Some interface labels are in English. Guide text and card meanings support your language." />
-        )}
       </Section>
       <Section title={t("appearance")}>
         <Chips
@@ -117,9 +121,10 @@ export default function Settings() {
                   .catch(() =>
                     Alert.alert(
                       t("clearData"),
-                      prefs.language === "zh"
-                        ? "无法清除本机数据，请稍后重试。"
-                        : "Could not clear device data. Please try again.",
+                      uiText(
+                        prefs.language,
+                        "Could not clear device data. Please try again.",
+                      ),
                     ),
                   );
               },
@@ -142,14 +147,19 @@ export default function Settings() {
         <Section title="Demo">
           <Button
             secondary
-            label="Earlier web demo · 原版功能"
+            label={L({
+              en: "Earlier web demo",
+              zh: "早期网页演示",
+              ja: "以前のウェブ版デモ",
+              ko: "이전 웹 데모",
+            })}
             onPress={() => openURL(process.env.EXPO_PUBLIC_LEGACY_DEMO_URL!)}
           />
         </Section>
       )}
       <View style={{ gap: 14, marginBottom: 24 }}>
         <Brand />
-        <Txt variant="subheading">ChinaHand</Txt>
+        <Txt variant="subheading">ChinaBuddy</Txt>
         <Txt color={colors.secondary}>{t("aboutBody")}</Txt>
         <Txt variant="caption" color={colors.secondary}>
           {t("limitedTranslation")}

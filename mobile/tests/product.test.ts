@@ -95,7 +95,7 @@ test("navigation buttons require explicit model markers and only allow trusted d
     0,
   );
   const answer = parsePageActions(
-    "Call 110 for police. [[chinahand:emergency]] [[chinahand:emergency]] [[chinahand:made-up]]",
+    "Call 110 for police. [[chinabuddy:emergency]] [[chinabuddy:emergency]] [[chinabuddy:made-up]]",
   );
   assert.deepEqual(
     answer.actions.map((p) => p.path),
@@ -104,7 +104,7 @@ test("navigation buttons require explicit model markers and only allow trusted d
   assert.equal(answer.text, "Call 110 for police.");
   assert.equal(
     parsePageActions(
-      "[[chinahand:home]] [[chinahand:cards]] [[chinahand:profile]] [[chinahand:transport]]",
+      "[[chinabuddy:home]] [[chinabuddy:cards]] [[chinabuddy:profile]] [[chinabuddy:transport]]",
     ).actions.length,
     3,
   );

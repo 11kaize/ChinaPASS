@@ -1,6 +1,6 @@
 # Template attribution
 
-The initial Expo application scaffold includes code under the following license. This notice applies to the Expo template portions; it does not grant a new license for ChinaHand project content.
+The initial Expo application scaffold includes code under the following license. This notice applies to the Expo template portions; it does not grant a new license for ChinaBuddy project content.
 
 The MIT License (MIT)
 

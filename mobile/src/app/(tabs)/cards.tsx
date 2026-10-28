@@ -105,7 +105,8 @@ export default function Cards() {
         renderItem={({ item, index }) => (
           <Surface>
             <Tap
-              label={item.en}
+              label={L(item)}
+              verbatim={item.custom}
               onPress={() =>
                 router.push({ pathname: "/card", params: { id: item.id } })
               }
@@ -115,6 +116,7 @@ export default function Cards() {
                 style={{ flexDirection: "row", alignItems: "center", gap: 9 }}
               >
                 <Txt
+                  verbatim={item.custom}
                   style={{
                     flex: 1,
                     fontSize: 19,
@@ -123,15 +125,12 @@ export default function Cards() {
                   }}
                   numberOfLines={3}
                 >
-                  {item.en.replace(/%s/g, "___")}
+                  {L(item).replace(/%s/g, "___")}
                 </Txt>
                 {prefs.favorites.includes(item.id) && (
                   <Icon name="save" weight="fill" size={16} />
                 )}
               </View>
-              <Txt variant="caption" color={colors.secondary} numberOfLines={2}>
-                {item.zh.replace(/%s/g, "___")}
-              </Txt>
             </Tap>
             {filter === "saved" && index > 0 && (
               <Tap

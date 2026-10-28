@@ -4,10 +4,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const mobile = path.join(root, 'mobile');
-const baseUrl = process.env.CHINAHAND_WEB_BASE_URL || '/ChinaPASS/demo/app';
+const baseUrl = process.env.CHINABUDDY_WEB_BASE_URL || '/ChinaPASS/demo/app';
 if (!/^\/[A-Za-z0-9_/-]+$/.test(baseUrl)) throw new Error('Use an absolute, query-free deployment path.');
-for (const args of [['scripts/prepare-artwork.mjs'], ['scripts/prepare-motion-icons.mjs'], ['scripts/sync-content.mjs'], ['node_modules/expo/bin/cli', 'export', '--platform', 'web']]) {
-  const result = spawnSync(process.execPath, args, { cwd: mobile, stdio: 'inherit', env: { ...process.env, CHINAHAND_WEB_BASE_URL: baseUrl, EXPO_PUBLIC_LEGACY_DEMO_URL: baseUrl.replace(/\/app$/, "/legacy.html") } });
+for (const args of [['scripts/prepare-artwork.mjs'], ['scripts/prepare-motion-icons.mjs'], ['scripts/sync-content.mjs'], ['node_modules/expo/bin/cli', 'export', '--platform', 'web', '--clear']]) {
+  const result = spawnSync(process.execPath, args, { cwd: mobile, stdio: 'inherit', env: { ...process.env, CHINABUDDY_WEB_BASE_URL: baseUrl, EXPO_PUBLIC_LEGACY_DEMO_URL: baseUrl.replace(/\/app$/, "/legacy.html") } });
   if (result.status !== 0) process.exit(result.status || 1);
 }
 const source = path.join(mobile, 'dist');

@@ -1,3 +1,6 @@
+import { languageOptions } from "../i18n";
+import { uiText } from "../locale-ui";
+import { cityLabel, locationLabel } from "../geography";
 import React from "react";
 import { Switch, View } from "react-native";
 import { useApp } from "../state";
@@ -12,9 +15,9 @@ export default function ContextPreview() {
   const city = content.cities.find((c) => c.id === tripContext.city);
   const port = content.ports.find((p) => p.id === tripContext.arrivalPort);
   const none = zh ? "尚无" : "None yet";
-  const language = { en: "English", zh: "中文", ja: "日本語", ko: "한국어" }[
-    prefs.language
-  ];
+  const language = languageOptions(prefs.language).find(
+    (item) => item.id === prefs.language,
+  )!.label;
   const rows = [
     [t("language"), language],
     ...(prefs.shareContext
@@ -22,10 +25,15 @@ export default function ContextPreview() {
           [
             t("city"),
             city
-              ? `${city.name} / ${city.zh} (${zh ? "手动选择" : "manually selected"})`
-              : port ? portCityLabel(port,prefs.language) : t("noCity"),
+              ? `${cityLabel(city.name, prefs.language)} (${uiText(prefs.language, "manually selected")})`
+              : port
+                ? portCityLabel(port, prefs.language)
+                : t("noCity"),
           ],
-          [zh ? "入境口岸（手动选择）" : "Arrival port (manually chosen)", content.ports.find((p) => p.id === tripContext.arrivalPort)?.zh || none],
+          [
+            zh ? "入境口岸（手动选择）" : "Arrival port (manually chosen)",
+            port ? locationLabel(port.zh, prefs.language) : none,
+          ],
           [t("chooseStage"), t(tripContext.stage)],
           [
             t("preparation"),
@@ -52,7 +60,11 @@ export default function ContextPreview() {
           ],
           [
             zh ? "设备" : "Device",
-            tripContext.platform === "ios" ? "iOS" : tripContext.platform === "web" ? "Desktop interaction preview" : "Android",
+            tripContext.platform === "ios"
+              ? "iOS"
+              : tripContext.platform === "web"
+                ? "Desktop interaction preview"
+                : "Android",
           ],
           [
             zh ? "网络" : "Network",

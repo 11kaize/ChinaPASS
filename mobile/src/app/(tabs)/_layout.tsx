@@ -4,6 +4,7 @@ import { GlassMaterial } from "../../material";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useApp } from "../../state";
 import { Icon } from "../../ui";
+import { uiText } from "../../locale-ui";
 export default function TabLayout() {
   const { prefs, colors, t } = useApp();
   const insets = useSafeAreaInsets();
@@ -56,13 +57,9 @@ export default function TabLayout() {
               options={{
                 title:
                   name === "community"
-                    ? prefs.language === "zh"
-                      ? "社区"
-                      : "Community"
+                    ? uiText(prefs.language, "Community")
                     : name === "settings"
-                      ? prefs.language === "zh"
-                        ? "我的"
-                        : "Me"
+                      ? uiText(prefs.language, "Me")
                       : t(icon as "today"),
                 tabBarIcon: ({ color, focused }) => (
                   <Icon

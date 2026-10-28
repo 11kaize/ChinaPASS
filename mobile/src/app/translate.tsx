@@ -1,3 +1,4 @@
+import { TextInput } from "../localized-input";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -7,7 +8,6 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  TextInput,
   View,
 } from "react-native";
 import { router, useFocusEffect } from "expo-router";

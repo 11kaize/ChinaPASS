@@ -1,12 +1,12 @@
 {
-  "name": "chinahand-desktop",
+  "name": "chinabuddy-desktop",
   "version": "1.1.0",
   "private": true,
-  "description": "ChinaHand native mobile companion and legacy desktop demo",
-  "productName": "ChinaHand",
-  "desktopName": "chinahand",
+  "description": "ChinaBuddy native mobile companion and legacy desktop demo",
+  "productName": "ChinaBuddy",
+  "desktopName": "chinabuddy",
   "main": "electron/main.cjs",
-  "author": "ChinaHand contributors",
+  "author": "ChinaBuddy contributors",
   "license": "UNLICENSED",
   "engines": {
     "node": ">=22.13.0"

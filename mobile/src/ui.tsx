@@ -1,3 +1,5 @@
+import { dictionaries } from "./i18n";
+import { uiText } from "./locale-ui";
 import { backOrReplace } from "./navigation-back";
 import { artwork } from "./artwork";
 import { LinearGradient } from "expo-linear-gradient";
@@ -154,6 +156,7 @@ export function Txt({
   style,
   numberOfLines,
   selectable = false,
+  verbatim = false,
 }: {
   children: React.ReactNode;
   variant?: "body" | "title" | "heading" | "subheading" | "caption" | "label";
@@ -161,15 +164,22 @@ export function Txt({
   style?: any;
   numberOfLines?: number;
   selectable?: boolean;
+  verbatim?: boolean;
 }) {
-  const { colors } = useApp();
+  const { colors, prefs } = useApp();
+  const text = (child: React.ReactNode): React.ReactNode =>
+    typeof child === "string" && !verbatim
+      ? uiText(prefs.language, child)
+      : Array.isArray(child)
+        ? child.map(text)
+        : child;
   return (
     <Text
       selectable={selectable}
       numberOfLines={numberOfLines}
       style={[type[variant], { color: color || colors.ink }, style]}
     >
-      {children}
+      {text(children)}
     </Text>
   );
 }
@@ -205,6 +215,7 @@ export function Tap({
   selected,
   expanded,
   testID,
+  verbatim = false,
 }: {
   children: React.ReactNode;
   onPress: () => void;
@@ -214,7 +225,9 @@ export function Tap({
   selected?: boolean;
   expanded?: boolean;
   testID?: string;
+  verbatim?: boolean;
 }) {
+  const { prefs } = useApp();
   const scale = useMotionValue(1);
   const reduced = useReducedMotion();
   const press = (value: number) => {
@@ -236,7 +249,7 @@ export function Tap({
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={label}
+      accessibilityLabel={verbatim ? label : uiText(prefs.language, label)}
       accessibilityState={{ disabled, selected, expanded }}
       aria-selected={selected}
       aria-expanded={expanded}
@@ -386,7 +399,7 @@ export function Brand({ large = false }: { large?: boolean }) {
   return (
     <Image
       source={artwork.brand}
-      accessibilityLabel="ChinaHand"
+      accessibilityLabel="ChinaBuddy"
       style={{
         width: large ? 80 : 28,
         height: large ? 80 : 28,
@@ -415,7 +428,7 @@ export function TopBar({
       ) : (
         <View style={styles.row}>
           <Brand />
-          <Txt variant="subheading">ChinaHand</Txt>
+          <Txt variant="subheading">ChinaBuddy</Txt>
         </View>
       )}
       {title ? (
@@ -428,7 +441,7 @@ export function TopBar({
       {!back && (
         <IconButton
           name="search"
-          label="Search all of ChinaHand"
+          label="Search all of ChinaBuddy"
           onPress={() => router.push("/search")}
         />
       )}
@@ -458,7 +471,7 @@ export function Page({
   header?: React.ReactNode;
   headerScrolls?: boolean;
 }) {
-  const { colors, isDark } = useApp();
+  const { colors, isDark, prefs } = useApp();
   const scrollingHeader = scroll && headerScrolls && Boolean(header);
   const [keyboard, setKeyboard] = useState(false);
   useEffect(() => {
@@ -481,11 +494,12 @@ export function Page({
       <Image
         source={backdrop || (isDark ? artwork.homeNight : artwork.homeDay)}
         resizeMode="cover"
-        accessibilityLabel={
+        accessibilityLabel={uiText(
+          prefs.language,
           isDark
             ? "Shanghai night skyline background"
-            : "Shanghai morning skyline background"
-        }
+            : "Shanghai morning skyline background",
+        )}
         style={[
           StyleSheet.absoluteFill,
           { width: "100%", height: "100%", opacity: backdrop ? 0.8 : 0.15 },
@@ -528,12 +542,26 @@ export function Page({
     </SafeAreaView>
   );
 }
-export function Heading({ title, body }: { title: string; body?: string }) {
+export function Heading({
+  title,
+  body,
+  verbatim = false,
+}: {
+  title: string;
+  body?: string;
+  verbatim?: boolean;
+}) {
   const { colors } = useApp();
   return (
     <View style={{ gap: 7, marginTop: 6, marginBottom: 20 }}>
-      <Txt variant="title">{title}</Txt>
-      {body && <Txt color={colors.secondary}>{body}</Txt>}
+      <Txt variant="title" verbatim={verbatim}>
+        {title}
+      </Txt>
+      {body && (
+        <Txt verbatim={verbatim} color={colors.secondary}>
+          {body}
+        </Txt>
+      )}
     </View>
   );
 }
@@ -690,9 +718,7 @@ export function Search({
       <View style={[styles.search, { backgroundColor: colors.raised }]}>
         <Pressable
           accessibilityRole={value ? "button" : undefined}
-          accessibilityLabel={
-            prefs.language === "zh" ? "清空搜索" : "Clear search"
-          }
+          accessibilityLabel={uiText(prefs.language, "Clear search")}
           accessible={!!value}
           disabled={!value}
           onPress={() => {
@@ -715,8 +741,8 @@ export function Search({
         </Pressable>
         <TextInput
           ref={input}
-          accessibilityLabel={label}
-          placeholder={label}
+          accessibilityLabel={uiText(prefs.language, label)}
+          placeholder={uiText(prefs.language, label)}
           placeholderTextColor={colors.placeholder}
           value={value}
           onChangeText={onChange}
@@ -735,14 +761,19 @@ export function Field({
   error,
   ...props
 }: TextInputProps & { label: string; hint?: string; error?: string }) {
-  const { colors } = useApp();
+  const { colors, prefs } = useApp();
   return (
     <View style={{ gap: 8, marginBottom: 19 }}>
       <Txt variant="label">{label}</Txt>
       <TextInput
-        accessibilityLabel={label}
+        accessibilityLabel={uiText(prefs.language, label)}
         placeholderTextColor={colors.placeholder}
         {...props}
+        placeholder={
+          props.placeholder
+            ? uiText(prefs.language, props.placeholder)
+            : undefined
+        }
         style={[
           styles.input,
           {
@@ -770,10 +801,12 @@ export function Chips({
   items,
   value,
   onChange,
+  verbatim = false,
 }: {
   items: { id: string; label: string }[];
   value: string;
   onChange: (v: string) => void;
+  verbatim?: boolean;
 }) {
   const { colors } = useApp();
   return (
@@ -786,6 +819,7 @@ export function Chips({
         <Tap
           key={item.id}
           label={item.label}
+          verbatim={verbatim}
           selected={value === item.id}
           onPress={() => onChange(item.id)}
           style={{
@@ -796,6 +830,7 @@ export function Chips({
           }}
         >
           <Txt
+            verbatim={verbatim}
             variant="caption"
             color={value === item.id ? colors.onAccent : colors.secondary}
             style={{ fontWeight: "600" }}
@@ -928,6 +963,12 @@ export function confirmAction(
   onConfirm: () => void,
   t: (key: any) => string,
 ) {
+  const language =
+    (["en", "zh", "ja", "ko"] as const).find(
+      (lang) => dictionaries[lang].cancel === t("cancel"),
+    ) || "en";
+  title = uiText(language, title);
+  body = uiText(language, body);
   if (Platform.OS === "web") {
     if (window.confirm(`${title}\n\n${body}`)) onConfirm();
     return;

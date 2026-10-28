@@ -1,8 +1,8 @@
-/* ChinaHand's local shell. Bump this version when shipping new offline content. */
+/* ChinaBuddy's local shell. Bump this version when shipping new offline content. */
 const CACHE_PREFIX = "chinapass-shell-";
 /* Third digit, not the second: 2026-10-07-18 shipped from the ja/ko branch,
    2026-10-14-2 never left this machine, and 2026-10-14-3 carried both.
-   -native-demo-1 shipped the ChinaHand rename and the native mobile demo, and
+   -native-demo-1 shipped the ChinaBuddy rename and the native mobile demo, and
    -4 was built in parallel on the arrival-port home screen and the four-tab
    home. Both are live now that they are merged, and neither holds the other's
    content, so the merged batch takes a name new to holders of either: nobody

@@ -55,7 +55,7 @@
 ## 密钥处理
 
 - 测试密钥仅通过页面输入，保留于当前运行内存；未写入源码、配置、报告或构建参数。
-- 测试后执行 Disconnect & clear chat，页面恢复 Offline examples。
+- 测试后执行 Disconnect & clear chat，页面恢复 Preset examples。
 - 重新打开配置页并刷新，检查 API key 输入框长度为 **0**。
 - 持久化偏好使用白名单，不包含 API 配置或聊天内容。页面关闭/刷新、原生应用进入后台、主动断开均清除会话。
 

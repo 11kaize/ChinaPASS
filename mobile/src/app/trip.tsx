@@ -1,3 +1,4 @@
+import { cityLabel } from "../geography";
 import { backOrReplace } from "../navigation-back";
 import React from "react";
 import { View } from "react-native";
@@ -33,7 +34,7 @@ export default function Trip() {
         {content.cities.map((city, i) => (
           <Row
             key={city.id}
-            title={`${city.name} / ${city.zh}`}
+            title={cityLabel(city.name, prefs.language)}
             icon="address"
             trailing={
               prefs.city === city.id ? <Icon name="checked" /> : undefined
@@ -44,7 +45,11 @@ export default function Trip() {
         ))}
       </Surface>
       <View style={{ marginTop: 23, gap: 12 }}>
-        <Button label={t("done")} icon="check" onPress={() => backOrReplace(router, "/(tabs)")} />
+        <Button
+          label={t("done")}
+          icon="check"
+          onPress={() => backOrReplace(router, "/(tabs)")}
+        />
         <Button
           label={t("noCity")}
           secondary

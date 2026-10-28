@@ -11,7 +11,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
-        <title>ChinaHand · iPhone interaction preview</title>
+        <title>ChinaBuddy · iPhone interaction preview</title>
         <ScrollViewStyleReset />
         <style>{`
           * { box-sizing: border-box; }
@@ -38,38 +38,35 @@ export default function Root({ children }: { children: React.ReactNode }) {
       <body>
         <main id="preview-stage">
           <aside id="preview-intro">
-            <small>CHINAHAND / INTERACTIVE DEMO</small>
-            <h1>
-              A hand with
-              <br />
-              everyday life.
-            </h1>
-            <p>
-              Explore the iPhone layout, practical guides, Chinese help cards
-              and your personal AI companion.
+            <small data-preview-copy="eyebrow">
+              CHINABUDDY / INTERACTIVE DEMO
+            </small>
+            <h1 data-preview-copy="headline">A buddy for everyday life.</h1>
+            <p data-preview-copy="summary">
+              Explore the phone layout, practical guides, Chinese help cards and
+              your personal AI companion.
             </p>
             {process.env.EXPO_PUBLIC_LEGACY_DEMO_URL && (
               <p>
                 <a
+                  data-preview-copy="legacy"
                   href={process.env.EXPO_PUBLIC_LEGACY_DEMO_URL}
                   style={{ color: "#246BEB" }}
                 >
-                  Earlier web demo · 原版功能
+                  Earlier web demo
                 </a>
               </p>
             )}
-            <small>
-              API Key stays in memory only. Reloading or closing clears it.
+            <small data-preview-copy="privacy">
+              API keys stay in memory only. Reloading or closing clears them.
             </small>
-            <small>
-              iPhone 布局交互预览 · 可点击操作
-              <br />
-              复用原生应用代码，非 Apple iOS 模拟器。
-              <br />
-              iPhone 真机：Expo Go 扫描终端二维码。
+            <small data-preview-copy="native">
+              Interactive iPhone layout preview, using the native app’s code.
+              This is not an Apple iOS simulator. To try it on an iPhone, scan
+              the terminal QR code with Expo Go.
             </small>
           </aside>
-          <section id="phone" aria-label="ChinaHand iPhone layout preview">
+          <section id="phone" aria-label="ChinaBuddy iPhone layout preview">
             <div id="preview-status" aria-hidden="true">
               <span>9:41</span>
               <span>5G · 100%</span>

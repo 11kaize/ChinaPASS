@@ -1,3 +1,5 @@
+import type { AIError } from "./ai/client";
+import { readRenamedStorage } from "./storage-identity";
 import React, {
   createContext,
   useCallback,
@@ -14,17 +16,23 @@ import { translate, TranslationKey } from "./i18n";
 import { light, dark } from "./theme";
 import { APIConfig } from "./ai/providers";
 import { TripContext } from "./ai/context";
-import { Preferences, freshPreferences, persistable } from "./preferences";
+import {
+  Preferences,
+  freshPreferences,
+  persistable,
+  guideContentVersion,
+} from "./preferences";
 export type Message = {
   id: string;
   role: "user" | "assistant";
   content: string;
   example?: boolean;
+  failure?: { kind: AIError["kind"]; status?: number };
   guideId?: string;
   pageActionsEnabled?: boolean;
   status?: "pending" | "complete" | "stopped" | "error";
 };
-const STORAGE_KEY = "chinahand.native.preferences.v1";
+const STORAGE_KEY = "chinabuddy.native.preferences.v1";
 type State = {
   prefs: Preferences;
   update: (patch: Partial<Preferences>) => void;
@@ -66,7 +74,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     (prefs.appearance === "system" && system === "dark");
   useEffect(() => {
     let live = true;
-    AsyncStorage.getItem(STORAGE_KEY)
+    readRenamedStorage(STORAGE_KEY)
       .then((raw) => {
         if (raw && live) {
           const parsed = JSON.parse(raw);
@@ -87,6 +95,21 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
             typeof safe.steps !== "object"
           )
             throw new Error("Invalid preferences");
+          if (parsed.guideContentVersion !== guideContentVersion) {
+            safe.steps = { ...safe.steps };
+            for (const revised of [
+              "customs",
+              "pay",
+              "hotel",
+              "emergency",
+              "taxi",
+              "train",
+              "metro",
+              "food",
+              "sim",
+            ])
+              delete safe.steps[revised];
+          }
           setPrefs(safe);
         }
       })
@@ -138,7 +161,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       abortRef.current?.abort();
     };
   }, [disconnect]);
-  const update = useCallback((patch: Partial<Preferences>) => setPrefs((p) => ({ ...p, ...patch })), []);
+  const update = useCallback(
+    (patch: Partial<Preferences>) => setPrefs((p) => ({ ...p, ...patch })),
+    [],
+  );
   const value: State = {
     prefs,
     update,

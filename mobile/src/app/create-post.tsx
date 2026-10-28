@@ -1,3 +1,5 @@
+import { cityLabel } from "../geography";
+import { content } from "../content";
 import React, { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import { router } from "expo-router";
@@ -25,7 +27,15 @@ export default function CreatePost() {
   const zh = prefs.language === "zh";
   const [title, setTitle] = useState(""),
     [body, setBody] = useState(""),
-    [city, setCity] = useState(prefs.city || ""),
+    [city, setCity] = useState(
+      prefs.city
+        ? cityLabel(
+            content.cities.find((city) => city.id === prefs.city)?.name ||
+              prefs.city,
+            prefs.language,
+          )
+        : "",
+    ),
     [category, setCategory] = useState<Post["category"]>("experience"),
     [media, setMedia] = useState<Media[]>([]),
     [error, setError] = useState(""),

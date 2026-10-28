@@ -1,0 +1,6044 @@
+{
+  "Unknown": {
+    "en": "Unknown",
+    "zh": "未知",
+    "ja": "不明",
+    "ko": "알 수 없음"
+  },
+  "Online": {
+    "en": "Online",
+    "zh": "在线",
+    "ja": "接続中",
+    "ko": "온라인"
+  },
+  "Offline": {
+    "en": "Offline",
+    "zh": "未联网",
+    "ja": "未接続",
+    "ko": "연결 끊김"
+  },
+  "Community": {
+    "en": "Community",
+    "zh": "社区",
+    "ja": "コミュニティ",
+    "ko": "커뮤니티"
+  },
+  "Move bookmark up": {
+    "en": "Move bookmark up",
+    "zh": "上移收藏",
+    "ja": "保存項目を上へ移動",
+    "ko": "저장 항목 위로 이동"
+  },
+  "Move up": {
+    "en": "Move up",
+    "zh": "上移",
+    "ja": "上へ移動",
+    "ko": "위로 이동"
+  },
+  "Keep your question under 4,000 characters.": {
+    "en": "Keep your question under 4,000 characters.",
+    "zh": "问题请控制在 4000 字以内。",
+    "ja": "質問は4,000文字以内にしてください。",
+    "ko": "질문은 4,000자 이내로 입력하세요."
+  },
+  "Monthly AI allowance reached. See membership in Me.": {
+    "en": "Monthly AI allowance reached. See membership in Me.",
+    "zh": "本月智能问答额度已用完，请在个人中心查看会员。",
+    "ja": "今月の質問枠を使い切りました。マイページで会員プランを確認してください。",
+    "ko": "이번 달 질문 한도에 도달했습니다. 내 페이지에서 멤버십을 확인하세요."
+  },
+  "ChinaBuddy AI companion": {
+    "en": "ChinaBuddy AI companion",
+    "zh": "ChinaBuddy 智能助手",
+    "ja": "ChinaBuddy アシスタント",
+    "ko": "ChinaBuddy 도우미"
+  },
+  "Open in ChinaBuddy": {
+    "en": "Open in ChinaBuddy",
+    "zh": "在 ChinaBuddy 中打开",
+    "ja": "ChinaBuddyで開く",
+    "ko": "ChinaBuddy에서 열기"
+  },
+  "Illustrative Chinese food sample": {
+    "en": "Illustrative Chinese food sample",
+    "zh": "中餐示意图片",
+    "ja": "中華料理の参考画像",
+    "ko": "중국 음식 예시 이미지"
+  },
+  "Illustrative airport arrival sample": {
+    "en": "Illustrative airport arrival sample",
+    "zh": "机场到达示意图片",
+    "ja": "空港到着の参考画像",
+    "ko": "공항 도착 예시 이미지"
+  },
+  "Illustrative Shanghai skyline": {
+    "en": "Illustrative Shanghai skyline",
+    "zh": "上海天际线示意图",
+    "ja": "上海の街並みの参考画像",
+    "ko": "상하이 전경 예시 이미지"
+  },
+  "HELP NEARBY": {
+    "en": "HELP NEARBY",
+    "zh": "附近求助",
+    "ja": "近くで助け合う",
+    "ko": "주변 도움"
+  },
+  "LIFE NOTES": {
+    "en": "LIFE NOTES",
+    "zh": "生活笔记",
+    "ja": "暮らしのメモ",
+    "ko": "생활 기록"
+  },
+  " · DEMO": {
+    "en": " · DEMO",
+    "zh": " · 演示",
+    "ja": " · デモ",
+    "ko": " · 데모"
+  },
+  "Like {0}": {
+    "en": "Like {0}",
+    "zh": "点赞 {0}",
+    "ja": "「{0}」にいいね",
+    "ko": "{0} 좋아요"
+  },
+  "Save {0}": {
+    "en": "Save {0}",
+    "zh": "收藏 {0}",
+    "ja": "「{0}」を保存",
+    "ko": "{0} 저장"
+  },
+  "A little local company.": {
+    "en": "A little local company.",
+    "zh": "在这里，一起适应生活。",
+    "ja": "ここでつながる、小さな助け合い。",
+    "ko": "이곳에서 함께 적응하는 생활."
+  },
+  "Small stories. Real questions. Shared discoveries.": {
+    "en": "Small stories. Real questions. Shared discoveries.",
+    "zh": "分享小事，提出问题，交流发现。",
+    "ja": "日々の話、身近な質問、新しい発見。",
+    "ko": "일상 이야기, 실제 질문, 함께 나누는 발견."
+  },
+  "Create post": {
+    "en": "Create post",
+    "zh": "发布帖子",
+    "ja": "投稿を作成",
+    "ko": "게시물 작성"
+  },
+  "Search community": {
+    "en": "Search community",
+    "zh": "搜索社区",
+    "ja": "コミュニティを検索",
+    "ko": "커뮤니티 검색"
+  },
+  "Search stories, places & everyday tips": {
+    "en": "Search stories, places & everyday tips",
+    "zh": "搜索故事、地点与生活技巧",
+    "ja": "投稿・場所・暮らしのヒントを検索",
+    "ko": "게시물·장소·생활 팁 검색"
+  },
+  "Discover": {
+    "en": "Discover",
+    "zh": "发现",
+    "ja": "見つける",
+    "ko": "발견"
+  },
+  "Help nearby": {
+    "en": "Help nearby",
+    "zh": "附近求助",
+    "ja": "近くで助け合う",
+    "ko": "주변 도움"
+  },
+  "Editor's picks": {
+    "en": "Editor's picks",
+    "zh": "编辑精选",
+    "ja": "編集部のおすすめ",
+    "ko": "편집자 추천"
+  },
+  "Mine": {
+    "en": "Mine",
+    "zh": "我的",
+    "ja": "自分の投稿",
+    "ko": "내 게시물"
+  },
+  "Activity": {
+    "en": "Activity",
+    "zh": "互动记录",
+    "ja": "交流の履歴",
+    "ko": "활동 내역"
+  },
+  "Community help has no guaranteed response. For emergencies, use Emergency help and local phone numbers.": {
+    "en": "Community help has no guaranteed response. For emergencies, use Emergency help and local phone numbers.",
+    "zh": "社区求助不保证获得回复。紧急情况请使用紧急求助入口及当地报警、急救电话。",
+    "ja": "コミュニティの回答は保証されません。緊急時は緊急ヘルプと現地の緊急番号を利用してください。",
+    "ko": "커뮤니티 답변은 보장되지 않습니다. 긴급 상황에는 긴급 도움 메뉴와 현지 긴급 전화를 이용하세요."
+  },
+  "No matching stories here yet.": {
+    "en": "No matching stories here yet.",
+    "zh": "暂时没有符合条件的帖子。",
+    "ja": "条件に合う投稿はまだありません。",
+    "ko": "조건에 맞는 게시물이 아직 없습니다."
+  },
+  "Share a story": {
+    "en": "Share a story",
+    "zh": "分享故事",
+    "ja": "体験を投稿",
+    "ko": "이야기 공유"
+  },
+  "Transport": {
+    "en": "Transport",
+    "zh": "交通",
+    "ja": "交通",
+    "ko": "교통"
+  },
+  "Pay": {
+    "en": "Pay",
+    "ja": "支払う",
+    "ko": "결제하기",
+    "zh": "支付。"
+  },
+  "Internet": {
+    "en": "Internet",
+    "zh": "网络",
+    "ja": "通信",
+    "ko": "통신"
+  },
+  "Stay": {
+    "en": "Stay",
+    "zh": "住宿",
+    "ja": "宿泊",
+    "ko": "숙박"
+  },
+  "Food": {
+    "en": "Food",
+    "zh": "餐饮",
+    "ja": "食事",
+    "ko": "식사"
+  },
+  "Help": {
+    "en": "Help",
+    "zh": "帮助",
+    "ja": "ヘルプ",
+    "ko": "도움"
+  },
+  "SOS": {
+    "en": "SOS",
+    "zh": "求助",
+    "ja": "緊急",
+    "ko": "긴급"
+  },
+  "A hand with everyday life in China.": {
+    "en": "A hand with everyday life in China.",
+    "zh": "为在中国的日常生活搭把手。",
+    "ja": "中国での毎日をお手伝い。",
+    "ko": "중국에서의 일상을 도와드립니다."
+  },
+  "Search all of ChinaBuddy": {
+    "en": "Search all of ChinaBuddy",
+    "zh": "搜索 ChinaBuddy 全部内容",
+    "ja": "ChinaBuddy全体を検索",
+    "ko": "ChinaBuddy 전체 검색"
+  },
+  "Search guides, phrases, airports…": {
+    "en": "Search guides, phrases, airports…",
+    "zh": "搜索指南、短句、机场…",
+    "ja": "ガイド・表現・空港を検索…",
+    "ko": "안내·표현·공항 검색…"
+  },
+  "Your first day,\nmade easier.": {
+    "en": "Your first day,\nmade easier.",
+    "zh": "让落地的第一天，\n更轻松一点。",
+    "ja": "到着した初日を、\nもっとスムーズに。",
+    "ko": "도착 첫날을\n더 편안하게."
+  },
+  "Essential guides and little tips to help you settle in.": {
+    "en": "Essential guides and little tips to help you settle in.",
+    "zh": "用实用指南与生活提示，帮你安顿下来。",
+    "ja": "落ち着いて過ごすための実用ガイドとヒント。",
+    "ko": "정착을 돕는 실용 안내와 생활 팁."
+  },
+  "View arrival guide": {
+    "en": "View arrival guide",
+    "zh": "查看落地指南",
+    "ja": "到着ガイドを見る",
+    "ko": "도착 안내 보기"
+  },
+  "Ask ChinaBuddy AI": {
+    "en": "Ask ChinaBuddy AI",
+    "zh": "询问 ChinaBuddy 智能助手",
+    "ja": "ChinaBuddyに質問",
+    "ko": "ChinaBuddy에 질문"
+  },
+  "Clear, practical answers about life in China.": {
+    "en": "Clear, practical answers about life in China.",
+    "zh": "解答在中国生活中的实际问题。",
+    "ja": "中国での生活について、具体的に答えます。",
+    "ko": "중국 생활에 대한 명확하고 실용적인 답변."
+  },
+  "From the community": {
+    "en": "From the community",
+    "zh": "来自社区",
+    "ja": "コミュニティから",
+    "ko": "커뮤니티 소식"
+  },
+  "See all community": {
+    "en": "See all community",
+    "zh": "查看全部社区内容",
+    "ja": "コミュニティ全体を見る",
+    "ko": "커뮤니티 전체 보기"
+  },
+  "See all": {
+    "en": "See all",
+    "zh": "查看全部",
+    "ja": "すべて見る",
+    "ko": "전체 보기"
+  },
+  "Real questions. A little help nearby.": {
+    "en": "Real questions. A little help nearby.",
+    "zh": "真实的问题，身边的帮助。",
+    "ja": "身近な質問と、近くの助け。",
+    "ko": "실제 질문과 가까운 도움."
+  },
+  "Editor’s picks": {
+    "en": "Editor’s picks",
+    "zh": "编辑精选",
+    "ja": "編集部のおすすめ",
+    "ko": "편집자 추천"
+  },
+  "Practical stories for a smoother arrival.": {
+    "en": "Practical stories for a smoother arrival.",
+    "zh": "让落地更顺利的实用经验。",
+    "ja": "スムーズな到着に役立つ体験談。",
+    "ko": "순조로운 도착을 위한 실용 경험담."
+  },
+  "Airport arrival illustration": {
+    "en": "Airport arrival illustration",
+    "zh": "机场到达插画",
+    "ja": "空港到着のイラスト",
+    "ko": "공항 도착 삽화"
+  },
+  "Your everyday toolkit": {
+    "en": "Your everyday toolkit",
+    "zh": "日常工具箱",
+    "ja": "毎日の便利ツール",
+    "ko": "일상 도구 모음"
+  },
+  "My planner": {
+    "en": "My planner",
+    "zh": "我的行程本",
+    "ja": "自分の予定表",
+    "ko": "내 일정표"
+  },
+  "CNY budget": {
+    "en": "CNY budget",
+    "zh": "人民币账本",
+    "ja": "人民元の家計簿",
+    "ko": "위안화 가계부"
+  },
+  "Address wallet": {
+    "en": "Address wallet",
+    "zh": "地址钱包",
+    "ja": "住所の保存帳",
+    "ko": "주소 보관함"
+  },
+  "Two-way talk": {
+    "en": "Two-way talk",
+    "zh": "双向沟通板",
+    "ja": "双方向の会話ボード",
+    "ko": "양방향 대화판"
+  },
+  "Loading your profile…": {
+    "en": "Loading your profile…",
+    "zh": "正在加载个人资料…",
+    "ja": "プロフィールを読み込んでいます…",
+    "ko": "프로필을 불러오는 중입니다…"
+  },
+  "My ChinaBuddy": {
+    "en": "My ChinaBuddy",
+    "zh": "我的",
+    "ja": "マイページ",
+    "ko": "내 페이지"
+  },
+  "A little more at home, every day.": {
+    "en": "A little more at home, every day.",
+    "zh": "为在中国的每一天做好准备。",
+    "ja": "毎日を、少しずつ自分らしく。",
+    "ko": "매일 조금 더 편안하게."
+  },
+  "Preferences": {
+    "en": "Preferences",
+    "zh": "偏好设置",
+    "ja": "環境設定",
+    "ko": "환경 설정"
+  },
+  "Edit profile": {
+    "en": "Edit profile",
+    "zh": "编辑资料",
+    "ja": "プロフィールを編集",
+    "ko": "프로필 수정"
+  },
+  "Hello, traveller": {
+    "en": "Hello, traveller",
+    "zh": "你好，旅行者",
+    "ja": "旅するあなたへ",
+    "ko": "여행자님, 안녕하세요"
+  },
+  "Sign in to make this place yours": {
+    "en": "Sign in to make this place yours",
+    "zh": "登录后，开启你的个人空间",
+    "ja": "ログインして自分のページを作る",
+    "ko": "로그인하고 나만의 공간 만들기"
+  },
+  "Sign in / Create account": {
+    "en": "Sign in / Create account",
+    "zh": "登录或创建账号",
+    "ja": "ログイン・アカウント作成",
+    "ko": "로그인·계정 만들기"
+  },
+  "Stories": {
+    "en": "Stories",
+    "zh": "帖子",
+    "ja": "投稿",
+    "ko": "게시물"
+  },
+  "Saved stories": {
+    "en": "Saved stories",
+    "zh": "收藏帖子",
+    "ja": "保存した投稿",
+    "ko": "저장한 게시물"
+  },
+  "Saved cards": {
+    "en": "Saved cards",
+    "zh": "收藏卡片",
+    "ja": "保存したカード",
+    "ko": "저장한 카드"
+  },
+  "Membership & plans": {
+    "en": "Membership & plans",
+    "zh": "会员与方案",
+    "ja": "会員プラン",
+    "ko": "멤버십 및 요금제"
+  },
+  "ChinaBuddy membership": {
+    "en": "ChinaBuddy membership",
+    "zh": "ChinaBuddy 会员",
+    "ja": "ChinaBuddy の会員プラン",
+    "ko": "ChinaBuddy 멤버십"
+  },
+  "ChinaBuddy {0}": {
+    "en": "ChinaBuddy {0}",
+    "zh": "ChinaBuddy {0}",
+    "ja": "ChinaBuddy {0}",
+    "ko": "ChinaBuddy {0}"
+  },
+  "A little extra for every next step": {
+    "en": "A little extra for every next step",
+    "zh": "每一步，多一点支持",
+    "ja": "次の一歩に、もう少しの支えを",
+    "ko": "다음 행동을 위한 더 많은 지원"
+  },
+  "Your benefits and demo activations": {
+    "en": "Your benefits and demo activations",
+    "zh": "你的权益与演示开通记录",
+    "ja": "特典とデモの有効化記録",
+    "ko": "혜택 및 데모 활성화 내역"
+  },
+  "AI questions left this month": {
+    "en": "AI questions left this month",
+    "zh": "本月智能问答剩余额度",
+    "ja": "今月の質問残り回数",
+    "ko": "이번 달 남은 질문 수"
+  },
+  "Used": {
+    "en": "Used",
+    "zh": "已使用",
+    "ja": "使用済み",
+    "ko": "사용됨"
+  },
+  "Explore plans": {
+    "en": "Explore plans",
+    "zh": "查看会员方案",
+    "ja": "プランを見る",
+    "ko": "요금제 보기"
+  },
+  "Manage plan": {
+    "en": "Manage plan",
+    "zh": "管理会员",
+    "ja": "プランを管理",
+    "ko": "요금제 관리"
+  },
+  "Sign in": {
+    "en": "Sign in",
+    "zh": "登录",
+    "ja": "ログイン",
+    "ko": "로그인"
+  },
+  "Face-to-face translation": {
+    "en": "Face-to-face translation",
+    "zh": "面对面翻译",
+    "ja": "対面翻訳",
+    "ko": "대면 번역"
+  },
+  "One-tap demo sign-in": {
+    "en": "One-tap demo sign-in",
+    "zh": "一键登录演示账号",
+    "ja": "デモアカウントにすぐログイン",
+    "ko": "데모 계정으로 바로 로그인"
+  },
+  "Offline two-way talk": {
+    "en": "Offline two-way talk",
+    "zh": "离线沟通板",
+    "ja": "通信不要の会話ボード",
+    "ko": "오프라인 대화판"
+  },
+  "Common arrival ports, not a complete list or confirmation of visa eligibility.": {
+    "en": "Common arrival ports, not a complete list or confirmation of visa eligibility.",
+    "zh": "这里列出常用口岸，不是完整名单，也不代表签证或免签资格。",
+    "ja": "主な入境地の一覧です。すべての入境地や査証要件を網羅するものではありません。",
+    "ko": "주요 입국지 목록이며 전체 입국지나 비자 자격을 보장하지 않습니다."
+  },
+  "Key and model list verified; generating an answer may still queue": {
+    "en": "Key and model list verified; generating an answer may still queue",
+    "zh": "密钥和模型列表验证成功，生成回答仍可能需要排队。",
+    "ja": "接続キーとモデル一覧を確認しました。回答生成には待ち時間が生じる場合があります。",
+    "ko": "접속 키와 모델 목록이 확인되었습니다. 답변 생성 시 대기할 수 있습니다."
+  },
+  "Your everyday essentials": {
+    "en": "Your everyday essentials",
+    "zh": "日常必备",
+    "ja": "毎日の必需品",
+    "ko": "일상 필수품"
+  },
+  "Places": {
+    "en": "Places",
+    "zh": "地点",
+    "ja": "場所",
+    "ko": "장소"
+  },
+  "Talk & translate": {
+    "en": "Talk & translate",
+    "zh": "沟通与翻译",
+    "ja": "会話と翻訳",
+    "ko": "대화 및 번역"
+  },
+  "Plus / Pro · two-way live text translation": {
+    "en": "Plus / Pro · two-way live text translation",
+    "zh": "Plus / Pro · 双向实时文字翻译",
+    "ja": "Plus / Pro · 双方向の文字翻訳",
+    "ko": "Plus / Pro · 양방향 실시간 문자 번역"
+  },
+  "Show Chinese; get a preset reply or CNY amount": {
+    "en": "Show Chinese; get a preset reply or CNY amount",
+    "zh": "出示中文，选择预设回复或输入人民币金额",
+    "ja": "中国語を見せ、固定の返答か人民元の金額を入力",
+    "ko": "중국어를 보여 주고 고정 답변이나 위안화 금액 입력"
+  },
+  "Account & services": {
+    "en": "Account & services",
+    "zh": "账号与服务",
+    "ja": "アカウントとサービス",
+    "ko": "계정 및 서비스"
+  },
+  "Set a budget and track spending by category": {
+    "en": "Set a budget and track spending by category",
+    "zh": "设置预算，按分类记录开销",
+    "ja": "予算を決めて分類別に支出を記録",
+    "ko": "예산 설정 및 분류별 지출 기록"
+  },
+  "City & journey stage": {
+    "en": "City & journey stage",
+    "zh": "城市与旅程阶段",
+    "ja": "都市と旅の段階",
+    "ko": "도시 및 여행 단계"
+  },
+  "Choose the context for your guides": {
+    "en": "Choose the context for your guides",
+    "zh": "选择指南使用的背景信息",
+    "ja": "ガイドの参考情報を選ぶ",
+    "ko": "안내에 사용할 맥락 선택"
+  },
+  "Personal details": {
+    "en": "Personal details",
+    "zh": "个人资料",
+    "ja": "個人情報",
+    "ko": "개인 정보"
+  },
+  "Your display name and bio": {
+    "en": "Your display name and bio",
+    "zh": "昵称与个人简介",
+    "ja": "表示名と自己紹介",
+    "ko": "표시 이름 및 자기소개"
+  },
+  "My activity": {
+    "en": "My activity",
+    "zh": "我的互动",
+    "ja": "自分の交流履歴",
+    "ko": "내 활동"
+  },
+  "Stories you liked or replied to": {
+    "en": "Stories you liked or replied to",
+    "zh": "你点赞或回复的帖子",
+    "ja": "いいねや返信をした投稿",
+    "ko": "좋아요 또는 답글을 남긴 게시물"
+  },
+  "Activation history": {
+    "en": "Activation history",
+    "zh": "开通记录",
+    "ja": "有効化の履歴",
+    "ko": "활성화 내역"
+  },
+  "Membership activity on this device": {
+    "en": "Membership activity on this device",
+    "zh": "本机会员开通记录",
+    "ja": "この端末の会員履歴",
+    "ko": "이 기기의 멤버십 내역"
+  },
+  "AI connection & privacy": {
+    "en": "AI connection & privacy",
+    "zh": "模型连接与隐私",
+    "ja": "モデル接続とプライバシー",
+    "ko": "모델 연결 및 개인정보"
+  },
+  "Connected · key held for this session only": {
+    "en": "Connected · key held for this session only",
+    "zh": "已连接，密钥仅本次保留",
+    "ja": "接続中・キーは今回のみ保持",
+    "ko": "연결됨·키는 이번 사용에만 유지"
+  },
+  "Connect your own model provider": {
+    "en": "Connect your own model provider",
+    "zh": "连接你自己的模型服务",
+    "ja": "自分のモデル提供元に接続",
+    "ko": "자신의 모델 제공업체 연결"
+  },
+  "Find guide details, cards and common questions offline": {
+    "en": "Find guide details, cards and common questions offline",
+    "zh": "离线查找指南、卡片和常见问题",
+    "ja": "通信なしでガイド・カード・質問を探す",
+    "ko": "인터넷 없이 안내·카드·자주 묻는 질문 찾기"
+  },
+  "Help centre": {
+    "en": "Help centre",
+    "zh": "帮助中心",
+    "ja": "ヘルプセンター",
+    "ko": "도움말 센터"
+  },
+  "Answers and practical guides": {
+    "en": "Answers and practical guides",
+    "zh": "常见解答与实用指南",
+    "ja": "質問への回答と実用ガイド",
+    "ko": "질문 답변 및 실용 안내"
+  },
+  "Local demo account · no cloud sync or real billing": {
+    "en": "Local demo account · no cloud sync or real billing",
+    "zh": "本机演示账号，不支持云同步，不会真实扣费",
+    "ja": "端末内のデモアカウント・同期や実際の請求なし",
+    "ko": "기기 내 데모 계정·클라우드 동기화 및 실제 청구 없음"
+  },
+  "Sign out": {
+    "en": "Sign out",
+    "zh": "退出登录",
+    "ja": "ログアウト",
+    "ko": "로그아웃"
+  },
+  "Sign out?": {
+    "en": "Sign out?",
+    "zh": "退出登录？",
+    "ja": "ログアウトしますか？",
+    "ko": "로그아웃할까요?"
+  },
+  "Your AI session and chat will clear. Local profile data will remain.": {
+    "en": "Your AI session and chat will clear. Local profile data will remain.",
+    "zh": "模型连接与聊天将清除，本机个人资料会保留。",
+    "ja": "モデル接続と会話を消去します。端末のプロフィールは残ります。",
+    "ko": "모델 연결과 대화가 지워집니다. 기기 프로필은 유지됩니다."
+  },
+  "Make yourself at home.": {
+    "en": "Make yourself at home.",
+    "zh": "在这里，留下你的故事。",
+    "ja": "あなたらしく、過ごしましょう。",
+    "ko": "이곳에서 편하게 지내세요."
+  },
+  "A familiar name for every story and conversation.": {
+    "en": "A familiar name for every story and conversation.",
+    "zh": "让每次分享与交流，都有熟悉的名字。",
+    "ja": "投稿や会話に、あなたの名前を。",
+    "ko": "모든 이야기와 대화에 나의 이름을."
+  },
+  "Sign in to edit your profile.": {
+    "en": "Sign in to edit your profile.",
+    "zh": "登录后即可编辑个人资料。",
+    "ja": "プロフィール編集にはログインしてください。",
+    "ko": "프로필을 수정하려면 로그인하세요."
+  },
+  "Display name": {
+    "en": "Display name",
+    "zh": "昵称",
+    "ja": "表示名",
+    "ko": "표시 이름"
+  },
+  "1–40 characters. Shown on your stories and replies.": {
+    "en": "1–40 characters. Shown on your stories and replies.",
+    "zh": "1 至 40 字，会显示在帖子和回复中。",
+    "ja": "1～40文字。投稿と返信に表示します。",
+    "ko": "1~40자. 게시물과 답글에 표시됩니다."
+  },
+  "Bio": {
+    "en": "Bio",
+    "zh": "个人简介",
+    "ja": "自己紹介",
+    "ko": "자기소개"
+  },
+  "Where you’re from, what you love, or a simple hello…": {
+    "en": "Where you’re from, what you love, or a simple hello…",
+    "zh": "介绍家乡、爱好，或简单打个招呼…",
+    "ja": "出身地、好きなこと、ひとこと挨拶など…",
+    "ko": "고향, 좋아하는 일이나 간단한 인사…"
+  },
+  "Profile saved. Your community display name is updated too.": {
+    "en": "Profile saved. Your community display name is updated too.",
+    "zh": "资料已保存，社区昵称也已更新。",
+    "ja": "保存しました。コミュニティの表示名も更新しました。",
+    "ko": "프로필이 저장되고 커뮤니티 표시 이름도 갱신되었습니다."
+  },
+  "Save changes": {
+    "en": "Save changes",
+    "zh": "保存修改",
+    "ja": "変更を保存",
+    "ko": "변경 사항 저장"
+  },
+  "Use a name of 1–40 characters and a bio of up to 160 characters.": {
+    "en": "Use a name of 1–40 characters and a bio of up to 160 characters.",
+    "zh": "昵称为 1 至 40 字，简介不超过 160 字。",
+    "ja": "名前は1～40文字、自己紹介は160文字以内です。",
+    "ko": "이름은 1~40자, 자기소개는 160자 이내로 입력하세요."
+  },
+  "Profile details stay on this device. Your demo sign-in email cannot be changed here.": {
+    "en": "Profile details stay on this device. Your demo sign-in email cannot be changed here.",
+    "zh": "个人资料只保存在本机，此处不能修改演示账号的登录邮箱。",
+    "ja": "プロフィールは端末だけに保存します。この画面でログイン用メールは変更できません。",
+    "ko": "프로필은 이 기기에만 저장됩니다. 이 화면에서 로그인 이메일은 변경할 수 없습니다."
+  },
+  "School": {
+    "en": "School",
+    "zh": "学校",
+    "ja": "学校",
+    "ko": "학교"
+  },
+  "Other": {
+    "en": "Other",
+    "zh": "其他",
+    "ja": "その他",
+    "ko": "기타"
+  },
+  "Your saved places.": {
+    "en": "Your saved places.",
+    "zh": "保存你的常用地点。",
+    "ja": "よく使う場所を保存。",
+    "ko": "자주 가는 장소를 저장하세요."
+  },
+  "Chinese destinations, ready to show.": {
+    "en": "Chinese destinations, ready to show.",
+    "zh": "中文目的地，随时出示。",
+    "ja": "すぐ見せられる中国語の目的地。",
+    "ko": "바로 보여 줄 중국어 목적지."
+  },
+  "Add a place": {
+    "en": "Add a place",
+    "zh": "添加地点",
+    "ja": "場所を追加",
+    "ko": "장소 추가"
+  },
+  "My places": {
+    "en": "My places",
+    "zh": "我的地点",
+    "ja": "自分の場所",
+    "ko": "내 장소"
+  },
+  "Search place or city": {
+    "en": "Search place or city",
+    "zh": "搜索地点或城市",
+    "ja": "場所・都市を検索",
+    "ko": "장소 또는 도시 검색"
+  },
+  "Start with somewhere to come back to": {
+    "en": "Start with somewhere to come back to",
+    "zh": "先保存一个方便返回的地点",
+    "ja": "まずは戻る場所を保存",
+    "ko": "돌아갈 장소부터 저장하세요"
+  },
+  "Add an address in Chinese, or save a stop from Airports & stations.": {
+    "en": "Add an address in Chinese, or save a stop from Airports & stations.",
+    "zh": "输入中文地址，或从机场与车站列表保存地点。",
+    "ja": "中国語住所を入力するか、空港・駅の一覧から保存します。",
+    "ko": "중국어 주소를 입력하거나 공항 및 역 목록에서 저장하세요."
+  },
+  "Default": {
+    "en": "Default",
+    "zh": "默认",
+    "ja": "既定",
+    "ko": "기본"
+  },
+  "Show Chinese address card": {
+    "en": "Show Chinese address card",
+    "zh": "出示中文地址卡",
+    "ja": "中国語の住所カードを表示",
+    "ko": "중국어 주소 카드 표시"
+  },
+  "Edit": {
+    "en": "Edit",
+    "zh": "编辑",
+    "ja": "編集",
+    "ko": "수정"
+  },
+  "Make default": {
+    "en": "Make default",
+    "zh": "设为默认",
+    "ja": "既定にする",
+    "ko": "기본으로 설정"
+  },
+  "Delete place": {
+    "en": "Delete place",
+    "zh": "删除地点",
+    "ja": "場所を削除",
+    "ko": "장소 삭제"
+  },
+  "Delete this place?": {
+    "en": "Delete this place?",
+    "zh": "删除这个地点？",
+    "ja": "この場所を削除しますか？",
+    "ko": "이 장소를 삭제할까요?"
+  },
+  "Only this place will be deleted. Other places stay saved. This cannot be undone.": {
+    "en": "Only this place will be deleted. Other places stay saved. This cannot be undone.",
+    "zh": "仅删除此地点，其他地点会保留。此操作无法撤销。",
+    "ja": "この場所だけを削除し、他の場所は残します。取り消しはできません。",
+    "ko": "이 장소만 삭제하고 나머지는 유지합니다. 취소할 수 없습니다."
+  },
+  "No matching saved places.": {
+    "en": "No matching saved places.",
+    "zh": "没有符合条件的已保存地点。",
+    "ja": "一致する保存場所がありません。",
+    "ko": "일치하는 저장 장소가 없습니다."
+  },
+  "Bundled place names only; no live navigation, terminal details or street-level addresses. Confirm your destination.": {
+    "en": "Bundled place names only; no live navigation, terminal details or street-level addresses. Confirm your destination.",
+    "zh": "仅提供内置地点名称，不含实时导航、航站楼详情或街道地址，请核对目的地。",
+    "ja": "収録済みの名称のみです。現在地案内、ターミナル詳細、番地はありません。目的地を確認してください。",
+    "ko": "내장 장소 이름만 제공하며 실시간 길 안내, 터미널 상세 정보나 도로명 주소는 없습니다. 목적지를 확인하세요."
+  },
+  "Places stay on this device and are not automatically shared with AI. The default place is used by existing address cards and templates.": {
+    "en": "Places stay on this device and are not automatically shared with AI. The default place is used by existing address cards and templates.",
+    "zh": "地点只保存在本机，不会自动分享给模型。默认地点用于现有地址卡和模板。",
+    "ja": "場所は端末内だけに保存し、モデルへ自動共有しません。既定の場所は住所カードとテンプレートに使います。",
+    "ko": "장소는 이 기기에만 저장하며 모델에 자동 공유하지 않습니다. 기본 장소는 주소 카드와 서식에 사용됩니다."
+  },
+  "Reply with OK. This is a connection test.": {
+    "en": "Reply with OK. This is a connection test.",
+    "zh": "请只回复“好”，这是连接测试。",
+    "ja": "接続確認です。「はい」とだけ答えてください。",
+    "ko": "연결 확인입니다. ‘예’라고만 답하세요."
+  },
+  "Reply OK.": {
+    "en": "Reply OK.",
+    "zh": "请回复“好”。",
+    "ja": "「はい」と答えてください。",
+    "ko": "‘예’라고 답하세요."
+  },
+  "Please correct your workspace ID.": {
+    "en": "Please correct your workspace ID.",
+    "zh": "请更正工作空间标识。",
+    "ja": "作業領域の識別子を修正してください。",
+    "ko": "작업 공간 식별자를 수정하세요."
+  },
+  "Beijing": {
+    "en": "Beijing",
+    "zh": "北京",
+    "ja": "北京",
+    "ko": "베이징"
+  },
+  "Singapore": {
+    "en": "Singapore",
+    "zh": "新加坡",
+    "ja": "シンガポール",
+    "ko": "싱가포르"
+  },
+  "Virginia (US)": {
+    "en": "Virginia (US)",
+    "zh": "美国弗吉尼亚",
+    "ja": "米国バージニア州",
+    "ko": "미국 버지니아"
+  },
+  "Choose the region where you created your key.": {
+    "en": "Choose the region where you created your key.",
+    "zh": "选择创建密钥时使用的区域。",
+    "ja": "キーを作成した地域を選んでください。",
+    "ko": "키를 생성한 지역을 선택하세요."
+  },
+  "Optional. Uses your workspace-specific endpoint.": {
+    "en": "Optional. Uses your workspace-specific endpoint.",
+    "zh": "选填，将使用工作空间专属接口。",
+    "ja": "任意です。作業領域専用の接続先を使用します。",
+    "ko": "선택 사항이며 작업 공간 전용 접속 주소를 사용합니다."
+  },
+  "Workspace ID accepts only letters, digits and hyphens.": {
+    "en": "Workspace ID accepts only letters, digits and hyphens.",
+    "zh": "工作空间标识仅支持字母、数字和连字符。",
+    "ja": "作業領域の識別子は英数字とハイフンのみです。",
+    "ko": "작업 공간 식별자는 영문자, 숫자와 하이픈만 허용합니다."
+  },
+  "Your provider API key": {
+    "en": "Your provider API key",
+    "zh": "输入模型服务商的接入密钥",
+    "ja": "提供元の接続キーを入力",
+    "ko": "제공업체 접속 키 입력"
+  },
+  "Base URL only. Do not append /chat/completions or /responses.": {
+    "en": "Base URL only. Do not append /chat/completions or /responses.",
+    "zh": "仅填基础地址，不要追加具体接口路径。",
+    "ja": "基底アドレスのみ入力し、処理のパスは付けないでください。",
+    "ko": "기본 주소만 입력하고 처리 경로는 추가하지 마세요."
+  },
+  "DeepSeek checks your key and model list without generating an answer. Other providers send a short generation request that may use credit.": {
+    "en": "DeepSeek checks your key and model list without generating an answer. Other providers send a short generation request that may use credit.",
+    "zh": "DeepSeek 只检查密钥及模型列表，不生成回答；其他服务商会发送简短生成请求，可能消耗额度。",
+    "ja": "DeepSeekは回答を生成せずキーとモデル一覧を確認します。他の提供元には短い生成要求を送り、利用枠を消費する場合があります。",
+    "ko": "DeepSeek는 답변 생성 없이 키와 모델 목록을 확인합니다. 다른 제공업체에는 짧은 생성 요청을 보내므로 사용량이 발생할 수 있습니다."
+  },
+  "Get an API key": {
+    "en": "Get an API key",
+    "zh": "获取接入密钥",
+    "ja": "接続キーを取得",
+    "ko": "접속 키 발급"
+  },
+  "Official setup guide": {
+    "en": "Official setup guide",
+    "zh": "官方配置指南",
+    "ja": "公式の設定ガイド",
+    "ko": "공식 설정 안내"
+  },
+  "Shopping": {
+    "en": "Shopping",
+    "zh": "购物",
+    "ja": "買い物",
+    "ko": "쇼핑"
+  },
+  "Enter an amount above zero, up to 6 whole digits and 2 decimals.": {
+    "en": "Enter an amount above zero, up to 6 whole digits and 2 decimals.",
+    "zh": "输入大于零的金额，整数最多六位，小数最多两位。",
+    "ja": "0より大きい金額を、整数6桁・小数2桁以内で入力してください。",
+    "ko": "0보다 큰 금액을 정수 6자리, 소수 2자리 이내로 입력하세요."
+  },
+  "Enter a real date, for example 2026-10-22.": {
+    "en": "Enter a real date, for example 2026-10-22.",
+    "zh": "输入有效日期，例如 2026-10-22。",
+    "ja": "有効な日付を入力してください。例：2026-10-22。",
+    "ko": "유효한 날짜를 입력하세요. 예: 2026-10-22."
+  },
+  "You can save up to 200 entries. Remove an old entry first.": {
+    "en": "You can save up to 200 entries. Remove an old entry first.",
+    "zh": "最多保存 200 条记录，请先删除旧记录。",
+    "ja": "200件まで保存できます。先に古い記録を削除してください。",
+    "ko": "최대 200개까지 저장할 수 있습니다. 먼저 이전 기록을 삭제하세요."
+  },
+  "A little clarity on spending.": {
+    "en": "A little clarity on spending.",
+    "zh": "让每一笔开销，更清楚。",
+    "ja": "毎日の支出を、わかりやすく。",
+    "ko": "매일의 지출을 한눈에."
+  },
+  "Keep track of everyday spending in China. All amounts are CNY.": {
+    "en": "Keep track of everyday spending in China. All amounts are CNY.",
+    "zh": "记录在中国的日常开销，所有金额均为人民币。",
+    "ja": "中国での毎日の支出を記録します。金額はすべて人民元です。",
+    "ko": "중국에서의 일상 지출을 기록하세요. 모든 금액은 위안화입니다."
+  },
+  "Your trip budget": {
+    "en": "Your trip budget",
+    "zh": "本次总预算",
+    "ja": "今回の旅行予算",
+    "ko": "이번 여행 예산"
+  },
+  "Set budget": {
+    "en": "Set budget",
+    "zh": "设置预算",
+    "ja": "予算を設定",
+    "ko": "예산 설정"
+  },
+  "Set": {
+    "en": "Set",
+    "zh": "设置",
+    "ja": "設定",
+    "ko": "설정"
+  },
+  "Budget (CNY)": {
+    "en": "Budget (CNY)",
+    "zh": "预算（人民币）",
+    "ja": "予算（人民元）",
+    "ko": "예산(위안화)"
+  },
+  "Leave blank to remove the budget; expenses stay.": {
+    "en": "Leave blank to remove the budget; expenses stay.",
+    "zh": "留空可取消预算，支出记录会保留。",
+    "ja": "空欄で予算を解除できます。支出記録は残ります。",
+    "ko": "빈칸으로 두면 예산을 해제하며 지출 기록은 유지됩니다."
+  },
+  "Save budget": {
+    "en": "Save budget",
+    "zh": "保存预算",
+    "ja": "予算を保存",
+    "ko": "예산 저장"
+  },
+  "Enter a valid CNY amount.": {
+    "en": "Enter a valid CNY amount.",
+    "zh": "输入有效的人民币金额。",
+    "ja": "有効な人民元の金額を入力してください。",
+    "ko": "유효한 위안화 금액을 입력하세요."
+  },
+  "Recorded spending": {
+    "en": "Recorded spending",
+    "zh": "已记录支出",
+    "ja": "記録した支出",
+    "ko": "기록한 지출"
+  },
+  "Over budget": {
+    "en": "Over budget",
+    "zh": "超出预算",
+    "ja": "予算超過",
+    "ko": "예산 초과"
+  },
+  "Budget remaining": {
+    "en": "Budget remaining",
+    "zh": "剩余预算",
+    "ja": "予算の残り",
+    "ko": "남은 예산"
+  },
+  "Not set": {
+    "en": "Not set",
+    "zh": "未设置",
+    "ja": "未設定",
+    "ko": "미설정"
+  },
+  "Add an expense": {
+    "en": "Add an expense",
+    "zh": "添加支出",
+    "ja": "支出を追加",
+    "ko": "지출 추가"
+  },
+  "Edit expense": {
+    "en": "Edit expense",
+    "zh": "编辑支出",
+    "ja": "支出を編集",
+    "ko": "지출 수정"
+  },
+  "Amount (CNY)": {
+    "en": "Amount (CNY)",
+    "zh": "金额（人民币）",
+    "ja": "金額（人民元）",
+    "ko": "금액(위안화)"
+  },
+  "Date (China local date)": {
+    "en": "Date (China local date)",
+    "zh": "日期（中国当地日期）",
+    "ja": "日付（中国の現地日付）",
+    "ko": "날짜(중국 현지 날짜)"
+  },
+  "YYYY-MM-DD": {
+    "en": "YYYY-MM-DD",
+    "zh": "年-月-日",
+    "ja": "年-月-日",
+    "ko": "연-월-일"
+  },
+  "Note (optional)": {
+    "en": "Note (optional)",
+    "zh": "备注（选填）",
+    "ja": "メモ（任意）",
+    "ko": "메모(선택)"
+  },
+  "For example: airport to hotel": {
+    "en": "For example: airport to hotel",
+    "zh": "例如：机场到酒店",
+    "ja": "例：空港からホテルまで",
+    "ko": "예: 공항에서 호텔까지"
+  },
+  "Save expense": {
+    "en": "Save expense",
+    "zh": "保存支出",
+    "ja": "支出を保存",
+    "ko": "지출 저장"
+  },
+  "Cancel editing": {
+    "en": "Cancel editing",
+    "zh": "取消编辑",
+    "ja": "編集をキャンセル",
+    "ko": "수정 취소"
+  },
+  "Spending by category": {
+    "en": "Spending by category",
+    "zh": "分类支出",
+    "ja": "分類別の支出",
+    "ko": "분류별 지출"
+  },
+  "Your expenses": {
+    "en": "Your expenses",
+    "zh": "你的支出",
+    "ja": "自分の支出",
+    "ko": "내 지출"
+  },
+  "No expenses here yet": {
+    "en": "No expenses here yet",
+    "zh": "暂时没有支出记录",
+    "ja": "支出の記録がありません",
+    "ko": "지출 기록이 아직 없습니다"
+  },
+  "Add food, transport or accommodation spending to see your totals.": {
+    "en": "Add food, transport or accommodation spending to see your totals.",
+    "zh": "记录餐饮、交通或住宿开销，即可查看汇总。",
+    "ja": "食事、交通、宿泊などの支出を追加すると集計を確認できます。",
+    "ko": "식사, 교통이나 숙박 지출을 추가하면 합계를 볼 수 있습니다."
+  },
+  "Delete expense": {
+    "en": "Delete expense",
+    "zh": "删除支出",
+    "ja": "支出を削除",
+    "ko": "지출 삭제"
+  },
+  "Delete this expense?": {
+    "en": "Delete this expense?",
+    "zh": "删除这笔支出？",
+    "ja": "この支出を削除しますか？",
+    "ko": "이 지출을 삭제할까요?"
+  },
+  "Totals will update. This local entry cannot be restored.": {
+    "en": "Totals will update. This local entry cannot be restored.",
+    "zh": "汇总金额将更新，此条本机记录无法恢复。",
+    "ja": "合計も更新します。この端末の記録は復元できません。",
+    "ko": "합계도 갱신됩니다. 이 기기의 기록은 복원할 수 없습니다."
+  },
+  "On this device only. No bank sync, payments or live exchange rates. Entries survive refresh; clearing local data removes them.": {
+    "en": "On this device only. No bank sync, payments or live exchange rates. Entries survive refresh; clearing local data removes them.",
+    "zh": "仅保存在本机，不连接银行、不发起支付、不提供实时汇率。刷新后记录仍保留，清除本机数据会删除记录。",
+    "ja": "端末内のみで、銀行連携・支払い・現在の為替情報はありません。再読み込み後も残りますが、端末データの消去で削除されます。",
+    "ko": "기기 내 전용이며 은행 연동, 결제나 실시간 환율은 없습니다. 새로 고침 후에도 유지되지만 기기 데이터 삭제 시 지워집니다."
+  },
+  "Edit my card": {
+    "en": "Edit my card",
+    "zh": "编辑我的卡片",
+    "ja": "自分のカードを編集",
+    "ko": "내 카드 수정"
+  },
+  "Edit template": {
+    "en": "Edit template",
+    "zh": "编辑模板",
+    "ja": "テンプレートを編集",
+    "ko": "서식 수정"
+  },
+  "Your location in Chinese": {
+    "en": "Your location in Chinese",
+    "zh": "你的地点中文名称",
+    "ja": "目的地の中国語名",
+    "ko": "목적지의 중국어 이름"
+  },
+  "Copy failed. Long-press the Chinese to select it.": {
+    "en": "Copy failed. Long-press the Chinese to select it.",
+    "zh": "复制失败，请长按中文选择文本。",
+    "ja": "コピーできません。中国語を長押しして選択してください。",
+    "ko": "복사할 수 없습니다. 중국어를 길게 눌러 선택하세요."
+  },
+  "Let them reply": {
+    "en": "Let them reply",
+    "zh": "请对方回复",
+    "ja": "相手に返答してもらう",
+    "ko": "상대방에게 답변 요청"
+  },
+  "Delete this card": {
+    "en": "Delete this card",
+    "zh": "删除这张卡片",
+    "ja": "このカードを削除",
+    "ko": "이 카드 삭제"
+  },
+  "Could not open the map search.": {
+    "en": "Could not open the map search.",
+    "zh": "无法打开地图搜索。",
+    "ja": "地図検索を開けません。",
+    "ko": "지도 검색을 열 수 없습니다."
+  },
+  "Find this port on a map": {
+    "en": "Find this port on a map",
+    "zh": "在地图上搜索此口岸",
+    "ja": "この入境地を地図で探す",
+    "ko": "지도에서 이 입국지 찾기"
+  },
+  "Airports": {
+    "en": "Airports",
+    "zh": "机场",
+    "ja": "空港",
+    "ko": "공항"
+  },
+  "Railway stations": {
+    "en": "Railway stations",
+    "zh": "火车站",
+    "ja": "鉄道駅",
+    "ko": "기차역"
+  },
+  "Back to community": {
+    "en": "Back to community",
+    "zh": "返回社区",
+    "ja": "コミュニティに戻る",
+    "ko": "커뮤니티로 돌아가기"
+  },
+  "Search community content": {
+    "en": "Search community content",
+    "zh": "搜索社区内容",
+    "ja": "コミュニティの内容を検索",
+    "ko": "커뮤니티 내용 검색"
+  },
+  "Search stories & places": {
+    "en": "Search stories & places",
+    "zh": "搜索帖子与地点",
+    "ja": "投稿・場所を検索",
+    "ko": "게시물 및 장소 검색"
+  },
+  "Search": {
+    "en": "Search",
+    "zh": "搜索",
+    "ja": "検索",
+    "ko": "검색"
+  },
+  "Top": {
+    "en": "Top",
+    "zh": "热门",
+    "ja": "人気",
+    "ko": "인기"
+  },
+  "Experiences": {
+    "en": "Experiences",
+    "zh": "经验",
+    "ja": "体験談",
+    "ko": "경험담"
+  },
+  "“{0}” · {1} results": {
+    "en": "“{0}” · {1} results",
+    "zh": "“{0}” · {1} 条结果",
+    "ja": "「{0}」・{1}件",
+    "ko": "‘{0}’ · 결과 {1}개"
+  },
+  "Experience": {
+    "en": "Experience",
+    "zh": "经验",
+    "ja": "体験談",
+    "ko": "경험담"
+  },
+  "Try a city, an airport, or a different keyword.": {
+    "en": "Try a city, an airport, or a different keyword.",
+    "zh": "试试城市、机场或其他关键词。",
+    "ja": "都市や空港、別の言葉で検索してください。",
+    "ko": "도시, 공항이나 다른 검색어를 사용해 보세요."
+  },
+  "Try another search": {
+    "en": "Try another search",
+    "zh": "换个词搜索",
+    "ja": "別の言葉で検索",
+    "ko": "다른 검색어 사용"
+  },
+  "Suggestions": {
+    "en": "Suggestions",
+    "zh": "搜索建议",
+    "ja": "検索候補",
+    "ko": "검색 제안"
+  },
+  "Search for {0}": {
+    "en": "Search for {0}",
+    "zh": "搜索 {0}",
+    "ja": "「{0}」を検索",
+    "ko": "{0} 검색"
+  },
+  "Recent searches": {
+    "en": "Recent searches",
+    "zh": "最近搜索",
+    "ja": "最近の検索",
+    "ko": "최근 검색"
+  },
+  "Trending in the community": {
+    "en": "Trending in the community",
+    "zh": "社区热度榜",
+    "ja": "コミュニティの人気ランキング",
+    "ko": "커뮤니티 인기 순위"
+  },
+  "Popular stories from the past 7 days · TOP 10": {
+    "en": "Popular stories from the past 7 days · TOP 10",
+    "zh": "过去七天的热门帖子 · 前十名",
+    "ja": "過去7日間の人気投稿・上位10件",
+    "ko": "지난 7일 인기 게시물·상위 10개"
+  },
+  "Trending {0}: {1}": {
+    "en": "Trending {0}: {1}",
+    "zh": "热度第 {0}：{1}",
+    "ja": "人気{0}位：{1}",
+    "ko": "인기 {0}위: {1}"
+  },
+  "No trending activity in the past seven days. You can still search the community.": {
+    "en": "No trending activity in the past seven days. You can still search the community.",
+    "zh": "过去七天没有热度记录，你仍可搜索社区内容。",
+    "ja": "過去7日間の人気履歴はありませんが、検索は利用できます。",
+    "ko": "지난 7일 인기 기록이 없습니다. 커뮤니티 검색은 이용할 수 있습니다."
+  },
+  "Ranked by recent likes, saves and replies. Sample posts include demo activity.": {
+    "en": "Ranked by recent likes, saves and replies. Sample posts include demo activity.",
+    "zh": "按近期点赞、收藏和回复排序。示例帖包含演示数据。",
+    "ja": "最近のいいね・保存・返信で順位を決めます。サンプル投稿にはデモの履歴が含まれます。",
+    "ko": "최근 좋아요, 저장 및 답글로 순위를 정합니다. 예시 게시물에는 데모 활동이 포함됩니다."
+  },
+  "None yet": {
+    "en": "None yet",
+    "zh": "暂无",
+    "ja": "まだありません",
+    "ko": "아직 없음"
+  },
+  "English": {
+    "en": "English",
+    "zh": "英语",
+    "ja": "英語",
+    "ko": "영어"
+  },
+  "manually selected": {
+    "en": "manually selected",
+    "zh": "手动选择",
+    "ja": "手動で選択",
+    "ko": "직접 선택"
+  },
+  "Arrival port (manually chosen)": {
+    "en": "Arrival port (manually chosen)",
+    "zh": "入境口岸（手动选择）",
+    "ja": "入境地（手動選択）",
+    "ko": "입국지(직접 선택)"
+  },
+  "Recent guide": {
+    "en": "Recent guide",
+    "zh": "最近浏览的指南",
+    "ja": "最近見たガイド",
+    "ko": "최근 본 안내"
+  },
+  "Completed guide steps": {
+    "en": "Completed guide steps",
+    "zh": "已完成的指南步骤",
+    "ja": "完了したガイドの手順",
+    "ko": "완료한 안내 단계"
+  },
+  "Device": {
+    "en": "Device",
+    "zh": "设备",
+    "ja": "端末",
+    "ko": "기기"
+  },
+  "Desktop interaction preview": {
+    "en": "Desktop interaction preview",
+    "zh": "桌面交互预览",
+    "ja": "デスクトップ操作プレビュー",
+    "ko": "데스크톱 조작 미리 보기"
+  },
+  "Android": {
+    "en": "Android",
+    "zh": "安卓",
+    "ja": "アンドロイド",
+    "ko": "안드로이드"
+  },
+  "Network": {
+    "en": "Network",
+    "zh": "网络",
+    "ja": "通信",
+    "ko": "네트워크"
+  },
+  "Device time zone": {
+    "en": "Device time zone",
+    "zh": "设备时区",
+    "ja": "端末の時間帯",
+    "ko": "기기 시간대"
+  },
+  "Device time": {
+    "en": "Device time",
+    "zh": "设备时间",
+    "ja": "端末の時刻",
+    "ko": "기기 시간"
+  },
+  "Project knowledge": {
+    "en": "Project knowledge",
+    "zh": "项目知识",
+    "ja": "アプリの知識",
+    "ko": "앱 지식"
+  },
+  "{0} task guides, {1} Chinese cards, {2} offline phrases, related sources and FAQs.": {
+    "en": "{0} task guides, {1} Chinese cards, {2} offline phrases, related sources and FAQs.",
+    "zh": "{0} 个任务指南、{1} 张中文卡片、{2} 条离线短句及相关来源与常见问题。",
+    "ja": "手続きガイド{0}件、中国語カード{1}枚、通信不要の表現{2}件と関連資料・質問集。",
+    "ko": "업무 안내 {0}개, 중국어 카드 {1}개, 오프라인 표현 {2}개 및 관련 자료와 질문 모음."
+  },
+  "Trip sharing is off. Only the interface language, relevant project knowledge and your messages are sent.": {
+    "en": "Trip sharing is off. Only the interface language, relevant project knowledge and your messages are sent.",
+    "zh": "旅程信息分享已关闭，仅发送界面语言、相关项目知识和你的消息。",
+    "ja": "旅の背景情報の共有は無効です。画面の言語、関連するアプリの知識、メッセージのみ送信します。",
+    "ko": "여행 맥락 공유가 꺼져 있습니다. 화면 언어, 관련 앱 지식과 메시지만 전송합니다."
+  },
+  "New story": {
+    "en": "New story",
+    "zh": "新帖子",
+    "ja": "新しい投稿",
+    "ko": "새 게시물"
+  },
+  "Something worth sharing.": {
+    "en": "Something worth sharing.",
+    "zh": "值得分享的日常。",
+    "ja": "日々の発見を、誰かに。",
+    "ko": "나누고 싶은 일상."
+  },
+  "Share what you learned, or ask for a little help.": {
+    "en": "Share what you learned, or ask for a little help.",
+    "zh": "分享你的收获，或寻求一点帮助。",
+    "ja": "体験を共有したり、少しの助けを求めたり。",
+    "ko": "배운 점을 공유하거나 도움을 요청하세요."
+  },
+  "Sign in to publish a story.": {
+    "en": "Sign in to publish a story.",
+    "zh": "登录后即可发布帖子。",
+    "ja": "投稿にはログインしてください。",
+    "ko": "게시물을 작성하려면 로그인하세요."
+  },
+  "Help request": {
+    "en": "Help request",
+    "zh": "求助",
+    "ja": "助けを求める",
+    "ko": "도움 요청"
+  },
+  "Title": {
+    "en": "Title",
+    "zh": "标题",
+    "ja": "タイトル",
+    "ko": "제목"
+  },
+  "Your story or question": {
+    "en": "Your story or question",
+    "zh": "你的故事或问题",
+    "ja": "体験や質問の本文",
+    "ko": "이야기 또는 질문"
+  },
+  "General location (optional)": {
+    "en": "General location (optional)",
+    "zh": "大致位置（选填）",
+    "ja": "おおまかな場所（任意）",
+    "ko": "대략적인 위치(선택)"
+  },
+  "Avoid room numbers, contact details and identity documents.": {
+    "en": "Avoid room numbers, contact details and identity documents.",
+    "zh": "不要填写房间号、联系方式或身份证件信息。",
+    "ja": "部屋番号、連絡先、身分証の情報は入力しないでください。",
+    "ko": "객실 번호, 연락처나 신분증 정보는 입력하지 마세요."
+  },
+  "Remove attachment {0}": {
+    "en": "Remove attachment {0}",
+    "zh": "移除附件 {0}",
+    "ja": "添付ファイル{0}を削除",
+    "ko": "첨부파일 {0} 삭제"
+  },
+  "Could not remove the attachment. Please retry.": {
+    "en": "Could not remove the attachment. Please retry.",
+    "zh": "无法移除附件，请重试。",
+    "ja": "添付ファイルを削除できません。再試行してください。",
+    "ko": "첨부파일을 삭제할 수 없습니다. 다시 시도하세요."
+  },
+  "Remove attachment": {
+    "en": "Remove attachment",
+    "zh": "移除附件",
+    "ja": "添付ファイルを削除",
+    "ko": "첨부파일 삭제"
+  },
+  "Saving attachment…": {
+    "en": "Saving attachment…",
+    "zh": "正在保存附件…",
+    "ja": "添付ファイルを保存しています…",
+    "ko": "첨부파일 저장 중…"
+  },
+  "Add photos or videos ({0}/6)": {
+    "en": "Add photos or videos ({0}/6)",
+    "zh": "添加图片或视频（{0}/6）",
+    "ja": "画像・動画を追加（{0}/6）",
+    "ko": "사진·동영상 추가({0}/6)"
+  },
+  "On-device community demo. Stories and attachments stay on this device and are not published publicly.": {
+    "en": "On-device community demo. Stories and attachments stay on this device and are not published publicly.",
+    "zh": "本机社区演示。帖子和附件只保存在这台设备上，不会公开发布。",
+    "ja": "端末内のコミュニティデモです。投稿と添付はこの端末にだけ保存し、一般公開しません。",
+    "ko": "기기 내 커뮤니티 데모입니다. 게시물과 첨부파일은 이 기기에만 저장하며 공개 게시하지 않습니다."
+  },
+  "Publish to this demo": {
+    "en": "Publish to this demo",
+    "zh": "发布到本机演示",
+    "ja": "このデモに投稿",
+    "ko": "이 데모에 게시"
+  },
+  "Search match": {
+    "en": "Search match",
+    "zh": "搜索定位",
+    "ja": "検索結果の該当箇所",
+    "ko": "검색 일치 항목"
+  },
+  "This guide includes airport steps. Your rail or ferry port may use a different arrival process; follow staff instructions.": {
+    "en": "This guide includes airport steps. Your rail or ferry port may use a different arrival process; follow staff instructions.",
+    "zh": "此指南含机场步骤。铁路或海港口岸的流程可能不同，请遵循现场指引。",
+    "ja": "このガイドには空港の手順が含まれます。鉄道や港では異なる場合があるため現場の案内に従ってください。",
+    "ko": "공항 절차가 포함된 안내입니다. 철도나 항만 절차는 다를 수 있으므로 현장 안내를 따르세요."
+  },
+  "Your membership journey.": {
+    "en": "Your membership journey.",
+    "zh": "你的会员记录。",
+    "ja": "会員プランの利用履歴。",
+    "ko": "멤버십 이용 내역."
+  },
+  "Your demo activations and validity dates, in one place.": {
+    "en": "Your demo activations and validity dates, in one place.",
+    "zh": "集中查看演示开通记录与有效期。",
+    "ja": "デモの有効化記録と有効期限をまとめて確認。",
+    "ko": "데모 활성화 내역과 유효기간을 한곳에서 확인."
+  },
+  "Demo records only. Amount actually paid: $0. These are not payment receipts. Activations from older versions have no history record.": {
+    "en": "Demo records only. Amount actually paid: $0. These are not payment receipts. Activations from older versions have no history record.",
+    "zh": "仅演示记录，实际支付金额为零，不是付款凭证。旧版本开通不含历史记录。",
+    "ja": "デモの記録のみで実際の支払いは0です。支払いの領収書ではありません。旧版の有効化は履歴に含まれません。",
+    "ko": "데모 기록이며 실제 결제액은 0입니다. 결제 영수증이 아닙니다. 이전 버전 활성화 내역은 포함되지 않습니다."
+  },
+  "Sign in to view history": {
+    "en": "Sign in to view history",
+    "zh": "登录查看记录",
+    "ja": "ログインして履歴を見る",
+    "ko": "로그인하여 내역 보기"
+  },
+  "No activations yet": {
+    "en": "No activations yet",
+    "zh": "暂无开通记录",
+    "ja": "有効化の履歴はありません",
+    "ko": "활성화 내역 없음"
+  },
+  "Your next demo activation will appear here.": {
+    "en": "Your next demo activation will appear here.",
+    "zh": "下次演示开通记录将显示在这里。",
+    "ja": "次回のデモ有効化がここに表示されます。",
+    "ko": "다음 데모 활성화 기록이 여기에 표시됩니다."
+  },
+  "Explore membership": {
+    "en": "Explore membership",
+    "zh": "了解会员",
+    "ja": "会員プランを見る",
+    "ko": "멤버십 둘러보기"
+  },
+  "Demo activation": {
+    "en": "Demo activation",
+    "zh": "演示开通",
+    "ja": "デモの有効化",
+    "ko": "데모 활성화"
+  },
+  "valid until": {
+    "en": "valid until",
+    "zh": "有效期至",
+    "ja": "有効期限",
+    "ko": "유효기간"
+  },
+  "$0 paid": {
+    "en": "$0 paid",
+    "zh": "实际支付零元",
+    "ja": "支払い0",
+    "ko": "실제 결제 미화 0달러"
+  },
+  "Plan price": {
+    "en": "Plan price",
+    "zh": "方案标价",
+    "ja": "プランの表示価格",
+    "ko": "요금제 표시 가격"
+  },
+  "You can save up to 30 places. Remove one before adding another.": {
+    "en": "You can save up to 30 places. Remove one before adding another.",
+    "zh": "最多保存 30 个地点，请先删除旧地点再添加。",
+    "ja": "30件まで保存できます。新規追加の前に古い場所を削除してください。",
+    "ko": "장소는 최대 30개까지 저장할 수 있습니다. 추가 전에 이전 장소를 삭제하세요."
+  },
+  "Edit place": {
+    "en": "Edit place",
+    "zh": "编辑地点",
+    "ja": "場所を編集",
+    "ko": "장소 수정"
+  },
+  "Next time, just show the address.": {
+    "en": "Next time, just show the address.",
+    "zh": "下次出发，出示地址就好。",
+    "ja": "次は住所を見せるだけ。",
+    "ko": "다음에는 주소만 보여 주세요."
+  },
+  "This saved place no longer exists. Return to the address wallet.": {
+    "en": "This saved place no longer exists. Return to the address wallet.",
+    "zh": "此地点已不存在，请返回地址钱包。",
+    "ja": "この場所はもうありません。住所の保存帳に戻ってください。",
+    "ko": "이 장소가 더 이상 없습니다. 주소 보관함으로 돌아가세요."
+  },
+  "Place name": {
+    "en": "Place name",
+    "zh": "地点名称",
+    "ja": "場所の名前",
+    "ko": "장소 이름"
+  },
+  "For example: my hotel": {
+    "en": "For example: my hotel",
+    "zh": "例如：我的酒店",
+    "ja": "例：自分のホテル",
+    "ko": "예: 내 호텔"
+  },
+  "Address or destination in Chinese": {
+    "en": "Address or destination in Chinese",
+    "zh": "中文地址或目的地",
+    "ja": "中国語の住所・目的地",
+    "ko": "중국어 주소 또는 목적지"
+  },
+  "Copy it from your hotel confirmation or a trusted source. The app does not translate addresses.": {
+    "en": "Copy it from your hotel confirmation or a trusted source. The app does not translate addresses.",
+    "zh": "从酒店确认单或可信来源复制。本应用不翻译地址。",
+    "ja": "ホテルの確認書など信頼できる情報からコピーしてください。アプリは住所を翻訳しません。",
+    "ko": "호텔 예약 확인서나 신뢰할 수 있는 출처에서 복사하세요. 앱은 주소를 번역하지 않습니다."
+  },
+  "Venue phone (optional)": {
+    "en": "Venue phone (optional)",
+    "zh": "场所电话（选填）",
+    "ja": "施設の電話番号（任意）",
+    "ko": "장소 전화번호(선택)"
+  },
+  "Save place": {
+    "en": "Save place",
+    "zh": "保存地点",
+    "ja": "場所を保存",
+    "ko": "장소 저장"
+  },
+  "Save & show Chinese card": {
+    "en": "Save & show Chinese card",
+    "zh": "保存并出示中文卡片",
+    "ja": "保存して中国語カードを表示",
+    "ko": "저장 후 중국어 카드 표시"
+  },
+  "Saved on this device only. Omit room numbers or details you do not want to show others.": {
+    "en": "Saved on this device only. Omit room numbers or details you do not want to show others.",
+    "zh": "仅保存在本机，不要填写不希望他人看到的房间号或其他信息。",
+    "ja": "端末にだけ保存します。他人に見せたくない部屋番号などは含めないでください。",
+    "ko": "이 기기에만 저장됩니다. 타인에게 보여 주고 싶지 않은 객실 번호 등의 정보는 넣지 마세요."
+  },
+  "Use an event title of 1–100 characters.": {
+    "en": "Use an event title of 1–100 characters.",
+    "zh": "事项标题为 1 至 100 字。",
+    "ja": "予定のタイトルは1～100文字です。",
+    "ko": "일정 제목은 1~100자로 입력하세요."
+  },
+  "Enter a real date, for example 2026-10-25.": {
+    "en": "Enter a real date, for example 2026-10-25.",
+    "zh": "输入有效日期，例如 2026-10-25。",
+    "ja": "有効な日付を入力してください。例：2026-10-25。",
+    "ko": "유효한 날짜를 입력하세요. 예: 2026-10-25."
+  },
+  "Use 24-hour time, for example 14:30.": {
+    "en": "Use 24-hour time, for example 14:30.",
+    "zh": "使用二十四小时制，例如 14:30。",
+    "ja": "24時間制で入力してください。例：14:30。",
+    "ko": "24시간 형식으로 입력하세요. 예: 14:30."
+  },
+  "Keep your note within 500 characters.": {
+    "en": "Keep your note within 500 characters.",
+    "zh": "备注请控制在 500 字以内。",
+    "ja": "メモは500文字以内にしてください。",
+    "ko": "메모는 500자 이내로 입력하세요."
+  },
+  "Edit an event": {
+    "en": "Edit an event",
+    "zh": "编辑事项",
+    "ja": "予定を編集",
+    "ko": "일정 수정"
+  },
+  "Make room for your next stop.": {
+    "en": "Make room for your next stop.",
+    "zh": "为下一站，留好时间。",
+    "ja": "次の予定を、無理なく。",
+    "ko": "다음 목적지를 위한 여유."
+  },
+  "All dates and times use China local time (UTC+8).": {
+    "en": "All dates and times use China local time (UTC+8).",
+    "zh": "所有日期和时间均使用中国当地时间（东八区）。",
+    "ja": "日時はすべて中国の現地時間（協定世界時より8時間先）です。",
+    "ko": "모든 날짜와 시간은 중국 현지 시간(세계 표준시보다 8시간 빠름)입니다."
+  },
+  "Event title": {
+    "en": "Event title",
+    "zh": "事项标题",
+    "ja": "予定のタイトル",
+    "ko": "일정 제목"
+  },
+  "For example: hotel check-in": {
+    "en": "For example: hotel check-in",
+    "zh": "例如：酒店入住",
+    "ja": "例：ホテルのチェックイン",
+    "ko": "예: 호텔 체크인"
+  },
+  "Date": {
+    "en": "Date",
+    "zh": "日期",
+    "ja": "日付",
+    "ko": "날짜"
+  },
+  "Time": {
+    "en": "Time",
+    "zh": "时间",
+    "ja": "時刻",
+    "ko": "시간"
+  },
+  "Link a place (optional)": {
+    "en": "Link a place (optional)",
+    "zh": "关联地点（选填）",
+    "ja": "場所を関連付ける（任意）",
+    "ko": "장소 연결(선택)"
+  },
+  "No place": {
+    "en": "No place",
+    "zh": "不关联地点",
+    "ja": "場所なし",
+    "ko": "장소 없음"
+  },
+  "Original place removed": {
+    "en": "Original place removed",
+    "zh": "原地点已删除",
+    "ja": "元の場所は削除済み",
+    "ko": "기존 장소 삭제됨"
+  },
+  "The original place was removed. Choose another place or No place. The event remains saved.": {
+    "en": "The original place was removed. Choose another place or No place. The event remains saved.",
+    "zh": "原地点已删除。请选择其他地点或不关联地点，事项仍会保留。",
+    "ja": "元の場所は削除されました。別の場所か「場所なし」を選んでください。予定は残ります。",
+    "ko": "기존 장소가 삭제되었습니다. 다른 장소나 ‘장소 없음’을 선택하세요. 일정은 유지됩니다."
+  },
+  "Manage address wallet": {
+    "en": "Manage address wallet",
+    "zh": "管理地址钱包",
+    "ja": "住所の保存帳を管理",
+    "ko": "주소 보관함 관리"
+  },
+  "Meeting point, arrival notes or something to remember": {
+    "en": "Meeting point, arrival notes or something to remember",
+    "zh": "集合地点、到达备注或其他提醒事项",
+    "ja": "集合場所、到着メモ、覚えておくことなど",
+    "ko": "만남 장소, 도착 메모나 기억할 내용"
+  },
+  "Save event": {
+    "en": "Save event",
+    "zh": "保存事项",
+    "ja": "予定を保存",
+    "ko": "일정 저장"
+  },
+  "Saved on this device only. This does not create a booking, alarm or system calendar reminder.": {
+    "en": "Saved on this device only. This does not create a booking, alarm or system calendar reminder.",
+    "zh": "仅保存在本机，不会创建预订、闹钟或系统日历提醒。",
+    "ja": "端末内にのみ保存し、予約・アラーム・端末のカレンダー通知は作成しません。",
+    "ko": "기기에만 저장하며 예약, 알람이나 시스템 달력 알림을 만들지 않습니다."
+  },
+  "You can save up to 100 events. Remove an event before adding another.": {
+    "en": "You can save up to 100 events. Remove an event before adding another.",
+    "zh": "最多保存 100 个事项，请先删除旧事项再添加。",
+    "ja": "予定は100件までです。追加前に古い予定を削除してください。",
+    "ko": "일정은 최대 100개입니다. 추가 전에 이전 일정을 삭제하세요."
+  },
+  "Your next stops, in order.": {
+    "en": "Your next stops, in order.",
+    "zh": "下一站，按顺序安排。",
+    "ja": "これからの予定を、順番に。",
+    "ko": "다음 일정을 순서대로."
+  },
+  "Dates and times use China local time (UTC+8). Available offline.": {
+    "en": "Dates and times use China local time (UTC+8). Available offline.",
+    "zh": "日期与时间使用中国当地时间（东八区），可离线使用。",
+    "ja": "中国の現地時間（協定世界時より8時間先）を使用し、通信なしでも使えます。",
+    "ko": "중국 현지 시간(세계 표준시보다 8시간 빠름)을 사용하며 인터넷 없이 이용할 수 있습니다."
+  },
+  "event left today": {
+    "en": "event left today",
+    "zh": "个今日待办事项",
+    "ja": "件の予定が今日残っています",
+    "ko": "개의 오늘 남은 일정"
+  },
+  "events left today": {
+    "en": "events left today",
+    "zh": "个今日待办事项",
+    "ja": "件の予定が今日残っています",
+    "ko": "개의 오늘 남은 일정"
+  },
+  "Add an event": {
+    "en": "Add an event",
+    "zh": "添加事项",
+    "ja": "予定を追加",
+    "ko": "일정 추가"
+  },
+  "You have reached the 100-event limit. Edit or remove existing events.": {
+    "en": "You have reached the 100-event limit. Edit or remove existing events.",
+    "zh": "已达到 100 个事项的上限，请编辑或删除已有事项。",
+    "ja": "100件の上限に達しました。既存の予定を編集または削除してください。",
+    "ko": "일정 한도 100개에 도달했습니다. 기존 일정을 수정하거나 삭제하세요."
+  },
+  " · Today": {
+    "en": " · Today",
+    "zh": " · 今日",
+    "ja": " · 今日",
+    "ko": " · 오늘"
+  },
+  " · Past date": {
+    "en": " · Past date",
+    "zh": " · 已过期日期",
+    "ja": " · 過去の日付",
+    "ko": " · 지난 날짜"
+  },
+  "Mark incomplete": {
+    "en": "Mark incomplete",
+    "zh": "标为未完成",
+    "ja": "未完了にする",
+    "ko": "미완료로 표시"
+  },
+  "Mark done": {
+    "en": "Mark done",
+    "zh": "标为已完成",
+    "ja": "完了にする",
+    "ko": "완료로 표시"
+  },
+  "· UTC+8": {
+    "en": "· UTC+8",
+    "zh": "· 东八区",
+    "ja": "· 中国時間",
+    "ko": "· 중국 시간"
+  },
+  " · Done": {
+    "en": " · Done",
+    "zh": " · 已完成",
+    "ja": " · 完了",
+    "ko": " · 완료"
+  },
+  "Show Chinese place card": {
+    "en": "Show Chinese place card",
+    "zh": "出示中文地点卡",
+    "ja": "中国語の場所カードを表示",
+    "ko": "중국어 장소 카드 표시"
+  },
+  "The linked place was removed from your wallet. Your event is still here; edit it to choose another place.": {
+    "en": "The linked place was removed from your wallet. Your event is still here; edit it to choose another place.",
+    "zh": "关联地点已从钱包移除。事项仍保留，可编辑后选择其他地点。",
+    "ja": "関連する場所は削除されましたが、予定は残っています。編集して別の場所を選べます。",
+    "ko": "연결한 장소가 보관함에서 삭제되었지만 일정은 유지됩니다. 수정하여 다른 장소를 선택하세요."
+  },
+  "Delete this event?": {
+    "en": "Delete this event?",
+    "zh": "删除这个事项？",
+    "ja": "この予定を削除しますか？",
+    "ko": "이 일정을 삭제할까요?"
+  },
+  "Only this event will be deleted. Your saved place stays in the address wallet.": {
+    "en": "Only this event will be deleted. Your saved place stays in the address wallet.",
+    "zh": "仅删除这个事项，地点仍保留在地址钱包中。",
+    "ja": "この予定だけを削除し、保存した場所は残します。",
+    "ko": "이 일정만 삭제하며 저장 장소는 유지됩니다."
+  },
+  "No events in this view": {
+    "en": "No events in this view",
+    "zh": "当前筛选下没有事项",
+    "ja": "この条件の予定はありません",
+    "ko": "현재 조건에 맞는 일정 없음"
+  },
+  "Start with your next stop": {
+    "en": "Start with your next stop",
+    "zh": "从下一站开始安排",
+    "ja": "次の予定から始める",
+    "ko": "다음 일정부터 추가하세요"
+  },
+  "Change the filter or add another event.": {
+    "en": "Change the filter or add another event.",
+    "zh": "更换筛选条件或添加新事项。",
+    "ja": "条件を変えるか、予定を追加してください。",
+    "ko": "조건을 바꾸거나 일정을 추가하세요."
+  },
+  "Add check-in, meeting or departure times, and link a place from your address wallet.": {
+    "en": "Add check-in, meeting or departure times, and link a place from your address wallet.",
+    "zh": "添加入住、会面或出发时间，并关联地址钱包中的地点。",
+    "ja": "チェックイン、待ち合わせ、出発時刻などを追加し、保存した場所を関連付けます。",
+    "ko": "체크인, 만남이나 출발 시간을 추가하고 보관함의 장소를 연결하세요."
+  },
+  "A manual on-device planner, without booking, notifications or live traffic. Your city and arrival stage remain in My trip.": {
+    "en": "A manual on-device planner, without booking, notifications or live traffic. Your city and arrival stage remain in My trip.",
+    "zh": "本机手动行程本，不提供预订、通知或实时路况。城市与落地阶段仍在旅程设置中修改。",
+    "ja": "手動の端末内予定表です。予約・通知・現在の交通情報はありません。都市や旅の段階は旅の設定で変更します。",
+    "ko": "기기 내 수동 일정표이며 예약, 알림이나 실시간 교통 정보는 없습니다. 도시와 여행 단계는 여행 설정에서 변경하세요."
+  },
+  "Search port, city or airport code": {
+    "en": "Search port, city or airport code",
+    "zh": "搜索口岸、城市或机场代码",
+    "ja": "入境地・都市・空港コードを検索",
+    "ko": "입국지·도시·공항 코드 검색"
+  },
+  "Story unavailable": {
+    "en": "Story unavailable",
+    "zh": "帖子不存在",
+    "ja": "投稿がありません",
+    "ko": "게시물이 없습니다"
+  },
+  "It may have been removed, or belong to another device.": {
+    "en": "It may have been removed, or belong to another device.",
+    "zh": "帖子可能已删除，或属于其他设备。",
+    "ja": "削除されたか、別の端末の投稿かもしれません。",
+    "ko": "삭제되었거나 다른 기기의 게시물일 수 있습니다."
+  },
+  "Sample story. Content and engagement are demonstration data.": {
+    "en": "Sample story. Content and engagement are demonstration data.",
+    "zh": "示例帖子，内容与互动数据均为演示数据。",
+    "ja": "サンプル投稿です。内容と交流記録はデモ用です。",
+    "ko": "예시 게시물이며 내용과 활동 수치는 데모 데이터입니다."
+  },
+  "Editor’s pick · sample selection": {
+    "en": "Editor’s pick · sample selection",
+    "zh": "编辑精选 · 示例选题",
+    "ja": "編集部のおすすめ・サンプル選定",
+    "ko": "편집자 추천·예시 선정"
+  },
+  "Liked": {
+    "en": "Liked",
+    "zh": "已赞",
+    "ja": "いいね済み",
+    "ko": "좋아요 표시됨"
+  },
+  "Like": {
+    "en": "Like",
+    "zh": "点赞",
+    "ja": "いいね",
+    "ko": "좋아요"
+  },
+  "Save": {
+    "en": "Save",
+    "zh": "收藏",
+    "ja": "保存",
+    "ko": "저장"
+  },
+  "Replies": {
+    "en": "Replies",
+    "zh": "回复",
+    "ja": "返信",
+    "ko": "답글"
+  },
+  "A first reply can make someone’s day easier.": {
+    "en": "A first reply can make someone’s day easier.",
+    "zh": "第一条回复，也许就能帮到对方。",
+    "ja": "最初の返信が、誰かの助けになるかもしれません。",
+    "ko": "첫 답글이 누군가에게 도움이 될 수 있습니다."
+  },
+  "Write a reply": {
+    "en": "Write a reply",
+    "zh": "写回复",
+    "ja": "返信を入力",
+    "ko": "답글 작성"
+  },
+  "Send reply": {
+    "en": "Send reply",
+    "zh": "发送回复",
+    "ja": "返信を送信",
+    "ko": "답글 보내기"
+  },
+  "Emergency help & phone numbers": {
+    "en": "Emergency help & phone numbers",
+    "zh": "紧急求助与电话号码",
+    "ja": "緊急ヘルプと電話番号",
+    "ko": "긴급 도움 및 전화번호"
+  },
+  "Removing attachments…": {
+    "en": "Removing attachments…",
+    "zh": "正在清理附件…",
+    "ja": "添付ファイルを削除しています…",
+    "ko": "첨부파일 정리 중…"
+  },
+  "Delete my story": {
+    "en": "Delete my story",
+    "zh": "删除我的帖子",
+    "ja": "自分の投稿を削除",
+    "ko": "내 게시물 삭제"
+  },
+  "Delete this story?": {
+    "en": "Delete this story?",
+    "zh": "删除这篇帖子？",
+    "ja": "この投稿を削除しますか？",
+    "ko": "이 게시물을 삭제할까요?"
+  },
+  "Remove this story from the on-device demo.": {
+    "en": "Remove this story from the on-device demo.",
+    "zh": "从本机演示中移除此帖。",
+    "ja": "端末内のデモからこの投稿を削除します。",
+    "ko": "기기 내 데모에서 이 게시물을 삭제합니다."
+  },
+  "Attachment cleanup failed. The story is still available; please retry.": {
+    "en": "Attachment cleanup failed. The story is still available; please retry.",
+    "zh": "附件清理失败，帖子仍保留，请重试。",
+    "ja": "添付ファイルを削除できません。投稿は残っています。再試行してください。",
+    "ko": "첨부파일 정리에 실패하여 게시물을 유지합니다. 다시 시도하세요."
+  },
+  "Could not clear device data. Please try again.": {
+    "en": "Could not clear device data. Please try again.",
+    "zh": "无法清除设备数据，请重试。",
+    "ja": "端末のデータを消去できません。再試行してください。",
+    "ko": "기기 데이터를 지울 수 없습니다. 다시 시도하세요."
+  },
+  "Device storage is unavailable. Changes may last only for this session.": {
+    "en": "Device storage is unavailable. Changes may last only for this session.",
+    "zh": "设备存储不可用，修改可能仅在本次使用期间保留。",
+    "ja": "端末の保存領域が使えません。変更は今回だけの保持になる場合があります。",
+    "ko": "기기 저장 공간을 이용할 수 없습니다. 변경 사항은 이번 사용에만 유지될 수 있습니다."
+  },
+  "Demo": {
+    "en": "Demo",
+    "zh": "演示",
+    "ja": "デモ",
+    "ko": "데모"
+  },
+  "Questions": {
+    "en": "Questions",
+    "zh": "问题",
+    "ja": "質問",
+    "ko": "질문"
+  },
+  "Phrases": {
+    "en": "Phrases",
+    "zh": "短句",
+    "ja": "表現",
+    "ko": "표현"
+  },
+  "Cities & ports": {
+    "en": "Cities & ports",
+    "zh": "城市与口岸",
+    "ja": "都市・入境地",
+    "ko": "도시 및 입국지"
+  },
+  "Choose a destination to save in your wallet. Bundled names do not include live directions or terminal details.": {
+    "en": "Choose a destination to save in your wallet. Bundled names do not include live directions or terminal details.",
+    "zh": "选择目的地保存到地址钱包。内置名称不含实时路线或航站楼详情。",
+    "ja": "保存する目的地を選んでください。収録名称に現在の経路やターミナルの詳細は含みません。",
+    "ko": "주소 보관함에 저장할 목적지를 선택하세요. 내장 이름에는 실시간 경로나 터미널 상세 정보가 없습니다."
+  },
+  "Close city details": {
+    "en": "Close city details",
+    "zh": "关闭城市详情",
+    "ja": "都市の詳細を閉じる",
+    "ko": "도시 상세 정보 닫기"
+  },
+  "Offline search": {
+    "en": "Offline search",
+    "zh": "离线搜索",
+    "ja": "通信不要の検索",
+    "ko": "오프라인 검색"
+  },
+  "Find the help you need.": {
+    "en": "Find the help you need.",
+    "zh": "找到你需要的帮助。",
+    "ja": "必要な助けを、ここから。",
+    "ko": "필요한 도움을 찾으세요."
+  },
+  "Guides, answers, Chinese cards and places. No connection or AI needed.": {
+    "en": "Guides, answers, Chinese cards and places. No connection or AI needed.",
+    "zh": "指南、解答、中文卡片与地点，无需网络或模型。",
+    "ja": "ガイド、回答、中国語カード、場所を通信やモデル接続なしで検索できます。",
+    "ko": "안내, 답변, 중국어 카드와 장소를 인터넷이나 모델 없이 검색하세요."
+  },
+  "Search guides, questions, phrases or places": {
+    "en": "Search guides, questions, phrases or places",
+    "zh": "搜索指南、问题、短句或地点",
+    "ja": "ガイド・質問・表現・場所を検索",
+    "ko": "안내·질문·표현·장소 검색"
+  },
+  "Try a search": {
+    "en": "Try a search",
+    "zh": "试着搜索",
+    "ja": "検索してみる",
+    "ko": "검색해 보세요"
+  },
+  "foreign card": {
+    "en": "foreign card",
+    "zh": "境外银行卡",
+    "ja": "海外発行カード",
+    "ko": "해외 발급 카드"
+  },
+  "Hongqiao": {
+    "en": "Hongqiao",
+    "zh": "虹桥",
+    "ja": "虹橋",
+    "ko": "훙차오"
+  },
+  "how much": {
+    "en": "how much",
+    "zh": "多少钱",
+    "ja": "いくら",
+    "ko": "얼마"
+  },
+  "Searches bundled content and your custom cards on this device. Search text is not sent anywhere. Find stories using Community search.": {
+    "en": "Searches bundled content and your custom cards on this device. Search text is not sent anywhere. Find stories using Community search.",
+    "zh": "搜索本机内置内容与自建卡片，不会发送搜索词。查找帖子请使用社区搜索。",
+    "ja": "端末内の収録内容と自作カードを検索し、検索語は送信しません。投稿はコミュニティ検索を使ってください。",
+    "ko": "기기의 내장 내용과 직접 만든 카드를 검색하며 검색어는 전송하지 않습니다. 게시물은 커뮤니티 검색을 이용하세요."
+  },
+  "matching results": {
+    "en": "matching results",
+    "zh": "条匹配结果",
+    "ja": "件の検索結果",
+    "ko": "개의 검색 결과"
+  },
+  "Show all {0}": {
+    "en": "Show all {0}",
+    "zh": "查看全部 {0} 项",
+    "ja": "{0}件をすべて表示",
+    "ko": "{0}개 모두 보기"
+  },
+  "No matching content": {
+    "en": "No matching content",
+    "zh": "没有匹配内容",
+    "ja": "一致する内容がありません",
+    "ko": "일치하는 내용 없음"
+  },
+  "Try a shorter keyword, an English or Chinese name, or switch to All.": {
+    "en": "Try a shorter keyword, an English or Chinese name, or switch to All.",
+    "zh": "试试更短的关键词、地点名称，或切换至全部。",
+    "ja": "短い言葉や場所の名前で試すか、「すべて」に切り替えてください。",
+    "ko": "짧은 검색어나 장소 이름으로 검색하거나 ‘전체’로 바꾸세요."
+  },
+  "Please take me to {0}.": {
+    "en": "Please take me to {0}.",
+    "zh": "请带我去 {0}。",
+    "ja": "{0}までお願いします。",
+    "ko": "{0}까지 데려다주세요."
+  },
+  "this address": {
+    "en": "this address",
+    "zh": "这个地址",
+    "ja": "この住所",
+    "ko": "이 주소"
+  },
+  "Please take me to {0} {1}.": {
+    "en": "Please take me to {0} {1}.",
+    "zh": "请带我去 {0} {1}。",
+    "ja": "{0} {1}までお願いします。",
+    "ko": "{0} {1}까지 데려다주세요."
+  },
+  "Show your question. Let them reply.": {
+    "en": "Show your question. Let them reply.",
+    "zh": "出示问题，请对方回复。",
+    "ja": "質問を見せて、相手に返答してもらう。",
+    "ko": "질문을 보여 주고 상대방의 답변을 받으세요."
+  },
+  "Preset Chinese–English replies and CNY amounts. Works offline, without AI.": {
+    "en": "Preset Chinese–English replies and CNY amounts. Works offline, without AI.",
+    "zh": "预设中英回复与人民币金额，无需网络或模型。",
+    "ja": "固定の中英表現と人民元の金額で、通信やモデル接続なしに会話できます。",
+    "ko": "고정 중영 답변과 위안화 금액으로 인터넷이나 모델 없이 대화하세요."
+  },
+  "Choose what you want to say": {
+    "en": "Choose what you want to say",
+    "zh": "选择你想说的话",
+    "ja": "伝えたいことを選ぶ",
+    "ko": "전달할 말 선택"
+  },
+  "No matching phrase. Try another keyword or create a Chinese card first.": {
+    "en": "No matching phrase. Try another keyword or create a Chinese card first.",
+    "zh": "没有符合的短句，请换词搜索或先创建中文卡片。",
+    "ja": "一致する表現がありません。別の言葉で検索するか中国語カードを作ってください。",
+    "ko": "일치하는 표현이 없습니다. 다른 검색어를 쓰거나 중국어 카드를 먼저 만드세요."
+  },
+  "Open address wallet": {
+    "en": "Open address wallet",
+    "zh": "打开地址钱包",
+    "ja": "住所の保存帳を開く",
+    "ko": "주소 보관함 열기"
+  },
+  "Show this screen to the other person": {
+    "en": "Show this screen to the other person",
+    "zh": "将此屏幕展示给对方",
+    "ja": "相手にこの画面を見せる",
+    "ko": "상대방에게 이 화면 보여 주기"
+  },
+  "Their selected reply": {
+    "en": "Their selected reply",
+    "zh": "对方选中的回复",
+    "ja": "相手が選んだ返答",
+    "ko": "상대방이 선택한 답변"
+  },
+  "Choose another reply": {
+    "en": "Choose another reply",
+    "zh": "重新选择回复",
+    "ja": "返答を選び直す",
+    "ko": "답변 다시 선택"
+  },
+  "Ask them to choose a reply or enter a CNY amount.": {
+    "en": "Ask them to choose a reply or enter a CNY amount.",
+    "zh": "请对方选择回复或输入人民币金额。",
+    "ja": "相手に返答を選ぶか人民元の金額を入力してもらってください。",
+    "ko": "상대방에게 답변을 선택하거나 위안화 금액을 입력하도록 요청하세요."
+  },
+  "Enter a non-negative amount, up to 6 whole digits and 2 decimals, without commas.": {
+    "en": "Enter a non-negative amount, up to 6 whole digits and 2 decimals, without commas.",
+    "zh": "输入不小于零的金额，整数最多六位、小数最多两位，不含逗号。",
+    "ja": "0以上の金額を整数6桁・小数2桁以内で、コンマなしで入力してください。",
+    "ko": "0 이상의 금액을 정수 6자리, 소수 2자리 이내로 쉼표 없이 입력하세요."
+  },
+  "Enter a valid amount, for example 80.50.": {
+    "en": "Enter a valid amount, for example 80.50.",
+    "zh": "输入有效金额，例如 80.50。",
+    "ja": "有効な金額を入力してください。例：80.50。",
+    "ko": "유효한 금액을 입력하세요. 예: 80.50."
+  },
+  "¥{0} CNY": {
+    "en": "¥{0} CNY",
+    "zh": "人民币 ¥{0}",
+    "ja": "人民元 ¥{0}",
+    "ko": "위안화 ¥{0}"
+  },
+  "Choose another question": {
+    "en": "Choose another question",
+    "zh": "重新选择问题",
+    "ja": "質問を選び直す",
+    "ko": "질문 다시 선택"
+  },
+  "These are manually selected preset replies, not live translation. Amounts are entered by the other person; no payment is made.": {
+    "en": "These are manually selected preset replies, not live translation. Amounts are entered by the other person; no payment is made.",
+    "zh": "这些是手动选择的预设回复，不是实时翻译。金额由对方输入，不会发起支付。",
+    "ja": "手動で選ぶ固定の返答で、リアルタイム翻訳ではありません。金額は相手が入力し、支払いは行いません。",
+    "ko": "직접 선택하는 고정 답변이며 실시간 번역이 아닙니다. 금액은 상대방이 입력하며 결제는 실행되지 않습니다."
+  },
+  "Your side": {
+    "en": "Your side",
+    "zh": "你的一侧",
+    "ja": "あなた側",
+    "ko": "내 쪽"
+  },
+  "Chinese face-to-face text": {
+    "en": "Chinese face-to-face text",
+    "zh": "面对面中文文字",
+    "ja": "対面翻訳の中国語文",
+    "ko": "대면 번역 중국어 텍스트"
+  },
+  "English face-to-face text": {
+    "en": "English face-to-face text",
+    "zh": "面对面英文文字",
+    "ja": "対面翻訳の英語文",
+    "ko": "대면 번역 영어 텍스트"
+  },
+  "Translating…": {
+    "en": "Translating…",
+    "zh": "正在翻译…",
+    "ja": "翻訳中…",
+    "ko": "번역 중…"
+  },
+  "Type in English…": {
+    "en": "Type in English…",
+    "zh": "输入英语…",
+    "ja": "英語で入力…",
+    "ko": "영어로 입력…"
+  },
+  "Syncing Chinese": {
+    "en": "Syncing Chinese",
+    "zh": "正在同步中文",
+    "ja": "中国語を同期中",
+    "ko": "중국어 동기화 중"
+  },
+  "English original": {
+    "en": "English original",
+    "zh": "英文原文",
+    "ja": "英語の原文",
+    "ko": "영어 원문"
+  },
+  "From Chinese · editable": {
+    "en": "From Chinese · editable",
+    "zh": "译自中文，可编辑",
+    "ja": "中国語からの訳・編集可",
+    "ko": "중국어에서 번역·수정 가능"
+  },
+  "Shorten the original to 500 UTF-8 bytes or fewer.": {
+    "en": "Shorten the original to 500 UTF-8 bytes or fewer.",
+    "zh": "请将原文缩短至 500 字节以内。",
+    "ja": "原文を500バイト以内に短くしてください。",
+    "ko": "원문을 500바이트 이내로 줄이세요."
+  },
+  "This looks like a key or password. Remove it before translating.": {
+    "en": "This looks like a key or password. Remove it before translating.",
+    "zh": "内容疑似密钥或密码，请删除后再翻译。",
+    "ja": "キーやパスワードらしい内容があります。削除してから翻訳してください。",
+    "ko": "키나 비밀번호로 보이는 내용이 있습니다. 삭제한 후 번역하세요."
+  },
+  "The free service is at its limit. Try later or use offline talk.": {
+    "en": "The free service is at its limit. Try later or use offline talk.",
+    "zh": "免费服务已达到限额，请稍后重试或使用离线沟通板。",
+    "ja": "無料サービスの上限に達しました。後で試すか通信不要の会話ボードを使ってください。",
+    "ko": "무료 서비스 한도에 도달했습니다. 나중에 다시 시도하거나 오프라인 대화판을 이용하세요."
+  },
+  "Could not connect. Your text is still here; check your connection and retry.": {
+    "en": "Could not connect. Your text is still here; check your connection and retry.",
+    "zh": "无法连接，原文仍保留，请检查网络后重试。",
+    "ja": "接続できません。原文は残っています。通信を確認して再試行してください。",
+    "ko": "연결할 수 없습니다. 원문은 유지됩니다. 네트워크를 확인하고 다시 시도하세요."
+  },
+  "The service did not return a usable translation. Please retry.": {
+    "en": "The service did not return a usable translation. Please retry.",
+    "zh": "服务未返回可用译文，请重试。",
+    "ja": "利用できる訳が返されませんでした。再試行してください。",
+    "ko": "사용 가능한 번역을 받지 못했습니다. 다시 시도하세요."
+  },
+  "Translation timed out. Your text is still here; please retry.": {
+    "en": "Translation timed out. Your text is still here; please retry.",
+    "zh": "翻译超时，原文仍保留，请重试。",
+    "ja": "翻訳が時間切れです。原文は残っています。再試行してください。",
+    "ko": "번역 시간이 초과되었습니다. 원문은 유지됩니다. 다시 시도하세요."
+  },
+  "One phone.\nBoth sides understood.": {
+    "en": "One phone.\nBoth sides understood.",
+    "zh": "一部手机，两边都懂。",
+    "ja": "ひとつの画面で、互いに伝わる。",
+    "ko": "휴대전화 하나로 서로 이해하세요."
+  },
+  "Set it between you. Chinese faces them. English faces you.": {
+    "en": "Set it between you. Chinese faces them. English faces you.",
+    "zh": "放在你们中间，中文朝向对方，英文朝向自己。",
+    "ja": "間に置き、中国語を相手へ、英語を自分へ向けます。",
+    "ko": "두 사람 사이에 놓고 중국어는 상대방, 영어는 자신을 향하게 하세요."
+  },
+  "English · Your side": {
+    "en": "English · Your side",
+    "zh": "英语 · 你的一侧",
+    "ja": "英語・あなた側",
+    "ko": "영어·내 쪽"
+  },
+  "Can we sit here?": {
+    "en": "Can we sit here?",
+    "zh": "我们可以坐这里吗？",
+    "ja": "ここに座ってもいいですか？",
+    "ko": "여기에 앉아도 되나요?"
+  },
+  "Layout example · type on either side to translate after starting": {
+    "en": "Layout example · type on either side to translate after starting",
+    "zh": "布局示例，开始后在任意一侧输入即可翻译",
+    "ja": "配置の例です。開始後にどちら側でも入力して翻訳できます",
+    "ko": "배치 예시입니다. 시작 후 어느 쪽에서든 입력하면 번역됩니다"
+  },
+  "Included with Plus & Pro": {
+    "en": "Included with Plus & Pro",
+    "zh": "Plus 与 Pro 专属",
+    "ja": "Plus・Proで利用可能",
+    "ko": "Plus·Pro에서 이용 가능"
+  },
+  "Unlock the shared layout and two-way text translation. Card translation and offline talk stay free.": {
+    "en": "Unlock the shared layout and two-way text translation. Card translation and offline talk stay free.",
+    "zh": "解锁共享布局与双向文字翻译，卡片翻译和离线沟通板仍免费。",
+    "ja": "共有画面と双方向の文字翻訳が使えます。カード翻訳と通信不要の会話は引き続き無料です。",
+    "ko": "공유 화면과 양방향 문자 번역을 이용하세요. 카드 번역과 오프라인 대화는 계속 무료입니다."
+  },
+  "Explore Plus / Pro": {
+    "en": "Explore Plus / Pro",
+    "zh": "了解 Plus 与 Pro",
+    "ja": "Plus・Proを見る",
+    "ko": "Plus·Pro 둘러보기"
+  },
+  "Before you both begin": {
+    "en": "Before you both begin",
+    "zh": "双方开始前",
+    "ja": "二人で始める前に",
+    "ko": "두 사람 모두 시작하기 전에"
+  },
+  "Starting enables automatic translation: text typed on either side is sent to MyMemory after a 1-second pause. Get the other person’s agreement first. The provider may retain text long term; exclude private addresses, identity details, passwords and keys.": {
+    "en": "Starting enables automatic translation: text typed on either side is sent to MyMemory after a 1-second pause. Get the other person’s agreement first. The provider may retain text long term; exclude private addresses, identity details, passwords and keys.",
+    "zh": "开始后将启用自动翻译，任意一侧输入的文字会在停顿一秒后发送给 MyMemory。请先取得对方同意。服务商可能长期保留文字，请勿输入私人地址、身份信息、密码或密钥。",
+    "ja": "開始すると自動翻訳が有効になり、どちら側の入力も1秒の停止後にMyMemoryへ送信します。先に相手の同意を得てください。提供元は文字を長期保存する場合があるため、個人住所、身元情報、パスワード、キーは入力しないでください。",
+    "ko": "시작하면 양쪽 입력을 1초간 멈춘 뒤 MyMemory로 보내 자동 번역합니다. 먼저 상대방의 동의를 받으세요. 제공업체가 텍스트를 장기 보관할 수 있으므로 개인 주소, 신원 정보, 비밀번호나 키를 입력하지 마세요."
+  },
+  "You are offline. Connect to begin, or use offline talk below.": {
+    "en": "You are offline. Connect to begin, or use offline talk below.",
+    "zh": "当前未联网，请连接后开始，或使用下方离线沟通板。",
+    "ja": "未接続です。接続して始めるか、下の通信不要の会話を使ってください。",
+    "ko": "인터넷에 연결한 후 시작하거나 아래 오프라인 대화판을 이용하세요."
+  },
+  "Agree & start live text translation": {
+    "en": "Agree & start live text translation",
+    "zh": "同意并开始实时文字翻译",
+    "ja": "同意して文字翻訳を開始",
+    "ko": "동의하고 실시간 문자 번역 시작"
+  },
+  "Open free offline talk": {
+    "en": "Open free offline talk",
+    "zh": "打开免费离线沟通板",
+    "ja": "無料の通信不要の会話を開く",
+    "ko": "무료 오프라인 대화판 열기"
+  },
+  "MyMemory · no key needed": {
+    "en": "MyMemory · no key needed",
+    "zh": "MyMemory · 无需密钥",
+    "ja": "MyMemory・キー不要",
+    "ko": "MyMemory·키 필요 없음"
+  },
+  "5,000 characters/day anonymously · 500 bytes/request. Membership does not increase the provider limit.": {
+    "en": "5,000 characters/day anonymously · 500 bytes/request. Membership does not increase the provider limit.",
+    "zh": "匿名每日五千字符，每次最多五百字节。会员不增加服务商限额。",
+    "ja": "匿名で1日5,000文字、1回500バイトまで。会員資格で提供元の上限は増えません。",
+    "ko": "익명으로 하루 5,000자, 요청당 500바이트까지입니다. 멤버십으로 제공업체 한도가 늘어나지 않습니다."
+  },
+  "Translation terms & privacy": {
+    "en": "Translation terms & privacy",
+    "zh": "翻译条款与隐私",
+    "ja": "翻訳の規約とプライバシー",
+    "ko": "번역 약관 및 개인정보"
+  },
+  "Text stays in this screen’s memory; no chat or card is saved": {
+    "en": "Text stays in this screen’s memory; no chat or card is saved",
+    "zh": "文字只保留在此屏幕的内存中，不保存聊天或卡片",
+    "ja": "文字はこの画面のメモリだけに保持し、会話やカードは保存しません",
+    "ko": "텍스트는 이 화면의 메모리에만 유지하며 대화나 카드를 저장하지 않습니다"
+  },
+  "Face-to-face": {
+    "en": "Face-to-face",
+    "zh": "面对面",
+    "ja": "対面",
+    "ko": "대면"
+  },
+  "Pause live translation": {
+    "en": "Pause live translation",
+    "zh": "暂停实时翻译",
+    "ja": "文字翻訳を一時停止",
+    "ko": "실시간 번역 일시 중지"
+  },
+  "Resume live translation": {
+    "en": "Resume live translation",
+    "zh": "继续实时翻译",
+    "ja": "文字翻訳を再開",
+    "ko": "실시간 번역 재개"
+  },
+  "Pause sync": {
+    "en": "Pause sync",
+    "zh": "暂停同步",
+    "ja": "同期を一時停止",
+    "ko": "동기화 일시 중지"
+  },
+  "Agree & resume": {
+    "en": "Agree & resume",
+    "zh": "同意并继续",
+    "ja": "同意して再開",
+    "ko": "동의하고 재개"
+  },
+  "Clear translation": {
+    "en": "Clear translation",
+    "zh": "清空译文",
+    "ja": "訳を消去",
+    "ko": "번역 지우기"
+  },
+  "Retry translation": {
+    "en": "Retry translation",
+    "zh": "重新翻译",
+    "ja": "翻訳を再試行",
+    "ko": "번역 재시도"
+  },
+  "Retry": {
+    "en": "Retry",
+    "zh": "重试",
+    "ja": "再試行",
+    "ko": "다시 시도"
+  },
+  "Pause typing for 1 second to sync. Check machine translations.": {
+    "en": "Pause typing for 1 second to sync. Check machine translations.",
+    "zh": "停止输入一秒后同步，请核对机器译文。",
+    "ja": "入力を1秒止めると同期します。機械翻訳を確認してください。",
+    "ko": "입력을 1초 멈추면 동기화됩니다. 기계 번역을 확인하세요."
+  },
+  "Sync paused. Resuming sends the current original to MyMemory.": {
+    "en": "Sync paused. Resuming sends the current original to MyMemory.",
+    "zh": "同步已暂停，继续后将当前原文发送给 MyMemory。",
+    "ja": "同期は停止中です。再開すると現在の原文をMyMemoryへ送信します。",
+    "ko": "동기화가 일시 중지되었습니다. 재개하면 현재 원문을 MyMemory로 전송합니다."
+  },
+  "Use offline talk instead": {
+    "en": "Use offline talk instead",
+    "zh": "改用离线沟通板",
+    "ja": "通信不要の会話を使う",
+    "ko": "오프라인 대화판 사용"
+  },
+  "Find your way.": {
+    "en": "Find your way.",
+    "zh": "轻松找到出行方式。",
+    "ja": "移動手段が、すぐ見つかる。",
+    "ko": "이동 수단을 쉽게 찾으세요."
+  },
+  "Taxis, metros and trains. One place to start.": {
+    "en": "Taxis, metros and trains. One place to start.",
+    "zh": "打车、地铁与火车，统一从这里出发。",
+    "ja": "タクシー・地下鉄・鉄道を、ここから選べます。",
+    "ko": "택시, 지하철과 기차를 한곳에서 선택하세요."
+  },
+  "Steps, practical tips and a backup plan": {
+    "en": "Steps, practical tips and a backup plan",
+    "zh": "步骤、注意事项与备用方案",
+    "ja": "手順・注意点・代替手段",
+    "ko": "절차·유의 사항·대안"
+  },
+  "Check the Chinese name before you go": {
+    "en": "Check the Chinese name before you go",
+    "zh": "出发前确认中文站名",
+    "ja": "出発前に中国語の駅名を確認",
+    "ko": "출발 전에 중국어 역 이름 확인"
+  },
+  "Bookings and payments happen with the service provider.": {
+    "en": "Bookings and payments happen with the service provider.",
+    "zh": "预订和支付由服务商完成。",
+    "ja": "予約と支払いは提供元で行います。",
+    "ko": "예약과 결제는 서비스 제공업체에서 진행합니다."
+  },
+  "Monthly AI questions": {
+    "en": "Monthly AI questions",
+    "zh": "每月智能问答次数",
+    "ja": "毎月の質問回数",
+    "ko": "월별 질문 수"
+  },
+  "In-answer app shortcuts": {
+    "en": "In-answer app shortcuts",
+    "zh": "回答内应用快捷入口",
+    "ja": "回答内のアプリ内リンク",
+    "ko": "답변 내 앱 바로가기"
+  },
+  "Display-name finish": {
+    "en": "Display-name finish",
+    "zh": "昵称视觉效果",
+    "ja": "表示名の仕上げ",
+    "ko": "표시 이름 효과"
+  },
+  "Standard": {
+    "en": "Standard",
+    "zh": "普通",
+    "ja": "標準",
+    "ko": "기본"
+  },
+  "Silver": {
+    "en": "Silver",
+    "zh": "银色",
+    "ja": "シルバー",
+    "ko": "은색"
+  },
+  "Prismatic": {
+    "en": "Prismatic",
+    "zh": "彩色",
+    "ja": "多彩な色",
+    "ko": "다채로운 색"
+  },
+  "Guides, cards & community": {
+    "en": "Guides, cards & community",
+    "zh": "指南、卡片与社区",
+    "ja": "ガイド・カード・コミュニティ",
+    "ko": "안내·카드·커뮤니티"
+  },
+  "Does face-to-face translation need a key?": {
+    "en": "Does face-to-face translation need a key?",
+    "zh": "面对面翻译需要密钥吗？",
+    "ja": "対面翻訳にキーは必要ですか？",
+    "ko": "대면 번역에 키가 필요한가요?"
+  },
+  "No. Plus and Pro include the shared layout and two-way live text translation using MyMemory online. The anonymous provider limit is 5,000 characters/day and 500 bytes/request; membership does not raise it. Both people should agree before text is sent; the provider may retain text. Card translation and offline talk remain free.": {
+    "en": "No. Plus and Pro include the shared layout and two-way live text translation using MyMemory online. The anonymous provider limit is 5,000 characters/day and 500 bytes/request; membership does not raise it. Both people should agree before text is sent; the provider may retain text. Card translation and offline talk remain free.",
+    "zh": "不需要。Plus 和 Pro 包含共享布局及通过 MyMemory 联网完成的双向文字翻译。匿名限额为每日五千字符、每次五百字节，会员不会增加限额。发送文字前双方应同意，服务商可能保留文字。卡片翻译和离线沟通板仍免费。",
+    "ja": "不要です。PlusとProにはMyMemory経由のオンライン双方向文字翻訳と共有画面が含まれます。匿名の上限は1日5,000文字・1回500バイトで、会員資格では増えません。送信前に双方の同意が必要で、提供元が文字を保持する場合があります。カード翻訳と通信不要の会話は無料のままです。",
+    "ko": "필요하지 않습니다. Plus와 Pro에는 MyMemory 온라인 양방향 문자 번역과 공유 화면이 포함됩니다. 익명 한도는 하루 5,000자, 요청당 500바이트이며 멤버십으로 늘어나지 않습니다. 전송 전 양쪽의 동의가 필요하고 제공업체가 텍스트를 보관할 수 있습니다. 카드 번역과 오프라인 대화는 계속 무료입니다."
+  },
+  "Do I still need my own API key?": {
+    "en": "Do I still need my own API key?",
+    "zh": "仍需自己的模型密钥吗？",
+    "ja": "自分のモデル接続キーは必要ですか？",
+    "ko": "자신의 모델 접속 키가 필요한가요?"
+  },
+  "Yes. Membership covers app features and question limits. Your provider bills model usage separately; no API credit is included. Your key stays in memory for this session only.": {
+    "en": "Yes. Membership covers app features and question limits. Your provider bills model usage separately; no API credit is included. Your key stays in memory for this session only.",
+    "zh": "需要。会员提供应用功能与提问次数，模型用量由服务商另行计费，不含接口额度。密钥仅在本次使用的内存中保留。",
+    "ja": "必要です。会員プランはアプリ機能と質問回数を提供します。モデルの利用料は提供元が別途請求し、利用料金は含みません。キーは今回のメモリだけに保持します。",
+    "ko": "필요합니다. 멤버십은 앱 기능과 질문 수를 제공하며 모델 사용료는 제공업체가 별도 청구합니다. 이용 금액은 포함되지 않습니다. 키는 이번 사용의 메모리에만 유지됩니다."
+  },
+  "When does my allowance reset?": {
+    "en": "When does my allowance reset?",
+    "zh": "提问额度何时重置？",
+    "ja": "質問枠はいつ更新しますか？",
+    "ko": "질문 한도는 언제 초기화되나요?"
+  },
+  "Limits reset each UTC calendar month and do not roll over. Failed or cancelled requests are refunded. Annual Pro still includes 2,000 questions per month.": {
+    "en": "Limits reset each UTC calendar month and do not roll over. Failed or cancelled requests are refunded. Annual Pro still includes 2,000 questions per month.",
+    "zh": "每个世界标准时自然月重置，剩余额度不结转。失败或取消的请求会退还次数。年度 Pro 仍为每月两千次。",
+    "ja": "協定世界時の暦月ごとに更新し、残り回数は繰り越しません。失敗・中止した要求は回数を戻します。年間Proも毎月2,000回です。",
+    "ko": "세계 표준시 기준 매월 초기화하며 잔여 수량은 이월하지 않습니다. 실패하거나 취소한 요청은 횟수를 돌려줍니다. 연간 Pro도 월 2,000회입니다."
+  },
+  "Will I be charged or auto-renewed?": {
+    "en": "Will I be charged or auto-renewed?",
+    "zh": "会扣费或自动续费吗？",
+    "ja": "請求や自動更新はありますか？",
+    "ko": "청구되거나 자동 갱신되나요?"
+  },
+  "No. This is a local demo with no payment, auto-renewal or cloud sync. Switching plans replaces the current demo membership; validity starts from this activation.": {
+    "en": "No. This is a local demo with no payment, auto-renewal or cloud sync. Switching plans replaces the current demo membership; validity starts from this activation.",
+    "zh": "不会。这是本机演示，不提供支付、自动续费或云同步。切换方案将替换当前演示会员，有效期从本次开通开始。",
+    "ja": "ありません。端末内のデモで、支払い・自動更新・クラウド同期はありません。プラン変更で現在のデモ会員を置き換え、有効期間は今回から始まります。",
+    "ko": "아닙니다. 기기 내 데모로 결제, 자동 갱신이나 클라우드 동기화는 없습니다. 변경하면 기존 데모 멤버십을 대체하고 유효기간은 이번 활성화부터 시작합니다."
+  },
+  "More confidence.\nEvery next step.": {
+    "en": "More confidence.\nEvery next step.",
+    "zh": "每个下一步，都多一点从容。",
+    "ja": "次の一歩に、もっと自信を。",
+    "ko": "다음 행동을 더 자신 있게."
+  },
+  "Face-to-face translation, more room to ask, and useful app shortcuts.": {
+    "en": "Face-to-face translation, more room to ask, and useful app shortcuts.",
+    "zh": "面对面翻译、更多提问空间与实用快捷入口。",
+    "ja": "対面翻訳、より多くの質問、便利なリンク。",
+    "ko": "대면 번역, 더 많은 질문과 유용한 바로가기."
+  },
+  "Current plan": {
+    "en": "Current plan",
+    "zh": "当前方案",
+    "ja": "現在のプラン",
+    "ko": "현재 요금제"
+  },
+  "questions left": {
+    "en": "questions left",
+    "zh": "次剩余提问",
+    "ja": "回の質問が残っています",
+    "ko": "회 질문 남음"
+  },
+  "Valid until": {
+    "en": "Valid until",
+    "zh": "有效期至",
+    "ja": "有効期限",
+    "ko": "유효기간"
+  },
+  "Find your everyday fit": {
+    "en": "Find your everyday fit",
+    "zh": "选择适合日常使用的方案",
+    "ja": "毎日に合うプランを選ぶ",
+    "ko": "일상에 맞는 요금제 선택"
+  },
+  "Choose {0}": {
+    "en": "Choose {0}",
+    "zh": "选择 {0}",
+    "ja": "{0}を選ぶ",
+    "ko": "{0} 선택"
+  },
+  "A flexible monthly plan": {
+    "en": "A flexible monthly plan",
+    "zh": "灵活的月度方案",
+    "ja": "柔軟な月間プラン",
+    "ko": "유연한 월간 요금제"
+  },
+  "About $7.42/mo, billed yearly": {
+    "en": "About $7.42/mo, billed yearly",
+    "zh": "年付，折合每月约 7.42 美元",
+    "ja": "年払いで月あたり約7.42米ドル",
+    "ko": "연간 결제 시 월 약 7.42미국달러"
+  },
+  "asks / mo": {
+    "en": "asks / mo",
+    "zh": "次提问／月",
+    "ja": "回／月",
+    "ko": "회 질문/월"
+  },
+  "The benefits, at a glance": {
+    "en": "The benefits, at a glance",
+    "zh": "权益一览",
+    "ja": "特典の一覧",
+    "ko": "혜택 한눈에 보기"
+  },
+  "Free": {
+    "en": "Free",
+    "zh": "免费",
+    "ja": "無料",
+    "ko": "무료"
+  },
+  "Your plan summary": {
+    "en": "Your plan summary",
+    "zh": "方案汇总",
+    "ja": "プランの概要",
+    "ko": "요금제 요약"
+  },
+  "Demo activation · amount due": {
+    "en": "Demo activation · amount due",
+    "zh": "演示开通 · 应付金额",
+    "ja": "デモ有効化・請求額",
+    "ko": "데모 활성화·청구 금액"
+  },
+  "No auto-renewal · provider API fees excluded": {
+    "en": "No auto-renewal · provider API fees excluded",
+    "zh": "不自动续费，不含模型服务商费用",
+    "ja": "自動更新なし・モデル提供元の料金は含みません",
+    "ko": "자동 갱신 없음·모델 제공업체 비용 제외"
+  },
+  "{0} demo activated. Your record has been saved.": {
+    "en": "{0} demo activated. Your record has been saved.",
+    "zh": "{0} 演示已开通，记录已保存。",
+    "ja": "{0}のデモを有効化し、記録を保存しました。",
+    "ko": "{0} 데모가 활성화되고 기록이 저장되었습니다."
+  },
+  "View activation history": {
+    "en": "View activation history",
+    "zh": "查看开通记录",
+    "ja": "有効化の履歴を見る",
+    "ko": "활성화 내역 보기"
+  },
+  "Your current plan": {
+    "en": "Your current plan",
+    "zh": "你的当前方案",
+    "ja": "現在のプラン",
+    "ko": "현재 요금제"
+  },
+  "Activate {0} demo": {
+    "en": "Activate {0} demo",
+    "zh": "开通 {0} 演示",
+    "ja": "{0}のデモを有効化",
+    "ko": "{0} 데모 활성화"
+  },
+  "Sign in to continue": {
+    "en": "Sign in to continue",
+    "zh": "登录以继续",
+    "ja": "ログインして続ける",
+    "ko": "계속하려면 로그인"
+  },
+  "Could not activate. Sign in and try again.": {
+    "en": "Could not activate. Sign in and try again.",
+    "zh": "无法开通，请登录后重试。",
+    "ja": "有効化できません。ログインして再試行してください。",
+    "ko": "활성화할 수 없습니다. 로그인한 후 다시 시도하세요."
+  },
+  "Back to Me": {
+    "en": "Back to Me",
+    "zh": "返回个人中心",
+    "ja": "マイページへ戻る",
+    "ko": "내 페이지로 돌아가기"
+  },
+  "Switching replaces your demo plan and restarts its validity today.": {
+    "en": "Switching replaces your demo plan and restarts its validity today.",
+    "zh": "切换后将替换当前演示方案，有效期从今天重新计算。",
+    "ja": "変更すると現在のデモプランを置き換え、有効期間を今日から再設定します。",
+    "ko": "변경 시 현재 데모 요금제를 대체하고 유효기간을 오늘부터 다시 계산합니다."
+  },
+  "A few useful answers": {
+    "en": "A few useful answers",
+    "zh": "你可能想了解",
+    "ja": "よくある疑問に答えます",
+    "ko": "궁금한 내용을 확인하세요"
+  },
+  "Enter the text you want to translate.": {
+    "en": "Enter the text you want to translate.",
+    "zh": "请输入要翻译的文字。",
+    "ja": "翻訳する文字を入力してください。",
+    "ko": "번역할 텍스트를 입력하세요."
+  },
+  "Shorten the text to 500 UTF-8 bytes or fewer.": {
+    "en": "Shorten the text to 500 UTF-8 bytes or fewer.",
+    "zh": "请将文字缩短至五百字节以内。",
+    "ja": "文字を500バイト以内に短くしてください。",
+    "ko": "텍스트를 500바이트 이내로 줄이세요."
+  },
+  "The free service is at its limit. Try later or keep editing manually.": {
+    "en": "The free service is at its limit. Try later or keep editing manually.",
+    "zh": "免费服务达到限额，请稍后重试或继续手动编辑。",
+    "ja": "無料サービスの上限に達しました。後で試すか手動で編集してください。",
+    "ko": "무료 서비스 한도에 도달했습니다. 나중에 다시 시도하거나 직접 수정하세요."
+  },
+  "Could not reach the translation service. Check your connection or try later.": {
+    "en": "Could not reach the translation service. Check your connection or try later.",
+    "zh": "无法连接翻译服务，请检查网络或稍后重试。",
+    "ja": "翻訳サービスに接続できません。通信を確認するか後で再試行してください。",
+    "ko": "번역 서비스에 연결할 수 없습니다. 네트워크를 확인하거나 나중에 다시 시도하세요."
+  },
+  "The translation service did not return a usable result. Try again later.": {
+    "en": "The translation service did not return a usable result. Try again later.",
+    "zh": "翻译服务未返回可用结果，请稍后重试。",
+    "ja": "翻訳サービスから利用できる結果がありません。後で再試行してください。",
+    "ko": "번역 서비스가 사용 가능한 결과를 반환하지 않았습니다. 나중에 다시 시도하세요."
+  },
+  "Translation timed out. Try again.": {
+    "en": "Translation timed out. Try again.",
+    "zh": "翻译超时，请重试。",
+    "ja": "翻訳が時間切れです。再試行してください。",
+    "ko": "번역 시간이 초과되었습니다. 다시 시도하세요."
+  },
+  "Translation cancelled.": {
+    "en": "Translation cancelled.",
+    "zh": "已取消翻译。",
+    "ja": "翻訳を中止しました。",
+    "ko": "번역이 취소되었습니다."
+  },
+  "Edit a template": {
+    "en": "Edit a template",
+    "zh": "编辑模板",
+    "ja": "テンプレートを編集",
+    "ko": "서식 수정"
+  },
+  "Make this card work for you.": {
+    "en": "Make this card work for you.",
+    "zh": "让这张卡片，更适合你。",
+    "ja": "自分に合ったカードに。",
+    "ko": "나에게 맞는 카드로 만드세요."
+  },
+  "Start with this template.": {
+    "en": "Start with this template.",
+    "zh": "从这个模板开始。",
+    "ja": "このテンプレートから始める。",
+    "ko": "이 서식으로 시작하세요."
+  },
+  "Make your own communication card.": {
+    "en": "Make your own communication card.",
+    "zh": "创建你自己的沟通卡片。",
+    "ja": "自分だけの会話カードを作る。",
+    "ko": "나만의 의사소통 카드를 만드세요."
+  },
+  "Edit and save your own copy.": {
+    "en": "Edit and save your own copy.",
+    "zh": "编辑后保存为自己的副本。",
+    "ja": "編集して自分のコピーを保存。",
+    "ko": "수정 후 내 사본으로 저장하세요."
+  },
+  "Chinese to show. English to help you find it.": {
+    "en": "Chinese to show. English to help you find it.",
+    "zh": "用中文出示，用英文备注便于查找。",
+    "ja": "見せる中国語と、探すための英語メモ。",
+    "ko": "제시할 중국어와 검색용 영어 메모."
+  },
+  "This card no longer exists. Return to Cards and choose another.": {
+    "en": "This card no longer exists. Return to Cards and choose another.",
+    "zh": "此卡片已不存在，请返回卡片列表选择其他卡片。",
+    "ja": "このカードはもうありません。一覧に戻り別のカードを選んでください。",
+    "ko": "이 카드가 더 이상 없습니다. 목록으로 돌아가 다른 카드를 선택하세요."
+  },
+  "English meaning": {
+    "en": "English meaning",
+    "zh": "英文含义",
+    "ja": "英語の意味",
+    "ko": "영어 의미"
+  },
+  "Template blanks detected. Fill them when showing the card, or replace them with your details now.": {
+    "en": "Template blanks detected. Fill them when showing the card, or replace them with your details now.",
+    "zh": "检测到模板空白项，展示时再填写，或现在替换成你的信息。",
+    "ja": "空欄を検出しました。表示時に入力するか、今自分の情報に置き換えてください。",
+    "ko": "서식 빈칸이 있습니다. 표시할 때 입력하거나 지금 자신의 정보로 바꾸세요."
+  },
+  "Hide free translation": {
+    "en": "Hide free translation",
+    "zh": "收起免费翻译",
+    "ja": "無料翻訳を閉じる",
+    "ko": "무료 번역 닫기"
+  },
+  "Use free Chinese–English translation": {
+    "en": "Use free Chinese–English translation",
+    "zh": "使用免费中英翻译",
+    "ja": "無料の中英翻訳を使う",
+    "ko": "무료 중영 번역 사용"
+  },
+  "Free Chinese–English translation": {
+    "en": "Free Chinese–English translation",
+    "zh": "免费中英翻译",
+    "ja": "無料の中英翻訳",
+    "ko": "무료 중영 번역"
+  },
+  "MyMemory needs no key: 5,000 characters/day anonymously, 500 bytes/request. It processes and may retain text long term. Use general phrases only; exclude keys, passwords, identity documents and private addresses.": {
+    "en": "MyMemory needs no key: 5,000 characters/day anonymously, 500 bytes/request. It processes and may retain text long term. Use general phrases only; exclude keys, passwords, identity documents and private addresses.",
+    "zh": "MyMemory 无需密钥，匿名每日五千字符、每次五百字节。服务商会处理且可能长期保留文字。仅用于普通短句，不要输入密钥、密码、证件或私人地址。",
+    "ja": "MyMemoryはキー不要で匿名1日5,000文字・1回500バイトです。提供元が処理し長期保持する場合があります。一般的な短文に使い、キー・パスワード・身分証・個人住所は入力しないでください。",
+    "ko": "MyMemory는 키 없이 익명으로 하루 5,000자, 요청당 500바이트까지 이용합니다. 제공업체가 처리하고 장기 보관할 수 있습니다. 일반 표현에만 사용하고 키, 비밀번호, 신분증이나 개인 주소는 입력하지 마세요."
+  },
+  "I agree to send the current source text to MyMemory.": {
+    "en": "I agree to send the current source text to MyMemory.",
+    "zh": "我同意将当前原文发送至 MyMemory。",
+    "ja": "現在の原文をMyMemoryへ送信することに同意します。",
+    "ko": "현재 원문을 MyMemory로 전송하는 데 동의합니다."
+  },
+  "Consent to send text to MyMemory": {
+    "en": "Consent to send text to MyMemory",
+    "zh": "同意向 MyMemory 发送文字",
+    "ja": "MyMemoryへの文字送信に同意",
+    "ko": "MyMemory로 텍스트 전송 동의"
+  },
+  "Translate & preview": {
+    "en": "Translate & preview",
+    "zh": "翻译并预览",
+    "ja": "翻訳して確認",
+    "ko": "번역 및 미리 보기"
+  },
+  "Cancel translation": {
+    "en": "Cancel translation",
+    "zh": "取消翻译",
+    "ja": "翻訳を中止",
+    "ko": "번역 취소"
+  },
+  "Machine translation · review before using": {
+    "en": "Machine translation · review before using",
+    "zh": "机器译文，使用前请核对",
+    "ja": "機械翻訳・使用前に確認",
+    "ko": "기계 번역·사용 전 확인"
+  },
+  "Use this translation": {
+    "en": "Use this translation",
+    "zh": "使用此译文",
+    "ja": "この訳を使う",
+    "ko": "이 번역 사용"
+  },
+  "Service terms & privacy": {
+    "en": "Service terms & privacy",
+    "zh": "服务条款与隐私",
+    "ja": "利用規約とプライバシー",
+    "ko": "서비스 약관 및 개인정보"
+  },
+  "Card preview": {
+    "en": "Card preview",
+    "zh": "卡片预览",
+    "ja": "カードの確認",
+    "ko": "카드 미리 보기"
+  },
+  "Enter Chinese above": {
+    "en": "Enter Chinese above",
+    "zh": "请先在上方输入中文",
+    "ja": "上で中国語を入力してください",
+    "ko": "위에 중국어를 먼저 입력하세요"
+  },
+  "Save as my card": {
+    "en": "Save as my card",
+    "zh": "保存为我的卡片",
+    "ja": "自分のカードに保存",
+    "ko": "내 카드로 저장"
+  },
+  "Create card": {
+    "en": "Create card",
+    "zh": "创建卡片",
+    "ja": "カードを作成",
+    "ko": "카드 만들기"
+  },
+  "Save a new copy": {
+    "en": "Save a new copy",
+    "zh": "另存新副本",
+    "ja": "新しいコピーを保存",
+    "ko": "새 사본 저장"
+  },
+  "Cards stay on this device. Translation only runs when requested; preview results are not saved automatically.": {
+    "en": "Cards stay on this device. Translation only runs when requested; preview results are not saved automatically.",
+    "zh": "卡片保存在本机。翻译仅在请求时执行，预览结果不会自动保存。",
+    "ja": "カードは端末に保存します。翻訳は操作したときだけ実行し、確認中の訳は自動保存しません。",
+    "ko": "카드는 기기에 저장합니다. 번역은 요청할 때만 실행하며 미리 보기 결과는 자동 저장하지 않습니다."
+  },
+  "Please try again.": {
+    "en": "Please try again.",
+    "zh": "请重试。",
+    "ja": "再試行してください。",
+    "ko": "다시 시도하세요."
+  },
+  "Email": {
+    "en": "Email",
+    "zh": "邮箱",
+    "ja": "メールアドレス",
+    "ko": "이메일"
+  },
+  "Every journey\nstarts somewhere.": {
+    "en": "Every journey\nstarts somewhere.",
+    "zh": "每段旅程，都有起点。",
+    "ja": "どんな旅にも、はじまりがある。",
+    "ko": "모든 여행에는 시작이 있습니다."
+  },
+  "Find your way\nback to possibility.": {
+    "en": "Find your way\nback to possibility.",
+    "zh": "再出发，找回更多可能。",
+    "ja": "またここから、次の可能性へ。",
+    "ko": "다시 시작해 새로운 가능성을 찾으세요."
+  },
+  "A familiar hand, wherever the day takes you.": {
+    "en": "A familiar hand, wherever the day takes you.",
+    "zh": "无论走到哪里，总有熟悉的帮助。",
+    "ja": "どんな一日にも、身近な助けを。",
+    "ko": "어디에서든 가까운 도움을."
+  },
+  "Demo password": {
+    "en": "Demo password",
+    "zh": "演示密码",
+    "ja": "デモ用パスワード",
+    "ko": "데모 비밀번호"
+  },
+  "Create demo account": {
+    "en": "Create demo account",
+    "zh": "创建演示账号",
+    "ja": "デモアカウントを作成",
+    "ko": "데모 계정 만들기"
+  },
+  "No email or password · Pro demo access · no charge": {
+    "en": "No email or password · Pro demo access · no charge",
+    "zh": "无需邮箱或密码，可体验 Pro 演示，不会收费",
+    "ja": "メール・パスワード不要・Proのデモ・請求なし",
+    "ko": "이메일·비밀번호 없이 Pro 데모 이용·청구 없음"
+  },
+  "Sign in instead": {
+    "en": "Sign in instead",
+    "zh": "改为登录",
+    "ja": "ログインに切り替える",
+    "ko": "로그인으로 전환"
+  },
+  "Create account": {
+    "en": "Create account",
+    "zh": "创建账号",
+    "ja": "アカウントを作成",
+    "ko": "계정 만들기"
+  },
+  "Already here? Sign in": {
+    "en": "Already here? Sign in",
+    "zh": "已有账号？登录",
+    "ja": "登録済みですか？ログイン",
+    "ko": "이미 계정이 있나요? 로그인"
+  },
+  "New here? Create an account": {
+    "en": "New here? Create an account",
+    "zh": "第一次使用？创建账号",
+    "ja": "初めてですか？アカウント作成",
+    "ko": "처음인가요? 계정 만들기"
+  },
+  "On-device demo only. No email is sent. Use a made-up email and demo password.": {
+    "en": "On-device demo only. No email is sent. Use a made-up email and demo password.",
+    "zh": "仅本机演示，不会发送邮件，请使用虚构邮箱与演示密码。",
+    "ja": "端末内のデモでメールは送信しません。架空のメールとデモ用パスワードを使ってください。",
+    "ko": "기기 내 데모이며 이메일을 보내지 않습니다. 가상 이메일과 데모 비밀번호를 사용하세요."
+  },
+  "Guides and cards work without signing in. Sign-in is for profiles, community activity and membership demos.": {
+    "en": "Guides and cards work without signing in. Sign-in is for profiles, community activity and membership demos.",
+    "zh": "指南与卡片无需登录。登录用于个人资料、社区互动与会员演示。",
+    "ja": "ガイドとカードの閲覧にログインは不要です。プロフィール、交流、会員デモに使います。",
+    "ko": "안내와 카드는 로그인 없이 이용합니다. 로그인은 프로필, 커뮤니티 활동과 멤버십 데모용입니다."
+  },
+  "Included in your membership": {
+    "en": "Included in your membership",
+    "zh": "已包含在你的会员中",
+    "ja": "会員プランに含まれます",
+    "ko": "멤버십에 포함됨"
+  },
+  "One phone, two sides. Type in either language; read the translation across the table.": {
+    "en": "One phone, two sides. Type in either language; read the translation across the table.",
+    "zh": "一部手机，两边朝向。输入中英文字，在对面阅读译文。",
+    "ja": "ひとつの画面を二人で使い、中英どちら側でも入力して向かい側で訳を読みます。",
+    "ko": "휴대전화 하나를 양쪽에서 사용하고 중영 어느 쪽에서든 입력하여 맞은편에서 번역을 읽으세요."
+  },
+  "Free offline two-way talk": {
+    "en": "Free offline two-way talk",
+    "zh": "免费离线双向沟通板",
+    "ja": "無料の通信不要の会話ボード",
+    "ko": "무료 오프라인 양방향 대화판"
+  },
+  "Free · preset replies": {
+    "en": "Free · preset replies",
+    "zh": "免费 · 预设回复",
+    "ja": "無料・固定の返答",
+    "ko": "무료·고정 답변"
+  },
+  "Video ·": {
+    "en": "Video ·",
+    "zh": "视频 ·",
+    "ja": "動画 ·",
+    "ko": "동영상 ·"
+  },
+  "Could not load local demo data.": {
+    "en": "Could not load local demo data.",
+    "zh": "无法读取本机演示数据。",
+    "ja": "端末のデモデータを読み込めません。",
+    "ko": "기기 데모 데이터를 불러올 수 없습니다."
+  },
+  "Device storage is full or unavailable. Your latest changes may not survive a restart.": {
+    "en": "Device storage is full or unavailable. Your latest changes may not survive a restart.",
+    "zh": "设备存储已满或不可用，最新修改可能在重启后丢失。",
+    "ja": "保存領域が満杯か利用できません。最新の変更は再起動で失われる場合があります。",
+    "ko": "기기 저장 공간이 가득 찼거나 사용할 수 없습니다. 최신 변경 사항은 재시작 시 사라질 수 있습니다."
+  },
+  "Sign in to continue.": {
+    "en": "Sign in to continue.",
+    "zh": "请登录后继续。",
+    "ja": "ログインして続けてください。",
+    "ko": "계속하려면 로그인하세요."
+  },
+  "Use a display name between 1 and 40 characters.": {
+    "en": "Use a display name between 1 and 40 characters.",
+    "zh": "昵称请填写一至四十字。",
+    "ja": "表示名は1～40文字です。",
+    "ko": "표시 이름은 1~40자로 입력하세요."
+  },
+  "Enter a valid email address.": {
+    "en": "Enter a valid email address.",
+    "zh": "请输入有效邮箱。",
+    "ja": "有効なメールアドレスを入力してください。",
+    "ko": "유효한 이메일을 입력하세요."
+  },
+  "Use at least 8 characters for your demo password.": {
+    "en": "Use at least 8 characters for your demo password.",
+    "zh": "演示密码至少八个字符。",
+    "ja": "デモ用パスワードは8文字以上です。",
+    "ko": "데모 비밀번호는 8자 이상 입력하세요."
+  },
+  "This email already has a local demo account.": {
+    "en": "This email already has a local demo account.",
+    "zh": "此邮箱已有本机演示账号。",
+    "ja": "このメールの端末内アカウントは既にあります。",
+    "ko": "이 이메일의 기기 내 계정이 이미 있습니다."
+  },
+  "Email or password does not match a local demo account.": {
+    "en": "Email or password does not match a local demo account.",
+    "zh": "邮箱或密码与本机演示账号不匹配。",
+    "ja": "メールかパスワードが端末内アカウントと一致しません。",
+    "ko": "이메일이나 비밀번호가 기기 내 계정과 일치하지 않습니다."
+  },
+  "Your local demo is still loading. Try again in a moment.": {
+    "en": "Your local demo is still loading. Try again in a moment.",
+    "zh": "本机演示仍在加载，请稍后重试。",
+    "ja": "端末のデモを読み込んでいます。少し待って再試行してください。",
+    "ko": "기기 데모를 불러오는 중입니다. 잠시 후 다시 시도하세요."
+  },
+  "Write a reply between 1 and 1,000 characters.": {
+    "en": "Write a reply between 1 and 1,000 characters.",
+    "zh": "回复请填写一至一千字。",
+    "ja": "返信は1～1,000文字です。",
+    "ko": "답글은 1~1,000자로 입력하세요."
+  },
+  "Story is unavailable or belongs to another author.": {
+    "en": "Story is unavailable or belongs to another author.",
+    "zh": "帖子不存在或不属于当前作者。",
+    "ja": "投稿がないか、別の作者の投稿です。",
+    "ko": "게시물이 없거나 다른 작성자의 게시물입니다."
+  },
+  "Do it now": {
+    "en": "Do it now",
+    "zh": "直接去办",
+    "ja": "今すぐ手続き",
+    "ko": "바로 진행"
+  },
+  "Opens the provider's site or app. Websites need internet.": {
+    "en": "Opens the provider's site or app. Websites need internet.",
+    "zh": "打开服务商网站或应用，网页需联网。",
+    "ja": "提供元のサイトやアプリを開きます。ウェブには通信が必要です。",
+    "ko": "제공업체 사이트나 앱을 엽니다. 웹에는 인터넷이 필요합니다."
+  },
+  "Could not open this link. Try the provider's official app or website.": {
+    "en": "Could not open this link. Try the provider's official app or website.",
+    "zh": "无法打开链接，请使用服务商官方应用或网站。",
+    "ja": "リンクを開けません。提供元の公式アプリやサイトを使ってください。",
+    "ko": "링크를 열 수 없습니다. 제공업체 공식 앱이나 사이트를 이용하세요."
+  },
+  "Shanghai night skyline background": {
+    "en": "Shanghai night skyline background",
+    "zh": "上海夜间天际线背景",
+    "ja": "上海の夜景背景",
+    "ko": "상하이 야경 배경"
+  },
+  "Shanghai morning skyline background": {
+    "en": "Shanghai morning skyline background",
+    "zh": "上海日间天际线背景",
+    "ja": "上海の日中の街並み背景",
+    "ko": "상하이 낮 전경 배경"
+  },
+  "Limits and card support change often. Check the current limit inside the app before you rely on it.": {
+    "en": "Limits and card support change often. Check the current limit inside the app before you rely on it.",
+    "ja": "限度額と対応カードは頻繁に変わります。利用前にアプリ内で最新の限度額を確認してください。",
+    "ko": "한도와 지원 카드는 자주 바뀝니다. 사용하기 전에 앱에서 현재 한도를 확인하세요.",
+    "zh": "限额和银行卡支持情况可能变化，请使用前在应用内确认最新要求。"
+  },
+  "Show this to the driver": {
+    "en": "Show this to the driver",
+    "ja": "運転手にこの画面を見せる",
+    "ko": "기사에게 이 화면 보여 주기",
+    "zh": "向司机展示。"
+  },
+  "Show this at the station": {
+    "en": "Show this at the station",
+    "ja": "駅でこの画面を見せる",
+    "ko": "역에서 이 화면 보여 주기",
+    "zh": "在车站展示。"
+  },
+  "Show this at the front desk": {
+    "en": "Show this at the front desk",
+    "ja": "フロントでこの画面を見せる",
+    "ko": "프런트에 이 화면 보여 주기",
+    "zh": "向前台展示。"
+  },
+  "Show this to the rider or staff": {
+    "en": "Show this to the rider or staff",
+    "ja": "配達員またはスタッフにこの画面を見せる",
+    "ko": "배달 기사나 직원에게 이 화면 보여 주기",
+    "zh": "向骑手或工作人员展示。"
+  },
+  "Where is the toilet?": {
+    "en": "Where is the toilet?",
+    "zh": "请问洗手间在哪里？",
+    "ja": "トイレはどこですか？",
+    "ko": "화장실이 어디인가요?"
+  },
+  "May I use your toilet?": {
+    "en": "May I use your toilet?",
+    "zh": "我可以借用一下洗手间吗？",
+    "ja": "トイレをお借りしてもいいですか？",
+    "ko": "화장실을 이용해도 될까요?"
+  },
+  "I don't speak Chinese.": {
+    "en": "I don't speak Chinese.",
+    "zh": "我不会说中文。",
+    "ja": "中国語が話せません。",
+    "ko": "중국어를 못합니다."
+  },
+  "Do you speak English?": {
+    "en": "Do you speak English?",
+    "zh": "你会说英语吗？",
+    "ja": "英語を話せますか？",
+    "ko": "영어를 하실 수 있나요?"
+  },
+  "I don't understand.": {
+    "en": "I don't understand.",
+    "zh": "我听不懂。",
+    "ja": "わかりません。",
+    "ko": "이해하지 못했습니다."
+  },
+  "Can you help me?": {
+    "en": "Can you help me?",
+    "zh": "可以帮帮我吗？",
+    "ja": "手伝っていただけますか？",
+    "ko": "도와주실 수 있나요?"
+  },
+  "Please write it down for me.": {
+    "en": "Please write it down for me.",
+    "zh": "请帮我写下来。",
+    "ja": "書いていただけますか？",
+    "ko": "적어 주실 수 있나요?"
+  },
+  "Please show me.": {
+    "en": "Please show me.",
+    "zh": "请给我看一下。",
+    "ja": "見せてください。",
+    "ko": "보여 주세요."
+  },
+  "What time is it now?": {
+    "en": "What time is it now?",
+    "zh": "请问现在几点？",
+    "ja": "今、何時ですか？",
+    "ko": "지금 몇 시인가요?"
+  },
+  "Please wait a moment.": {
+    "en": "Please wait a moment.",
+    "zh": "请等一下。",
+    "ja": "少し待ってください。",
+    "ko": "잠시만 기다려 주세요."
+  },
+  "Do you have tissues?": {
+    "en": "Do you have tissues?",
+    "zh": "请问有纸巾吗？",
+    "ja": "ティッシュはありますか？",
+    "ko": "휴지가 있나요?"
+  },
+  "Is there an elevator?": {
+    "en": "Is there an elevator?",
+    "zh": "请问有电梯吗？",
+    "ja": "エレベーターはありますか？",
+    "ko": "엘리베이터가 있나요?"
+  },
+  "Can you show me on the map?": {
+    "en": "Can you show me on the map?",
+    "zh": "可以在地图上指给我看吗？",
+    "ja": "地図で示していただけますか？",
+    "ko": "지도에서 보여 주실 수 있나요?"
+  },
+  "Hello.": {
+    "en": "Hello.",
+    "zh": "你好。",
+    "ja": "こんにちは。",
+    "ko": "안녕하세요."
+  },
+  "Thank you very much.": {
+    "en": "Thank you very much.",
+    "zh": "非常感谢。",
+    "ja": "どうもありがとうございます。",
+    "ko": "정말 감사합니다."
+  },
+  "Sorry to bother you.": {
+    "en": "Sorry to bother you.",
+    "zh": "不好意思，打扰了。",
+    "ja": "お手数をおかけしてすみません。",
+    "ko": "번거롭게 해 드려 죄송합니다."
+  },
+  "Can I have some ice water?": {
+    "en": "Can I have some ice water?",
+    "zh": "可以给我一杯冰水吗？",
+    "ja": "氷水をいただけますか？",
+    "ko": "얼음물을 주실 수 있나요?"
+  },
+  "This is too spicy.": {
+    "en": "This is too spicy.",
+    "zh": "这个太辣了。",
+    "ja": "辛すぎます。",
+    "ko": "너무 맵습니다."
+  },
+  "Can you make it less salty?": {
+    "en": "Can you make it less salty?",
+    "zh": "可以少放点盐吗？",
+    "ja": "塩を控えめにできますか？",
+    "ko": "덜 짜게 해 주실 수 있나요?"
+  },
+  "Can I have some rice?": {
+    "en": "Can I have some rice?",
+    "zh": "可以给我一碗米饭吗？",
+    "ja": "ご飯をいただけますか？",
+    "ko": "밥을 주실 수 있나요?"
+  },
+  "Can I have chopsticks?": {
+    "en": "Can I have chopsticks?",
+    "zh": "可以给我一双筷子吗？",
+    "ja": "箸をいただけますか？",
+    "ko": "젓가락을 주실 수 있나요?"
+  },
+  "Please don't make it spicy.": {
+    "en": "Please don't make it spicy.",
+    "zh": "请不要放辣。",
+    "ja": "辛くしないでください。",
+    "ko": "맵지 않게 해 주세요."
+  },
+  "Is this dish spicy?": {
+    "en": "Is this dish spicy?",
+    "zh": "这道菜辣吗？",
+    "ja": "この料理は辛いですか？",
+    "ko": "이 음식은 매운가요?"
+  },
+  "Can I have some hot water?": {
+    "en": "Can I have some hot water?",
+    "zh": "可以给我一杯热水吗？",
+    "ja": "お湯をいただけますか？",
+    "ko": "따뜻한 물을 주실 수 있나요?"
+  },
+  "Does this contain nuts?": {
+    "en": "Does this contain nuts?",
+    "zh": "这个里面有坚果吗？",
+    "ja": "ナッツが入っていますか？",
+    "ko": "견과류가 들어 있나요?"
+  },
+  "The bill, please.": {
+    "en": "The bill, please.",
+    "zh": "买单，谢谢。",
+    "ja": "お会計をお願いします。",
+    "ko": "계산해 주세요."
+  },
+  "Can I get this to take away?": {
+    "en": "Can I get this to take away?",
+    "zh": "可以帮我打包吗？",
+    "ja": "持ち帰りにできますか？",
+    "ko": "포장해 주실 수 있나요?"
+  },
+  "What do you recommend?": {
+    "en": "What do you recommend?",
+    "zh": "有什么推荐的菜吗？",
+    "ja": "おすすめは何ですか？",
+    "ko": "무엇을 추천하시나요?"
+  },
+  "No ice, please.": {
+    "en": "No ice, please.",
+    "zh": "请不要加冰。",
+    "ja": "氷なしでお願いします。",
+    "ko": "얼음은 빼 주세요."
+  },
+  "Where is the fork?": {
+    "en": "Where is the fork?",
+    "zh": "请问叉子在哪里？",
+    "ja": "フォークはどこですか？",
+    "ko": "포크는 어디에 있나요?"
+  },
+  "Is my food ready?": {
+    "en": "Is my food ready?",
+    "zh": "请问菜好了吗？",
+    "ja": "注文した料理はできましたか？",
+    "ko": "주문한 음식이 나왔나요?"
+  },
+  "Can I see the menu?": {
+    "en": "Can I see the menu?",
+    "zh": "可以给我看一下菜单吗？",
+    "ja": "メニューを見せていただけますか？",
+    "ko": "메뉴를 볼 수 있나요?"
+  },
+  "Can I have a coffee?": {
+    "en": "Can I have a coffee?",
+    "zh": "可以给我一杯咖啡吗？",
+    "ja": "コーヒーをいただけますか？",
+    "ko": "커피를 주실 수 있나요?"
+  },
+  "Can I have a tea?": {
+    "en": "Can I have a tea?",
+    "zh": "可以给我一杯茶吗？",
+    "ja": "お茶をいただけますか？",
+    "ko": "차를 주실 수 있나요?"
+  },
+  "A beer, please.": {
+    "en": "A beer, please.",
+    "zh": "请给我一瓶啤酒。",
+    "ja": "ビールをお願いします。",
+    "ko": "맥주를 주세요."
+  },
+  "A table for two, please.": {
+    "en": "A table for two, please.",
+    "zh": "请安排两个人的位子。",
+    "ja": "二人用の席をお願いします。",
+    "ko": "두 명 자리를 부탁드립니다."
+  },
+  "I would like to order now.": {
+    "en": "I would like to order now.",
+    "zh": "我现在可以点菜吗？",
+    "ja": "注文をお願いします。",
+    "ko": "지금 주문하고 싶습니다."
+  },
+  "Where can I buy water?": {
+    "en": "Where can I buy water?",
+    "zh": "哪里可以买水？",
+    "ja": "水はどこで買えますか？",
+    "ko": "물은 어디에서 살 수 있나요?"
+  },
+  "Please take me to this address.": {
+    "en": "Please take me to this address.",
+    "zh": "请带我去这个地址。",
+    "ja": "この住所までお願いします。",
+    "ko": "이 주소로 가 주세요."
+  },
+  "Please use the meter.": {
+    "en": "Please use the meter.",
+    "zh": "请打表。",
+    "ja": "メーターを使ってください。",
+    "ko": "미터기를 사용해 주세요."
+  },
+  "Please stop here.": {
+    "en": "Please stop here.",
+    "zh": "请在这里停车。",
+    "ja": "ここで止めてください。",
+    "ko": "여기에서 세워 주세요."
+  },
+  "Please stop at the next corner.": {
+    "en": "Please stop at the next corner.",
+    "zh": "请在前面的路口停车。",
+    "ja": "次の角で止めてください。",
+    "ko": "다음 모퉁이에서 세워 주세요."
+  },
+  "Please wait two minutes.": {
+    "en": "Please wait two minutes.",
+    "zh": "请等我两分钟。",
+    "ja": "二分待ってください。",
+    "ko": "2분만 기다려 주세요."
+  },
+  "I am wearing a black jacket.": {
+    "en": "I am wearing a black jacket.",
+    "zh": "我穿着黑色外套。",
+    "ja": "黒い上着を着ています。",
+    "ko": "검은색 재킷을 입고 있습니다."
+  },
+  "I am at Exit B.": {
+    "en": "I am at Exit B.",
+    "zh": "我在 B 出口。",
+    "ja": "B出口にいます。",
+    "ko": "B 출구에 있습니다."
+  },
+  "I am at the main entrance.": {
+    "en": "I am at the main entrance.",
+    "zh": "我在正门。",
+    "ja": "正面入口にいます。",
+    "ko": "정문에 있습니다."
+  },
+  "Please drive more slowly.": {
+    "en": "Please drive more slowly.",
+    "zh": "请开慢一点。",
+    "ja": "もう少しゆっくり運転してください。",
+    "ko": "조금 더 천천히 운전해 주세요."
+  },
+  "Can you open the trunk?": {
+    "en": "Can you open the trunk?",
+    "zh": "可以帮我开一下后备箱吗？",
+    "ja": "トランクを開けていただけますか？",
+    "ko": "트렁크를 열어 주실 수 있나요?"
+  },
+  "Please call me when you arrive.": {
+    "en": "Please call me when you arrive.",
+    "zh": "到了请给我打电话。",
+    "ja": "到着したら電話してください。",
+    "ko": "도착하면 전화해 주세요."
+  },
+  "Please take the fastest route.": {
+    "en": "Please take the fastest route.",
+    "zh": "请走最快的路线。",
+    "ja": "最も早く着く経路でお願いします。",
+    "ko": "가장 빨리 도착하는 경로로 가 주세요."
+  },
+  "Please turn on the air conditioning.": {
+    "en": "Please turn on the air conditioning.",
+    "zh": "请开一下空调。",
+    "ja": "エアコンをつけてください。",
+    "ko": "에어컨을 켜 주세요."
+  },
+  "Please wait here, I will come back.": {
+    "en": "Please wait here, I will come back.",
+    "zh": "请在这里等我，我马上回来。",
+    "ja": "ここで待ってください。戻ってきます。",
+    "ko": "여기서 기다려 주세요. 돌아오겠습니다."
+  },
+  "Is this taxi free?": {
+    "en": "Is this taxi free?",
+    "zh": "这辆车有人吗？",
+    "ja": "このタクシーに乗れますか？",
+    "ko": "이 택시에 탈 수 있나요?"
+  },
+  "I have a reservation.": {
+    "en": "I have a reservation.",
+    "zh": "我有预订。",
+    "ja": "予約しています。",
+    "ko": "예약했습니다."
+  },
+  "Can I check in now?": {
+    "en": "Can I check in now?",
+    "zh": "现在可以办理入住吗？",
+    "ja": "今チェックインできますか？",
+    "ko": "지금 체크인할 수 있나요?"
+  },
+  "What time is check-out?": {
+    "en": "What time is check-out?",
+    "zh": "几点退房？",
+    "ja": "チェックアウトは何時ですか？",
+    "ko": "체크아웃은 몇 시인가요?"
+  },
+  "What time is breakfast?": {
+    "en": "What time is breakfast?",
+    "zh": "早餐几点？",
+    "ja": "朝食は何時ですか？",
+    "ko": "아침 식사는 몇 시인가요?"
+  },
+  "Do I need to pay a deposit?": {
+    "en": "Do I need to pay a deposit?",
+    "zh": "需要付押金吗？",
+    "ja": "保証金は必要ですか？",
+    "ko": "보증금이 필요한가요?"
+  },
+  "Can you keep my luggage?": {
+    "en": "Can you keep my luggage?",
+    "zh": "可以帮我寄存行李吗？",
+    "ja": "荷物を預かっていただけますか？",
+    "ko": "짐을 맡아 주실 수 있나요?"
+  },
+  "Can you call a taxi for me?": {
+    "en": "Can you call a taxi for me?",
+    "zh": "可以帮我叫辆车吗？",
+    "ja": "タクシーを呼んでいただけますか？",
+    "ko": "택시를 불러 주실 수 있나요?"
+  },
+  "Can I have a late check-out?": {
+    "en": "Can I have a late check-out?",
+    "zh": "可以延迟退房吗？",
+    "ja": "遅めのチェックアウトはできますか？",
+    "ko": "늦게 체크아웃할 수 있나요?"
+  },
+  "What is the Wi-Fi password?": {
+    "en": "What is the Wi-Fi password?",
+    "zh": "请问 Wi-Fi 密码是多少？",
+    "ja": "無線接続のパスワードは何ですか？",
+    "ko": "무선망 비밀번호는 무엇인가요?"
+  },
+  "Can I have an extra towel?": {
+    "en": "Can I have an extra towel?",
+    "zh": "可以再给我一条毛巾吗？",
+    "ja": "タオルをもう一枚いただけますか？",
+    "ko": "수건을 하나 더 주실 수 있나요?"
+  },
+  "The air conditioning is not working.": {
+    "en": "The air conditioning is not working.",
+    "zh": "空调坏了。",
+    "ja": "エアコンが動きません。",
+    "ko": "에어컨이 작동하지 않습니다."
+  },
+  "Can I borrow a power adapter?": {
+    "en": "Can I borrow a power adapter?",
+    "zh": "可以借我一个转换插头吗？",
+    "ja": "電源アダプターを借りられますか？",
+    "ko": "전원 어댑터를 빌릴 수 있나요?"
+  },
+  "Could you give me some shampoo?": {
+    "en": "Could you give me some shampoo?",
+    "zh": "可以给我一些洗发水吗？",
+    "ja": "シャンプーをいただけますか？",
+    "ko": "샴푸를 주실 수 있나요?"
+  },
+  "I have lost my room key.": {
+    "en": "I have lost my room key.",
+    "zh": "我的房卡丢了。",
+    "ja": "部屋の鍵を失くしました。",
+    "ko": "객실 열쇠를 잃어버렸습니다."
+  },
+  "How much is this?": {
+    "en": "How much is this?",
+    "zh": "这个多少钱？",
+    "ja": "これはいくらですか？",
+    "ko": "이것은 얼마인가요?"
+  },
+  "I am just looking, thanks.": {
+    "en": "I am just looking, thanks.",
+    "zh": "我只是看看，谢谢。",
+    "ja": "見ているだけです。ありがとうございます。",
+    "ko": "그냥 둘러보고 있습니다. 감사합니다."
+  },
+  "That is too expensive.": {
+    "en": "That is too expensive.",
+    "zh": "太贵了。",
+    "ja": "高すぎます。",
+    "ko": "너무 비쌉니다."
+  },
+  "Can you make it cheaper?": {
+    "en": "Can you make it cheaper?",
+    "zh": "可以便宜一点吗？",
+    "ja": "もう少し安くできますか？",
+    "ko": "조금 더 저렴하게 해 주실 수 있나요?"
+  },
+  "Can I try this on?": {
+    "en": "Can I try this on?",
+    "zh": "可以试一下吗？",
+    "ja": "試着できますか？",
+    "ko": "입어 볼 수 있나요?"
+  },
+  "Do you have a bigger size?": {
+    "en": "Do you have a bigger size?",
+    "zh": "有大一号的吗？",
+    "ja": "もっと大きいサイズはありますか？",
+    "ko": "더 큰 사이즈가 있나요?"
+  },
+  "Do you have a smaller size?": {
+    "en": "Do you have a smaller size?",
+    "zh": "有小一号的吗？",
+    "ja": "もっと小さいサイズはありますか？",
+    "ko": "더 작은 사이즈가 있나요?"
+  },
+  "Can I have a receipt?": {
+    "en": "Can I have a receipt?",
+    "zh": "可以给我发票吗？",
+    "ja": "領収書をいただけますか？",
+    "ko": "영수증을 주실 수 있나요?"
+  },
+  "Can I get a bag?": {
+    "en": "Can I get a bag?",
+    "zh": "可以给我一个袋子吗？",
+    "ja": "袋をいただけますか？",
+    "ko": "봉투를 주실 수 있나요?"
+  },
+  "What time do you close?": {
+    "en": "What time do you close?",
+    "zh": "请问几点关门？",
+    "ja": "何時に閉まりますか？",
+    "ko": "몇 시에 문을 닫나요?"
+  },
+  "Can I return this?": {
+    "en": "Can I return this?",
+    "zh": "这个可以退吗？",
+    "ja": "返品できますか？",
+    "ko": "반품할 수 있나요?"
+  },
+  "Where is the supermarket?": {
+    "en": "Where is the supermarket?",
+    "zh": "超市在哪里？",
+    "ja": "スーパーはどこですか？",
+    "ko": "슈퍼마켓은 어디에 있나요?"
+  },
+  "Do you have this in another colour?": {
+    "en": "Do you have this in another colour?",
+    "zh": "这个有别的颜色吗？",
+    "ja": "別の色はありますか？",
+    "ko": "다른 색상이 있나요?"
+  },
+  "Do you sell cigarettes?": {
+    "en": "Do you sell cigarettes?",
+    "zh": "你们卖香烟吗？",
+    "ja": "たばこを売っていますか？",
+    "ko": "담배를 판매하나요?"
+  },
+  "I am lost.": {
+    "en": "I am lost.",
+    "zh": "我迷路了。",
+    "ja": "道に迷いました。",
+    "ko": "길을 잃었습니다."
+  },
+  "How do I get to this place?": {
+    "en": "How do I get to this place?",
+    "zh": "请问怎么去这个地方？",
+    "ja": "ここへはどう行けばいいですか？",
+    "ko": "이 장소에 어떻게 가나요?"
+  },
+  "Is it far from here?": {
+    "en": "Is it far from here?",
+    "zh": "离这里远吗？",
+    "ja": "ここから遠いですか？",
+    "ko": "여기서 먼가요?"
+  },
+  "Which metro line should I take?": {
+    "en": "Which metro line should I take?",
+    "zh": "我应该坐几号线？",
+    "ja": "地下鉄の何線に乗ればいいですか？",
+    "ko": "지하철 몇 호선을 타야 하나요?"
+  },
+  "Where is the entrance?": {
+    "en": "Where is the entrance?",
+    "zh": "入口在哪里？",
+    "ja": "入口はどこですか？",
+    "ko": "입구는 어디인가요?"
+  },
+  "Where is the exit?": {
+    "en": "Where is the exit?",
+    "zh": "出口在哪里？",
+    "ja": "出口はどこですか？",
+    "ko": "출구는 어디인가요?"
+  },
+  "Which way is north?": {
+    "en": "Which way is north?",
+    "zh": "哪边是北？",
+    "ja": "北はどちらですか？",
+    "ko": "북쪽은 어느 방향인가요?"
+  },
+  "Is this the right way?": {
+    "en": "Is this the right way?",
+    "zh": "这条路对吗？",
+    "ja": "この方向で合っていますか？",
+    "ko": "이 방향이 맞나요?"
+  },
+  "Where is the bus stop?": {
+    "en": "Where is the bus stop?",
+    "zh": "公交站在哪里？",
+    "ja": "バス停はどこですか？",
+    "ko": "버스 정류장은 어디인가요?"
+  },
+  "Where is the metro station?": {
+    "en": "Where is the metro station?",
+    "zh": "地铁站在哪里？",
+    "ja": "地下鉄の駅はどこですか？",
+    "ko": "지하철역은 어디인가요?"
+  },
+  "Do I need to walk far?": {
+    "en": "Do I need to walk far?",
+    "zh": "要走很远吗？",
+    "ja": "たくさん歩く必要がありますか？",
+    "ko": "많이 걸어야 하나요?"
+  },
+  "Can I walk there?": {
+    "en": "Can I walk there?",
+    "zh": "可以走过去吗？",
+    "ja": "歩いて行けますか？",
+    "ko": "걸어서 갈 수 있나요?"
+  },
+  "Which platform?": {
+    "en": "Which platform?",
+    "zh": "请问在哪个站台？",
+    "ja": "何番ホームですか？",
+    "ko": "몇 번 승강장인가요?"
+  },
+  "Is there a map?": {
+    "en": "Is there a map?",
+    "zh": "请问有地图吗？",
+    "ja": "地図はありますか？",
+    "ko": "지도가 있나요?"
+  },
+  "I don't feel well.": {
+    "en": "I don't feel well.",
+    "zh": "我身体不舒服。",
+    "ja": "体調がよくありません。",
+    "ko": "몸이 좋지 않습니다."
+  },
+  "I need to see a doctor.": {
+    "en": "I need to see a doctor.",
+    "zh": "我需要看医生。",
+    "ja": "医師の診察を受けたいです。",
+    "ko": "의사의 진료를 받고 싶습니다."
+  },
+  "Where is the pharmacy?": {
+    "en": "Where is the pharmacy?",
+    "zh": "药店在哪里？",
+    "ja": "薬局はどこですか？",
+    "ko": "약국은 어디인가요?"
+  },
+  "I am taking this medicine.": {
+    "en": "I am taking this medicine.",
+    "zh": "我在吃这个药。",
+    "ja": "この薬を飲んでいます。",
+    "ko": "이 약을 복용하고 있습니다."
+  },
+  "Do you have a bandage?": {
+    "en": "Do you have a bandage?",
+    "zh": "请问有创可贴吗？",
+    "ja": "包帯はありますか？",
+    "ko": "붕대가 있나요?"
+  },
+  "Please take me to a hospital.": {
+    "en": "Please take me to a hospital.",
+    "zh": "请带我去医院。",
+    "ja": "病院へ連れて行ってください。",
+    "ko": "병원으로 데려다주세요."
+  },
+  "Can you help me find a doctor?": {
+    "en": "Can you help me find a doctor?",
+    "zh": "可以帮我找一个医生吗？",
+    "ja": "医師を探すのを手伝っていただけますか？",
+    "ko": "의사를 찾는 것을 도와주실 수 있나요?"
+  },
+  "Can I buy this without a prescription?": {
+    "en": "Can I buy this without a prescription?",
+    "zh": "这个药需要处方吗？",
+    "ja": "処方箋なしで買えますか？",
+    "ko": "처방전 없이 살 수 있나요?"
+  },
+  "Is there a doctor who speaks English?": {
+    "en": "Is there a doctor who speaks English?",
+    "zh": "有会说英语的医生吗？",
+    "ja": "英語を話す医師はいますか？",
+    "ko": "영어를 하는 의사가 있나요?"
+  },
+  "Can you write down the medicine name?": {
+    "en": "Can you write down the medicine name?",
+    "zh": "可以帮我写下药名吗？",
+    "ja": "薬の名前を書いていただけますか？",
+    "ko": "약 이름을 적어 주실 수 있나요?"
+  },
+  "I need a painkiller.": {
+    "en": "I need a painkiller.",
+    "zh": "我需要止痛药。",
+    "ja": "痛み止めが必要です。",
+    "ko": "진통제가 필요합니다."
+  },
+  "I have a cold.": {
+    "en": "I have a cold.",
+    "zh": "我感冒了。",
+    "ja": "風邪をひいています。",
+    "ko": "감기에 걸렸습니다."
+  },
+  "I need help.": {
+    "en": "I need help.",
+    "zh": "我需要帮助。",
+    "ja": "助けが必要です。",
+    "ko": "도움이 필요합니다."
+  },
+  "Please call the police.": {
+    "en": "Please call the police.",
+    "zh": "请报警。",
+    "ja": "警察を呼んでください。",
+    "ko": "경찰을 불러 주세요."
+  },
+  "Please call an ambulance.": {
+    "en": "Please call an ambulance.",
+    "zh": "请叫救护车。",
+    "ja": "救急車を呼んでください。",
+    "ko": "구급차를 불러 주세요."
+  },
+  "There is a fire.": {
+    "en": "There is a fire.",
+    "zh": "着火了。",
+    "ja": "火事です。",
+    "ko": "불이 났습니다."
+  },
+  "There is an emergency.": {
+    "en": "There is an emergency.",
+    "zh": "这里有紧急情况。",
+    "ja": "緊急事態です。",
+    "ko": "긴급 상황입니다."
+  },
+  "Where is the nearest police station?": {
+    "en": "Where is the nearest police station?",
+    "zh": "最近的警察局在哪里？",
+    "ja": "一番近い警察署はどこですか？",
+    "ko": "가장 가까운 경찰서는 어디인가요?"
+  },
+  "I need a police report.": {
+    "en": "I need a police report.",
+    "zh": "我需要一份报警记录。",
+    "ja": "警察の届出証明が必要です。",
+    "ko": "경찰 신고 확인서가 필요합니다."
+  },
+  "Please find an interpreter.": {
+    "en": "Please find an interpreter.",
+    "zh": "请帮我找一个翻译。",
+    "ja": "通訳を探してください。",
+    "ko": "통역사를 찾아 주세요."
+  },
+  "Please help me.": {
+    "en": "Please help me.",
+    "zh": "请帮帮我。",
+    "ja": "助けてください。",
+    "ko": "도와주세요."
+  },
+  "I had an accident.": {
+    "en": "I had an accident.",
+    "zh": "我出车祸了。",
+    "ja": "事故に遭いました。",
+    "ko": "사고를 당했습니다."
+  },
+  "Please take me to the nearest hospital.": {
+    "en": "Please take me to the nearest hospital.",
+    "zh": "请带我去最近的医院。",
+    "ja": "一番近い病院へ連れて行ってください。",
+    "ko": "가장 가까운 병원으로 데려다주세요."
+  },
+  "Someone is following me.": {
+    "en": "Someone is following me.",
+    "zh": "有人跟着我。",
+    "ja": "誰かにつけられています。",
+    "ko": "누군가 저를 따라오고 있습니다."
+  },
+  "My bag was stolen.": {
+    "en": "My bag was stolen.",
+    "zh": "我的包被偷了。",
+    "ja": "かばんを盗まれました。",
+    "ko": "가방을 도난당했습니다."
+  },
+  "Can I pay by card?": {
+    "en": "Can I pay by card?",
+    "zh": "可以刷卡吗？",
+    "ja": "カードで支払えますか？",
+    "ko": "카드로 결제할 수 있나요?"
+  },
+  "Can I pay by Alipay?": {
+    "en": "Can I pay by Alipay?",
+    "zh": "可以用支付宝吗？",
+    "ja": "Alipayで支払えますか？",
+    "ko": "Alipay로 결제할 수 있나요?"
+  },
+  "Can I pay by WeChat?": {
+    "en": "Can I pay by WeChat?",
+    "zh": "可以用微信支付吗？",
+    "ja": "WeChatで支払えますか？",
+    "ko": "WeChat으로 결제할 수 있나요?"
+  },
+  "Do you take cash?": {
+    "en": "Do you take cash?",
+    "zh": "收现金吗？",
+    "ja": "現金は使えますか？",
+    "ko": "현금을 사용할 수 있나요?"
+  },
+  "My card does not work.": {
+    "en": "My card does not work.",
+    "zh": "我的卡刷不了。",
+    "ja": "カードが使えません。",
+    "ko": "카드가 작동하지 않습니다."
+  },
+  "Can I have an invoice?": {
+    "en": "Can I have an invoice?",
+    "zh": "可以开发票吗？",
+    "ja": "請求書をいただけますか？",
+    "ko": "청구서를 받을 수 있나요?"
+  },
+  "Can we pay separately?": {
+    "en": "Can we pay separately?",
+    "zh": "可以分开付吗？",
+    "ja": "別々に支払えますか？",
+    "ko": "각자 결제할 수 있나요?"
+  },
+  "Do you have change?": {
+    "en": "Do you have change?",
+    "zh": "您有零钱吗？",
+    "ja": "おつりはありますか？",
+    "ko": "거스름돈이 있나요?"
+  },
+  "Where can I change money?": {
+    "en": "Where can I change money?",
+    "zh": "哪里可以换钱？",
+    "ja": "どこで両替できますか？",
+    "ko": "어디에서 환전할 수 있나요?"
+  },
+  "Is there a service fee?": {
+    "en": "Is there a service fee?",
+    "zh": "有手续费吗？",
+    "ja": "手数料はありますか？",
+    "ko": "수수료가 있나요?"
+  },
+  "I think the change is wrong.": {
+    "en": "I think the change is wrong.",
+    "zh": "我觉得找零不对。",
+    "ja": "おつりが違うと思います。",
+    "ko": "거스름돈이 잘못된 것 같습니다."
+  },
+  "Where is the ATM?": {
+    "en": "Where is the ATM?",
+    "zh": "请问 ATM 在哪里？",
+    "ja": "現金引出機はどこですか？",
+    "ko": "현금 인출기는 어디인가요?"
+  },
+  "My phone payment is not working.": {
+    "en": "My phone payment is not working.",
+    "zh": "我的手机支付用不了。",
+    "ja": "携帯電話で支払えません。",
+    "ko": "휴대전화 결제가 되지 않습니다."
+  },
+  "I am a foreign tourist.": {
+    "en": "I am a foreign tourist.",
+    "zh": "我是外国游客。",
+    "ja": "外国からの旅行者です。",
+    "ko": "외국인 관광객입니다."
+  },
+  "Here is my passport.": {
+    "en": "Here is my passport.",
+    "zh": "这是我的护照。",
+    "ja": "こちらが私のパスポートです。",
+    "ko": "제 여권입니다."
+  },
+  "I don't have this document.": {
+    "en": "I don't have this document.",
+    "zh": "我没有这份文件。",
+    "ja": "その書類は持っていません。",
+    "ko": "그 서류가 없습니다."
+  },
+  "Do I need to declare this?": {
+    "en": "Do I need to declare this?",
+    "zh": "这个需要申报吗？",
+    "ja": "これは申告が必要ですか？",
+    "ko": "이것은 신고해야 하나요?"
+  },
+  "Where is the baggage claim?": {
+    "en": "Where is the baggage claim?",
+    "zh": "请问在哪里取行李？",
+    "ja": "手荷物受取所はどこですか？",
+    "ko": "수하물 수취 장소는 어디인가요?"
+  },
+  "My luggage did not arrive.": {
+    "en": "My luggage did not arrive.",
+    "zh": "我的行李没有到。",
+    "ja": "荷物が届いていません。",
+    "ko": "짐이 도착하지 않았습니다."
+  },
+  "Is photography allowed here?": {
+    "en": "Is photography allowed here?",
+    "zh": "这里可以拍照吗？",
+    "ja": "ここで写真を撮ってもいいですか？",
+    "ko": "여기에서 사진을 찍어도 되나요?"
+  },
+  "How long can I stay?": {
+    "en": "How long can I stay?",
+    "zh": "我可以停留多久？",
+    "ja": "どのくらい滞在できますか？",
+    "ko": "얼마 동안 체류할 수 있나요?"
+  },
+  "Where is immigration?": {
+    "en": "Where is immigration?",
+    "zh": "请问入境处在哪儿？",
+    "ja": "入国審査はどこですか？",
+    "ko": "입국 심사는 어디에서 하나요?"
+  },
+  "Can I have a copy of this?": {
+    "en": "Can I have a copy of this?",
+    "zh": "可以给我一份复印件吗？",
+    "ja": "これのコピーをいただけますか？",
+    "ko": "이것의 사본을 받을 수 있나요?"
+  },
+  "Where do I fill in this form?": {
+    "en": "Where do I fill in this form?",
+    "zh": "这个表格填在哪里？",
+    "ja": "この用紙はどこで記入しますか？",
+    "ko": "이 서류는 어디에서 작성하나요?"
+  },
+  "My phone is about to die.": {
+    "en": "My phone is about to die.",
+    "zh": "我的手机快没电了。",
+    "ja": "携帯電話の電池が切れそうです。",
+    "ko": "휴대전화 배터리가 거의 없습니다."
+  },
+  "Can I charge my phone here?": {
+    "en": "Can I charge my phone here?",
+    "zh": "我可以在这里充电吗？",
+    "ja": "ここで充電できますか？",
+    "ko": "여기에서 휴대전화를 충전할 수 있나요?"
+  },
+  "Is there Wi-Fi here?": {
+    "en": "Is there Wi-Fi here?",
+    "zh": "请问这里有 Wi-Fi 吗？",
+    "ja": "無線接続はありますか？",
+    "ko": "무선 인터넷이 있나요?"
+  },
+  "My phone has no signal.": {
+    "en": "My phone has no signal.",
+    "zh": "我的手机没有信号。",
+    "ja": "携帯電話の電波が入りません。",
+    "ko": "휴대전화 신호가 잡히지 않습니다."
+  },
+  "Can I use your phone?": {
+    "en": "Can I use your phone?",
+    "zh": "可以借我用一下电话吗？",
+    "ja": "電話を借りてもいいですか？",
+    "ko": "전화를 빌려도 될까요?"
+  },
+  "Where can I buy a charger?": {
+    "en": "Where can I buy a charger?",
+    "zh": "哪里可以买到充电器？",
+    "ja": "充電器はどこで買えますか？",
+    "ko": "충전기는 어디에서 살 수 있나요?"
+  },
+  "The Wi-Fi is not working.": {
+    "en": "The Wi-Fi is not working.",
+    "zh": "Wi-Fi 连不上。",
+    "ja": "無線接続が使えません。",
+    "ko": "무선 인터넷이 작동하지 않습니다."
+  },
+  "Please call this number.": {
+    "en": "Please call this number.",
+    "zh": "请打这个电话号码。",
+    "ja": "この番号に電話してください。",
+    "ko": "이 번호로 전화해 주세요."
+  },
+  "I need a power bank.": {
+    "en": "I need a power bank.",
+    "zh": "我需要一个充电宝。",
+    "ja": "携帯用充電器が必要です。",
+    "ko": "휴대용 보조 배터리가 필요합니다."
+  },
+  "Do you have an iPhone charger?": {
+    "en": "Do you have an iPhone charger?",
+    "zh": "请问有苹果充电器吗？",
+    "ja": "iPhone用の充電器はありますか？",
+    "ko": "iPhone 충전기가 있나요?"
+  },
+  "It is going to rain.": {
+    "en": "It is going to rain.",
+    "zh": "快下雨了。",
+    "ja": "雨が降りそうです。",
+    "ko": "비가 올 것 같습니다."
+  },
+  "Do you have an umbrella?": {
+    "en": "Do you have an umbrella?",
+    "zh": "请问有伞吗？",
+    "ja": "傘はありますか？",
+    "ko": "우산이 있나요?"
+  },
+  "It is very hot today.": {
+    "en": "It is very hot today.",
+    "zh": "今天很热。",
+    "ja": "今日はとても暑いです。",
+    "ko": "오늘은 매우 덥습니다."
+  },
+  "It is very cold today.": {
+    "en": "It is very cold today.",
+    "zh": "今天很冷。",
+    "ja": "今日はとても寒いです。",
+    "ko": "오늘은 매우 춥습니다."
+  },
+  "Is the air quality bad today?": {
+    "en": "Is the air quality bad today?",
+    "zh": "今天空气不好吗？",
+    "ja": "今日は空気が悪いですか？",
+    "ko": "오늘 공기가 나쁜가요?"
+  },
+  "Will it rain tomorrow?": {
+    "en": "Will it rain tomorrow?",
+    "zh": "明天会下雨吗？",
+    "ja": "明日は雨が降りますか？",
+    "ko": "내일 비가 오나요?"
+  },
+  "Is there a typhoon warning?": {
+    "en": "Is there a typhoon warning?",
+    "zh": "有台风预警吗？",
+    "ja": "台風の警報は出ていますか？",
+    "ko": "태풍 경보가 있나요?"
+  },
+  "Does it snow here?": {
+    "en": "Does it snow here?",
+    "zh": "这里会下雪吗？",
+    "ja": "ここでは雪が降りますか？",
+    "ko": "여기에서는 눈이 오나요?"
+  },
+  "What is the temperature today?": {
+    "en": "What is the temperature today?",
+    "zh": "今天多少度？",
+    "ja": "今日の気温は何度ですか？",
+    "ko": "오늘 기온은 몇 도인가요?"
+  },
+  "Do I need a jacket?": {
+    "en": "Do I need a jacket?",
+    "zh": "需要穿外套吗？",
+    "ja": "上着は必要ですか？",
+    "ko": "겉옷이 필요한가요?"
+  },
+  "Is it windy today?": {
+    "en": "Is it windy today?",
+    "zh": "今天风大吗？",
+    "ja": "今日は風が強いですか？",
+    "ko": "오늘 바람이 강한가요?"
+  },
+  "Nice to meet you.": {
+    "en": "Nice to meet you.",
+    "zh": "很高兴认识你。",
+    "ja": "はじめまして。",
+    "ko": "만나서 반갑습니다."
+  },
+  "What is your name?": {
+    "en": "What is your name?",
+    "zh": "请问你叫什么名字？",
+    "ja": "お名前は何ですか？",
+    "ko": "이름이 무엇인가요?"
+  },
+  "Where are you from?": {
+    "en": "Where are you from?",
+    "zh": "你是哪里人？",
+    "ja": "どちらのご出身ですか？",
+    "ko": "어디에서 오셨나요?"
+  },
+  "Can I take a photo with you?": {
+    "en": "Can I take a photo with you?",
+    "zh": "可以和你合影吗？",
+    "ja": "一緒に写真を撮ってもいいですか？",
+    "ko": "같이 사진을 찍어도 될까요?"
+  },
+  "Cheers!": {
+    "en": "Cheers!",
+    "zh": "干杯！",
+    "ja": "乾杯！",
+    "ko": "건배!"
+  },
+  "You are very kind.": {
+    "en": "You are very kind.",
+    "zh": "你人真好。",
+    "ja": "ご親切にありがとうございます。",
+    "ko": "정말 친절하시네요."
+  },
+  "Goodbye.": {
+    "en": "Goodbye.",
+    "zh": "再见。",
+    "ja": "さようなら。",
+    "ko": "안녕히 가세요."
+  },
+  "Sorry.": {
+    "en": "Sorry.",
+    "zh": "对不起。",
+    "ja": "すみません。",
+    "ko": "죄송합니다."
+  },
+  "That sounds great.": {
+    "en": "That sounds great.",
+    "zh": "太好了。",
+    "ja": "よさそうですね。",
+    "ko": "좋은 것 같습니다."
+  },
+  "Can I add you on WeChat?": {
+    "en": "Can I add you on WeChat?",
+    "zh": "可以加你微信吗？",
+    "ja": "WeChatでつながってもいいですか？",
+    "ko": "WeChat 친구로 추가해도 될까요?"
+  },
+  "Do you have WeChat?": {
+    "en": "Do you have WeChat?",
+    "zh": "你有微信吗？",
+    "ja": "WeChatは使っていますか？",
+    "ko": "WeChat을 사용하시나요?"
+  },
+  "I am allergic to %s.": {
+    "en": "I am allergic to %s.",
+    "zh": "我对%s过敏。",
+    "ja": "%sのアレルギーがあります。",
+    "ko": "%s 알레르기가 있습니다."
+  },
+  "I don't eat %s.": {
+    "en": "I don't eat %s.",
+    "zh": "我不吃%s。",
+    "ja": "%sは食べません。",
+    "ko": "%s은/는 먹지 않습니다."
+  },
+  "Please don't put %s in it.": {
+    "en": "Please don't put %s in it.",
+    "zh": "请不要放%s。",
+    "ja": "%sを入れないでください。",
+    "ko": "%s은/는 넣지 말아 주세요."
+  },
+  "This is %s, not what I ordered.": {
+    "en": "This is %s, not what I ordered.",
+    "zh": "这是%s，不是我点的。",
+    "ja": "これは%sで、注文したものと違います。",
+    "ko": "이것은 %s이며 주문한 것과 다릅니다."
+  },
+  "Please take me to %s.": {
+    "en": "Please take me to %s.",
+    "zh": "请带我去%s。",
+    "ja": "%sまでお願いします。",
+    "ko": "%s까지 데려다주세요."
+  },
+  "I need a taxi to %s.": {
+    "en": "I need a taxi to %s.",
+    "zh": "我需要一辆去%s的出租车。",
+    "ja": "%sまで行くタクシーが必要です。",
+    "ko": "%s까지 갈 택시가 필요합니다."
+  },
+  "Please take me to the nearest %s.": {
+    "en": "Please take me to the nearest %s.",
+    "zh": "请带我去最近的%s。",
+    "ja": "一番近い%sまでお願いします。",
+    "ko": "가장 가까운 %s까지 데려다주세요."
+  },
+  "How much is %s?": {
+    "en": "How much is %s?",
+    "zh": "%s多少钱？",
+    "ja": "%sはいくらですか？",
+    "ko": "%s 가격은 얼마인가요?"
+  },
+  "Do you have %s?": {
+    "en": "Do you have %s?",
+    "zh": "你们有%s吗？",
+    "ja": "%sはありますか？",
+    "ko": "%s이/가 있나요?"
+  },
+  "I need %s.": {
+    "en": "I need %s.",
+    "zh": "我需要%s。",
+    "ja": "%sが必要です。",
+    "ko": "%s이/가 필요합니다."
+  },
+  "Can I have %s?": {
+    "en": "Can I have %s?",
+    "zh": "可以给我%s吗？",
+    "ja": "%sをいただけますか？",
+    "ko": "%s을/를 주실 수 있나요?"
+  },
+  "Please write %s in Chinese for me.": {
+    "en": "Please write %s in Chinese for me.",
+    "zh": "请帮我把%s写成中文。",
+    "ja": "%sを中国語で書いていただけますか？",
+    "ko": "%s을/를 중국어로 적어 주실 수 있나요?"
+  },
+  "I am looking for %s.": {
+    "en": "I am looking for %s.",
+    "zh": "我在找%s。",
+    "ja": "%sを探しています。",
+    "ko": "%s을/를 찾고 있습니다."
+  },
+  "I want to go to %s.": {
+    "en": "I want to go to %s.",
+    "zh": "我想去%s。",
+    "ja": "%sへ行きたいです。",
+    "ko": "%s에 가고 싶습니다."
+  },
+  "Is there a %s nearby?": {
+    "en": "Is there a %s nearby?",
+    "zh": "附近有%s吗？",
+    "ja": "近くに%sはありますか？",
+    "ko": "근처에 %s이/가 있나요?"
+  },
+  "Is this the way to %s?": {
+    "en": "Is this the way to %s?",
+    "zh": "这是去%s的路吗？",
+    "ja": "%sへはこの方向ですか？",
+    "ko": "%s에 가는 방향이 맞나요?"
+  },
+  "How long does it take to get to %s?": {
+    "en": "How long does it take to get to %s?",
+    "zh": "去%s要多久？",
+    "ja": "%sまでどのくらいかかりますか？",
+    "ko": "%s까지 얼마나 걸리나요?"
+  },
+  "Can I pay with %s?": {
+    "en": "Can I pay with %s?",
+    "zh": "可以用%s付款吗？",
+    "ja": "%sで支払えますか？",
+    "ko": "%s으로 결제할 수 있나요?"
+  },
+  "Can I get a receipt for %s?": {
+    "en": "Can I get a receipt for %s?",
+    "zh": "可以给我%s的发票吗？",
+    "ja": "%sの領収書をいただけますか？",
+    "ko": "%s에 대한 영수증을 받을 수 있나요?"
+  },
+  "I have a reservation for %s.": {
+    "en": "I have a reservation for %s.",
+    "zh": "我预订了%s。",
+    "ja": "%sを予約しています。",
+    "ko": "%s 예약이 있습니다."
+  },
+  "My room number is %s.": {
+    "en": "My room number is %s.",
+    "zh": "我的房间号是%s。",
+    "ja": "部屋番号は%sです。",
+    "ko": "제 객실 번호는 %s입니다."
+  },
+  "I am staying at %s.": {
+    "en": "I am staying at %s.",
+    "zh": "我住在%s。",
+    "ja": "%sに泊まっています。",
+    "ko": "%s에 머물고 있습니다."
+  },
+  "Can you help me call %s?": {
+    "en": "Can you help me call %s?",
+    "zh": "可以帮我拨打%s吗？",
+    "ja": "%sに電話するのを手伝っていただけますか？",
+    "ko": "%s에 전화하는 것을 도와주실 수 있나요?"
+  },
+  "I lost my %s.": {
+    "en": "I lost my %s.",
+    "zh": "我的%s丢了。",
+    "ja": "%sを失くしました。",
+    "ko": "%s을/를 잃어버렸습니다."
+  },
+  "My %s is not working.": {
+    "en": "My %s is not working.",
+    "zh": "我的%s坏了。",
+    "ja": "私の%sが動きません。",
+    "ko": "제 %s이/가 작동하지 않습니다."
+  },
+  "What is your %s?": {
+    "en": "What is your %s?",
+    "zh": "请问你的%s是多少？",
+    "ja": "あなたの%sは何ですか？",
+    "ko": "당신의 %s은/는 무엇인가요?"
+  },
+  "I feel %s.": {
+    "en": "I feel %s.",
+    "zh": "我觉得%s。",
+    "ja": "%sと感じます。",
+    "ko": "%s 느낌이 듭니다."
+  },
+  "I have a %s.": {
+    "en": "I have a %s.",
+    "zh": "我%s。",
+    "ja": "%sがあります。",
+    "ko": "%s이/가 있습니다."
+  },
+  "Please speak %s.": {
+    "en": "Please speak %s.",
+    "zh": "请%s。",
+    "ja": "%sで話してください。",
+    "ko": "%s으로 말해 주세요."
+  },
+  "What time does %s open?": {
+    "en": "What time does %s open?",
+    "zh": "%s几点开门？",
+    "ja": "%sは何時に開きますか？",
+    "ko": "%s은/는 몇 시에 여나요?"
+  },
+  "I am here for %s.": {
+    "en": "I am here for %s.",
+    "zh": "我来这里%s。",
+    "ja": "%sのために来ました。",
+    "ko": "%s 때문에 왔습니다."
+  },
+  "peanuts": {
+    "en": "peanuts",
+    "zh": "花生",
+    "ja": "ピーナッツ",
+    "ko": "땅콩"
+  },
+  "seafood": {
+    "en": "seafood",
+    "zh": "海鲜",
+    "ja": "魚介類",
+    "ko": "해산물"
+  },
+  "shellfish": {
+    "en": "shellfish",
+    "zh": "贝类",
+    "ja": "貝類",
+    "ko": "조개류"
+  },
+  "nuts": {
+    "en": "nuts",
+    "zh": "坚果",
+    "ja": "ナッツ類",
+    "ko": "견과류"
+  },
+  "milk": {
+    "en": "milk",
+    "zh": "牛奶",
+    "ja": "牛乳",
+    "ko": "우유"
+  },
+  "eggs": {
+    "en": "eggs",
+    "zh": "鸡蛋",
+    "ja": "卵",
+    "ko": "달걀"
+  },
+  "wheat": {
+    "en": "wheat",
+    "zh": "小麦",
+    "ja": "小麦",
+    "ko": "밀"
+  },
+  "gluten": {
+    "en": "gluten",
+    "zh": "麸质",
+    "ja": "グルテン",
+    "ko": "글루텐"
+  },
+  "soy": {
+    "en": "soy",
+    "zh": "大豆",
+    "ja": "大豆",
+    "ko": "콩"
+  },
+  "msg": {
+    "en": "msg",
+    "zh": "味精",
+    "ja": "うま味調味料",
+    "ko": "글루탐산나트륨"
+  },
+  "sesame": {
+    "en": "sesame",
+    "zh": "芝麻",
+    "ja": "ごま",
+    "ko": "참깨"
+  },
+  "beef": {
+    "en": "beef",
+    "zh": "牛肉",
+    "ja": "牛肉",
+    "ko": "소고기"
+  },
+  "pork": {
+    "en": "pork",
+    "zh": "猪肉",
+    "ja": "豚肉",
+    "ko": "돼지고기"
+  },
+  "alcohol": {
+    "en": "alcohol",
+    "zh": "酒精",
+    "ja": "酒類",
+    "ko": "주류"
+  },
+  "penicillin": {
+    "en": "penicillin",
+    "zh": "青霉素",
+    "ja": "ペニシリン",
+    "ko": "페니실린"
+  },
+  "lamb": {
+    "en": "lamb",
+    "zh": "羊肉",
+    "ja": "羊肉",
+    "ko": "양고기"
+  },
+  "chicken": {
+    "en": "chicken",
+    "zh": "鸡肉",
+    "ja": "鶏肉",
+    "ko": "닭고기"
+  },
+  "fish": {
+    "en": "fish",
+    "zh": "鱼",
+    "ja": "魚",
+    "ko": "생선"
+  },
+  "dairy": {
+    "en": "dairy",
+    "zh": "奶制品",
+    "ja": "乳製品",
+    "ko": "유제품"
+  },
+  "garlic": {
+    "en": "garlic",
+    "zh": "大蒜",
+    "ja": "にんにく",
+    "ko": "마늘"
+  },
+  "meat": {
+    "en": "meat",
+    "zh": "肉",
+    "ja": "肉",
+    "ko": "고기"
+  },
+  "spicy food": {
+    "en": "spicy food",
+    "zh": "辣的东西",
+    "ja": "辛い料理",
+    "ko": "매운 음식"
+  },
+  "animal products": {
+    "en": "animal products",
+    "zh": "动物制品",
+    "ja": "動物性食品",
+    "ko": "동물성 식품"
+  },
+  "coriander": {
+    "en": "coriander",
+    "zh": "香菜",
+    "ja": "パクチー",
+    "ko": "고수"
+  },
+  "chilli": {
+    "en": "chilli",
+    "zh": "辣椒",
+    "ja": "唐辛子",
+    "ko": "고추"
+  },
+  "ginger": {
+    "en": "ginger",
+    "zh": "姜",
+    "ja": "しょうが",
+    "ko": "생강"
+  },
+  "sugar": {
+    "en": "sugar",
+    "zh": "糖",
+    "ja": "砂糖",
+    "ko": "설탕"
+  },
+  "ice": {
+    "en": "ice",
+    "zh": "冰",
+    "ja": "氷",
+    "ko": "얼음"
+  },
+  "oil": {
+    "en": "oil",
+    "zh": "油",
+    "ja": "油",
+    "ko": "기름"
+  },
+  "cold": {
+    "en": "cold",
+    "zh": "凉的",
+    "ja": "冷たい",
+    "ko": "차가움"
+  },
+  "undercooked": {
+    "en": "undercooked",
+    "zh": "没熟的",
+    "ja": "加熱不足",
+    "ko": "덜 익음"
+  },
+  "the wrong dish": {
+    "en": "the wrong dish",
+    "zh": "上错的菜",
+    "ja": "違う料理",
+    "ko": "잘못된 음식"
+  },
+  "the wrong drink": {
+    "en": "the wrong drink",
+    "zh": "上错的饮料",
+    "ja": "違う飲み物",
+    "ko": "잘못된 음료"
+  },
+  "too salty": {
+    "en": "too salty",
+    "zh": "太咸的",
+    "ja": "塩辛すぎる",
+    "ko": "너무 짬"
+  },
+  "too spicy": {
+    "en": "too spicy",
+    "zh": "太辣的",
+    "ja": "辛すぎる",
+    "ko": "너무 매움"
+  },
+  "not fresh": {
+    "en": "not fresh",
+    "zh": "不新鲜的",
+    "ja": "新鮮でない",
+    "ko": "신선하지 않음"
+  },
+  "missing an item": {
+    "en": "missing an item",
+    "zh": "少了一道菜",
+    "ja": "品物が足りない",
+    "ko": "누락된 항목"
+  },
+  "the airport": {
+    "en": "the airport",
+    "zh": "机场",
+    "ja": "空港",
+    "ko": "공항"
+  },
+  "the railway station": {
+    "en": "the railway station",
+    "zh": "火车站",
+    "ja": "鉄道駅",
+    "ko": "기차역"
+  },
+  "the high-speed rail station": {
+    "en": "the high-speed rail station",
+    "zh": "高铁站",
+    "ja": "高速鉄道駅",
+    "ko": "고속철도역"
+  },
+  "the metro station": {
+    "en": "the metro station",
+    "zh": "地铁站",
+    "ja": "地下鉄駅",
+    "ko": "지하철역"
+  },
+  "my hotel": {
+    "en": "my hotel",
+    "zh": "我的酒店",
+    "ja": "自分のホテル",
+    "ko": "내 호텔"
+  },
+  "the hospital": {
+    "en": "the hospital",
+    "zh": "医院",
+    "ja": "病院",
+    "ko": "병원"
+  },
+  "the pharmacy": {
+    "en": "the pharmacy",
+    "zh": "药店",
+    "ja": "薬局",
+    "ko": "약국"
+  },
+  "the police station": {
+    "en": "the police station",
+    "zh": "警察局",
+    "ja": "警察署",
+    "ko": "경찰서"
+  },
+  "the taxi rank": {
+    "en": "the taxi rank",
+    "zh": "出租车候车点",
+    "ja": "タクシー乗り場",
+    "ko": "택시 승강장"
+  },
+  "the nearest ATM": {
+    "en": "the nearest ATM",
+    "zh": "最近的 ATM",
+    "ja": "最寄りの現金引出機",
+    "ko": "가장 가까운 현금 인출기"
+  },
+  "the supermarket": {
+    "en": "the supermarket",
+    "zh": "超市",
+    "ja": "スーパー",
+    "ko": "슈퍼마켓"
+  },
+  "the city centre": {
+    "en": "the city centre",
+    "zh": "市中心",
+    "ja": "市中心部",
+    "ko": "도심"
+  },
+  "the bus station": {
+    "en": "the bus station",
+    "zh": "汽车站",
+    "ja": "バスターミナル",
+    "ko": "버스 터미널"
+  },
+  "terminal 2": {
+    "en": "terminal 2",
+    "zh": "二号航站楼",
+    "ja": "第2ターミナル",
+    "ko": "제2터미널"
+  },
+  "the exhibition centre": {
+    "en": "the exhibition centre",
+    "zh": "展览中心",
+    "ja": "展示会場",
+    "ko": "전시장"
+  },
+  "hospital": {
+    "en": "hospital",
+    "zh": "医院",
+    "ja": "病院",
+    "ko": "병원"
+  },
+  "pharmacy": {
+    "en": "pharmacy",
+    "zh": "药店",
+    "ja": "薬局",
+    "ko": "약국"
+  },
+  "police station": {
+    "en": "police station",
+    "zh": "警察局",
+    "ja": "警察署",
+    "ko": "경찰서"
+  },
+  "metro station": {
+    "en": "metro station",
+    "zh": "地铁站",
+    "ja": "地下鉄駅",
+    "ko": "지하철역"
+  },
+  "ATM": {
+    "en": "ATM",
+    "zh": "取款机",
+    "ja": "現金引出機",
+    "ko": "현금 인출기"
+  },
+  "toilet": {
+    "en": "toilet",
+    "zh": "洗手间",
+    "ja": "トイレ",
+    "ko": "화장실"
+  },
+  "hotel": {
+    "en": "hotel",
+    "zh": "酒店",
+    "ja": "ホテル",
+    "ko": "호텔"
+  },
+  "taxi rank": {
+    "en": "taxi rank",
+    "zh": "出租车站",
+    "ja": "タクシー乗り場",
+    "ko": "택시 승강장"
+  },
+  "supermarket": {
+    "en": "supermarket",
+    "zh": "超市",
+    "ja": "スーパー",
+    "ko": "슈퍼마켓"
+  },
+  "petrol station": {
+    "en": "petrol station",
+    "zh": "加油站",
+    "ja": "ガソリンスタンド",
+    "ko": "주유소"
+  },
+  "this": {
+    "en": "this",
+    "zh": "这个",
+    "ja": "これ",
+    "ko": "이것"
+  },
+  "one night": {
+    "en": "one night",
+    "zh": "一晚",
+    "ja": "一泊",
+    "ko": "하룻밤"
+  },
+  "a ticket to Beijing": {
+    "en": "a ticket to Beijing",
+    "zh": "去北京的票",
+    "ja": "北京行きの切符",
+    "ko": "베이징행 승차권"
+  },
+  "a taxi to the airport": {
+    "en": "a taxi to the airport",
+    "zh": "去机场的出租车",
+    "ja": "空港行きのタクシー",
+    "ko": "공항행 택시"
+  },
+  "the deposit": {
+    "en": "the deposit",
+    "zh": "押金",
+    "ja": "保証金",
+    "ko": "보증금"
+  },
+  "a SIM card": {
+    "en": "a SIM card",
+    "zh": "手机卡",
+    "ja": "通信カード",
+    "ko": "유심"
+  },
+  "breakfast": {
+    "en": "breakfast",
+    "zh": "早餐",
+    "ja": "朝食",
+    "ko": "아침 식사"
+  },
+  "the entrance fee": {
+    "en": "the entrance fee",
+    "zh": "门票",
+    "ja": "入場料",
+    "ko": "입장료"
+  },
+  "one day": {
+    "en": "one day",
+    "zh": "一天",
+    "ja": "一日",
+    "ko": "하루"
+  },
+  "one kilo": {
+    "en": "one kilo",
+    "zh": "一公斤",
+    "ja": "一キロ",
+    "ko": "1킬로그램"
+  },
+  "a smaller size": {
+    "en": "a smaller size",
+    "zh": "小一号的",
+    "ja": "小さいサイズ",
+    "ko": "더 작은 사이즈"
+  },
+  "a bigger size": {
+    "en": "a bigger size",
+    "zh": "大一号的",
+    "ja": "大きいサイズ",
+    "ko": "더 큰 사이즈"
+  },
+  "another colour": {
+    "en": "another colour",
+    "zh": "别的颜色",
+    "ja": "別の色",
+    "ko": "다른 색상"
+  },
+  "a bag": {
+    "en": "a bag",
+    "zh": "袋子",
+    "ja": "かばん",
+    "ko": "가방"
+  },
+  "a receipt": {
+    "en": "a receipt",
+    "zh": "发票",
+    "ja": "領収書",
+    "ko": "영수증"
+  },
+  "an English menu": {
+    "en": "an English menu",
+    "zh": "英文菜单",
+    "ja": "英語のメニュー",
+    "ko": "영어 메뉴"
+  },
+  "vegetarian food": {
+    "en": "vegetarian food",
+    "zh": "素食",
+    "ja": "菜食料理",
+    "ko": "채식 음식"
+  },
+  "soy milk": {
+    "en": "soy milk",
+    "zh": "豆浆",
+    "ja": "豆乳",
+    "ko": "두유"
+  },
+  "Wi-Fi": {
+    "en": "Wi-Fi",
+    "zh": "Wi-Fi",
+    "ja": "無線接続",
+    "ko": "무선 인터넷"
+  },
+  "a charger": {
+    "en": "a charger",
+    "zh": "充电器",
+    "ja": "充電器",
+    "ko": "충전기"
+  },
+  "change": {
+    "en": "change",
+    "zh": "零钱",
+    "ja": "おつり",
+    "ko": "거스름돈"
+  },
+  "an umbrella": {
+    "en": "an umbrella",
+    "zh": "伞",
+    "ja": "傘",
+    "ko": "우산"
+  },
+  "help": {
+    "en": "help",
+    "zh": "帮助",
+    "ja": "助け",
+    "ko": "도움"
+  },
+  "a doctor": {
+    "en": "a doctor",
+    "zh": "医生",
+    "ja": "医師",
+    "ko": "의사"
+  },
+  "a taxi": {
+    "en": "a taxi",
+    "zh": "出租车",
+    "ja": "タクシー",
+    "ko": "택시"
+  },
+  "a phone charger": {
+    "en": "a phone charger",
+    "zh": "手机充电器",
+    "ja": "携帯電話の充電器",
+    "ko": "휴대전화 충전기"
+  },
+  "a power bank": {
+    "en": "a power bank",
+    "zh": "充电宝",
+    "ja": "携帯用充電器",
+    "ko": "보조 배터리"
+  },
+  "a translator": {
+    "en": "a translator",
+    "zh": "翻译",
+    "ja": "通訳",
+    "ko": "통역사"
+  },
+  "cash": {
+    "en": "cash",
+    "zh": "现金",
+    "ja": "現金",
+    "ko": "현금"
+  },
+  "a wheelchair": {
+    "en": "a wheelchair",
+    "zh": "轮椅",
+    "ja": "車椅子",
+    "ko": "휠체어"
+  },
+  "a bandage": {
+    "en": "a bandage",
+    "zh": "创可贴",
+    "ja": "包帯",
+    "ko": "붕대"
+  },
+  "a pen": {
+    "en": "a pen",
+    "zh": "一支笔",
+    "ja": "ペン",
+    "ko": "펜"
+  },
+  "a blanket": {
+    "en": "a blanket",
+    "zh": "一条毯子",
+    "ja": "毛布",
+    "ko": "담요"
+  },
+  "a quiet room": {
+    "en": "a quiet room",
+    "zh": "一间安静的房间",
+    "ja": "静かな部屋",
+    "ko": "조용한 객실"
+  },
+  "a menu": {
+    "en": "a menu",
+    "zh": "菜单",
+    "ja": "メニュー",
+    "ko": "메뉴"
+  },
+  "some water": {
+    "en": "some water",
+    "zh": "一杯水",
+    "ja": "水",
+    "ko": "물"
+  },
+  "hot water": {
+    "en": "hot water",
+    "zh": "一杯热水",
+    "ja": "お湯",
+    "ko": "따뜻한 물"
+  },
+  "a tissue": {
+    "en": "a tissue",
+    "zh": "一张纸巾",
+    "ja": "ティッシュ",
+    "ko": "휴지"
+  },
+  "chopsticks": {
+    "en": "chopsticks",
+    "zh": "一双筷子",
+    "ja": "箸",
+    "ko": "젓가락"
+  },
+  "a fork": {
+    "en": "a fork",
+    "zh": "一把叉子",
+    "ja": "フォーク",
+    "ko": "포크"
+  },
+  "a spoon": {
+    "en": "a spoon",
+    "zh": "一把勺子",
+    "ja": "スプーン",
+    "ko": "숟가락"
+  },
+  "the bill": {
+    "en": "the bill",
+    "zh": "账单",
+    "ja": "会計",
+    "ko": "계산서"
+  },
+  "some ice": {
+    "en": "some ice",
+    "zh": "一些冰块",
+    "ja": "氷",
+    "ko": "얼음"
+  },
+  "the address": {
+    "en": "the address",
+    "zh": "这个地址",
+    "ja": "住所",
+    "ko": "주소"
+  },
+  "the name": {
+    "en": "the name",
+    "zh": "这个名字",
+    "ja": "名前",
+    "ko": "이름"
+  },
+  "the price": {
+    "en": "the price",
+    "zh": "这个价格",
+    "ja": "価格",
+    "ko": "가격"
+  },
+  "the hotel name": {
+    "en": "the hotel name",
+    "zh": "酒店的名字",
+    "ja": "ホテル名",
+    "ko": "호텔 이름"
+  },
+  "the dish name": {
+    "en": "the dish name",
+    "zh": "这道菜的名字",
+    "ja": "料理名",
+    "ko": "음식 이름"
+  },
+  "the medicine name": {
+    "en": "the medicine name",
+    "zh": "这个药的名字",
+    "ja": "薬の名前",
+    "ko": "약 이름"
+  },
+  "the directions": {
+    "en": "the directions",
+    "zh": "怎么走",
+    "ja": "道順",
+    "ko": "가는 길"
+  },
+  "your phone number": {
+    "en": "your phone number",
+    "zh": "你的电话",
+    "ja": "あなたの電話番号",
+    "ko": "당신의 전화번호"
+  },
+  "the metro line": {
+    "en": "the metro line",
+    "zh": "地铁线路",
+    "ja": "地下鉄の路線",
+    "ko": "지하철 노선"
+  },
+  "my name": {
+    "en": "my name",
+    "zh": "我的名字",
+    "ja": "自分の名前",
+    "ko": "내 이름"
+  },
+  "the bus stop": {
+    "en": "the bus stop",
+    "zh": "公交站",
+    "ja": "バス停",
+    "ko": "버스 정류장"
+  },
+  "the toilet": {
+    "en": "the toilet",
+    "zh": "洗手间",
+    "ja": "トイレ",
+    "ko": "화장실"
+  },
+  "the exit": {
+    "en": "the exit",
+    "zh": "出口",
+    "ja": "出口",
+    "ko": "출구"
+  },
+  "the platform": {
+    "en": "the platform",
+    "zh": "站台",
+    "ja": "ホーム",
+    "ko": "승강장"
+  },
+  "the ticket office": {
+    "en": "the ticket office",
+    "zh": "售票处",
+    "ja": "切符売り場",
+    "ko": "매표소"
+  },
+  "the luggage lockers": {
+    "en": "the luggage lockers",
+    "zh": "行李寄存处",
+    "ja": "荷物用ロッカー",
+    "ko": "수하물 보관함"
+  },
+  "the hotel": {
+    "en": "the hotel",
+    "zh": "酒店",
+    "ja": "ホテル",
+    "ko": "호텔"
+  },
+  "the lost and found": {
+    "en": "the lost and found",
+    "zh": "失物招领处",
+    "ja": "遺失物窓口",
+    "ko": "분실물 센터"
+  },
+  "the market": {
+    "en": "the market",
+    "zh": "市场",
+    "ja": "市場",
+    "ko": "시장"
+  },
+  "the museum": {
+    "en": "the museum",
+    "zh": "博物馆",
+    "ja": "博物館",
+    "ko": "박물관"
+  },
+  "this place": {
+    "en": "this place",
+    "zh": "这个地方",
+    "ja": "この場所",
+    "ko": "이 장소"
+  },
+  "convenience store": {
+    "en": "convenience store",
+    "zh": "便利店",
+    "ja": "コンビニ",
+    "ko": "편의점"
+  },
+  "bank": {
+    "en": "bank",
+    "zh": "银行",
+    "ja": "銀行",
+    "ko": "은행"
+  },
+  "restaurant": {
+    "en": "restaurant",
+    "zh": "餐厅",
+    "ja": "レストラン",
+    "ko": "식당"
+  },
+  "the park": {
+    "en": "the park",
+    "zh": "公园",
+    "ja": "公園",
+    "ko": "공원"
+  },
+  "the next town": {
+    "en": "the next town",
+    "zh": "下一个镇",
+    "ja": "次の町",
+    "ko": "다음 도시"
+  },
+  "a credit card": {
+    "en": "a credit card",
+    "zh": "信用卡",
+    "ja": "クレジットカード",
+    "ko": "신용카드"
+  },
+  "a debit card": {
+    "en": "a debit card",
+    "zh": "借记卡",
+    "ja": "デビットカード",
+    "ko": "직불카드"
+  },
+  "a foreign card": {
+    "en": "a foreign card",
+    "zh": "境外银行卡",
+    "ja": "海外発行カード",
+    "ko": "해외 발급 카드"
+  },
+  "Alipay": {
+    "en": "Alipay",
+    "zh": "支付宝",
+    "ja": "Alipay",
+    "ko": "Alipay"
+  },
+  "WeChat Pay": {
+    "en": "WeChat Pay",
+    "zh": "微信支付",
+    "ja": "WeChat Pay",
+    "ko": "WeChat Pay"
+  },
+  "US dollars": {
+    "en": "US dollars",
+    "zh": "美元",
+    "ja": "米ドル",
+    "ko": "미국 달러"
+  },
+  "Apple Pay": {
+    "en": "Apple Pay",
+    "zh": "Apple Pay",
+    "ja": "Apple Pay",
+    "ko": "Apple Pay"
+  },
+  "a bank transfer": {
+    "en": "a bank transfer",
+    "zh": "银行转账",
+    "ja": "銀行振込",
+    "ko": "은행 송금"
+  },
+  "my phone": {
+    "en": "my phone",
+    "zh": "手机",
+    "ja": "自分の携帯電話",
+    "ko": "내 휴대전화"
+  },
+  "this purchase": {
+    "en": "this purchase",
+    "zh": "这次消费",
+    "ja": "この購入",
+    "ko": "이 구매"
+  },
+  "the room": {
+    "en": "the room",
+    "zh": "住宿",
+    "ja": "部屋",
+    "ko": "객실"
+  },
+  "the taxi": {
+    "en": "the taxi",
+    "zh": "打车",
+    "ja": "タクシー",
+    "ko": "택시"
+  },
+  "dinner": {
+    "en": "dinner",
+    "zh": "晚餐",
+    "ja": "夕食",
+    "ko": "저녁 식사"
+  },
+  "the tour": {
+    "en": "the tour",
+    "zh": "旅游",
+    "ja": "ツアー",
+    "ko": "관광"
+  },
+  "the transfer": {
+    "en": "the transfer",
+    "zh": "转账",
+    "ja": "送迎",
+    "ko": "이동 서비스"
+  },
+  "tonight": {
+    "en": "tonight",
+    "zh": "今晚",
+    "ja": "今夜",
+    "ko": "오늘 밤"
+  },
+  "tomorrow night": {
+    "en": "tomorrow night",
+    "zh": "明晚",
+    "ja": "明日の夜",
+    "ko": "내일 밤"
+  },
+  "two nights": {
+    "en": "two nights",
+    "zh": "两晚",
+    "ja": "二泊",
+    "ko": "이틀 밤"
+  },
+  "a double room": {
+    "en": "a double room",
+    "zh": "一间大床房",
+    "ja": "ダブルの部屋",
+    "ko": "더블 객실"
+  },
+  "a twin room": {
+    "en": "a twin room",
+    "zh": "一间双床房",
+    "ja": "ツインの部屋",
+    "ko": "트윈 객실"
+  },
+  "one person": {
+    "en": "one person",
+    "zh": "一位",
+    "ja": "一人",
+    "ko": "한 명"
+  },
+  "two people": {
+    "en": "two people",
+    "zh": "两位",
+    "ja": "二人",
+    "ko": "두 명"
+  },
+  "a room with a view": {
+    "en": "a room with a view",
+    "zh": "一间景观房",
+    "ja": "眺めのよい部屋",
+    "ko": "전망이 좋은 객실"
+  },
+  "202": {
+    "en": "202",
+    "zh": "202",
+    "ja": "202",
+    "ko": "202"
+  },
+  "305": {
+    "en": "305",
+    "zh": "305",
+    "ja": "305",
+    "ko": "305"
+  },
+  "512": {
+    "en": "512",
+    "zh": "512",
+    "ja": "512",
+    "ko": "512"
+  },
+  "916": {
+    "en": "916",
+    "zh": "916",
+    "ja": "916",
+    "ko": "916"
+  },
+  "1208": {
+    "en": "1208",
+    "zh": "1208",
+    "ja": "1208",
+    "ko": "1208"
+  },
+  "1802": {
+    "en": "1802",
+    "zh": "1802",
+    "ja": "1802",
+    "ko": "1802"
+  },
+  "3015": {
+    "en": "3015",
+    "zh": "3015",
+    "ja": "3015",
+    "ko": "3015"
+  },
+  "this hotel": {
+    "en": "this hotel",
+    "zh": "这家酒店",
+    "ja": "このホテル",
+    "ko": "이 호텔"
+  },
+  "the hotel on this card": {
+    "en": "the hotel on this card",
+    "zh": "这张卡片上的酒店",
+    "ja": "このカードのホテル",
+    "ko": "이 카드에 적힌 호텔"
+  },
+  "a hotel nearby": {
+    "en": "a hotel nearby",
+    "zh": "附近的酒店",
+    "ja": "近くのホテル",
+    "ko": "근처 호텔"
+  },
+  "the airport hotel": {
+    "en": "the airport hotel",
+    "zh": "机场酒店",
+    "ja": "空港のホテル",
+    "ko": "공항 호텔"
+  },
+  "the Hilton": {
+    "en": "the Hilton",
+    "zh": "希尔顿酒店",
+    "ja": "ヒルトン",
+    "ko": "힐튼"
+  },
+  "the police": {
+    "en": "the police",
+    "zh": "报警电话",
+    "ja": "警察",
+    "ko": "경찰"
+  },
+  "an ambulance": {
+    "en": "an ambulance",
+    "zh": "急救电话",
+    "ja": "救急車",
+    "ko": "구급차"
+  },
+  "my friend": {
+    "en": "my friend",
+    "zh": "我朋友",
+    "ja": "自分の友人",
+    "ko": "내 친구"
+  },
+  "the embassy": {
+    "en": "the embassy",
+    "zh": "大使馆",
+    "ja": "大使館",
+    "ko": "대사관"
+  },
+  "my airline": {
+    "en": "my airline",
+    "zh": "我的航空公司",
+    "ja": "自分の航空会社",
+    "ko": "내 항공사"
+  },
+  "my family": {
+    "en": "my family",
+    "zh": "我的家人",
+    "ja": "自分の家族",
+    "ko": "내 가족"
+  },
+  "passport": {
+    "en": "passport",
+    "zh": "护照",
+    "ja": "パスポート",
+    "ko": "여권"
+  },
+  "phone": {
+    "en": "phone",
+    "zh": "手机",
+    "ja": "携帯電話",
+    "ko": "휴대전화"
+  },
+  "wallet": {
+    "en": "wallet",
+    "zh": "钱包",
+    "ja": "財布",
+    "ko": "지갑"
+  },
+  "bag": {
+    "en": "bag",
+    "zh": "包",
+    "ja": "かばん",
+    "ko": "가방"
+  },
+  "luggage": {
+    "en": "luggage",
+    "zh": "行李",
+    "ja": "荷物",
+    "ko": "수하물"
+  },
+  "keys": {
+    "en": "keys",
+    "zh": "钥匙",
+    "ja": "鍵",
+    "ko": "열쇠"
+  },
+  "ticket": {
+    "en": "ticket",
+    "zh": "票",
+    "ja": "切符",
+    "ko": "승차권"
+  },
+  "credit card": {
+    "en": "credit card",
+    "zh": "信用卡",
+    "ja": "クレジットカード",
+    "ko": "신용카드"
+  },
+  "ID card": {
+    "en": "ID card",
+    "zh": "身份证",
+    "ja": "身分証",
+    "ko": "신분증"
+  },
+  "camera": {
+    "en": "camera",
+    "zh": "相机",
+    "ja": "カメラ",
+    "ko": "카메라"
+  },
+  "jacket": {
+    "en": "jacket",
+    "zh": "外套",
+    "ja": "上着",
+    "ko": "재킷"
+  },
+  "SIM card": {
+    "en": "SIM card",
+    "zh": "手机卡",
+    "ja": "通信カード",
+    "ko": "유심"
+  },
+  "charger": {
+    "en": "charger",
+    "zh": "充电器",
+    "ja": "充電器",
+    "ko": "충전기"
+  },
+  "air conditioning": {
+    "en": "air conditioning",
+    "zh": "空调",
+    "ja": "エアコン",
+    "ko": "에어컨"
+  },
+  "room key": {
+    "en": "room key",
+    "zh": "房卡",
+    "ja": "部屋の鍵",
+    "ko": "객실 열쇠"
+  },
+  "laptop": {
+    "en": "laptop",
+    "zh": "电脑",
+    "ja": "ノートパソコン",
+    "ko": "노트북"
+  },
+  "power bank": {
+    "en": "power bank",
+    "zh": "充电宝",
+    "ja": "携帯用充電器",
+    "ko": "보조 배터리"
+  },
+  "phone number": {
+    "en": "phone number",
+    "zh": "电话号码",
+    "ja": "電話番号",
+    "ko": "전화번호"
+  },
+  "WeChat": {
+    "en": "WeChat",
+    "zh": "微信号",
+    "ja": "WeChat",
+    "ko": "WeChat"
+  },
+  "email address": {
+    "en": "email address",
+    "zh": "邮箱地址",
+    "ja": "メールアドレス",
+    "ko": "이메일 주소"
+  },
+  "room number": {
+    "en": "room number",
+    "zh": "房间号",
+    "ja": "部屋番号",
+    "ko": "객실 번호"
+  },
+  "address": {
+    "en": "address",
+    "zh": "地址",
+    "ja": "住所",
+    "ko": "주소"
+  },
+  "name": {
+    "en": "name",
+    "zh": "名字",
+    "ja": "名前",
+    "ko": "이름"
+  },
+  "dizzy": {
+    "en": "dizzy",
+    "zh": "头晕",
+    "ja": "めまいがする",
+    "ko": "어지러움"
+  },
+  "nauseous": {
+    "en": "nauseous",
+    "zh": "想吐",
+    "ja": "吐き気がする",
+    "ko": "메스꺼움"
+  },
+  "weak": {
+    "en": "weak",
+    "zh": "没力气",
+    "ja": "力が入らない",
+    "ko": "기운이 없음"
+  },
+  "hot": {
+    "en": "hot",
+    "zh": "发热",
+    "ja": "暑い",
+    "ko": "더움"
+  },
+  "short of breath": {
+    "en": "short of breath",
+    "zh": "喘不上气",
+    "ja": "息苦しい",
+    "ko": "숨이 참"
+  },
+  "itchy": {
+    "en": "itchy",
+    "zh": "痒",
+    "ja": "かゆい",
+    "ko": "가려움"
+  },
+  "faint": {
+    "en": "faint",
+    "zh": "快晕倒了",
+    "ja": "気が遠くなる",
+    "ko": "정신이 아득함"
+  },
+  "headache": {
+    "en": "headache",
+    "zh": "头疼",
+    "ja": "頭痛",
+    "ko": "두통"
+  },
+  "fever": {
+    "en": "fever",
+    "zh": "发烧",
+    "ja": "発熱",
+    "ko": "발열"
+  },
+  "stomachache": {
+    "en": "stomachache",
+    "zh": "肚子疼",
+    "ja": "腹痛",
+    "ko": "복통"
+  },
+  "sore throat": {
+    "en": "sore throat",
+    "zh": "嗓子疼",
+    "ja": "のどの痛み",
+    "ko": "인후통"
+  },
+  "cough": {
+    "en": "cough",
+    "zh": "咳嗽",
+    "ja": "せき",
+    "ko": "기침"
+  },
+  "toothache": {
+    "en": "toothache",
+    "zh": "牙疼",
+    "ja": "歯痛",
+    "ko": "치통"
+  },
+  "rash": {
+    "en": "rash",
+    "zh": "皮疹",
+    "ja": "発疹",
+    "ko": "발진"
+  },
+  "backache": {
+    "en": "backache",
+    "zh": "腰疼",
+    "ja": "背中の痛み",
+    "ko": "등 통증"
+  },
+  "runny nose": {
+    "en": "runny nose",
+    "zh": "流鼻涕",
+    "ja": "鼻水",
+    "ko": "콧물"
+  },
+  "earache": {
+    "en": "earache",
+    "zh": "耳朵疼",
+    "ja": "耳の痛み",
+    "ko": "귀 통증"
+  },
+  "broken arm": {
+    "en": "broken arm",
+    "zh": "胳膊骨折",
+    "ja": "腕の骨折",
+    "ko": "팔 골절"
+  },
+  "more slowly": {
+    "en": "more slowly",
+    "zh": "慢一点",
+    "ja": "もっとゆっくり",
+    "ko": "더 천천히"
+  },
+  "more clearly": {
+    "en": "more clearly",
+    "zh": "清楚一点",
+    "ja": "もっとはっきり",
+    "ko": "더 명확하게"
+  },
+  "more loudly": {
+    "en": "more loudly",
+    "zh": "大声一点",
+    "ja": "もっと大きな声で",
+    "ko": "더 큰 목소리로"
+  },
+  "in English": {
+    "en": "in English",
+    "zh": "用英语",
+    "ja": "英語で",
+    "ko": "영어로"
+  },
+  "in simple Chinese": {
+    "en": "in simple Chinese",
+    "zh": "说简单的中文",
+    "ja": "簡単な中国語で",
+    "ko": "쉬운 중국어로"
+  },
+  "one more time": {
+    "en": "one more time",
+    "zh": "再说一遍",
+    "ja": "もう一度",
+    "ko": "한 번 더"
+  },
+  "the shop": {
+    "en": "the shop",
+    "zh": "商店",
+    "ja": "店",
+    "ko": "상점"
+  },
+  "the metro": {
+    "en": "the metro",
+    "zh": "地铁",
+    "ja": "地下鉄",
+    "ko": "지하철"
+  },
+  "the restaurant": {
+    "en": "the restaurant",
+    "zh": "餐厅",
+    "ja": "レストラン",
+    "ko": "식당"
+  },
+  "tourism": {
+    "en": "tourism",
+    "zh": "旅游",
+    "ja": "観光",
+    "ko": "관광"
+  },
+  "business": {
+    "en": "business",
+    "zh": "出差",
+    "ja": "商用",
+    "ko": "업무"
+  },
+  "study": {
+    "en": "study",
+    "zh": "学习",
+    "ja": "留学",
+    "ko": "학업"
+  },
+  "a holiday": {
+    "en": "a holiday",
+    "zh": "度假",
+    "ja": "休暇",
+    "ko": "휴가"
+  },
+  "a conference": {
+    "en": "a conference",
+    "zh": "开会",
+    "ja": "会議",
+    "ko": "회의"
+  },
+  "visiting family": {
+    "en": "visiting family",
+    "zh": "探亲",
+    "ja": "家族訪問",
+    "ko": "가족 방문"
+  },
+  "medical treatment": {
+    "en": "medical treatment",
+    "zh": "看病",
+    "ja": "治療",
+    "ko": "치료"
+  },
+  "my friend's place": {
+    "en": "my friend's place",
+    "zh": "我朋友的住处",
+    "ja": "友人の家",
+    "ko": "친구 집"
+  },
+  "Shanghai": {
+    "en": "Shanghai",
+    "zh": "上海",
+    "ja": "上海",
+    "ko": "상하이"
+  },
+  "Chengdu": {
+    "en": "Chengdu",
+    "zh": "成都",
+    "ja": "成都",
+    "ko": "청두"
+  },
+  "Hangzhou": {
+    "en": "Hangzhou",
+    "zh": "杭州",
+    "ja": "杭州",
+    "ko": "항저우"
+  },
+  "Guilin": {
+    "en": "Guilin",
+    "zh": "桂林",
+    "ja": "桂林",
+    "ko": "구이린"
+  },
+  "Guangzhou": {
+    "en": "Guangzhou",
+    "zh": "广州",
+    "ja": "広州",
+    "ko": "광저우"
+  },
+  "Shenzhen": {
+    "en": "Shenzhen",
+    "zh": "深圳",
+    "ja": "深圳",
+    "ko": "선전"
+  },
+  "Xi’an": {
+    "en": "Xi’an",
+    "zh": "西安",
+    "ja": "西安",
+    "ko": "시안"
+  },
+  "Hong Kong": {
+    "en": "Hong Kong",
+    "zh": "香港",
+    "ja": "香港",
+    "ko": "홍콩"
+  },
+  "Shanghai · PVG T2": {
+    "en": "Shanghai · PVG T2",
+    "zh": "上海 · 浦东机场二号航站楼",
+    "ja": "上海 · 浦東空港第2ターミナル",
+    "ko": "상하이 · 푸둥 공항 제2터미널"
+  },
+  "Please wait": {
+    "en": "Please wait",
+    "zh": "请稍等",
+    "ja": "少し待ってください",
+    "ko": "잠시 기다려 주세요"
+  },
+  "Please follow me": {
+    "en": "Please follow me",
+    "zh": "请跟我来",
+    "ja": "ついてきてください",
+    "ko": "저를 따라오세요"
+  },
+  "Please look here": {
+    "en": "Please look here",
+    "zh": "请看这里",
+    "ja": "ここを見てください",
+    "ko": "여기를 봐 주세요"
+  },
+  "I’m not sure": {
+    "en": "I’m not sure",
+    "zh": "我不清楚",
+    "ja": "よくわかりません",
+    "ko": "잘 모르겠습니다"
+  },
+  "Please write it down": {
+    "en": "Please write it down",
+    "zh": "请写下来",
+    "ja": "書いてください",
+    "ko": "적어 주세요"
+  },
+  "It has been taken care of": {
+    "en": "It has been taken care of",
+    "zh": "已经处理好了",
+    "ja": "対応が済みました",
+    "ko": "처리되었습니다"
+  },
+  "Yes": {
+    "en": "Yes",
+    "zh": "是的",
+    "ja": "はい",
+    "ko": "예"
+  },
+  "No": {
+    "en": "No",
+    "zh": "不是",
+    "ja": "いいえ",
+    "ko": "아니요"
+  },
+  "Choose a file under 30 MB for this demo.": {
+    "en": "Choose a file under 30 MB for this demo.",
+    "zh": "演示文件需小于三十兆字节。",
+    "ja": "デモのファイルは30メガバイト未満にしてください。",
+    "ko": "데모 파일은 30메가바이트 미만으로 선택하세요."
+  },
+  "Media storage is unavailable.": {
+    "en": "Media storage is unavailable.",
+    "zh": "媒体存储不可用。",
+    "ja": "メディアを保存できません。",
+    "ko": "미디어를 저장할 수 없습니다."
+  },
+  "Media storage is full. Choose a smaller file.": {
+    "en": "Media storage is full. Choose a smaller file.",
+    "zh": "媒体存储已满，请选择更小的文件。",
+    "ja": "保存領域が満杯です。小さいファイルを選んでください。",
+    "ko": "저장 공간이 가득 찼습니다. 더 작은 파일을 선택하세요."
+  },
+  "Attachment is no longer available on this device.": {
+    "en": "Attachment is no longer available on this device.",
+    "zh": "附件已不在此设备上。",
+    "ja": "この端末には添付ファイルがありません。",
+    "ko": "이 기기에 첨부파일이 더 이상 없습니다."
+  },
+  "Could not read attachment.": {
+    "en": "Could not read attachment.",
+    "zh": "无法读取附件。",
+    "ja": "添付ファイルを読み込めません。",
+    "ko": "첨부파일을 읽을 수 없습니다."
+  },
+  "Could not delete attachment.": {
+    "en": "Could not delete attachment.",
+    "zh": "无法删除附件。",
+    "ja": "添付ファイルを削除できません。",
+    "ko": "첨부파일을 삭제할 수 없습니다."
+  },
+  "Could not clear local media.": {
+    "en": "Could not clear local media.",
+    "zh": "无法清除本机媒体。",
+    "ja": "端末のメディアを消去できません。",
+    "ko": "기기의 미디어를 지울 수 없습니다."
+  },
+  "Monthly AI allowance reached.": {
+    "en": "Monthly AI allowance reached.",
+    "zh": "本月智能问答次数已用完。",
+    "ja": "今月の質問枠を使い切りました。",
+    "ko": "이번 달 질문 한도를 사용했습니다."
+  },
+  "Sign in to like a post.": {
+    "en": "Sign in to like a post.",
+    "zh": "登录后即可点赞。",
+    "ja": "いいねにはログインしてください。",
+    "ko": "좋아요를 누르려면 로그인하세요."
+  },
+  "Sign in to save a post.": {
+    "en": "Sign in to save a post.",
+    "zh": "登录后即可收藏帖子。",
+    "ja": "投稿の保存にはログインしてください。",
+    "ko": "게시물을 저장하려면 로그인하세요."
+  },
+  "Use a title between 3 and 100 characters.": {
+    "en": "Use a title between 3 and 100 characters.",
+    "zh": "标题请填写三至一百字。",
+    "ja": "タイトルは3～100文字です。",
+    "ko": "제목은 3~100자로 입력하세요."
+  },
+  "Add your experience or question (up to 5,000 characters).": {
+    "en": "Add your experience or question (up to 5,000 characters).",
+    "zh": "请填写经验或问题，最多五千字。",
+    "ja": "体験や質問を5,000文字以内で入力してください。",
+    "ko": "경험이나 질문을 5,000자 이내로 입력하세요."
+  },
+  "Keep the location under 100 characters.": {
+    "en": "Keep the location under 100 characters.",
+    "zh": "地点请控制在一百字以内。",
+    "ja": "場所は100文字以内にしてください。",
+    "ko": "위치는 100자 이내로 입력하세요."
+  },
+  "Attach up to six photos or videos.": {
+    "en": "Attach up to six photos or videos.",
+    "zh": "最多添加六张图片或视频。",
+    "ja": "画像・動画は6件までです。",
+    "ko": "사진이나 동영상은 최대 6개입니다."
+  },
+  "Just landed at PVG. Where can I charge my phone?": {
+    "en": "Just landed at PVG. Where can I charge my phone?",
+    "zh": "刚到浦东机场，哪里可以充电？",
+    "ja": "浦東空港に到着。充電できる場所は？",
+    "ko": "푸둥 공항에 막 도착했습니다. 어디에서 충전하나요?"
+  },
+  "I am near the arrivals meeting point in Terminal 2. Does anyone know where the public charging points are? Please do not share private contact information here.": {
+    "en": "I am near the arrivals meeting point in Terminal 2. Does anyone know where the public charging points are? Please do not share private contact information here.",
+    "zh": "我在二号航站楼到达集合点附近，有人知道公共充电点在哪里吗？请勿在此分享私人联系方式。",
+    "ja": "第2ターミナルの到着待ち合わせ場所付近にいます。公共の充電場所をご存じですか？個人の連絡先はここに載せないでください。",
+    "ko": "제2터미널 도착 만남 장소 근처에 있습니다. 공용 충전 장소를 아시나요? 여기에서 개인 연락처는 공유하지 마세요."
+  },
+  "A little less on delivery. A little more to explore.": {
+    "en": "A little less on delivery. A little more to explore.",
+    "zh": "外卖少花一点，探索多一点。",
+    "ja": "配達の出費を少し減らして、もっと街へ。",
+    "ko": "배달비를 조금 줄이고 더 둘러보세요."
+  },
+  "My routine: compare the final checkout amount in Meituan and Taobao before ordering. Check the app coupon page, delivery fee and minimum order. A bigger coupon does not always mean a cheaper order. Availability and promotions change; this is a personal experience, not a guaranteed discount.": {
+    "en": "My routine: compare the final checkout amount in Meituan and Taobao before ordering. Check the app coupon page, delivery fee and minimum order. A bigger coupon does not always mean a cheaper order. Availability and promotions change; this is a personal experience, not a guaranteed discount.",
+    "zh": "我会先比较美团与淘宝结算时的最终金额，核对优惠券、配送费和起送条件。券面额大不一定更便宜。活动和支持范围可能变化，这只是个人经验，不保证优惠。",
+    "ja": "注文前にMeituanとTaobaoの最終金額を比べ、割引券、配達料、最低注文を確認しています。大きな割引券が最安とは限りません。内容は変わるため、割引を保証する話ではなく個人の体験です。",
+    "ko": "주문 전에 Meituan과 Taobao의 최종 금액, 쿠폰, 배달료와 최소 주문을 비교합니다. 큰 쿠폰이 항상 저렴한 것은 아닙니다. 조건과 행사는 바뀌며 할인 보장이 아닌 개인 경험입니다."
+  },
+  "The station name I almost got wrong": {
+    "en": "The station name I almost got wrong",
+    "zh": "差点弄错的车站名称",
+    "ja": "間違えそうになった駅名",
+    "ko": "헷갈릴 뻔한 역 이름"
+  },
+  "Hongqiao Railway Station and Shanghai Railway Station are different places. Match the Chinese station name on your ticket before leaving your hotel. ChinaBuddy has the airport and station names ready to show.": {
+    "en": "Hongqiao Railway Station and Shanghai Railway Station are different places. Match the Chinese station name on your ticket before leaving your hotel. ChinaBuddy has the airport and station names ready to show.",
+    "zh": "上海虹桥站与上海站是不同地点，离开酒店前核对车票上的中文站名。ChinaBuddy 中可以打开机场与车站名称出示。",
+    "ja": "上海虹橋駅と上海駅は別です。宿を出る前に切符の中国語名を確認しましょう。ChinaBuddyには見せられる空港・駅名があります。",
+    "ko": "상하이 훙차오역과 상하이역은 다릅니다. 호텔을 떠나기 전에 승차권의 중국어 역 이름을 확인하세요. ChinaBuddy에서 공항과 역 이름을 보여 줄 수 있습니다."
+  },
+  "My first week paying in China": {
+    "en": "My first week paying in China",
+    "zh": "我在中国付款的第一周",
+    "ja": "中国で支払った最初の一週間",
+    "ko": "중국에서 결제한 첫 일주일"
+  },
+  "Prepare both a digital payment method and a backup. I linked a supported foreign card in Alipay, then checked the final fee before paying. Some merchants and transaction types may not accept your card. Check the payment guide before you need it.": {
+    "en": "Prepare both a digital payment method and a backup. I linked a supported foreign card in Alipay, then checked the final fee before paying. Some merchants and transaction types may not accept your card. Check the payment guide before you need it.",
+    "zh": "准备电子支付和备用方式。我在支付宝绑定受支持的境外卡，付款前核对最终费用。部分商户或交易可能不支持这张卡，使用前先看支付指南。",
+    "ja": "電子決済と予備の手段を用意しました。Alipayに対応する海外カードを登録し、支払い前に最終料金を確認。非対応の店舗や取引もあるため、先にガイドを見ておくと安心です。",
+    "ko": "전자 결제와 대안을 준비했습니다. Alipay에 지원 해외 카드를 등록하고 결제 전에 최종 비용을 확인했습니다. 일부 가맹점과 거래는 미지원일 수 있으니 미리 결제 안내를 확인하세요."
+  },
+  "Can someone help me read this hotel entrance?": {
+    "en": "Can someone help me read this hotel entrance?",
+    "zh": "有人能帮我确认酒店入口吗？",
+    "ja": "ホテルの入口を確認してもらえますか？",
+    "ko": "호텔 입구 확인을 도와주실 수 있나요?"
+  },
+  "The map pin takes me to the back of the building. How do you usually confirm the main reception entrance? I will ask the staff and use a Chinese address card.": {
+    "en": "The map pin takes me to the back of the building. How do you usually confirm the main reception entrance? I will ask the staff and use a Chinese address card.",
+    "zh": "地图定位把我带到了楼后，大家通常怎样确认前台主入口？我会问工作人员，并出示中文地址卡。",
+    "ja": "地図の印で建物の裏へ来てしまいました。フロントの正面入口はどう確認していますか？係員に尋ねて中国語カードを見せるつもりです。",
+    "ko": "지도 표시가 건물 뒤쪽으로 안내했습니다. 프런트 정문을 보통 어떻게 확인하시나요? 직원에게 물어보고 중국어 주소 카드를 쓰겠습니다."
+  },
+  "Workspace ID must contain only letters, digits and hyphens.": {
+    "en": "Workspace ID must contain only letters, digits and hyphens.",
+    "zh": "工作空间标识仅允许字母、数字和连字符。",
+    "ja": "作業領域の識別子は英数字とハイフンのみです。",
+    "ko": "작업 공간 식별자는 영문자, 숫자와 하이픈만 허용합니다."
+  },
+  "Me": {
+    "en": "Me",
+    "zh": "我的",
+    "ja": "マイページ",
+    "ko": "내 정보"
+  }
+}

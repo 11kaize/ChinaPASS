@@ -1,3 +1,4 @@
+import { previewCopy } from "../preview-copy";
 import React, { useEffect, useState } from "react";
 import { Stack, ThemeProvider, DefaultTheme, DarkTheme } from "expo-router";
 import {
@@ -19,6 +20,19 @@ void SplashScreen.preventAutoHideAsync().catch(() => {});
 function AppNavigation() {
   const { hydrated, colors, isDark, prefs } = useApp();
   const reduce = useReducedMotion();
+  useEffect(() => {
+    if (Platform.OS !== "web") return;
+    const copy = previewCopy[prefs.language];
+    document.documentElement.lang = prefs.language;
+    document.title = "ChinaBuddy";
+    document
+      .querySelectorAll<HTMLElement>("[data-preview-copy]")
+      .forEach((node) => {
+        const key = node.dataset.previewCopy as keyof typeof copy;
+        if (copy[key]) node.textContent = copy[key];
+      });
+    document.getElementById("phone")?.setAttribute("aria-label", copy.phone);
+  }, [prefs.language]);
   const { ready } = useProduct();
   const [artworkReady, setArtworkReady] = useState(false);
   useEffect(() => {
@@ -52,7 +66,7 @@ function AppNavigation() {
   if (!hydrated || !ready || !artworkReady)
     return (
       <View
-        accessibilityLabel="Preparing ChinaHand"
+        accessibilityLabel={previewCopy[prefs.language].loading}
         style={{
           flex: 1,
           backgroundColor: colors.bg,
@@ -63,12 +77,10 @@ function AppNavigation() {
       >
         <ActivityIndicator size="large" color={colors.accent} />
         <Text style={{ color: colors.ink, fontSize: 13, letterSpacing: 2 }}>
-          CHINAHAND
+          CHINABUDDY
         </Text>
         <Text style={{ color: colors.secondary, fontSize: 12 }}>
-          {prefs.language === "zh"
-            ? "正在准备你的生活助手…"
-            : "Preparing your companion…"}
+          {previewCopy[prefs.language].loading}
         </Text>
       </View>
     );

@@ -17,7 +17,13 @@ export function PageMotion({
   // Begin before paint so the first frame cannot flash at its resting position.
   useLayoutEffect(() => {
     const node = ref.current as unknown as HTMLElement | null;
-    if (!focused || reduced || !node || typeof node.animate !== "function")
+    if (
+      !focused ||
+      reduced ||
+      document.hidden ||
+      !node ||
+      typeof node.animate !== "function"
+    )
       return;
     const tab = navigation.getState()?.type === "tab";
     // Transform only: no layout animation, JS frame loop or opacity on glass.
@@ -31,7 +37,14 @@ export function PageMotion({
     );
     // No persistent will-change layer. Cancellation leaves the underlying view
     // at its final, visible position, including on rapid navigation or blur.
-    return () => animation.cancel();
+    const cancelWhenHidden = () => {
+      if (document.hidden) animation.cancel();
+    };
+    document.addEventListener("visibilitychange", cancelWhenHidden);
+    return () => {
+      document.removeEventListener("visibilitychange", cancelWhenHidden);
+      animation.cancel();
+    };
   }, [focused, navigation, reduced]);
   return (
     <View ref={ref} style={style}>

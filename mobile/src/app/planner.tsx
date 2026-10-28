@@ -362,6 +362,7 @@ export default function Planner() {
                         {item.done ? (zh ? " · 已完成" : " · Done") : ""}
                       </Txt>
                       <Txt
+                        verbatim
                         variant="subheading"
                         style={{
                           textDecorationLine: item.done
@@ -375,7 +376,7 @@ export default function Planner() {
                   </View>
                   {place ? (
                     <>
-                      <Txt variant="caption" color={colors.secondary}>
+                      <Txt verbatim variant="caption" color={colors.secondary}>
                         {place.name || place.address}
                       </Txt>
                       <Button
@@ -402,7 +403,7 @@ export default function Planner() {
                     />
                   ) : null}
                   {Boolean(item.note) && (
-                    <Txt selectable color={colors.secondary}>
+                    <Txt verbatim selectable color={colors.secondary}>
                       {item.note}
                     </Txt>
                   )}

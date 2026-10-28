@@ -745,7 +745,7 @@
       "</section>";
 
     return '' +
-      topbar("ChinaHand", { badge: "DEMO" }) +
+      topbar("ChinaBuddy", { badge: "DEMO" }) +
 
       /* The lead block is the value proposition, not a destination. A travel
          hero ("your China travel companion / explore cities / plan my trip")
@@ -755,7 +755,7 @@
          which is not what someone standing in an arrivals hall needs before
          they know where they are, so they live on the tools screen. */
       '<section class="hero">' +
-        '<div class="hero__brand"><span>🇨🇳</span> ChinaHand</div>' +
+        '<div class="hero__brand"><span>🇨🇳</span> ChinaBuddy</div>' +
         "<h1>" + esc(t("heroH1")) + "</h1>" +
         "<p>" + md(t("heroP")) + "</p>" +
       "</section>" +

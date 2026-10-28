@@ -1,3 +1,4 @@
+import type { Language } from "../content";
 import { APIConfig, providers, validateConfig } from "./providers";
 export type ChatTurn = { role: "user" | "assistant"; content: string };
 export class AIError extends Error {
@@ -92,24 +93,51 @@ export async function verifyDeepSeekConnection(
   config: APIConfig,
   options: { signal: AbortSignal; fetcher: FetchFn; timeoutMs?: number },
 ) {
-  if (config.provider !== "deepseek" || validateConfig(config)) throw new AIError("invalid");
+  if (config.provider !== "deepseek" || validateConfig(config))
+    throw new AIError("invalid");
   const control = new AbortController();
   const cancel = () => control.abort();
   options.signal.addEventListener("abort", cancel, { once: true });
   if (options.signal.aborted) control.abort();
   let timedOut = false;
-  const timer = setTimeout(() => { timedOut = true; control.abort(); }, options.timeoutMs ?? 30000);
+  const timer = setTimeout(() => {
+    timedOut = true;
+    control.abort();
+  }, options.timeoutMs ?? 30000);
   try {
     const fetcher = options.fetcher;
-    const result = await fetcher(`${config.baseURL.trim().replace(/\/+$/, "")}/models`, {
-      headers: { Authorization: `Bearer ${config.key.trim()}`, Accept: "application/json" },
-      signal: control.signal,
-      redirect: "error",
-    });
-    if (!result.ok) throw new AIError(result.status === 401 ? "auth" : result.status === 403 ? "access" : result.status === 404 ? "model" : result.status === 429 ? "limit" : "server", result.status);
+    const result = await fetcher(
+      `${config.baseURL.trim().replace(/\/+$/, "")}/models`,
+      {
+        headers: {
+          Authorization: `Bearer ${config.key.trim()}`,
+          Accept: "application/json",
+        },
+        signal: control.signal,
+        redirect: "error",
+      },
+    );
+    if (!result.ok)
+      throw new AIError(
+        result.status === 401
+          ? "auth"
+          : result.status === 403
+            ? "access"
+            : result.status === 404
+              ? "model"
+              : result.status === 429
+                ? "limit"
+                : "server",
+        result.status,
+      );
     const data = await result.json();
     if (!Array.isArray(data.data)) throw new AIError("server");
-    if (!data.data.some((model: { id?: string }) => model.id === config.model.trim())) throw new AIError("model");
+    if (
+      !data.data.some(
+        (model: { id?: string }) => model.id === config.model.trim(),
+      )
+    )
+      throw new AIError("model");
   } catch (error) {
     if (timedOut) throw new AIError("timeout");
     if (options.signal.aborted) throw new AIError("cancelled");
@@ -260,46 +288,79 @@ export async function streamAnswer(
 const errors = {
   auth: [
     "API key was rejected. Check the key and, for Qwen, its region.",
-    "API Key 被拒绝。请检查 Key 和 Qwen 区域。",
+    "接口密钥被拒绝。请检查密钥和 Qwen 区域。",
+    "APIキーが拒否されました。キーと、Qwenの場合は地域設定を確認してください。",
+    "API 키가 거절되었습니다. 키와 Qwen 지역 설정을 확인하세요.",
   ],
   access: [
     "This model is not available to your account or region.",
     "当前账号或区域没有该模型权限。",
+    "このモデルは現在のアカウントまたは地域で利用できません。",
+    "이 계정이나 지역에서는 해당 모델을 사용할 수 없습니다.",
   ],
   model: [
     "Model or endpoint not found. Check the model ID and base URL.",
-    "未找到模型或接口，请检查模型 ID 和基础地址。",
+    "未找到模型或接口，请检查模型标识和基础地址。",
+    "モデルか接続先が見つかりません。モデル識別子と接続先の基底アドレスを確認してください。",
+    "모델이나 접속 주소를 찾지 못했습니다. 모델 식별자와 기본 주소를 확인하세요.",
   ],
   limit: [
     "The provider is rate-limiting requests or your quota is exhausted. Check your account and try again.",
     "服务商限流或额度不足，请检查账号后重试。",
+    "リクエスト制限または利用枠の上限です。提供元のアカウントを確認し、後で再試行してください。",
+    "요청 제한 또는 사용 한도에 도달했습니다. 제공업체 계정을 확인한 후 다시 시도하세요.",
   ],
   network: [
     "Could not reach the provider. Check your connection and endpoint. Your question is still here.",
     "无法连接服务商。请检查网络和接口地址，问题仍保留。",
+    "提供元に接続できません。通信と接続先を確認してください。質問は保持されています。",
+    "제공업체에 연결할 수 없습니다. 네트워크와 접속 주소를 확인하세요. 질문은 유지됩니다.",
   ],
   timeout: [
-    "The request timed out. You can retry or use an offline guide.",
-    "请求超时，可以重试或查看离线指南。",
+    "The request timed out. Check your connection and retry.",
+    "请求超时，请检查连接后重试。",
+    "応答が時間内に届きませんでした。接続を確認して再試行してください。",
+    "요청 시간이 초과되었습니다. 연결을 확인하고 다시 시도하세요.",
   ],
   empty: [
     "The model returned no answer. Try again with a shorter question.",
     "模型未返回回答，请用更短的问题重试。",
+    "モデルから回答がありません。質問を短くして再試行してください。",
+    "모델이 답변을 반환하지 않았습니다. 질문을 줄여 다시 시도하세요.",
   ],
   server: [
     "The provider could not finish this request. Try again later.",
     "服务商未能完成请求，请稍后重试。",
+    "提供元が処理を完了できませんでした。後で再試行してください。",
+    "제공업체가 요청을 완료하지 못했습니다. 나중에 다시 시도하세요.",
   ],
   stream: [
     "The answer was interrupted or cut short. Retry to get a complete answer.",
     "回答被中断或截断，请重试获取完整回答。",
+    "回答が中断されました。完全な回答を得るには再試行してください。",
+    "답변이 중단되었습니다. 전체 답변을 받으려면 다시 시도하세요.",
   ],
-  cancelled: ["Generation stopped.", "已停止生成。"],
+  cancelled: [
+    "Generation stopped.",
+    "已停止生成。",
+    "生成を停止しました。",
+    "생성을 중지했습니다.",
+  ],
   invalid: [
     "Check the key, model ID and HTTPS base URL.",
-    "请检查 Key、模型 ID 和 HTTPS 基础地址。",
+    "请检查密钥、模型标识和安全连接基础地址。",
+    "キー、モデル識別子、安全な接続先の基底アドレスを確認してください。",
+    "키, 모델 식별자와 보안 접속 기본 주소를 확인하세요.",
   ],
 };
-export function errorMessage(error: unknown, zh: boolean) {
-  return errors[error instanceof AIError ? error.kind : "network"][zh ? 1 : 0];
+export function errorMessage(error: unknown, language: Language | boolean) {
+  const lang =
+    typeof language === "boolean" ? (language ? "zh" : "en") : language;
+  const message =
+    errors[error instanceof AIError ? error.kind : "network"][
+      ["en", "zh", "ja", "ko"].indexOf(lang)
+    ];
+  return error instanceof AIError && error.status
+    ? `${message} (${error.status})`
+    : message;
 }

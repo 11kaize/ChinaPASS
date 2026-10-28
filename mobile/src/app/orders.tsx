@@ -1,3 +1,4 @@
+import { localeTag } from "../locale-ui";
 import React from "react";
 import { View } from "react-native";
 import { router } from "expo-router";
@@ -12,7 +13,7 @@ export default function Orders() {
   const zh = prefs.language === "zh";
   const orders = profile?.orders || [];
   const date = (value: string) =>
-    new Date(value).toLocaleDateString(zh ? "zh-CN" : "en-US");
+    new Date(value).toLocaleDateString(localeTag(prefs.language));
   return (
     <Page back title={zh ? "开通记录" : "Activation history"}>
       <Heading
@@ -65,7 +66,7 @@ export default function Orders() {
               }}
             >
               <Identity
-                name={`ChinaHand ${plans[order.tier].name}`}
+                name={`ChinaBuddy ${plans[order.tier].name}`}
                 tier={order.tier}
                 compact
               />

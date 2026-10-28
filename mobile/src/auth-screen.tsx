@@ -1,3 +1,4 @@
+import { TextInput } from "./localized-input";
 import { backOrReplace } from "./navigation-back";
 import { artwork } from "./artwork";
 import React, { useCallback, useState } from "react";
@@ -8,7 +9,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  TextInput,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -170,7 +170,7 @@ export function AuthScreen({ register = false }: { register?: boolean }) {
             >
               <Brand large={register} />
               <Txt style={{ fontSize: 11, letterSpacing: 3, color: "#D1E2FC" }}>
-                CHINAHAND
+                CHINABUDDY
               </Txt>
             </Animated.View>
             <View style={{ marginTop: "auto", paddingTop: register ? 28 : 12 }}>

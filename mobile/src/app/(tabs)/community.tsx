@@ -1,3 +1,4 @@
+import { uiText } from "../../locale-ui";
 import { artwork } from "../../artwork";
 import React, { useState } from "react";
 import { View, Image } from "react-native";
@@ -81,13 +82,14 @@ export default function Community() {
                     ? artwork.homeNight
                     : artwork.skyline
             }
-            accessibilityLabel={
+            accessibilityLabel={uiText(
+              prefs.language,
               post.id === "sample-food"
                 ? "Illustrative Chinese food sample"
                 : post.id === "sample-pay"
                   ? "Illustrative airport arrival sample"
-                  : "Illustrative Shanghai skyline"
-            }
+                  : "Illustrative Shanghai skyline",
+            )}
             style={{
               width: "100%",
               height: post.id === "sample-food" ? 164 : 125,
@@ -113,13 +115,19 @@ export default function Community() {
             {post.sample ? " · DEMO" : ""}
           </Txt>
           <Txt
+            verbatim={!post.sample}
             variant="label"
             style={{ fontSize: 14, lineHeight: 20 }}
             numberOfLines={3}
           >
             {post.title}
           </Txt>
-          <Txt variant="caption" color={colors.secondary} numberOfLines={2}>
+          <Txt
+            verbatim={!post.sample}
+            variant="caption"
+            color={colors.secondary}
+            numberOfLines={2}
+          >
             {post.body}
           </Txt>
           <Txt
@@ -241,7 +249,12 @@ export default function Community() {
         }}
       >
         <Icon name="search" size={18} color={colors.secondary} />
-        <Txt variant="label" color={colors.secondary} numberOfLines={1} style={{ flex: 1 }}>
+        <Txt
+          variant="label"
+          color={colors.secondary}
+          numberOfLines={1}
+          style={{ flex: 1 }}
+        >
           {zh
             ? "搜索帖子、城市和生活经验"
             : "Search stories, places & everyday tips"}

@@ -50,9 +50,11 @@ export default function Talk() {
       : scene?.showCard
         ? { zh: scene.showCard.lines.join("\n"), en: L(scene.showCard.title) }
         : bank.find((item) => item.id === params.id);
-  const [question, setQuestion] = useState<{ zh: string; en: string } | null>(
-    seeded || null,
-  );
+  const [question, setQuestion] = useState<{
+    zh: string;
+    en: string;
+    custom?: boolean;
+  } | null>(seeded || null);
   const [query, setQuery] = useState("");
   const [mode, setMode] = useState(
     /多少钱|价格|费用|票价|金额/.test(seeded?.zh || "") ? "amount" : "quick",
@@ -61,7 +63,7 @@ export default function Talk() {
   const [answer, setAnswer] = useState<{ zh: string; en: string } | null>(null);
   const zh = prefs.language === "zh";
   const cents = cnyCents(amount);
-  const choose = (value: { zh: string; en: string }) => {
+  const choose = (value: { zh: string; en: string; custom?: boolean }) => {
     setQuestion(value);
     setAnswer(null);
     setAmount("");
@@ -110,8 +112,7 @@ export default function Talk() {
             {suggestions.map((card, index) => (
               <Row
                 key={card.id}
-                title={card.en}
-                subtitle={card.zh}
+                title={L(card)}
                 icon="chat"
                 last={index === suggestions.length - 1}
                 onPress={() => choose(card)}
@@ -142,12 +143,17 @@ export default function Talk() {
                 : "Show this screen to the other person"}
             </Txt>
             <Txt
+              verbatim
               selectable
               style={{ fontSize: 28, lineHeight: 39, fontWeight: "600" }}
             >
               {question.zh}
             </Txt>
-            <Txt variant="caption" color={colors.secondary}>
+            <Txt
+              verbatim={question.custom}
+              variant="caption"
+              color={colors.secondary}
+            >
               {question.en}
             </Txt>
           </Surface>
@@ -167,7 +173,10 @@ export default function Talk() {
                 >
                   {answer.en}
                 </Txt>
-                <Txt style={{ fontSize: 22, lineHeight: 30, marginTop: 7 }}>
+                <Txt
+                  verbatim
+                  style={{ fontSize: 22, lineHeight: 30, marginTop: 7 }}
+                >
                   {answer.zh}
                 </Txt>
               </View>
@@ -180,7 +189,12 @@ export default function Talk() {
           ) : (
             <>
               <Txt variant="subheading" style={{ marginBottom: 8 }}>
-                请您选择回答
+                {L({
+                  en: "Please choose a reply",
+                  zh: "请您选择回答",
+                  ja: "返答を選んでください",
+                  ko: "답변을 선택해 주세요",
+                })}
               </Txt>
               <Txt
                 variant="caption"
@@ -195,14 +209,35 @@ export default function Talk() {
                 value={mode}
                 onChange={setMode}
                 items={[
-                  { id: "quick", label: "快捷回答 · Quick replies" },
-                  { id: "amount", label: "人民币金额 · Amount" },
+                  {
+                    id: "quick",
+                    label: L({
+                      en: "Quick replies",
+                      zh: "快捷回答",
+                      ja: "定型の返答",
+                      ko: "고정 답변",
+                    }),
+                  },
+                  {
+                    id: "amount",
+                    label: L({
+                      en: "Amount in RMB",
+                      zh: "人民币金额",
+                      ja: "人民元の金額",
+                      ko: "위안화 금액",
+                    }),
+                  },
                 ]}
               />
               {mode === "amount" ? (
                 <Surface style={{ padding: 18, gap: 8 }}>
                   <Field
-                    label="金额（人民币 / CNY）"
+                    label={L({
+                      en: "Amount in RMB",
+                      zh: "人民币金额",
+                      ja: "人民元の金額",
+                      ko: "위안화 금액",
+                    })}
                     value={amount}
                     onChangeText={setAmount}
                     keyboardType="decimal-pad"
@@ -222,7 +257,12 @@ export default function Talk() {
                     }
                   />
                   <Button
-                    label="确认金额 · Confirm amount"
+                    label={L({
+                      en: "Confirm amount",
+                      zh: "确认金额",
+                      ja: "金額を確定",
+                      ko: "금액 확인",
+                    })}
                     disabled={cents === null}
                     onPress={() => {
                       if (cents !== null)
@@ -254,6 +294,7 @@ export default function Talk() {
                         <Icon name={reply.icon} size={21} />
                         <View style={{ flex: 1, gap: 4 }}>
                           <Txt
+                            verbatim
                             style={{
                               fontSize: 21,
                               lineHeight: 28,

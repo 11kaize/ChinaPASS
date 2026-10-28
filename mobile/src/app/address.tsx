@@ -116,7 +116,7 @@ export default function Address() {
                           : "address"
                     }
                   />
-                  <Txt variant="subheading" style={{ flex: 1 }}>
+                  <Txt verbatim variant="subheading" style={{ flex: 1 }}>
                     {place.name || category[place.category]}
                   </Txt>
                   {place.id === active && (
@@ -126,7 +126,9 @@ export default function Address() {
                   )}
                 </View>
                 {place.address !== place.name && (
-                  <Txt selectable>{place.address}</Txt>
+                  <Txt verbatim selectable>
+                    {place.address}
+                  </Txt>
                 )}
                 <Txt variant="caption" color={colors.secondary}>
                   {category[place.category]}

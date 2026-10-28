@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useApp } from "../../state";
 import { content } from "../../content";
+import { paymentHelp, paymentHelpTitle } from "../../payment-help";
 import { ServiceActions } from "../../service-actions";
 import { guideSections } from "../../offline-search";
 import {
@@ -14,7 +15,6 @@ import {
   Icon,
   Tap,
   Button,
-  Notice,
   RichText,
   openURL,
 } from "../../ui";
@@ -52,8 +52,8 @@ export default function Guide() {
       <Txt variant="caption" color={colors.accent}>
         {prefs.language === "zh" ? "搜索定位" : "Search match"}
       </Txt>
-      <Txt variant="subheading">{searchMatch.title}</Txt>
-      <Txt selectable>{searchMatch.body}</Txt>
+      <Txt variant="subheading">{L(searchMatch.title)}</Txt>
+      <Txt selectable>{L(searchMatch.body)}</Txt>
     </Surface>
   ) : null;
   useEffect(() => {
@@ -69,19 +69,19 @@ export default function Guide() {
   if (short)
     return (
       <Page back>
-        <Heading title={short.title} body={short.summary} />
+        <Heading title={L(short.title)} body={L(short.summary)} />
         {matchedContent}
         <Surface style={{ padding: 22, gap: 24 }}>
-          {short.steps.map(([title, body]) => (
-            <View key={title} style={{ gap: 8 }}>
-              <Txt variant="subheading">{title}</Txt>
-              <Txt color={colors.secondary}>{body}</Txt>
+          {short.steps.map(([title, body], index) => (
+            <View key={index} style={{ gap: 8 }}>
+              <Txt variant="subheading">{L(title)}</Txt>
+              <Txt color={colors.secondary}>{L(body)}</Txt>
             </View>
           ))}
         </Surface>
         <View style={{ marginTop: 24 }}>
           <Button
-            label={short.source.label}
+            label={L(short.source.label)}
             secondary
             onPress={() => openURL(short.source.url)}
           />
@@ -90,9 +90,6 @@ export default function Guide() {
     );
   const s = scene!;
   const done = prefs.steps[id] || [];
-  const port = content.ports.find((p) => p.id === prefs.arrivalPort);
-  const zhMissing =
-    prefs.language === "zh" && (typeof s.task === "string" || !s.task.zh);
   return (
     <Page back>
       <Heading title={L(s.title)} body={L(s.subtitle)} />
@@ -105,16 +102,6 @@ export default function Guide() {
           {L(s.eta)}
         </Txt>
       </View>
-      {s.id === "customs" && port && port.kind !== "air" && (
-        <Notice
-          text={
-            prefs.language === "zh"
-              ? "此指南含机场步骤。你选择的是铁路或海港口岸，行李和入境流程可能不同，请遵循现场指引。"
-              : "This guide includes airport steps. Your rail or ferry port may use a different arrival process; follow staff instructions."
-          }
-        />
-      )}
-      {zhMissing && <Notice text={t("englishFallback")} />}
       <RichText text={L(s.task)} />
       <View style={{ height: 25 }} />
       <ServiceActions actions={s.actions} />
@@ -213,37 +200,45 @@ export default function Guide() {
           />
         </View>
       )}
-      <Section title={t("planB")}>
-        <Surface style={{ padding: 20, gap: 16 }}>
-          {s.planB.map((text, i) => (
-            <View key={i} style={{ flexDirection: "row", gap: 12 }}>
-              <Icon name="arrow" size={19} />
-              <Txt style={{ flex: 1 }} color={colors.secondary}>
-                {L(text)}
-              </Txt>
-            </View>
-          ))}
-        </Surface>
-      </Section>
-      <Section title={t("trouble")}>
-        <Surface style={{ padding: 20, gap: 22 }}>
-          {s.trouble.map((item, i) => (
-            <View key={i} style={{ gap: 8 }}>
-              <Txt variant="label">{L(item.p)}</Txt>
-              <Txt color={colors.secondary}>{L(item.a)}</Txt>
-            </View>
-          ))}
-        </Surface>
-      </Section>
-      {s.mistakes?.length > 0 && (
-        <Section title={t("mistakes")}>
-          <Surface style={{ padding: 20, gap: 20 }}>
-            {s.mistakes.map((item, i) => (
-              <View key={i} style={{ gap: 5 }}>
-                <Txt variant="label">{L(item.m)}</Txt>
-                <Txt color={colors.secondary}>{L(item.d)}</Txt>
-              </View>
-            ))}
+      {(s.id === "pay" ||
+        s.trouble.length > 0 ||
+        s.planB.length > 0 ||
+        s.mistakes.length > 0) && (
+        <Section title={s.id === "pay" ? L(paymentHelpTitle) : t("trouble")}>
+          <Surface style={{ padding: 20, gap: 24 }}>
+            {s.id === "pay" ? (
+              paymentHelp.map((item, i) => (
+                <View key={i} style={{ gap: 8 }}>
+                  <Txt variant="label">{L(item.title)}</Txt>
+                  <Txt color={colors.secondary}>{L(item.body)}</Txt>
+                </View>
+              ))
+            ) : (
+              <>
+                {s.trouble.map((item, i) => (
+                  <View key={`trouble-${i}`} style={{ gap: 8 }}>
+                    <Txt variant="label">{L(item.p)}</Txt>
+                    <Txt color={colors.secondary}>{L(item.a)}</Txt>
+                  </View>
+                ))}
+                {s.mistakes.map((item, i) => (
+                  <View key={`mistake-${i}`} style={{ gap: 8 }}>
+                    <Txt variant="label">{L(item.m)}</Txt>
+                    <Txt color={colors.secondary}>{L(item.d)}</Txt>
+                  </View>
+                ))}
+                {s.planB.length > 0 && (
+                  <View style={{ gap: 8 }}>
+                    <Txt variant="label">{t("planB")}</Txt>
+                    {s.planB.map((text, i) => (
+                      <Txt key={i} color={colors.secondary}>
+                        {L(text)}
+                      </Txt>
+                    ))}
+                  </View>
+                )}
+              </>
+            )}
           </Surface>
         </Section>
       )}
@@ -251,17 +246,16 @@ export default function Guide() {
         <Txt variant="caption" color={colors.secondary}>
           {t("reviewed")}: {s.lastUpdated}
         </Txt>
-        {!s.actions.length &&
-          s.sources.map((source) => (
-            <Tap
-              key={source.url}
-              label={source.label}
-              onPress={() => openURL(source.url)}
-              style={{ minHeight: 44, justifyContent: "center" }}
-            >
-              <Txt color={colors.accent}>{source.label}</Txt>
-            </Tap>
-          ))}
+        {s.sources.map((source) => (
+          <Tap
+            key={source.url}
+            label={L(source.label)}
+            onPress={() => openURL(source.url)}
+            style={{ minHeight: 44, justifyContent: "center" }}
+          >
+            <Txt color={colors.accent}>{L(source.label)}</Txt>
+          </Tap>
+        ))}
         {s.disclaimer && (
           <Txt variant="caption" color={colors.secondary}>
             {L(s.disclaimer)}

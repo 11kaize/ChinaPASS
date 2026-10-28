@@ -1,8 +1,9 @@
+import { mediaDatabase } from "./storage-identity";
 import type { ImagePickerAsset } from "expo-image-picker";
 import type { Media } from "./domain/community";
 function database(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open("chinahand.demo.media", 1);
+    const request = indexedDB.open(mediaDatabase, 1);
     request.onupgradeneeded = () => {
       request.result.createObjectStore("blobs");
     };

@@ -1,3 +1,4 @@
+import { uiText } from "../locale-ui";
 import raw from "./content.json";
 export type Language = "en" | "zh" | "ja" | "ko";
 export type Localized = string | Partial<Record<Language, string>>;
@@ -34,16 +35,23 @@ export type Scene = {
   showCard?: { title: Localized; lines: string[] };
   cardGroup?: string;
   lastUpdated: string;
-  sources: { label: string; url: string }[];
+  sources: { label: Localized; url: string }[];
   actions: ServiceAction[];
   disclaimer?: Localized;
 };
-export type ArrivalPort = { id: string; kind: "air" | "rail" | "sea" | "land"; zh: string; iata?: string; city?: string; cityZh?: string };
+export type ArrivalPort = {
+  id: string;
+  kind: "air" | "rail" | "sea" | "land";
+  zh: string;
+  iata?: string;
+  city?: string;
+  cityZh?: string;
+};
 export const content = raw as unknown as {
   scenes: Scene[];
   ports: ArrivalPort[];
   cityLabels: { city: string; zh: string; ja: string; ko: string }[];
-  arrivalLabels: Record<Language, Record<string,string>>;
+  arrivalLabels: Record<Language, Record<string, string>>;
   groups: Record<
     string,
     { title: Localized; hint: Localized; cards: Omit<Phrase, "id" | "cat">[] }
@@ -56,23 +64,31 @@ export const content = raw as unknown as {
     zh: string;
     airport: string[];
     stations: string[];
-    note: string;
-    source: { label: string; url: string };
+    note: Localized;
+    source: { label: Localized; url: string };
   }[];
   shortGuides: {
     id: string;
-    title: string;
-    summary: string;
-    steps: [string, string][];
-    source: { label: string; url: string };
+    title: Localized;
+    summary: Localized;
+    steps: [Localized, Localized][];
+    source: { label: Localized; url: string };
   }[];
   phrases: Omit<Phrase, "id">[];
 };
 export const localize = (
   value: Localized | undefined,
   lang: Language,
-): string =>
-  typeof value === "string" ? value : value?.[lang] || value?.en || "";
+): string => {
+  const selected =
+    typeof value === "string" ? value : value?.[lang] || value?.en || "";
+  return value &&
+    typeof value === "object" &&
+    "custom" in value &&
+    value.custom === true
+    ? selected
+    : uiText(lang, selected);
+};
 export const cards: Phrase[] = Object.entries(content.groups).flatMap(
   ([cat, group]) =>
     group.cards.map((card, index) => ({ ...card, cat, id: `${cat}-${index}` })),
@@ -98,7 +114,7 @@ export function searchPhrases(query: string, bank: Phrase[]): Phrase[] {
   return bank
     .map((p) => {
       const text =
-        `${p.en} ${p.zh} ${p.ja || ""} ${p.ko || ""} ${p.keys || ""}`.toLocaleLowerCase();
+        `${p.en} ${p.zh} ${localize(p, "ja")} ${localize(p, "ko")} ${p.keys || ""}`.toLocaleLowerCase();
       const score = words.reduce((n, w) => n + (text.includes(w) ? 1 : 0), 0);
       return { p, score };
     })

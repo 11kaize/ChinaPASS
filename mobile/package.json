@@ -1,5 +1,5 @@
 {
-  "name": "chinahand-mobile",
+  "name": "chinabuddy-mobile",
   "version": "2.0.0",
   "main": "expo-router/entry",
   "dependencies": {
@@ -55,10 +55,11 @@
     "lint": "expo lint",
     "test": "tsx --test tests/*.test.ts",
     "check": "npm run typecheck && npm run lint && npm test",
-    "export:native": "node scripts/prepare-motion-icons.mjs && expo export --platform android --platform ios && node scripts/copy-notices.mjs",
+    "export:native": "node scripts/prepare-motion-icons.mjs && expo export --clear --platform android --platform ios && node scripts/copy-notices.mjs",
     "build:apk": "bash scripts/build-android.sh",
     "assets:prepare": "node scripts/prepare-artwork.mjs",
-    "icons:prepare": "node scripts/prepare-motion-icons.mjs"
+    "icons:prepare": "node scripts/prepare-motion-icons.mjs",
+    "audit:locales": "tsx scripts/audit-locales.ts"
   },
   "private": true
 }

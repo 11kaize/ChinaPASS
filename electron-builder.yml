@@ -1,5 +1,5 @@
-appId: org.chinahand.desktop
-productName: ChinaHand
+appId: org.chinabuddy.desktop
+productName: ChinaBuddy
 asar: true
 directories:
   output: release
@@ -25,7 +25,7 @@ nsis:
 linux:
   icon: desktop/icon.png
   category: Utility
-  maintainer: ChinaHand contributors
+  maintainer: ChinaBuddy contributors
   syncDesktopName: true
   target:
     - AppImage

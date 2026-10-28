@@ -1,3 +1,4 @@
+import { localeTag } from "../locale-ui";
 import React, { useState } from "react";
 import { View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -22,7 +23,7 @@ export default function Upgrade() {
   const active = tier === selected;
   const plan = plans[selected];
   const date = (value: string) =>
-    new Date(value).toLocaleDateString(zh ? "zh-CN" : "en-US");
+    new Date(value).toLocaleDateString(localeTag(prefs.language));
   const benefits = [
     {
       title: text("面对面双向翻译", "Face-to-face translation"),
@@ -107,7 +108,7 @@ export default function Upgrade() {
       >
         <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
           <Icon name="crown" size={20} />
-          <Identity name={`ChinaHand ${plan.name}`} tier={selected} />
+          <Identity name={`ChinaBuddy ${plan.name}`} tier={selected} />
         </View>
         <Txt
           style={{
@@ -142,7 +143,9 @@ export default function Upgrade() {
             {text("当前套餐", "Current plan")} · {plans[tier].name}
           </Txt>
           <Txt variant="caption">
-            {remainingQuestions(tier, usage).toLocaleString()}{" "}
+            {remainingQuestions(tier, usage).toLocaleString(
+              localeTag(prefs.language),
+            )}{" "}
             {text("次剩余", "questions left")}
           </Txt>
         </View>
@@ -207,7 +210,9 @@ export default function Upgrade() {
                     )}
               </Txt>
               <Txt variant="label">
-                {plans[id].monthlyQuestions.toLocaleString()}{" "}
+                {plans[id].monthlyQuestions.toLocaleString(
+                  localeTag(prefs.language),
+                )}{" "}
                 {text("次 / 月", "asks / mo")}
               </Txt>
             </Surface>
