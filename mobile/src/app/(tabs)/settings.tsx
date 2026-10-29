@@ -7,6 +7,7 @@ import { useApp } from "../../state";
 import { useProduct } from "../../product-state";
 import { plans, remainingQuestions } from "../../domain/membership";
 import { Identity } from "../../identity";
+import { travelText } from "../../domain/travel-services";
 import {
   Page,
   Surface,
@@ -169,6 +170,17 @@ export default function Profile() {
         </View>
       </Surface>
       {Boolean(error) && <Notice danger text={error} />}
+      <Surface style={{ marginBottom: 14 }}>
+        <Row
+          title={travelText(prefs.language, "travel")}
+          subtitle={travelText(prefs.language, "once")}
+          icon="transport"
+          last
+          onPress={() =>
+            router.push({ pathname: "/upgrade", params: { section: "travel" } })
+          }
+        />
+      </Surface>
       <Tap
         label={text("会员与充值", "Membership & plans")}
         onPress={() => router.push("/upgrade")}
@@ -348,11 +360,8 @@ export default function Profile() {
             onPress={() => community("activity")}
           />
           <Row
-            title={text("开通记录", "Activation history")}
-            subtitle={text(
-              "查看本机会员演示记录",
-              "Membership activity on this device",
-            )}
+            title={travelText(prefs.language, "allHistory")}
+            subtitle={travelText(prefs.language, "totalHistory")}
             icon="prep"
             onPress={() => router.push("/orders")}
           />

@@ -5,6 +5,7 @@ import { arrivalStages, arrivalSources } from "../src/arrival-guide";
 import { paymentHelp } from "../src/payment-help";
 import { cityLabel, locationLabel } from "../src/geography";
 import { uiText } from "../src/locale-ui";
+import { travelServices, travelCopy } from "../src/domain/travel-services";
 const languages = ["en", "zh", "ja", "ko"] as const;
 let count = 0;
 for (const language of languages) {
@@ -46,6 +47,8 @@ inspect(content, "content");
 inspect(arrivalStages, "arrival");
 inspect(arrivalSources, "arrivalSources");
 inspect(paymentHelp, "paymentHelp");
+inspect(travelServices, "travelServices");
+inspect(travelCopy, "travelCopy");
 for (const language of languages) {
   for (const city of content.cities) {
     assert.ok(cityLabel(city.name, language));

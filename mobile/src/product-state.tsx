@@ -30,6 +30,13 @@ import {
   refundQuestion,
   reserveQuestion,
 } from "./domain/membership";
+import {
+  getTravelService,
+  travelPricing,
+  travelTotalCents,
+  type TravelServiceId,
+  type SupportTopic,
+} from "./domain/travel-services";
 
 type Account = { profile: Profile; salt: string; digest: string };
 type ProductData = {
@@ -59,6 +66,8 @@ type Product = {
   logout: () => void;
   editProfile: (name: string, bio: string) => void;
   upgrade: (tier: "plus" | "pro") => void;
+  buyTravel: (service: TravelServiceId, checkoutId: string) => string;
+  requestTravelSupport: (orderId: string, topic: SupportTopic) => void;
   publish: (
     title: string,
     body: string,
@@ -348,6 +357,56 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
           },
           ...(p.orders || []),
         ],
+      }));
+    },
+    buyTravel(serviceId, checkoutId) {
+      if (!ready || !checkoutId) throw new Error("Local data is not ready.");
+      const service = getTravelService(serviceId);
+      if (!service) throw new Error("Unknown travel service.");
+      const p = signedIn();
+      // One checkout is idempotent, including a fast second press.
+      const existing = p.travelOrders?.find(
+        (order) =>
+          order.checkoutId === checkoutId && order.serviceId === serviceId,
+      );
+      if (existing) return existing.id;
+      const orderId = id();
+      updateProfile((profile) => ({
+        ...profile,
+        travelOrders: [
+          {
+            id: orderId,
+            checkoutId,
+            serviceId,
+            createdAt: new Date().toISOString(),
+            baseCNY: service.baseCNY,
+            cnyPerUSD: travelPricing.cnyPerUSD,
+            feeCents: travelPricing.feeCents,
+            totalCents: travelTotalCents(service.baseCNY),
+            paidCents: 0,
+          },
+          ...(profile.travelOrders || []),
+        ],
+      }));
+      return orderId;
+    },
+    requestTravelSupport(orderId, topic) {
+      if (!["prepare", "change", "redeem"].includes(topic))
+        throw new Error("Unknown support topic.");
+      const p = signedIn();
+      if (!p.travelOrders?.some((order) => order.id === orderId))
+        throw new Error("Unknown demo entitlement.");
+      updateProfile((profile) => ({
+        ...profile,
+        travelOrders: profile.travelOrders?.map((order) =>
+          order.id === orderId
+            ? {
+                ...order,
+                supportTopic: topic,
+                supportRequestedAt: new Date().toISOString(),
+              }
+            : order,
+        ),
       }));
     },
     publish(title, body, city, category, media) {

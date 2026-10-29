@@ -1,4 +1,5 @@
 import type { Tier, Membership, Usage } from "./membership";
+import type { TravelOrder } from "./travel-services";
 export type Media = {
   id: string;
   uri: string;
@@ -13,6 +14,7 @@ export type Profile = {
   membership: Membership;
   usage: Usage;
   bio?: string;
+  travelOrders?: TravelOrder[];
   orders?: {
     id: string;
     tier: "plus" | "pro";

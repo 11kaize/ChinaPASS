@@ -21,9 +21,11 @@
     "translate",
     "search",
     "planner",
-    "budget"
+    "budget",
+    "travel-service"
   ],
   "membership": "local demo; no billing",
+  "travelServices": "one-time local demo entitlements; public CNY reference / 7 + USD 5; no payment, partner booking or support transmission",
   "community": "local demo; media supported",
   "appearance": "day and night artwork",
   "artwork": {

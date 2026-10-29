@@ -7,23 +7,97 @@ import { useProduct } from "../product-state";
 import { plans } from "../domain/membership";
 import { Page, Heading, Surface, Txt, Icon, Button, Notice } from "../ui";
 import { Identity } from "../identity";
+import {
+  getTravelService,
+  travelText,
+  travelUSD,
+} from "../domain/travel-services";
 export default function Orders() {
   const { prefs, colors } = useApp();
   const { profile } = useProduct();
   const zh = prefs.language === "zh";
   const orders = profile?.orders || [];
+  const travelOrders = profile?.travelOrders || [];
+  const c = (key: Parameters<typeof travelText>[1]) =>
+    travelText(prefs.language, key);
   const date = (value: string) =>
     new Date(value).toLocaleDateString(localeTag(prefs.language));
   return (
-    <Page back title={zh ? "开通记录" : "Activation history"}>
-      <Heading
-        title={zh ? "你的会员记录" : "Your membership journey."}
-        body={
-          zh
-            ? "查看本机演示开通记录与有效期。"
-            : "Your demo activations and validity dates, in one place."
-        }
-      />
+    <Page back title={c("allHistory")}>
+      <Heading title={c("allHistory")} body={c("totalHistory")} />
+      <Notice text={c("demo")} />
+      <Txt verbatim variant="subheading" style={{ marginBottom: 12 }}>
+        {c("history")}
+      </Txt>
+      {travelOrders.length ? (
+        travelOrders.map((order) => {
+          const service = getTravelService(order.serviceId);
+          if (!service) return null;
+          return (
+            <Surface
+              key={order.id}
+              style={{ padding: 18, gap: 11, marginBottom: 14 }}
+            >
+              <View
+                style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+              >
+                <Icon name={service.icon} size={20} />
+                <Txt verbatim variant="subheading" style={{ flex: 1 }}>
+                  {service.name[prefs.language]}
+                </Txt>
+                <Txt verbatim variant="label">
+                  {travelUSD(order.totalCents)}
+                </Txt>
+              </View>
+              <Txt verbatim variant="caption" color={colors.secondary}>
+                {service.scope[prefs.language]} · {date(order.createdAt)}
+              </Txt>
+              <Txt verbatim variant="caption" color={colors.secondary}>
+                {c("due")} $0.00
+              </Txt>
+              {order.supportTopic && (
+                <Txt verbatim variant="caption" color={colors.accent}>
+                  {c("supportSent")}
+                </Txt>
+              )}
+              <Button
+                secondary
+                label={c("viewRecord")}
+                icon="chat"
+                onPress={() =>
+                  router.push({
+                    pathname: "/travel-service",
+                    params: { id: service.id, order: order.id },
+                  })
+                }
+              />
+            </Surface>
+          );
+        })
+      ) : (
+        <Surface style={{ padding: 19, gap: 13, marginBottom: 18 }}>
+          <Txt verbatim color={colors.secondary}>
+            {c("empty")}
+          </Txt>
+          <Button
+            secondary
+            label={c("browse")}
+            onPress={() =>
+              router.push({
+                pathname: "/upgrade",
+                params: { section: "travel" },
+              })
+            }
+          />
+        </Surface>
+      )}
+      <Txt
+        verbatim
+        variant="subheading"
+        style={{ marginTop: 12, marginBottom: 12 }}
+      >
+        {c("membership")}
+      </Txt>
       <Notice
         text={
           zh
