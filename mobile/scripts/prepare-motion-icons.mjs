@@ -27,6 +27,8 @@ const icons = {
   close: ["X", "regular"],
   next: ["CaretRight", "regular"],
   down: ["CaretDown", "regular"],
+  copy: ["Copy", "regular"],
+  check: ["Check", "regular"],
 };
 const tagNames = new Set([
   "Path",

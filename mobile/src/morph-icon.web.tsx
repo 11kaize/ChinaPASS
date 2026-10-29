@@ -32,7 +32,14 @@ export const MorphGlyph = React.memo(function MorphGlyph({
       reducedMotion={quiet ? "always" : "never"}
       aria-hidden="true"
       focusable="false"
-      style={{ display: "block", flexShrink: 0, pointerEvents: "none" }}
+      // Like RN Text/View, participate in the positioned paint order so an
+      // absolutely positioned button background cannot cover the glyph.
+      style={{
+        position: "relative",
+        display: "block",
+        flexShrink: 0,
+        pointerEvents: "none",
+      }}
     />
   );
 });

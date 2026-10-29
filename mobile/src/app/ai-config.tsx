@@ -260,6 +260,7 @@ function ConfigForm() {
         <Row
           title={t("advanced")}
           subtitle={`${model}\n${baseURL}`}
+          expanded={advanced}
           onPress={() => setAdvanced(!advanced)}
           last
         />

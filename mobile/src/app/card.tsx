@@ -26,7 +26,7 @@ export default function Card() {
       "[中文地址]": prefs.address.address,
     }),
     [filled, setFilled] = useState(false),
-    [copied, setCopied] = useState(false);
+    [copiedContent, setCopiedContent] = useState<string | null>(null);
   const card = [...cards, ...phrases, ...prefs.customCards].find(
     (c) => c.id === id,
   );
@@ -47,6 +47,10 @@ export default function Card() {
   const blanks = address ? [] : cardBlanks(raw);
   const isTemplate = blanks.length > 0;
   const payload = isTemplate ? fillCard(raw, fill) : raw;
+  // Tie feedback to the exact card and text that reached the clipboard.
+  // A slow copy finishing after an edit must not mark the new content copied.
+  const copyIdentity = JSON.stringify([kind, id, payload]);
+  const copied = copiedContent === copyIdentity;
   const gloss = address
     ? t("address")
     : port
@@ -205,10 +209,16 @@ export default function Card() {
             {payload && (
               <Button
                 label={copied ? t("copied") : t("copy")}
-                icon="cards"
+                icon={copied ? "check" : "copy"}
+                animated
                 onPress={() => {
+                  setCopiedContent(null);
                   void Clipboard.setStringAsync(payload)
-                    .then(() => setCopied(true))
+                    .then((saved) => {
+                      // Web can resolve false rather than rejecting on failure.
+                      if (!saved) throw new Error("Clipboard write failed");
+                      setCopiedContent(copyIdentity);
+                    })
                     .catch(() =>
                       Alert.alert(
                         t("copy"),

@@ -74,6 +74,7 @@ import { Heart } from "phosphor-react-native/src/icons/Heart";
 import { Star } from "phosphor-react-native/src/icons/Star";
 import { ImageSquare } from "phosphor-react-native/src/icons/ImageSquare";
 import { Crown } from "phosphor-react-native/src/icons/Crown";
+import { Copy } from "phosphor-react-native/src/icons/Copy";
 export { useReducedMotion } from "./motion";
 
 export const icons: Record<string, PhosphorIcon> = {
@@ -102,6 +103,7 @@ export const icons: Record<string, PhosphorIcon> = {
   guides: SquaresFour,
   settings: GearSix,
   edit: PencilSimple,
+  copy: Copy,
   check: Check,
   checked: CheckCircle,
   unchecked: CircleIcon,
@@ -299,6 +301,7 @@ export function Button({
   disabled = false,
   danger = false,
   selected,
+  animated = selected !== undefined,
 }: {
   label: string;
   onPress: () => void;
@@ -307,6 +310,7 @@ export function Button({
   disabled?: boolean;
   danger?: boolean;
   selected?: boolean;
+  animated?: boolean;
 }) {
   const { colors } = useApp();
   const ink = danger ? colors.danger : secondary ? colors.accent : "#FFFFFF";
@@ -343,7 +347,7 @@ export function Button({
         name={icon}
         size={18}
         color={ink}
-        animated={selected !== undefined}
+        animated={animated}
         weight={selected ? "fill" : "regular"}
       />
     </Tap>
@@ -632,6 +636,7 @@ export function Row({
   onPress,
   trailing,
   last = false,
+  expanded,
 }: {
   title: string;
   subtitle?: string;
@@ -639,6 +644,7 @@ export function Row({
   onPress?: () => void;
   trailing?: React.ReactNode;
   last?: boolean;
+  expanded?: boolean;
 }) {
   const { colors } = useApp();
   const child = (
@@ -688,11 +694,18 @@ export function Row({
         )}
       </View>
       {trailing ||
-        (onPress && <Icon name="next" size={18} color={colors.secondary} />)}
+        (onPress && (
+          <Icon
+            name={expanded ? "down" : "next"}
+            animated={expanded !== undefined}
+            size={18}
+            color={colors.secondary}
+          />
+        ))}
     </View>
   );
   return onPress ? (
-    <Tap label={title} onPress={onPress}>
+    <Tap label={title} onPress={onPress} expanded={expanded}>
       {child}
     </Tap>
   ) : (
